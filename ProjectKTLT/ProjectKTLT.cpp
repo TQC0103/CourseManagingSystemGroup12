@@ -3,24 +3,16 @@
 #include "UserInterface.h"
 
 // Functions
-
 int main() {
     // Create the window
     int width = 2000;
     int height = 1200;
     sf::RenderWindow window(sf::VideoMode(width, height), "CourseManagingSystem");
 
-    // Set font
+    // Declare global variables
     sf::Font fontB;
-    if (!fontB.loadFromFile("Palatino Linotype Bold.ttf"))
-        return -1;
     sf::Font fontN;
-    if (!fontN.loadFromFile("Palatino LinoType.ttf"))
-        return -1;
     sf::Font fontI;
-    if (!fontI.loadFromFile("Palatino Linotype Italic.ttf"))
-        return -1;
-    // Set color
     sf::Color backGroundWhite(255, 249, 240);
     sf::Color textColorBlue(8, 31, 92);
     sf::Color highlightCyan(93, 117, 153);
@@ -32,6 +24,15 @@ int main() {
     sf::Color pastelSoftBlue(155, 184, 205);
     sf::Color titleGreyColor(64, 64, 64);
     sf::Color lightGrey(200, 200, 200);
+
+    // Set font
+    if (!fontB.loadFromFile("Palatino Linotype Bold.ttf"))
+        return -1;
+    if (!fontN.loadFromFile("Palatino LinoType.ttf"))
+        return -1;
+    if (!fontI.loadFromFile("Palatino Linotype Italic.ttf"))
+        return -1;
+  
     // Create welcome text
     sf::Text welcomeText;
     createText(welcomeText, fontB, textColorBlue, "WELCOME TO", 80, (float)window.getSize().x / 2.0f, 150.0f);
@@ -42,9 +43,6 @@ int main() {
     // Define two rectangles to represent different pages
     sf::RectangleShape welcomePage(sf::Vector2f((float)width, (float)height));
     welcomePage.setFillColor(backGroundWhite);
-    sf::RectangleShape signInPage(sf::Vector2f((float)width, (float)height));
-    signInPage.setFillColor(highlightCyan);
-
 
     // Create buttons to sign in page
     sf::RectangleShape SignInRec(sf::Vector2f(600.0f, 200.0f));
@@ -54,9 +52,12 @@ int main() {
     sf::Text ExitText;
     createAButton(ExitRec, ExitText, sf::Vector2f(600.0f, 200.0f), highlightCyan, fontB,sf::Color::White, "EXIT", sf::Vector2f(250.0f, 800.0f));
 
+    // Create Sign In page
+    sf::RectangleShape signInPage(sf::Vector2f((float)width, (float)height));
+    
+    signInPage.setFillColor(highlightCyan);
     // Flag
-    bool isWelcomeVisible = true;
-    bool isSignInVisible = false;
+    std::string programState = "Welcome";
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -67,8 +68,7 @@ int main() {
                     // Check if the left mouse button is clicked
                     if (SignInRec.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
                     {
-                        isWelcomeVisible = false;
-                        isSignInVisible = true;
+                        programState = "SignIn";
                     }
                     if (ExitRec.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
                     {
@@ -77,13 +77,11 @@ int main() {
                 }
             }
         }
-
         // Clear the window
         window.clear();
 
         // Draw the appropriate page based on the flag
-        if (isWelcomeVisible == true)
-        {
+        if (programState == "Welcome") {
             window.draw(welcomePage);
             window.draw(welcomeText);
             window.draw(course);
@@ -92,10 +90,10 @@ int main() {
             window.draw(ExitRec);
             window.draw(ExitText);
         }
-        if (isSignInVisible == true)
-        {
+        else if (programState == "SignIn") {
             window.draw(signInPage);
         }
+
         // Display the content
         window.display();
     }
