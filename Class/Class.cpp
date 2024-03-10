@@ -73,6 +73,31 @@ static void input_Student_from_file(student *&pHeads, std::string new_name_Class
 		std::getline(fIn, cur->socialID, ';');
 	}
 }
+void Class::load_Files(Class*& pHead) {
+	//load File when open program;
+}
+void Class::delete_Class(Class* pHead) {
+	//Delete poiter;
+}
+void Class::show_List_Student_profile(Class* pHead) {
+
+}
+void Class::show_List_Student_scoreboard(Class* pHead) {
+
+}
+/* here or struct student
+void Class::insert_a_Student_Class1st(Class*& pHead);
+void Class::delete_a_Student_Class(Class*& pHead);
+*/
+std::string Class::find_Class_of_Student(Class* pHead, std::string ID)
+{
+	return std::string();
+}
+
+void Class::show_Student_profile(Class* pHead, std::string ID_student){}
+void Class::show_Student_scoreboard(Class* pHead, std::string ID_student){}
+
+
 static Class* creat_new_Class() {
 	Class* new_Class = new Class;
 	student pnewHead = new_Class->pHead;
@@ -102,4 +127,5 @@ void Class::show_List_Class(Class* pHead)
 }
 // sort file name follow name in data, all.txt;
 
-void Class::show_List_Class(Class* pHead);
+void Class::show_List_Class(Class* pHead) {
+}
