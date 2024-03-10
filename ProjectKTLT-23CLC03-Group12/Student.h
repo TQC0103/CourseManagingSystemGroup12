@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 #include "Date.h"
 
@@ -16,7 +15,7 @@ struct student
         scoreBoard* pNext;
     };
     student* pStudent;
-    student* pNext;
+    student* pNext = nullptr;
     //constructor
     student(int no, std::string id, std::string firstname, std::string lastname, std::string gender, date dob, std::string socialId) :
 		No(no), studentID(id), firstName(firstname), lastName(lastname), gender(gender),
