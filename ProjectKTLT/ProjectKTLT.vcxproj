@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="ProjectKTLT.cpp" />
+    <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />

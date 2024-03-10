@@ -1,24 +1,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "UserInterface.h"
 
 // Functions
-void createAButton(sf::RectangleShape& button, sf::Text& buttonText, const sf::Vector2f& size, const sf::Color& fillColor, const sf::Font& font, const sf::Color& textColor, const std::string& text, const sf::Vector2f& position) {
-    // Set button properties
-    button.setSize(size);
-    button.setFillColor(fillColor);
-    button.setPosition(position);
-
-    // Set button text properties
-    buttonText.setFont(font);
-    buttonText.setFillColor(textColor);
-    buttonText.setString(text);
-    buttonText.setCharacterSize(80);
-
-    // Set text origin to center
-    sf::FloatRect textBounds = buttonText.getLocalBounds();
-    buttonText.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
-    buttonText.setPosition(position.x + size.x / 2.0f, position.y + size.y / 2.0f);
-}
 
 int main() {
     // Create the window
@@ -47,34 +31,13 @@ int main() {
     sf::Color pastelTitleCyan(185, 204, 218);
     sf::Color pastelSoftBlue(155, 184, 205);
     sf::Color titleGreyColor(64, 64, 64);
-    // Create welcome
+    sf::Color lightGrey(200, 200, 200);
+    // Create welcome text
     sf::Text welcomeText;
-    welcomeText.setFont(fontB);
-    // Set the color and edit
-    welcomeText.setFillColor(textColorBlue);
-    welcomeText.setString("WELCOME TO");
-    welcomeText.setCharacterSize(80);
-    welcomeText.setPosition((float)(width / 2), 0.f);
-
-    // Centralize 
-    sf::FloatRect textRect = welcomeText.getLocalBounds();
-    welcomeText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-    welcomeText.setPosition(sf::Vector2f(width / 2.0f, 150));
-     
+    createText(welcomeText, fontB, textColorBlue, "WELCOME TO", 80, (float)window.getSize().x / 2.0f, 150.0f);
     // Create program name
     sf::Text course;
-    course.setFont(fontB);
-    // Set the color and edit
-    course.setFillColor(highlightCyan);
-    course.setString("COURSE MANAGING SYSTEM");
-    course.setCharacterSize(120);
-    course.setPosition((float)(width / 2), 0.f);
-    // Centralize 
-    textRect = course.getLocalBounds();
-    course.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-    course.setPosition(sf::Vector2f(width / 2.0f, 300));
-
-
+    createText(course, fontB, highlightCyan, "COURSE MANAGING SYSTEM", 120, (float)window.getSize().x / 2.0f, 300.0f);
 
     // Define two rectangles to represent different pages
     sf::RectangleShape welcomePage(sf::Vector2f((float)width, (float)height));
@@ -84,10 +47,12 @@ int main() {
 
 
     // Create buttons to sign in page
-    
     sf::RectangleShape SignInRec(sf::Vector2f(600.0f, 200.0f));
     sf::Text SignInText;
-    createAButton(SignInRec, SignInText, sf::Vector2f(600.0f, 200.0f), pastelGrey, fontB, textColorBlue, "SIGN IN", sf::Vector2f(400.0f, 600.0f));
+    createAButton(SignInRec, SignInText, sf::Vector2f(600.0f, 200.0f), highlightCyan, fontB, sf::Color::White, "SIGN IN", sf::Vector2f(250.0f, 500.0f));
+    sf::RectangleShape ExitRec(sf::Vector2f(600.0f, 200.0f));
+    sf::Text ExitText;
+    createAButton(ExitRec, ExitText, sf::Vector2f(600.0f, 200.0f), highlightCyan, fontB,sf::Color::White, "EXIT", sf::Vector2f(250.0f, 800.0f));
 
     // Flag
     bool isWelcomeVisible = true;
@@ -100,10 +65,14 @@ int main() {
             else if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     // Check if the left mouse button is clicked
-                    if (SignInRec.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+                    if (SignInRec.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
                     {
                         isWelcomeVisible = false;
                         isSignInVisible = true;
+                    }
+                    if (ExitRec.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                    {
+                        window.close();
                     }
                 }
             }
@@ -120,6 +89,8 @@ int main() {
             window.draw(course);
             window.draw(SignInRec);
             window.draw(SignInText);
+            window.draw(ExitRec);
+            window.draw(ExitText);
         }
         if (isSignInVisible == true)
         {
