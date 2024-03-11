@@ -32,7 +32,7 @@ int main() {
         return -1;
     if (!fontI.loadFromFile("Palatino Linotype Italic.ttf"))
         return -1;
-  
+
     // Create welcome text
     sf::Text welcomeText;
     createText(welcomeText, fontB, textColorBlue, "WELCOME TO", 80, (float)window.getSize().x / 2.0f, 150.0f);
@@ -47,10 +47,10 @@ int main() {
     // Create buttons to sign in page
     sf::RectangleShape SignInRec(sf::Vector2f(600.0f, 200.0f));
     sf::Text SignInText;
-    createAButton(SignInRec, SignInText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "SIGN IN", sf::Vector2f(500.0f, 600.0f));
+    createAButton(SignInRec, SignInText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "SIGN IN", sf::Vector2f(500.0f, 625.0f));
     sf::RectangleShape ExitRec(sf::Vector2f(600.0f, 200.0f));
     sf::Text ExitText;
-    createAButton(ExitRec, ExitText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB,sf::Color::White, "EXIT", sf::Vector2f(500.0f, 900.0f));
+    createAButton(ExitRec, ExitText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "EXIT", sf::Vector2f(500.0f, 925.0f));
 
     // Create Sign In page
     sf::RectangleShape signInPage(sf::Vector2f((float)width, (float)height));
@@ -66,6 +66,32 @@ int main() {
     sf::Text signInAsStaffText;
     createAButton(signInAsStudentButton, signInAsStudentText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "STUDENT", sf::Vector2f(width / 2.0f, 500.0f));
     createAButton(signInAsStaffButton, signInAsStaffText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "STAFF", sf::Vector2f(width / 2.0f, 800.0f));
+    
+    // Create SignInStudent page
+    sf::RectangleShape signInStudentPage(sf::Vector2f((float)width, (float)height));
+    signInStudentPage.setFillColor(backGroundWhite);
+    // Create previous button in SignInStudent page
+    sf::Text studentSignInPageText;
+    createText(studentSignInPageText, fontB, textColorBlue, "STUDENT", 120, width / 2.0f, 150.0f);
+    sf::RectangleShape signInStudentPreviousButton(sf::Vector2f(600.0f, 200.0f));
+    sf::Text signInStudentPreviousText;
+    createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, highlightCyan, fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
+    // Create string to store student username
+    std::string usernameStudentInput = "";
+
+    // Create SignInStaff page
+    sf::RectangleShape signInStaffPage(sf::Vector2f((float)width, (float)height));
+    signInStaffPage.setFillColor(backGroundWhite);
+    // Create previous button in SignInStaff page
+    sf::Text staffSignInPageText;
+    createText(staffSignInPageText, fontB, textColorBlue, "ACADEMIC STAFF", 120, width / 2.0f, 150.0f);
+    sf::RectangleShape signInStaffPreviousButton(sf::Vector2f(600.0f, 200.0f));
+    sf::Text signInStaffPreviousText;
+    createAButton(signInStaffPreviousButton, signInStaffPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, highlightCyan, fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
+    // Create string to store staff username
+    std::string usernameStaffdentInput = "";
+
+    // ProgramState
     std::string programState = "Welcome";
     while (window.isOpen()) {
         sf::Event event;
@@ -92,14 +118,46 @@ int main() {
                         {
                             programState = "Welcome";
                         }
+                        if (signInAsStudentButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                        {
+                            programState = "SignInStudent";
+                        }
+                        if (signInAsStaffButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                        {
+                            programState = "SignInStaff";
+                        }
+                    }
+                    if (programState == "SignInStudent")
+                    {
+                        if (signInStudentPreviousButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                        {
+                            programState = "SignIn";
+                        }
+                    }
+                    if (programState == "SignInStaff")
+                    {
+                        if (signInStaffPreviousButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                        {
+                            programState = "SignIn";
+                        }
                     }
                 }
             }
+            /*else if (event.type == sf::Event::TextEntered)
+            {
+                if (event.text.unicode < 128)
+                {
+                    if (event.text.unicode == '\b')
+                    {
+                        if()
+                    }
+                }
+            }*/
         }
         // Clear the window
         window.clear();
 
-        // Draw the appropriate page based on the flag
+        // Draw the appropriate page based on the status
         if (programState == "Welcome") {
             window.draw(welcomePage);
             window.draw(welcomeText);
@@ -119,11 +177,24 @@ int main() {
             window.draw(signInAsStaffButton);
             window.draw(signInAsStaffText);
         }
+        else if (programState == "SignInStudent")
+        {
+            window.draw(signInStudentPage);
+            window.draw(studentSignInPageText);
+            window.draw(signInStudentPreviousButton);
+            window.draw(signInStudentPreviousText);
+        }
+        else if (programState == "SignInStaff")
+        {
+            window.draw(signInStaffPage);
+            window.draw(staffSignInPageText);
+            window.draw(signInStaffPreviousButton);
+            window.draw(signInStaffPreviousText);
+        }
 
         // Display the content
         window.display();
     }
-
     return 0;
 }
 
