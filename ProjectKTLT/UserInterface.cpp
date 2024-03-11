@@ -1,22 +1,26 @@
 #include <SFML/Graphics.hpp>
 #include "UserInterface.h"
 
-void createAButton(sf::RectangleShape& button, sf::Text& buttonText, const sf::Vector2f& size, const sf::Color& fillColor, const sf::Font& font, const sf::Color& textColor, const std::string& text, const sf::Vector2f& position) {
+void createAButton(sf::RectangleShape& button, sf::Text& buttonText, const sf::Vector2f& size, float textSize, const sf::Color& fillColor, const sf::Font& font, const sf::Color& textColor, const std::string& text, const sf::Vector2f& position) {
     // Set button properties
     button.setSize(size);
     button.setFillColor(fillColor);
-    button.setPosition(position);
 
     // Set button text properties
     buttonText.setFont(font);
     buttonText.setFillColor(textColor);
     buttonText.setString(text);
-    buttonText.setCharacterSize(80);
+    buttonText.setCharacterSize(textSize);
 
-    // Set text origin to center
+    // Set text origin to center if requested
+    sf::FloatRect buttonBounds = button.getLocalBounds();
+    button.setOrigin(buttonBounds.left + buttonBounds.width / 2.0f, buttonBounds.top + buttonBounds.height / 2.0f);
     sf::FloatRect textBounds = buttonText.getLocalBounds();
     buttonText.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
-    buttonText.setPosition(position.x + size.x / 2.0f, position.y + size.y / 2.0f);
+
+    // Set button position
+    button.setPosition(position);
+    buttonText.setPosition(position);
 }
 
 void createText(sf::Text& text, const sf::Font& font, const sf::Color& fillColor, const std::string& content, unsigned int characterSize, float x, float y) {
@@ -48,10 +52,10 @@ void createWelcomePage(sf::RenderWindow& window, int width, int height, const sf
     // Define Sign In button
     sf::RectangleShape SignInRec(sf::Vector2f(600.0f, 200.0f));
     sf::Text SignInText;
-    createAButton(SignInRec, SignInText, sf::Vector2f(600.0f, 200.0f), highlightCyan, fontB, sf::Color::White, "SIGN IN", sf::Vector2f(250.0f, 500.0f));
+    createAButton(SignInRec, SignInText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "SIGN IN", sf::Vector2f(250.0f, 500.0f));
 
     // Define Exit button
     sf::RectangleShape ExitRec(sf::Vector2f(600.0f, 200.0f));
     sf::Text ExitText;
-    createAButton(ExitRec, ExitText, sf::Vector2f(600.0f, 200.0f), highlightCyan, fontB, sf::Color::White, "EXIT", sf::Vector2f(250.0f, 800.0f));
+    createAButton(ExitRec, ExitText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "EXIT", sf::Vector2f(250.0f, 800.0f));
 }

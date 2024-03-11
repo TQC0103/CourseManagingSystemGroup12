@@ -47,16 +47,25 @@ int main() {
     // Create buttons to sign in page
     sf::RectangleShape SignInRec(sf::Vector2f(600.0f, 200.0f));
     sf::Text SignInText;
-    createAButton(SignInRec, SignInText, sf::Vector2f(600.0f, 200.0f), highlightCyan, fontB, sf::Color::White, "SIGN IN", sf::Vector2f(250.0f, 500.0f));
+    createAButton(SignInRec, SignInText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "SIGN IN", sf::Vector2f(500.0f, 600.0f));
     sf::RectangleShape ExitRec(sf::Vector2f(600.0f, 200.0f));
     sf::Text ExitText;
-    createAButton(ExitRec, ExitText, sf::Vector2f(600.0f, 200.0f), highlightCyan, fontB,sf::Color::White, "EXIT", sf::Vector2f(250.0f, 800.0f));
+    createAButton(ExitRec, ExitText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB,sf::Color::White, "EXIT", sf::Vector2f(500.0f, 900.0f));
 
     // Create Sign In page
     sf::RectangleShape signInPage(sf::Vector2f((float)width, (float)height));
-    
-    signInPage.setFillColor(highlightCyan);
-    // Flag
+    signInPage.setFillColor(backGroundWhite);
+    sf::RectangleShape goBackToWelcome(sf::Vector2f(600.0f, 200.0f));
+    sf::Text prePageToWelcome;
+    createAButton(goBackToWelcome, prePageToWelcome, sf::Vector2f(400.0f, 150.0f), 60.0f, highlightCyan, fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
+    sf::Text ChooseAcc;
+    createText(ChooseAcc, fontB, textColorBlue, "SIGN IN AS", 120, width / 2.0f, 150.0f);
+    sf::RectangleShape signInAsStudentButton(sf::Vector2f(600.0f, 200.0f));
+    sf::RectangleShape signInAsStaffButton(sf::Vector2f(600.0f, 200.0f));
+    sf::Text signInAsStudentText;
+    sf::Text signInAsStaffText;
+    createAButton(signInAsStudentButton, signInAsStudentText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "STUDENT", sf::Vector2f(width / 2.0f, 500.0f));
+    createAButton(signInAsStaffButton, signInAsStaffText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "STAFF", sf::Vector2f(width / 2.0f, 800.0f));
     std::string programState = "Welcome";
     while (window.isOpen()) {
         sf::Event event;
@@ -66,13 +75,23 @@ int main() {
             else if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     // Check if the left mouse button is clicked
-                    if (SignInRec.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                    if (programState == "Welcome")
                     {
-                        programState = "SignIn";
+                        if (SignInRec.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                        {
+                            programState = "SignIn";
+                        }
+                        if (ExitRec.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                        {
+                            window.close();
+                        }
                     }
-                    if (ExitRec.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                    if (programState == "SignIn")
                     {
-                        window.close();
+                        if (goBackToWelcome.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                        {
+                            programState = "Welcome";
+                        }
                     }
                 }
             }
@@ -92,6 +111,13 @@ int main() {
         }
         else if (programState == "SignIn") {
             window.draw(signInPage);
+            window.draw(goBackToWelcome);
+            window.draw(prePageToWelcome);
+            window.draw(ChooseAcc);
+            window.draw(signInAsStudentButton);
+            window.draw(signInAsStudentText);
+            window.draw(signInAsStaffButton);
+            window.draw(signInAsStaffText);
         }
 
         // Display the content
