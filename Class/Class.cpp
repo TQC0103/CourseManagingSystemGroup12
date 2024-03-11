@@ -32,7 +32,7 @@ struct Class {
 	void Class::delete_a_Student_Class(Class*& pHead);
 	*/
 
-	std::string find_Class_of_Student(Class* pHead, std::string ID); //ponter place which data stored
+	bool find_Class_of_Student(Class* pHead, std::string ID, std::string &Name_class); //ponter place which data stored
 	
 	//Show for students
 	void Class::show_Student_profile(Class *pHead, std::string ID_student);
@@ -52,10 +52,10 @@ static void input_Student_from_file(student *&pHeads, std::string new_name_Class
 		std::cout << "Please, Enter file again!";
 		return;
 	}
-	int x;
+	std::string x;
 	student* cur = pHeads;
-	while (fIn >> x) {
-		pHeads -> No = x;
+	while (std::getline(fIn, x, ';') {
+		pHeads -> No = avoi(x);
 		if (!pHeads) {
 			pHeads = new student;
 			cur = pHeads;
@@ -65,7 +65,6 @@ static void input_Student_from_file(student *&pHeads, std::string new_name_Class
 			cur = cur-> pNext;
 		}
 		pHead->pNext = NULL;
-		std::cin.ignore(1);
 		std::getline(fIn, cur->socialID, ';');
 		std::getline(fIn, cur->firstName, ';');
 		std::getline(fIn, cur->gender, ';');
@@ -73,11 +72,23 @@ static void input_Student_from_file(student *&pHeads, std::string new_name_Class
 		std::getline(fIn, cur->socialID, ';');
 	}
 }
-void Class::load_Files(Class*& pHead) {
-	//load File when open program;
+void Class::load_Files(Class*& pHead, std::string path) {	//load File when open program;
+	std::ifstream fIn;
+	fIn.open(path); //can insert link folder
+	if (!fIn.is_open()) {
+		std::cout << "Open file isn't successfull!";
+		return;
+	}
+	fIn.close();
 }
-void Class::delete_Class(Class* pHead) {
-	//Delete poiter;
+void Class::delete_Class(Class *&pHead) {
+	Node* tmp = pHead;
+	while (pHead) {
+		tmp = pHead;
+		pHead = pHead->pNext;
+		delete tmp;
+	}
+	delete pHead;
 }
 void Class::show_List_Student_profile(Class* pHead) {
 
@@ -89,9 +100,17 @@ void Class::show_List_Student_scoreboard(Class* pHead) {
 void Class::insert_a_Student_Class1st(Class*& pHead);
 void Class::delete_a_Student_Class(Class*& pHead);
 */
-std::string Class::find_Class_of_Student(Class* pHead, std::string ID)
+bool Class::find_Class_of_Student(Class *pHead, std::string ID, std::string &Name_class) // find class of student
 {
-	return std::string();
+	while (pHead) {
+		student *pHeads = pHead->pHeads;
+		if (pHead->ID == ID) {
+			Name_class = pHead->name;
+			return 1;
+		}
+		pHead = pHead->pNext;
+	}
+	return 0;
 }
 
 void Class::show_Student_profile(Class* pHead, std::string ID_student){}
