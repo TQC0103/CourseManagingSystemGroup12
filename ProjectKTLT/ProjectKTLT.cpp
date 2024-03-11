@@ -76,8 +76,6 @@ int main() {
     sf::RectangleShape signInStudentPreviousButton(sf::Vector2f(600.0f, 200.0f));
     sf::Text signInStudentPreviousText;
     createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, highlightCyan, fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-    // Create string to store student username
-    std::string usernameStudentInput = "";
 
     // Create SignInStaff page
     sf::RectangleShape signInStaffPage(sf::Vector2f((float)width, (float)height));
@@ -88,8 +86,37 @@ int main() {
     sf::RectangleShape signInStaffPreviousButton(sf::Vector2f(600.0f, 200.0f));
     sf::Text signInStaffPreviousText;
     createAButton(signInStaffPreviousButton, signInStaffPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, highlightCyan, fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
+    
+    // Create username student box
+    sf::RectangleShape usernameStudentBox(sf::Vector2f(800.0f, 200.0f));
+    createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), highlightCyan, sf::Vector2f(width / 2.0f, 475.0f));
+
+    // Create string to store student username
+    std::string usernameStudentInput = "";
+
+    // Create password student box
+    sf::RectangleShape passwordStudentBox(sf::Vector2f(200.0f, 800.0f));
+    createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), highlightCyan, sf::Vector2f(width / 2.0f, 800.0f));
+
+    sf::Text passwordStudentText;
+
+    // Create string to store student password
+    std::string passwordStudentInput = "";
+
+    // Create username staff box
+    sf::RectangleShape usernameStaffBox(sf::Vector2f(200.0f, 800.0f));
+    createABox(usernameStaffBox, sf::Vector2f(800.0f, 200.0f), highlightCyan, sf::Vector2f(width / 2.0f, 475.0f));
+    sf::Text usernameStaffText;
+
     // Create string to store staff username
-    std::string usernameStaffdentInput = "";
+    std::string usernameStaffInput = "";
+
+    // Create password staff box
+    sf::RectangleShape passwordStaffBox(sf::Vector2f(200.0f, 800.0f));
+    createABox(passwordStaffBox, sf::Vector2f(800.0f, 200.0f), highlightCyan, sf::Vector2f(width / 2.0f, 800.0f));
+
+    // Create string to store student password
+    std::string passwordStaffInput = "";
 
     // ProgramState
     std::string programState = "Welcome";
@@ -133,6 +160,37 @@ int main() {
                         {
                             programState = "SignIn";
                         }
+                        /*if (usernameStudentBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                        {
+                            while (true)
+                            {
+                                sf::Event textEvent;
+                                while (window.pollEvent(textEvent))
+                                {
+                                    if (textEvent.type == sf::Event::TextEntered)
+                                    {
+                                        if (textEvent.text.unicode < 128 && textEvent.text.unicode != 13)
+                                        {
+                                            usernameStudentInput += textEvent.text.unicode;
+                                        }
+                                        else if (textEvent.text.unicode == 8 && usernameStudentInput.size() > 0)
+                                        {
+                                            usernameStudentInput.pop_back();
+                                        }
+                                    }
+                                    else if (textEvent.type == sf::Event::KeyPressed)
+                                    {
+                                        if (textEvent.key.code == sf::Keyboard::Enter)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+                                window.draw(usernameStudentBox);
+                                window.draw(usernameStudentText);
+                                window.display();
+                            }
+                        }*/
                     }
                     if (programState == "SignInStaff")
                     {
@@ -143,16 +201,23 @@ int main() {
                     }
                 }
             }
-            /*else if (event.type == sf::Event::TextEntered)
+            else if (event.type == sf::Event::TextEntered)
             {
                 if (event.text.unicode < 128)
                 {
-                    if (event.text.unicode == '\b')
+                    if (programState == "SignInStudent")
                     {
-                        if()
+                        if (event.text.unicode == '\b')
+                        {
+                            if (usernameStudentInput.empty() == false)
+                            {
+                                usernameStudentInput.pop_back();
+                            }
+                        }
                     }
+                    
                 }
-            }*/
+            }
         }
         // Clear the window
         window.clear();
@@ -183,6 +248,8 @@ int main() {
             window.draw(studentSignInPageText);
             window.draw(signInStudentPreviousButton);
             window.draw(signInStudentPreviousText);
+            window.draw(usernameStudentBox);
+            window.draw(passwordStudentBox);
         }
         else if (programState == "SignInStaff")
         {
@@ -190,6 +257,8 @@ int main() {
             window.draw(staffSignInPageText);
             window.draw(signInStaffPreviousButton);
             window.draw(signInStaffPreviousText);
+            window.draw(usernameStaffBox);
+            window.draw(passwordStaffBox);
         }
 
         // Display the content

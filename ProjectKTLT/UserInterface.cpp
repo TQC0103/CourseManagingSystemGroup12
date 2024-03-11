@@ -59,3 +59,10 @@ void createWelcomePage(sf::RenderWindow& window, int width, int height, const sf
     sf::Text ExitText;
     createAButton(ExitRec, ExitText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "EXIT", sf::Vector2f(250.0f, 800.0f));
 }
+
+void createABox(sf::RectangleShape& box, const sf::Vector2f size, const sf::Color& fillColor, const sf::Vector2f position) {
+    box.setSize(size);
+    box.setFillColor(fillColor);
+    box.setOrigin(size.x / 2, size.y / 2);
+    box.setPosition(position);
+}
