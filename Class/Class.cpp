@@ -1,8 +1,10 @@
 #include<iostream>
-#include"Student.h"
+#include "Student.h"
 #include"Class.h"
 #include<string>
 #include<fstream>
+#include "Semester.h"
+
 struct Class {
 	//Name Class;
 	std::string name;

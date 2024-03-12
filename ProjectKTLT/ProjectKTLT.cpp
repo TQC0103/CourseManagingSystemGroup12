@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "UserInterface.h"
 
+
 // Functions
 int main() {
     // Create the window
