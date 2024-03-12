@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "UserInterface.h"
@@ -117,6 +118,9 @@ int main() {
 
     // Create string to store student password
     std::string passwordStaffInput = "";
+
+
+    //further des
 
     // ProgramState
     std::string programState = "Welcome";
