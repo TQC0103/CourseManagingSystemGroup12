@@ -32,7 +32,7 @@ struct Class {
 	void Class::delete_a_Student_Class(Class*& pHead);
 	*/
 
-	std::string find_Class_of_Student(Class* pHead, std::string ID); //ponter place which data stored
+	bool find_Class_of_Student(Class* pHead, std::string ID, std::string& Name_class);  //ponter place which data stored
 
 	//Show for students
 	void Class::show_Student_profile(Class* pHead, std::string ID_student);
