@@ -38,3 +38,4 @@ struct Class {
 };
 static void input_Student_from_file(student*& pHeads, std::string new_name_Class);
 static Class* creat_new_Class(std::string path);
+

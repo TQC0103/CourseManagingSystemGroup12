@@ -3,7 +3,6 @@
 #include <iostream>
 
 enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff};
-
 struct Static
 {
     programState currentState = programState::Welcome;
@@ -26,6 +25,7 @@ struct Static
     Static()
     {
         try {
+
             if (!fontB.loadFromFile("Palatino Linotype Bold.ttf")) {
                 // Handle font loading error
                 throw std::runtime_error("Failed to load fontB");
@@ -44,5 +44,10 @@ struct Static
             std::cerr << "Font loading error: " << e.what() << std::endl;
             // Optionally, you can terminate the program or handle the error in another way
         }
+    }
+    Static(std::string name)
+    {
+        std::cout << name << std::endl;
+        
     }
 };
