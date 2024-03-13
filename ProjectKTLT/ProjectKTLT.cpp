@@ -4,6 +4,7 @@
 #include "UserInterface.h"
 
 
+
 // Functions
 int main() {
     // Create the window
@@ -268,7 +269,8 @@ int main() {
 
         // Display the content
         window.display();
-    }
+    } 
+    
     return 0;
 }
 
