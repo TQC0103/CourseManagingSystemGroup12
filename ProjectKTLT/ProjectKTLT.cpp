@@ -2,104 +2,75 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "UserInterface.h"
-
-
-
+#include "config.h"
 // Functions
 int main() {
-    // Create the window
-    int width = 2000;
-    int height = 1200;
-    sf::RenderWindow window(sf::VideoMode(width, height), "CourseManagingSystem");
-
-    // Declare global variables
-    sf::Font fontB;
-    sf::Font fontN;
-    sf::Font fontI;
-    sf::Color backGroundWhite(255, 249, 240);
-    sf::Color textColorBlue(8, 31, 92);
-    sf::Color highlightCyan(93, 117, 153);
-    sf::Color pastelGrey(192, 192, 192);
-    sf::Color pastelCyan(156, 217, 207);
-    sf::Color pastelPink1(255, 230, 230);
-    sf::Color pastelYellow1(255, 247, 212);
-    sf::Color pastelTitleCyan(185, 204, 218);
-    sf::Color pastelSoftBlue(155, 184, 205);
-    sf::Color titleGreyColor(64, 64, 64);
-    sf::Color lightGrey(200, 200, 200);
-
-    // Set font
-    if (!fontB.loadFromFile("Palatino Linotype Bold.ttf"))
-        return -1;
-    if (!fontN.loadFromFile("Palatino LinoType.ttf"))
-        return -1;
-    if (!fontI.loadFromFile("Palatino Linotype Italic.ttf"))
-        return -1;
-
+    Static a;
+    sf::RenderWindow window(sf::VideoMode((unsigned int)a.width, (unsigned int)a.height), "CourseManagingSystem");
     // Create welcome text
     sf::Text welcomeText;
-    createText(welcomeText, fontB, textColorBlue, "WELCOME TO", 80, (float)window.getSize().x / 2.0f, 150.0f);
+    createText(welcomeText, a.fontB, a.textColorBlue, "WELCOME TO", 80, (float)window.getSize().x / 2.0f, 150.0f);
     // Create program name
     sf::Text course;
-    createText(course, fontB, highlightCyan, "COURSE MANAGING SYSTEM", 120, (float)window.getSize().x / 2.0f, 300.0f);
+    createText(course, a.fontB, a.highlightCyan, "COURSE MANAGING SYSTEM", 120, (float)window.getSize().x / 2.0f, 300.0f);
 
-    // Define two rectangles to represent different pages
-    sf::RectangleShape welcomePage(sf::Vector2f((float)width, (float)height));
-    welcomePage.setFillColor(backGroundWhite);
+    // Define two rectangles to represent welcome page
+    sf::RectangleShape welcomePage(sf::Vector2f((float)a.width, (float)a.height));
+    welcomePage.setFillColor(a.backGroundWhite);
 
-    // Create buttons to sign in page
+    // Create buttons from Welcome to sign in page
     sf::RectangleShape SignInRec(sf::Vector2f(600.0f, 200.0f));
     sf::Text SignInText;
-    createAButton(SignInRec, SignInText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "SIGN IN", sf::Vector2f(500.0f, 625.0f));
+    createAButton(SignInRec, SignInText, sf::Vector2f(600.0f, 200.0f), 80.0f, a.highlightCyan, a.fontB, sf::Color::White, "SIGN IN", sf::Vector2f(500.0f, 625.0f));
     sf::RectangleShape ExitRec(sf::Vector2f(600.0f, 200.0f));
     sf::Text ExitText;
-    createAButton(ExitRec, ExitText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "EXIT", sf::Vector2f(500.0f, 925.0f));
+    createAButton(ExitRec, ExitText, sf::Vector2f(600.0f, 200.0f), 80.0f, a.highlightCyan, a.fontB, sf::Color::White, "EXIT", sf::Vector2f(500.0f, 925.0f));
 
     // Create Sign In page
-    sf::RectangleShape signInPage(sf::Vector2f((float)width, (float)height));
-    signInPage.setFillColor(backGroundWhite);
+    sf::RectangleShape signInPage(sf::Vector2f((float)a.width, (float)a.height));
+    signInPage.setFillColor(a.backGroundWhite);
     sf::RectangleShape goBackToWelcome(sf::Vector2f(600.0f, 200.0f));
     sf::Text prePageToWelcome;
-    createAButton(goBackToWelcome, prePageToWelcome, sf::Vector2f(400.0f, 150.0f), 60.0f, highlightCyan, fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
+    createAButton(goBackToWelcome, prePageToWelcome, sf::Vector2f(400.0f, 150.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
     sf::Text ChooseAcc;
-    createText(ChooseAcc, fontB, textColorBlue, "SIGN IN AS", 120, width / 2.0f, 150.0f);
+    createText(ChooseAcc, a.fontB, a.textColorBlue, "SIGN IN AS", 120, a.width / 2.0f, 150.0f);
     sf::RectangleShape signInAsStudentButton(sf::Vector2f(600.0f, 200.0f));
     sf::RectangleShape signInAsStaffButton(sf::Vector2f(600.0f, 200.0f));
     sf::Text signInAsStudentText;
     sf::Text signInAsStaffText;
-    createAButton(signInAsStudentButton, signInAsStudentText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "STUDENT", sf::Vector2f(width / 2.0f, 500.0f));
-    createAButton(signInAsStaffButton, signInAsStaffText, sf::Vector2f(600.0f, 200.0f), 80.0f, highlightCyan, fontB, sf::Color::White, "STAFF", sf::Vector2f(width / 2.0f, 800.0f));
-    
+    createAButton(signInAsStudentButton, signInAsStudentText, sf::Vector2f(600.0f, 200.0f), 80.0f, a.highlightCyan, a.fontB, sf::Color::White, "STUDENT", sf::Vector2f(a.width / 2.0f, 500.0f));
+    createAButton(signInAsStaffButton, signInAsStaffText, sf::Vector2f(600.0f, 200.0f), 80.0f, a.highlightCyan, a.fontB, sf::Color::White, "STAFF", sf::Vector2f(a.width / 2.0f, 800.0f));
+
     // Create SignInStudent page
-    sf::RectangleShape signInStudentPage(sf::Vector2f((float)width, (float)height));
-    signInStudentPage.setFillColor(backGroundWhite);
+    sf::RectangleShape signInStudentPage(sf::Vector2f((float)a.width, (float)a.height));
+    signInStudentPage.setFillColor(a.backGroundWhite);
     // Create previous button in SignInStudent page
     sf::Text studentSignInPageText;
-    createText(studentSignInPageText, fontB, textColorBlue, "STUDENT", 120, width / 2.0f, 150.0f);
+    createText(studentSignInPageText, a.fontB, a.textColorBlue, "STUDENT", 120, a.width / 2.0f, 150.0f);
     sf::RectangleShape signInStudentPreviousButton(sf::Vector2f(600.0f, 200.0f));
     sf::Text signInStudentPreviousText;
-    createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, highlightCyan, fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
+    createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
 
     // Create SignInStaff page
-    sf::RectangleShape signInStaffPage(sf::Vector2f((float)width, (float)height));
-    signInStaffPage.setFillColor(backGroundWhite);
+    sf::RectangleShape signInStaffPage(sf::Vector2f((float)a.width, (float)a.height));
+    signInStaffPage.setFillColor(a.backGroundWhite);
     // Create previous button in SignInStaff page
     sf::Text staffSignInPageText;
-    createText(staffSignInPageText, fontB, textColorBlue, "ACADEMIC STAFF", 120, width / 2.0f, 150.0f);
+    createText(staffSignInPageText, a.fontB, a.textColorBlue, "ACADEMIC STAFF", 120, a.width / 2.0f, 150.0f);
     sf::RectangleShape signInStaffPreviousButton(sf::Vector2f(600.0f, 200.0f));
     sf::Text signInStaffPreviousText;
-    createAButton(signInStaffPreviousButton, signInStaffPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, highlightCyan, fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-    
+    createAButton(signInStaffPreviousButton, signInStaffPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
+
     // Create username student box
     sf::RectangleShape usernameStudentBox(sf::Vector2f(800.0f, 200.0f));
-    createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), highlightCyan, sf::Vector2f(width / 2.0f, 475.0f));
+    createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 475.0f));
 
     // Create string to store student username
     std::string usernameStudentInput = "";
 
     // Create password student box
     sf::RectangleShape passwordStudentBox(sf::Vector2f(200.0f, 800.0f));
-    createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), highlightCyan, sf::Vector2f(width / 2.0f, 800.0f));
+    createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 800.0f));
 
     sf::Text passwordStudentText;
 
@@ -108,7 +79,7 @@ int main() {
 
     // Create username staff box
     sf::RectangleShape usernameStaffBox(sf::Vector2f(200.0f, 800.0f));
-    createABox(usernameStaffBox, sf::Vector2f(800.0f, 200.0f), highlightCyan, sf::Vector2f(width / 2.0f, 475.0f));
+    createABox(usernameStaffBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 475.0f));
     sf::Text usernameStaffText;
 
     // Create string to store staff username
@@ -116,7 +87,7 @@ int main() {
 
     // Create password staff box
     sf::RectangleShape passwordStaffBox(sf::Vector2f(200.0f, 800.0f));
-    createABox(passwordStaffBox, sf::Vector2f(800.0f, 200.0f), highlightCyan, sf::Vector2f(width / 2.0f, 800.0f));
+    createABox(passwordStaffBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 800.0f));
 
     // Create string to store student password
     std::string passwordStaffInput = "";
@@ -124,8 +95,8 @@ int main() {
 
     //further des
 
-    // ProgramState
-    std::string programState = "Welcome";
+    // A.currentState
+    /*std::string a.currentState = "Welcome";*/
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -134,37 +105,37 @@ int main() {
             else if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     // Check if the left mouse button is clicked
-                    if (programState == "Welcome")
+                    if (a.currentState == progameState::Welcome)
                     {
                         if (SignInRec.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
                         {
-                            programState = "SignIn";
+                            a.currentState = progameState::SignIn;
                         }
                         if (ExitRec.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
                         {
                             window.close();
                         }
                     }
-                    if (programState == "SignIn")
+                    if (a.currentState == progameState::SignIn)
                     {
                         if (goBackToWelcome.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
                         {
-                            programState = "Welcome";
+                            a.currentState = progameState::Welcome;
                         }
                         if (signInAsStudentButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
                         {
-                            programState = "SignInStudent";
+                            a.currentState = progameState::SignInAsStudent;
                         }
                         if (signInAsStaffButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
                         {
-                            programState = "SignInStaff";
+                            a.currentState = progameState::SignInAsStaff;
                         }
                     }
-                    if (programState == "SignInStudent")
+                    if (a.currentState == progameState::SignInAsStudent)
                     {
                         if (signInStudentPreviousButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
                         {
-                            programState = "SignIn";
+                            a.currentState = progameState::SignIn;
                         }
                         /*if (usernameStudentBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
                         {
@@ -198,11 +169,11 @@ int main() {
                             }
                         }*/
                     }
-                    if (programState == "SignInStaff")
+                    if (a.currentState == progameState::SignInAsStaff)
                     {
                         if (signInStaffPreviousButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
                         {
-                            programState = "SignIn";
+                            a.currentState = progameState::SignIn;
                         }
                     }
                 }
@@ -211,7 +182,7 @@ int main() {
             {
                 if (event.text.unicode < 128)
                 {
-                    if (programState == "SignInStudent")
+                    if (a.currentState == progameState::SignInAsStudent)
                     {
                         if (event.text.unicode == '\b')
                         {
@@ -221,7 +192,7 @@ int main() {
                             }
                         }
                     }
-                    
+
                 }
             }
         }
@@ -229,7 +200,7 @@ int main() {
         window.clear();
 
         // Draw the appropriate page based on the status
-        if (programState == "Welcome") {
+        if (a.currentState == progameState::Welcome) {
             window.draw(welcomePage);
             window.draw(welcomeText);
             window.draw(course);
@@ -238,7 +209,7 @@ int main() {
             window.draw(ExitRec);
             window.draw(ExitText);
         }
-        else if (programState == "SignIn") {
+        else if (a.currentState == progameState::SignIn) {
             window.draw(signInPage);
             window.draw(goBackToWelcome);
             window.draw(prePageToWelcome);
@@ -248,7 +219,7 @@ int main() {
             window.draw(signInAsStaffButton);
             window.draw(signInAsStaffText);
         }
-        else if (programState == "SignInStudent")
+        else if (a.currentState == progameState::SignInAsStudent)
         {
             window.draw(signInStudentPage);
             window.draw(studentSignInPageText);
@@ -257,7 +228,7 @@ int main() {
             window.draw(usernameStudentBox);
             window.draw(passwordStudentBox);
         }
-        else if (programState == "SignInStaff")
+        else if (a.currentState == progameState::SignInAsStaff)
         {
             window.draw(signInStaffPage);
             window.draw(staffSignInPageText);
@@ -269,8 +240,7 @@ int main() {
 
         // Display the content
         window.display();
-    } 
-    
+    }
     return 0;
 }
 
