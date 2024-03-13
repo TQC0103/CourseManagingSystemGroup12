@@ -6,16 +6,16 @@ struct Class {
 	std::string name;
 
 	//Pointer
-	Class* pNext;
-	student* pHeads;
+	Class* pNext = nullptr;
+	student* pHeads = nullptr;
 
 	//Constructor
-	Class();
+	Class(){}
 
 	//Fuction
 	// data start
-	void load_Files(Class*& pHead);
-	void delete_Class(Class* pHead); // delete Poiter;
+	void load_Files(Class*& pHead, std::string path);
+	void delete_Class(Class *&pHead); // delete Poiter;
 
 	// interate with class of staff
 	void insert_new_Class(Class*& pHead);
@@ -37,3 +37,4 @@ struct Class {
 	void show_Student_scoreboard(Class* pHead, std::string ID_student);
 };
 static void input_Student_from_file(student*& pHeads, std::string new_name_Class);
+static Class* creat_new_Class(std::string path);

@@ -4,49 +4,9 @@
 #include<string>
 #include<fstream>
 #include "Semester.h"
-
-struct Class {
-	//Name Class;
-	std::string name;
-
-	//Pointer
-	Class* pNext;
-	student* pHeads;
-
-	//Constructor
-	Class::Class();
-
-	//Fuction
-	// data start
-	void Class::load_Files(Class*& pHead);
-	void Class::delete_Class(Class* pHead); // delete Poiter;
-
-	// interate with class of staff
-	void Class::insert_new_Class(Class*& pHead);
-	void Class::delete_Class(Class*& pHead, std::string name_class);
-	void Class::export_File(Clas* pHead, std::string name_Class, std::string path);
-	void Class::show_List_Class(Class* pHead); // show for staff
-	void Class::show_List_Student_profile(Class* pHead);
-	void Class::show_List_Student_scoreboard(Class* pHead);
-
-	/* here or struct student
-	void Class::insert_a_Student_Class1st(Class*& pHead);
-	void Class::delete_a_Student_Class(Class*& pHead);
-	*/
-
-	bool find_Class_of_Student(Class* pHead, std::string ID, std::string& Name_class); //ponter place which data stored
-
-	//Show for students
-	void Class::show_Student_profile(Class* pHead, std::string ID_student);
-	void Class::show_Student_scoreboard(Class* pHead, std::string ID_student);
-};
-//Constructor
-Class::Class() {
-	Class* pHead = NULL;
-}
-
+#include<cstring>
 //Read data from files
-static void input_Student_from_file(student*& pHeads, std::string new_name_Class) {
+static void input_Student_from_file(student *&pHeads, std::string new_name_Class) {
 	pHeads->firstName = new_name_Class;
 	std::ifstream fIn;
 	fIn.open(new_name_Class);
@@ -54,25 +14,38 @@ static void input_Student_from_file(student*& pHeads, std::string new_name_Class
 		std::cout << "Please, Enter file again!";
 		return;
 	}
-	std::string x;
+	pHeads = nullptr;
+	int x;
 	student* cur = pHeads;
-	while (std::getline(fIn, x, ';') {
-		pHeads->No = avoi(x);
+	while (fIn >> x) {
+		// Allocate memory for a new node
+		student *newNode = new student;
+		newNode->No = x;
+
+		// Read student information
+		std::getline(fIn, newNode->socialID, ';');
+		std::getline(fIn, newNode->firstName, ';');
+		std::getline(fIn, newNode->gender, ';');
+		fIn >> newNode->dateOfBirth.d;
+		fIn.ignore(1);
+		fIn >> newNode->dateOfBirth.m;
+		fIn.ignore(1);
+		fIn >> newNode->dateOfBirth.y;
+		fIn.ignore(1); // Consume the delimiter
+		std::getline(fIn, newNode->socialID, ';');
+		newNode->pNext = nullptr;
+
+		// Update the linked list
 		if (!pHeads) {
-			pHeads = new student;
-			cur = pHeads;
+			pHeads = newNode;
+			cur = newNode;
 		}
 		else {
-			cur->pNext = new student;
+			cur->pNext = newNode;
 			cur = cur->pNext;
 		}
-		pHead->pNext = NULL;
-		std::getline(fIn, cur->socialID, ';');
-		std::getline(fIn, cur->firstName, ';');
-		std::getline(fIn, cur->gender, ';');
-		std::getline(fIn, cur->dateOfBirth, ';');
-		std::getline(fIn, cur->socialID, ';');
 	}
+	fIn.close();
 }
 void Class::load_Files(Class*& pHead, std::string path) {	//load File when open program;
 	std::ifstream fIn;
@@ -84,7 +57,7 @@ void Class::load_Files(Class*& pHead, std::string path) {	//load File when open 
 	fIn.close();
 }
 void Class::delete_Class(Class*& pHead) {
-	Node* tmp = pHead;
+	Class * tmp = pHead;
 	while (pHead) {
 		tmp = pHead;
 		pHead = pHead->pNext;
@@ -106,7 +79,7 @@ bool Class::find_Class_of_Student(Class* pHead, std::string ID, std::string& Nam
 {
 	while (pHead) {
 		student* pHeads = pHead->pHeads;
-		if (pHead->ID == ID) {
+		if (pHead->pHeads->studentID == ID) {
 			Name_class = pHead->name;
 			return 1;
 		}
@@ -119,10 +92,10 @@ void Class::show_Student_profile(Class* pHead, std::string ID_student) {}
 void Class::show_Student_scoreboard(Class* pHead, std::string ID_student) {}
 
 
-static Class* creat_new_Class() {
+static Class* creat_new_Class(std::string path) {
 	Class* new_Class = new Class;
-	student pnewHead = new_Class->pHead;
-	input_Student_from_file(pnewHead);
+	student *pnewHead = new_Class->pHeads;
+	input_Student_from_file(pnewHead, path);
 	new_Class->pNext = NULL;
 	return new_Class;
 }
@@ -139,7 +112,7 @@ void Class::delete_Class(Class*& pHead, std::string name_class)
 	//delete class from all.txt
 }
 
-void Class::export_File(Clas* pHead, std::string name_Class, std::string path)
+void Class::export_File(Class* pHead, std::string name_Class, std::string path)
 {
 	//Data printed file 
 }
@@ -147,7 +120,7 @@ void Class::show_List_Class(Class* pHead)
 {
 	while (pHead) {
 		std::cout << pHead->name << "\n";
-		pHead = pHead - > pNext;
+		pHead = pHead -> pNext;
 	}
 }
 // sort file name follow name in data, all.txt;
