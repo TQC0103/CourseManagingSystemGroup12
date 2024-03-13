@@ -4,6 +4,7 @@
 
 struct SignInScene
 {
+	Static a;
 	// Scene elements
 	sf::RectangleShape signInPage;
 	sf::RectangleShape goBackToWelcome;

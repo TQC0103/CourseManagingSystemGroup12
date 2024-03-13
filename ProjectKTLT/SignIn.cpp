@@ -5,7 +5,6 @@
 
 SignInScene::SignInScene()
 {
-    Static a;
     // Set up signInPage
     signInPage.setSize(sf::Vector2f((float)a.width, (float)a.height));
     signInPage.setFillColor(a.backGroundWhite);

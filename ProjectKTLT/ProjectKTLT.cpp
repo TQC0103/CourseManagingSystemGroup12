@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "UserInterface.h"
@@ -9,13 +10,12 @@
 // Functions
 int main() {
     Static a;
-    sf::RenderWindow window(sf::VideoMode((unsigned int)a.width, (unsigned int)a.height), "CourseManagingSystem");
-
     Scene scene;
-
+    sf::RenderWindow window(sf::VideoMode((unsigned int)a.width, (unsigned int)a.height), "CourseManagingSystem");
+    
     // Create SignInStudent page
     sf::RectangleShape signInStudentPage(sf::Vector2f((float)a.width, (float)a.height));
-    signInStudentPage.setFillColor(a.backGroundWhite);
+    signInStudentPage.setFillColor( a.backGroundWhite);
     // Create previous button in SignInStudent page
     sf::Text studentSignInPageText;
     createText(studentSignInPageText, a.fontB, a.textColorBlue, "STUDENT", 120, a.width / 2.0f, 150.0f);
@@ -64,20 +64,18 @@ int main() {
     // Create string to store student password
     std::string passwordStaffInput = "";
 
-
-
     // A.currentState
-    
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
+            /*if (event.type == sf::Event::Closed)
+                window.close();*/
             switch (a.currentState)
             {
                 case programState::Welcome:
                 {
                     scene.welcome.renderWelcome(event, a.currentState, window);
+                    scene.welcome.drawWelcome(window);
                     break;
                 }
                 case programState::SignIn:
