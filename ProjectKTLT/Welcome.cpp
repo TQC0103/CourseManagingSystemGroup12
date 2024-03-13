@@ -43,9 +43,9 @@ WelcomeScene::WelcomeScene(){
     welcomeRect.setSize(sf::Vector2f(a.width, a.height));
     welcomeRect.setFillColor(a.backGroundWhite);
 
-    createAButton(signInRect, signInText, sf::Vector2f(500.0f, 625.0f), 80, a.highlightCyan, a.fontB, sf::Color::White, "SIGN IN", sf::Vector2f(575.0f, 675.0f));
+    createAButton(signInRect, signInText, sf::Vector2f(600.0f, 200.0f), 80, a.highlightCyan, a.fontB, sf::Color::White, "SIGN IN", sf::Vector2f(575.0f, 675.0f));
 
-    createAButton(exitRect, exitText, sf::Vector2f(600.0f, 200.0f), 80, a.highlightCyan, a.fontB, sf::Color::White, "EXIT", sf::Vector2f(610.0f, 975.0f));
+    createAButton(exitRect, exitText, sf::Vector2f(600.0f, 200.0f), 80, a.highlightCyan, a.fontB, sf::Color::White, "EXIT", sf::Vector2f(575.0f, 975.0f));
 }
 
 
