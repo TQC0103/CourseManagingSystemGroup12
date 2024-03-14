@@ -2,9 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include "UserInterface.h"
 
-void increase(int& x)
-{
-    x++;
+void setOriginTextToMiddle(sf::Text& text) {
+    sf::FloatRect bounds = text.getLocalBounds();
+    text.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
+}
+
+void setOriginRecToMiddle(sf::RectangleShape& rectangle) {
+    sf::FloatRect bounds = rectangle.getLocalBounds();
+    rectangle.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
 void createAButton(sf::RectangleShape& button, sf::Text& buttonText, const sf::Vector2f& size, float textSize, const sf::Color& fillColor, const sf::Font& font, const sf::Color& textColor, const std::string& text, const sf::Vector2f& position) {
     // Set button properties

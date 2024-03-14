@@ -6,23 +6,13 @@
 #include "Scene.h"
 #include "Welcome.h"
 #include "SignIn.h"
+#include "SignInAsStudent.h"
 
 // Functions
 int main() {
     Static a;
     Scene scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)a.width, (unsigned int)a.height), "CourseManagingSystem");
-    
-    // Create SignInStudent page
-    sf::RectangleShape signInStudentPage(sf::Vector2f((float)a.width, (float)a.height));
-    signInStudentPage.setFillColor( a.backGroundWhite);
-    // Create previous button in SignInStudent page
-    sf::Text studentSignInPageText;
-    createText(studentSignInPageText, a.fontB, a.textColorBlue, "STUDENT", 120, a.width / 2.0f, 150.0f);
-    sf::RectangleShape signInStudentPreviousButton(sf::Vector2f(600.0f, 200.0f));
-    sf::Text signInStudentPreviousText;
-    createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-
     // Create SignInStaff page
     sf::RectangleShape signInStaffPage(sf::Vector2f((float)a.width, (float)a.height));
     signInStaffPage.setFillColor(a.backGroundWhite);
@@ -32,22 +22,6 @@ int main() {
     sf::RectangleShape signInStaffPreviousButton(sf::Vector2f(600.0f, 200.0f));
     sf::Text signInStaffPreviousText;
     createAButton(signInStaffPreviousButton, signInStaffPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-
-    // Create username student box
-    sf::RectangleShape usernameStudentBox(sf::Vector2f(800.0f, 200.0f));
-    createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 475.0f));
-
-    // Create string to store student username
-    std::string usernameStudentInput = "";
-
-    // Create password student box
-    sf::RectangleShape passwordStudentBox(sf::Vector2f(200.0f, 800.0f));
-    createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 800.0f));
-
-    sf::Text passwordStudentText;
-
-    // Create string to store student password
-    std::string passwordStudentInput = "";
 
     // Create username staff box
     sf::RectangleShape usernameStaffBox(sf::Vector2f(200.0f, 800.0f));
@@ -61,15 +35,15 @@ int main() {
     sf::RectangleShape passwordStaffBox(sf::Vector2f(200.0f, 800.0f));
     createABox(passwordStaffBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 800.0f));
 
-    // Create string to store student password
+    // Create string to store staff password
     std::string passwordStaffInput = "";
 
     // A.currentState
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
-            /*if (event.type == sf::Event::Closed)
-                window.close();*/
+            if (event.type == sf::Event::Closed)
+                window.close();
             switch (a.currentState)
             {
                 case programState::Welcome:
@@ -81,6 +55,12 @@ int main() {
                 case programState::SignIn:
                 {
                     scene.signin.renderSignIn(event, a.currentState, window);
+                    break;
+                }
+                case programState::SignInAsStudent:
+                {
+                    scene.signinasstudent.renderSignInAsStudent(event, a.currentState, window);
+                    break;
                 }
             }
             
@@ -192,6 +172,11 @@ int main() {
         case programState::SignIn:
         {
             scene.signin.drawSignIn(window);
+            break;
+        }
+        case programState::SignInAsStudent:
+        {
+            scene.signinasstudent.drawSignInAsStudent(window);
             break;
         }
         default:
