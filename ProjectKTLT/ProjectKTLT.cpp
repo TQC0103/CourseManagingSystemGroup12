@@ -39,6 +39,8 @@ int main() {
     std::string passwordStaffInput = "";
 
     // A.currentState
+    window.setFramerateLimit(60);
+    sf::Clock clock;
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -60,6 +62,11 @@ int main() {
                 case programState::SignInAsStudent:
                 {
                     scene.signinasstudent.renderSignInAsStudent(event, a.currentState, window);
+                    break;
+                }
+                case programState::SignInAsStaff:
+                {
+                    scene.signinasstaff.renderSignInAsStaff(event, a.currentState, window);
                     break;
                 }
             }
@@ -177,6 +184,11 @@ int main() {
         case programState::SignInAsStudent:
         {
             scene.signinasstudent.drawSignInAsStudent(window);
+            break;
+        }
+        case programState::SignInAsStaff:
+        {
+            scene.signinasstaff.drawSignInAsStaff(window);
             break;
         }
         default:

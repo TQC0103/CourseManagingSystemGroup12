@@ -1,21 +1,20 @@
-#include "SignInAsStudent.h"
 #include "UserInterface.h"
+#include "SignInAsStaff.h"
 
-
-SignInAsStudentScene::SignInAsStudentScene()
+SignInAsStaffScene::SignInAsStaffScene()
 {
 	signInStudentPage.setFillColor(a.backGroundWhite);
 	signInStudentPage.setSize(sf::Vector2f((float)a.width, (float)a.height));
-	createText(studentSignInPageText, a.fontB, a.textColorBlue, "STUDENT", 120, a.width / 2.0f, 150.0f);
+	createText(studentSignInPageText, a.fontB, a.textColorBlue, "STAFF", 120, a.width / 2.0f, 150.0f);
 	createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-	
+
 	createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 475.0f));
 	createText(usernameStudentText, a.fontN, sf::Color::White, "", 60, a.width / 2.0f, usernameStudentBox.getPosition().y);
 	createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 800.0f));
 	createText(passwordStudentText, a.fontN, sf::Color::White, "", 60, a.width / 2.0f, passwordStudentBox.getPosition().y);
 }
 
-void SignInAsStudentScene::drawSignInAsStudent(sf::RenderWindow& win)
+void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win)
 {
 	win.draw(signInStudentPage);
 	win.draw(studentSignInPageText);
@@ -23,12 +22,12 @@ void SignInAsStudentScene::drawSignInAsStudent(sf::RenderWindow& win)
 	win.draw(signInStudentPreviousText);
 
 	win.draw(usernameStudentBox);
-	usernameStudentText.setString(usernameStudentInput);
+	usernameStudentText.setString(usernameStaffInput);
 	setOriginTextToMiddle(usernameStudentText);
 	win.draw(usernameStudentText);
 
 	win.draw(passwordStudentBox);
-	passwordStudentText.setString(passwordStudentInput);
+	passwordStudentText.setString(passwordStaffInput);
 	setOriginTextToMiddle(passwordStudentText);
 	win.draw(passwordStudentText);
 	sf::Clock cursorClock;
@@ -44,7 +43,7 @@ void SignInAsStudentScene::drawSignInAsStudent(sf::RenderWindow& win)
 	}
 }
 
-void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, programState& currentState, sf::RenderWindow& win)
+void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, programState& currentState, sf::RenderWindow& win)
 {
 	// Handle mouse events
 	if (event.type == sf::Event::MouseButtonPressed)
@@ -61,7 +60,7 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, programState& 
 				passwordInputEnable = false;
 			}
 			else if (passwordStudentBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
-			{	
+			{
 				usernameInputEnable = false;
 				passwordInputEnable = true;
 			}
@@ -76,26 +75,26 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, programState& 
 			if (event.text.unicode >= 32 && event.text.unicode <= 126) // Only handle printable ASCII characters
 			{
 				// Append the character to the appropriate input string
-				if (usernameInputEnable && usernameStudentInput.length() < maxUsernameLength)
+				if (usernameInputEnable && usernameStaffInput.length() < maxUsernameLength)
 				{
-					usernameStudentInput += static_cast<char>(event.text.unicode);
-					std::cout << usernameStudentInput;
+					usernameStaffInput += static_cast<char>(event.text.unicode);
+					std::cout << usernameStaffInput;
 				}
-				else if (passwordInputEnable && passwordStudentInput.length() < maxPassWordLength)
+				else if (passwordInputEnable && passwordStaffInput.length() < maxPassWordLength)
 				{
-					passwordStudentInput += static_cast<char>(event.text.unicode);
+					passwordStaffInput += static_cast<char>(event.text.unicode);
 				}
 			}
 			else if (event.text.unicode == 8) // Handle backspace
 			{
 				// Erase the last character from the appropriate input string
-				if (usernameInputEnable && !usernameStudentInput.empty())
+				if (usernameInputEnable && !usernameStaffInput.empty())
 				{
-					usernameStudentInput.pop_back();
+					usernameStaffInput.pop_back();
 				}
-				else if (passwordInputEnable && !passwordStudentInput.empty())
+				else if (passwordInputEnable && !passwordStaffInput.empty())
 				{
-					passwordStudentInput.pop_back();
+					passwordStaffInput.pop_back();
 				}
 			}
 		}

@@ -140,6 +140,7 @@
     <ClCompile Include="Semester.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SignIn.cpp" />
+    <ClCompile Include="SignInAsStaff.cpp" />
     <ClCompile Include="SignInAsStudent.cpp" />
     <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="Welcome.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="GlobalVariables.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SignIn.h" />
+    <ClInclude Include="SignInAsStaff.h" />
     <ClInclude Include="SignInAsStudent.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="StudentAcc.h" />
