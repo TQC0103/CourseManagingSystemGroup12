@@ -1,4 +1,4 @@
-#include<iostream>
+/*#include<iostream>
 #include "Student.h"
 #include"Class.h"
 #include<string>
@@ -34,7 +34,7 @@ struct Class {
 	void Class::delete_a_Student_Class(Class*& pHead);
 	*/
 
-	bool find_Class_of_Student(Class* pHead, std::string ID, std::string &Name_class); //ponter place which data stored
+	/*bool find_Class_of_Student(Class* pHead, std::string ID, std::string& Name_class); //ponter place which data stored
 	
 	//Show for students
 	void Class::show_Student_profile(Class *pHead, std::string ID_student);
@@ -98,10 +98,10 @@ void Class::show_List_Student_profile(Class* pHead) {
 void Class::show_List_Student_scoreboard(Class* pHead) {
 
 }
-/* here or struct student
-void Class::insert_a_Student_Class1st(Class*& pHead);
-void Class::delete_a_Student_Class(Class*& pHead);
-*/
+ //here or struct student
+//void Class::insert_a_Student_Class1st(Class*& pHead);
+//void Class::delete_a_Student_Class(Class*& pHead);
+//
 bool Class::find_Class_of_Student(Class *pHead, std::string ID, std::string &Name_class) // find class of student
 {
 	while (pHead) {
@@ -150,3 +150,4 @@ void Class::show_List_Class(Class* pHead)
 
 void Class::show_List_Class(Class* pHead) {
 }
+*/
