@@ -8,35 +8,13 @@
 #include "SignIn.h"
 #include "SignInAsStudent.h"
 
+#define para event, a.currentState, window
+
 // Functions
 int main() {
     Static a;
     Scene scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)a.width, (unsigned int)a.height), "CourseManagingSystem");
-    // Create SignInStaff page
-    sf::RectangleShape signInStaffPage(sf::Vector2f((float)a.width, (float)a.height));
-    signInStaffPage.setFillColor(a.backGroundWhite);
-    // Create previous button in SignInStaff page
-    sf::Text staffSignInPageText;
-    createText(staffSignInPageText, a.fontB, a.textColorBlue, "ACADEMIC STAFF", 120, a.width / 2.0f, 150.0f);
-    sf::RectangleShape signInStaffPreviousButton(sf::Vector2f(600.0f, 200.0f));
-    sf::Text signInStaffPreviousText;
-    createAButton(signInStaffPreviousButton, signInStaffPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-
-    // Create username staff box
-    sf::RectangleShape usernameStaffBox(sf::Vector2f(200.0f, 800.0f));
-    createABox(usernameStaffBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 475.0f));
-    sf::Text usernameStaffText;
-
-    // Create string to store staff username
-    std::string usernameStaffInput = "";
-
-    // Create password staff box
-    sf::RectangleShape passwordStaffBox(sf::Vector2f(200.0f, 800.0f));
-    createABox(passwordStaffBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 800.0f));
-
-    // Create string to store staff password
-    std::string passwordStaffInput = "";
 
     // A.currentState
     window.setFramerateLimit(60);
@@ -50,23 +28,23 @@ int main() {
             {
                 case programState::Welcome:
                 {
-                    scene.welcome.renderWelcome(event, a.currentState, window);
-                    scene.welcome.drawWelcome(window);
+                    scene.welcome.renderWelcome(para);
+                   /* scene.welcome.drawWelcome(window);*/
                     break;
                 }
                 case programState::SignIn:
                 {
-                    scene.signin.renderSignIn(event, a.currentState, window);
+                    scene.signin.renderSignIn(para);
                     break;
                 }
                 case programState::SignInAsStudent:
                 {
-                    scene.signinasstudent.renderSignInAsStudent(event, a.currentState, window);
+                    scene.signinasstudent.renderSignInAsStudent(para);
                     break;
                 }
                 case programState::SignInAsStaff:
                 {
-                    scene.signinasstaff.renderSignInAsStaff(event, a.currentState, window);
+                    scene.signinasstaff.renderSignInAsStaff(para);
                     break;
                 }
             }
