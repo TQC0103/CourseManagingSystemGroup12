@@ -119,7 +119,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>SFML\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -139,6 +139,9 @@
     <ClCompile Include="SchoolYear.cpp" />
     <ClCompile Include="Semester.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SignIn.cpp" />
+    <ClCompile Include="SignInAsStaff.cpp" />
+    <ClCompile Include="SignInAsStudent.cpp" />
     <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="Welcome.cpp" />
   </ItemGroup>
@@ -150,6 +153,9 @@
     <ClInclude Include="Semester.h" />
     <ClInclude Include="GlobalVariables.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SignIn.h" />
+    <ClInclude Include="SignInAsStaff.h" />
+    <ClInclude Include="SignInAsStudent.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="StudentAcc.h" />
     <ClInclude Include="UserInterface.h" />

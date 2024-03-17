@@ -1,7 +1,14 @@
 #pragma once
-#include "Welcome.h"
 
-struct Scence
+#include "Welcome.h"
+#include "SignIn.h"
+#include "SignInAsStudent.h"
+#include "SignInAsStaff.h"
+
+struct Scene
 {
-	WelcomePage welcome;
+	WelcomeScene welcome;
+	SignInScene signin;
+	SignInAsStudentScene signinasstudent;
+	SignInAsStaffScene signinasstaff;
 };

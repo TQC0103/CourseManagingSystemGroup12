@@ -1,11 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
-enum progameState{Welcome, SignIn, SignInAsStudent, SignInAsStaff};
-
+enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff};
 struct Static
 {
-    progameState currentState;
+    programState currentState = programState::Welcome;
     float width = 2000;
     float height = 1200;
     sf::Font fontB;
@@ -24,9 +24,30 @@ struct Static
     sf::Color lightGrey = sf::Color(200, 200, 200);
     Static()
     {
-        if (!fontB.loadFromFile("Palatino Linotype Bold.ttf")){}
-        if (!fontN.loadFromFile("Palatino LinoType.ttf")){}
-        if (!fontI.loadFromFile("Palatino Linotype Italic.ttf")){}
-        currentState = progameState::Welcome;
+        try {
+
+            if (!fontB.loadFromFile("Palatino Linotype Bold.ttf")) {
+                // Handle font loading error
+                throw std::runtime_error("Failed to load fontB");
+            }
+            if (!fontN.loadFromFile("Palatino LinoType.ttf")) {
+                // Handle font loading error
+                throw std::runtime_error("Failed to load fontN");
+            }
+            if (!fontI.loadFromFile("Palatino Linotype Italic.ttf")) {
+                // Handle font loading error
+                throw std::runtime_error("Failed to load fontI");
+            }
+        }
+        catch (const std::exception& e) {
+            // Log or display the error message
+            std::cerr << "Font loading error: " << e.what() << std::endl;
+            // Optionally, you can terminate the program or handle the error in another way
+        }
+    }
+    Static(std::string name)
+    {
+        std::cout << name << std::endl;
+        
     }
 };

@@ -1,8 +1,11 @@
 #pragma once
 #include "config.h"
+#include "UserInterface.h"
+#include "SFML/Graphics.hpp"
 
-struct WelcomePage
-{	
+struct WelcomeScene {
+    // Scene elements
+    Static a;
     sf::Text welcomeText;
     sf::Text course;
     sf::RectangleShape welcomeRect;
@@ -10,11 +13,13 @@ struct WelcomePage
     sf::RectangleShape exitRect;
     sf::Text signInText;
     sf::Text exitText;
-    sf::RenderWindow& window;
-	void drawWelcome();
-	void renderWelcome(sf::Event event);
-	
 
+    // Constructor
+    WelcomeScene();
+
+    // Member functions
+    void drawWelcome(sf::RenderWindow& win);
+    void renderWelcome(sf::Event event, programState& currentState, sf::RenderWindow& win);
 };
 
 
