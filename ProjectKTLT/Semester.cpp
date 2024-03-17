@@ -1,6 +1,12 @@
 #include "Semester.h"
 #include<SFML/Graphics.hpp>
 #include<string>
+#include<fstream>
+#include<iostream>
+#include "Date.h"
+#include<direct.h>
+
+
 
 
 semester::semester(int semesterNum, std::string StartDate, std::string EndDate) {
@@ -8,6 +14,9 @@ semester::semester(int semesterNum, std::string StartDate, std::string EndDate) 
 	startDate = StartDate;	
 	endDate = EndDate;
 }
-void semester::loadSemester() {
-
+semester::semester() {
 }
+
+
+
+
