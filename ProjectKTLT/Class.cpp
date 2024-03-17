@@ -142,7 +142,7 @@ void Class::show_Student_each_profile(Class* pHead, std::string ID_student) {
 		cur = cur->pNext;
 	}
 }
-void Class::show_Student_each_scoreboard(Class* pHead, std::string ID_student) {}
+
 
 
 static Class* creat_new_Class(std::string path) {

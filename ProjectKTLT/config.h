@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff};
+enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff, StudentHomePage};
 struct Static
 {
     programState currentState = programState::Welcome;

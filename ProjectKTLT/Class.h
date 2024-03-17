@@ -8,6 +8,7 @@ struct Class {
 
 	//Pointer
 	Class* pNext = nullptr;
+	//List students
 	student* pHeads = nullptr;
 
 	//Constructor

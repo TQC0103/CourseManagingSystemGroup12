@@ -20,6 +20,9 @@ struct SignInAsStaffScene
 	sf::Text passwordStudentText;
 	std::string passwordStaffInput = "";
 
+	sf::RectangleShape submit;
+	sf::Text submitText;
+
 	bool usernameInputEnable = false;
 	int maxUsernameLength = 15;
 	bool passwordInputEnable = false;
