@@ -1,10 +1,10 @@
 #include<iostream>
 #include "Student.h"
-#include"Class.h"
-#include<string>
-#include<fstream>
+#include "Class.h"
+#include <string>
+#include <fstream>
 #include "Semester.h"
-#include<cstring>
+#include <cstring>
 //Read data from files
 static void input_Student_from_file(student *&pHeads, std::string new_name_Class) {
 	pHeads->firstName = new_name_Class;

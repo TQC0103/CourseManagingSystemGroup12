@@ -4,6 +4,8 @@
 #include "SignIn.h"
 #include "SignInAsStudent.h"
 #include "SignInAsStaff.h"
+#include "MenuStudent.h"
+#include "MenuStaff.h"
 
 struct Scene
 {
@@ -11,4 +13,6 @@ struct Scene
 	SignInScene signin;
 	SignInAsStudentScene signinasstudent;
 	SignInAsStaffScene signinasstaff;
+	MenuStudentScene menustudent;
+	MenuStaffScene menustaff;
 };

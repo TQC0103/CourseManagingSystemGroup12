@@ -1,5 +1,7 @@
 #include "UserInterface.h"
-#include "SignInAsStaff.h"
+#include "Scenes/SignInAsStaff.h"
+#include <fstream>
+#include <string>
 
 SignInAsStaffScene::SignInAsStaffScene()
 {
@@ -42,6 +44,11 @@ void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win)
 		sf::RectangleShape cursorPassword;
 		setBlinkingCursorInTypingBox(passwordStudentText, cursorPassword, win, cursorClock);
 	}
+	if (isWrong == true)
+	{
+		createText(incorrect, a.fontB, sf::Color::Red, "Username or password is incorrect", 50, a.width / 2.0f, 1000.0f);
+		win.draw(incorrect);
+	}
 }
 
 void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, programState& currentState, sf::RenderWindow& win)
@@ -69,6 +76,16 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, programState& curr
 				usernameInputEnable = false;
 				passwordInputEnable = true;
 			}
+			else if (submit.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				if (checkAccount() == false)
+				{
+					isWrong = true;
+				}
+				else {
+					currentState = programState::MenuStaff;
+				}
+			}
 		}
 	}
 
@@ -83,7 +100,6 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, programState& curr
 				if (usernameInputEnable && usernameStaffInput.length() < maxUsernameLength)
 				{
 					usernameStaffInput += static_cast<char>(event.text.unicode);
-					std::cout << usernameStaffInput;
 				}
 				else if (passwordInputEnable && passwordStaffInput.length() < maxPassWordLength)
 				{
@@ -104,4 +120,19 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, programState& curr
 			}
 		}
 	}
+}
+bool SignInAsStaffScene::checkAccount()
+{
+	std::ifstream fIn;
+	std::string filename = "../AcademicAcc/" + usernameStaffInput + ".txt";
+	fIn.open(filename);
+	if (fIn.is_open() == false)
+	{
+		return false;
+	}
+	std::string password = "";
+	std::getline(fIn, password);
+	if (password == passwordStaffInput)
+		return true;
+	return false;
 }

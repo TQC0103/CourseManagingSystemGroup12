@@ -1,6 +1,6 @@
 #pragma once
-#include "config.h"
-#include "UserInterface.h"
+#include "../config.h"
+#include "../UserInterface.h"
 #include "SFML/Graphics.hpp"
 
 struct WelcomeScene {

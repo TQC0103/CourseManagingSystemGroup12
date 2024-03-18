@@ -1,6 +1,6 @@
 #pragma once
 #include "Welcome.h"
-#include "config.h"
+#include "../config.h"
 #include <iostream>
 
 void WelcomeScene::renderWelcome(sf::Event event, programState& currentState, sf::RenderWindow& win) {
