@@ -92,6 +92,21 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, programState& curr
 	// Handle keyboard events
 	if (event.type == sf::Event::TextEntered)
 	{
+		if (usernameInputEnable == true && (event.text.unicode == 13 || event.text.unicode == 9))
+		{
+			usernameInputEnable = false;
+			passwordInputEnable = true;
+		}
+		else if (passwordInputEnable == true && event.text.unicode == 13)
+		{
+			if (checkAccount() == false)
+			{
+				isWrong = true;
+			}
+			else {
+				currentState = programState::MenuStaff;
+			}
+		}
 		if (usernameInputEnable || passwordInputEnable)
 		{
 			if (event.text.unicode >= 32 && event.text.unicode <= 126) // Only handle printable ASCII characters

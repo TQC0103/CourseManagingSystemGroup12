@@ -24,6 +24,7 @@ struct SignInAsStaffScene
 	sf::Text submitText;
 
 	sf::Text incorrect;
+
 	bool isWrong = false;
 	bool usernameInputEnable = false;
 	int maxUsernameLength = 15;

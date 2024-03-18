@@ -136,6 +136,7 @@
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="ProjectKTLT.cpp" />
+    <ClCompile Include="Scenes\ChangePassStaff.cpp" />
     <ClCompile Include="Scenes\MenuStaff.cpp" />
     <ClCompile Include="Scenes\MenuStudent.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Class.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="Scenes\ChangePassStaff.h" />
     <ClInclude Include="Scenes\MenuStaff.h" />
     <ClInclude Include="Scenes\MenuStudent.h" />
     <ClInclude Include="Scenes\Scene.h" />

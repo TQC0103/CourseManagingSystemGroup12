@@ -1,14 +1,15 @@
 #include "MenuStaff.h"
 #include "../config.h"
 #include "../UserInterface.h"
+#include <fstream>
 
 MenuStaffScene::MenuStaffScene()
 {
 	createABox(MenuStaffPage, sf::Vector2f((float)a.width, (float)a.height), a.backGroundWhite, sf::Vector2f((float)a.width / 2.0f, a.height / 2.0f));
 	createAButton(preButtonStaff, preText, sf::Vector2f(400.0f, 150.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-	createAButton(chooseSchoolYearButton, chooseSchoolYearText, sf::Vector2f(800.0f, 200.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "CHOOSE SCHOOL YEAR", sf::Vector2f(a.width / 2.0f, 800.0f));
-	createAButton(createSchoolYearButton, createSchoolYearText, sf::Vector2f(800.0f, 200.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "CREATE SCHOOL YEAR", sf::Vector2f(a.width / 2.0f, 475.0f));
-	createText(menu, a.fontB, a.highlightCyan, "MENU", 120, (float)a.width / 2.0f, 150.0f);
+	createAButton(chooseSchoolYearButton, chooseSchoolYearText, sf::Vector2f(800.0f, 200.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "Choose school year", sf::Vector2f(a.width / 2.0f, 800.0f));
+	createAButton(createSchoolYearButton, createSchoolYearText, sf::Vector2f(800.0f, 200.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "Create school year", sf::Vector2f(a.width / 2.0f, 475.0f));
+	createText(menu, a.fontB, a.textColorBlue, "MENU", 120, (float)a.width / 2.0f, 150.0f);
 }
 
 void MenuStaffScene::drawMenuStaff(sf::RenderWindow& win)
@@ -35,4 +36,10 @@ void MenuStaffScene::renderMenuStaff(sf::Event event, programState& currentState
 			}
 		}
 	}
+}
+
+void MenuStaffScene::changePassword()
+{
+	std::ofstream fOut;
+	
 }
