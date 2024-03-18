@@ -5,7 +5,7 @@
 #include<direct.h>
 #include "Date.h"
 
-
+schoolYear* curSchoolYear;
 schoolYear::schoolYear() {
 	year = "";
 	pHead = nullptr;

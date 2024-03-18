@@ -9,13 +9,14 @@
 
 
 
-semester::semester(int semesterNum, std::string StartDate, std::string EndDate) {
+semester::semester(std::string semesterNum, std::string StartDate, std::string EndDate) {
 	semesterData = semesterNum;
 	startDate = StartDate;	
 	endDate = EndDate;
 }
 semester::semester() {
 }
+
 
 
 

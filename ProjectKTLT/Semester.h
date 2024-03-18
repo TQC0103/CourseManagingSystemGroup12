@@ -3,7 +3,7 @@
 
 struct semester {
 	semester();
-	semester(int semesterNum, std::string StartDate, std::string EndDate);
+	semester(std::string semesterNum, std::string StartDate, std::string EndDate);
 	std::string semesterData;
 	std::string startDate;
 	std::string endDate;

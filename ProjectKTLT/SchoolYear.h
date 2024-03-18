@@ -32,6 +32,6 @@ struct schoolYear {
 	void deallocateSchoolYear();
 	void deallocateSemester();
 };
-extern schoolYear *curSchoolYear;
+//extern schoolYear *curSchoolYear;
 
 
