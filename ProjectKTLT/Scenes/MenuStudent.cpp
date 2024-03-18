@@ -1,5 +1,5 @@
 #include "MenuStudent.h"
-#include "UserInterface.h"
+#include "../UserInterface.h"
 
 MenuStudentScene::MenuStudentScene()
 {

@@ -15,7 +15,7 @@ struct MenuStaffScene
 	sf::RectangleShape chooseSchoolYearButton;
 	sf::Text chooseSchoolYearText;
 
-	sf::RectangleShape preButton;
+	sf::RectangleShape preButtonStaff;
 	sf::Text preText;
 
 	//Constructor

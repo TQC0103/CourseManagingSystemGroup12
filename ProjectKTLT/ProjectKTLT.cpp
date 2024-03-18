@@ -4,9 +4,7 @@
 #include "UserInterface.h"
 #include "config.h"
 #include "Scenes/Scene.h"
-#include "Scenes/Welcome.h"
-#include "Scenes/SignIn.h"
-#include "Scenes/SignInAsStudent.h"
+
 
 #define para event, a.currentState, window
 
@@ -49,10 +47,12 @@ int main() {
             case programState::MenuStudent:
             {
                 scene.menustudent.renderMenuStudent(para);
+                break;
             }
             case programState::MenuStaff:
             {
                 scene.menustaff.renderMenuStaff(para);
+                break;
             }
             default:
                 break;

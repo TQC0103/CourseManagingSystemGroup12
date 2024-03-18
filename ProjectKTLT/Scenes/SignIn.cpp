@@ -1,6 +1,6 @@
 #include "SignIn.h"
-#include "UserInterface.h"
-#include "config.h"
+#include "../UserInterface.h"
+#include "../config.h"
 #include <SFML/Graphics.hpp>
 
 SignInScene::SignInScene()

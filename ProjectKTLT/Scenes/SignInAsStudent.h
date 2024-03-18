@@ -1,7 +1,7 @@
 #pragma once
-#include "config.h"
+#include "../config.h"
 #include <SFML/Graphics.hpp>
-#include "UserInterface.h"
+#include "../UserInterface.h"
 
 struct SignInAsStudentScene
 {

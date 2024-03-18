@@ -135,16 +135,16 @@
   <ItemGroup>
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Date.cpp" />
-    <ClCompile Include="MenuStudent.cpp" />
     <ClCompile Include="ProjectKTLT.cpp" />
     <ClCompile Include="Scenes\MenuStaff.cpp" />
+    <ClCompile Include="Scenes\MenuStudent.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\SignIn.cpp" />
+    <ClCompile Include="Scenes\SignInAsStaff.cpp" />
+    <ClCompile Include="Scenes\SignInAsStudent.cpp" />
     <ClCompile Include="Scenes\Welcome.cpp" />
     <ClCompile Include="SchoolYear.cpp" />
     <ClCompile Include="Semester.cpp" />
-    <ClCompile Include="SignInAsStaff.cpp" />
-    <ClCompile Include="SignInAsStudent.cpp" />
     <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>

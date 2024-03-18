@@ -32,5 +32,4 @@ struct MenuStudentScene
 	void drawMenuStudent(sf::RenderWindow& win);
 	void renderMenuStudent(sf::Event event, programState &currentState, sf::RenderWindow &win);
 
-
 };
