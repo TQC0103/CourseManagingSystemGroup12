@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff};
+enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent};
 struct Static
 {
     programState currentState = programState::Welcome;
@@ -45,9 +45,5 @@ struct Static
             // Optionally, you can terminate the program or handle the error in another way
         }
     }
-    Static(std::string name)
-    {
-        std::cout << name << std::endl;
-        
-    }
+    
 };

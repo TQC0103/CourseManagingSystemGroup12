@@ -18,9 +18,9 @@ struct student
     student* pStudent;
     student* pNext = nullptr;
     //constructor
-    student(){}
+    student() {}
     student(int no, std::string id, std::string firstname, std::string lastname, std::string gender, date dob, std::string socialId) :
-		No(no), studentID(id), firstName(firstname), lastName(lastname), gender(gender),
-		dateOfBirth(dob), socialID(socialId){}
-    
+        No(no), studentID(id), firstName(firstname), lastName(lastname), gender(gender),
+        dateOfBirth(dob), socialID(socialId) {}
+
 };

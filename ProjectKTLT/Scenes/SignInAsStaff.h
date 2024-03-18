@@ -1,9 +1,9 @@
 #pragma once
-#include "config.h"
+#include "../config.h"
 #include <SFML/Graphics.hpp>
-#include "UserInterface.h"
+#include "../UserInterface.h"
 
-struct SignInAsStudentScene
+struct SignInAsStaffScene
 {
 	Static a;
 	sf::RectangleShape signInStudentPage;
@@ -14,20 +14,26 @@ struct SignInAsStudentScene
 
 	sf::RectangleShape usernameStudentBox;
 	sf::Text usernameStudentText;
-	std::string usernameStudentInput = "";
+	std::string usernameStaffInput = "";
 
 	sf::RectangleShape passwordStudentBox;
 	sf::Text passwordStudentText;
-	std::string passwordStudentInput = "";
+	std::string passwordStaffInput = "";
 
+	sf::RectangleShape submit;
+	sf::Text submitText;
+
+	sf::Text incorrect;
+	bool isWrong = false;
 	bool usernameInputEnable = false;
 	int maxUsernameLength = 15;
 	bool passwordInputEnable = false;
 	int maxPassWordLength = 15;
 	// Constructors
-	SignInAsStudentScene();
+	SignInAsStaffScene();
 
 	// Functions
-	void drawSignInAsStudent(sf::RenderWindow& win);
-	void renderSignInAsStudent(sf::Event event, programState& currentState, sf::RenderWindow& win);
+	void drawSignInAsStaff(sf::RenderWindow& win);
+	void renderSignInAsStaff(sf::Event event, programState& currentState, sf::RenderWindow& win);
+	bool checkAccount();
 };

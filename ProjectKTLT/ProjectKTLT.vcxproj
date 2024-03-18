@@ -136,30 +136,34 @@
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="ProjectKTLT.cpp" />
+    <ClCompile Include="Scenes\MenuStaff.cpp" />
+    <ClCompile Include="Scenes\MenuStudent.cpp" />
+    <ClCompile Include="Scenes\Scene.cpp" />
+    <ClCompile Include="Scenes\SignIn.cpp" />
+    <ClCompile Include="Scenes\SignInAsStaff.cpp" />
+    <ClCompile Include="Scenes\SignInAsStudent.cpp" />
+    <ClCompile Include="Scenes\Welcome.cpp" />
     <ClCompile Include="SchoolYear.cpp" />
     <ClCompile Include="Semester.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SignIn.cpp" />
-    <ClCompile Include="SignInAsStaff.cpp" />
-    <ClCompile Include="SignInAsStudent.cpp" />
     <ClCompile Include="UserInterface.cpp" />
-    <ClCompile Include="Welcome.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="Scenes\MenuStaff.h" />
+    <ClInclude Include="Scenes\MenuStudent.h" />
+    <ClInclude Include="Scenes\Scene.h" />
+    <ClInclude Include="Scenes\SignIn.h" />
+    <ClInclude Include="Scenes\SignInAsStaff.h" />
+    <ClInclude Include="Scenes\SignInAsStudent.h" />
+    <ClInclude Include="Scenes\Welcome.h" />
     <ClInclude Include="SchoolYear.h" />
     <ClInclude Include="Semester.h" />
     <ClInclude Include="GlobalVariables.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SignIn.h" />
-    <ClInclude Include="SignInAsStaff.h" />
-    <ClInclude Include="SignInAsStudent.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="StudentAcc.h" />
     <ClInclude Include="UserInterface.h" />
-    <ClInclude Include="Welcome.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
