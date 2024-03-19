@@ -3,20 +3,20 @@
 #include <fstream>
 #include <string>
 
-SignInAsStudentScene::SignInAsStudentScene()
+SignInAsStudentScene::SignInAsStudentScene(Static *a)
 {
-	signInStudentPage.setFillColor(a.backGroundWhite);
-	signInStudentPage.setSize(sf::Vector2f((float)a.width, (float)a.height));
-	createText(studentSignInPageText, a.fontB, a.textColorBlue, "STUDENT", 120, a.width / 2.0f, 150.0f);
-	createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-	createAButton(submit, submitText, sf::Vector2f(400.0f, 150.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "SIGN IN", sf::Vector2f(a.width - 200.0f, 1000.0f));
-	createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 475.0f));
-	createText(usernameStudentText, a.fontN, sf::Color::White, "", 60, a.width / 2.0f, usernameStudentBox.getPosition().y);
-	createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), a.highlightCyan, sf::Vector2f(a.width / 2.0f, 800.0f));
-	createText(passwordStudentText, a.fontN, sf::Color::White, "", 60, a.width / 2.0f, passwordStudentBox.getPosition().y);
+	signInStudentPage.setFillColor(a->backGroundWhite);
+	signInStudentPage.setSize(sf::Vector2f((float)a->width, (float)a->height));
+	createText(studentSignInPageText, a->fontB, a->textColorBlue, "STUDENT", 120, a->width / 2.0f, 150.0f);
+	createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
+	createAButton(submit, submitText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "SIGN IN", sf::Vector2f(a->width - 200.0f, 1000.0f));
+	createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 475.0f));
+	createText(usernameStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, usernameStudentBox.getPosition().y);
+	createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 800.0f));
+	createText(passwordStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, passwordStudentBox.getPosition().y);
 }
 
-void SignInAsStudentScene::drawSignInAsStudent(sf::RenderWindow& win)
+void SignInAsStudentScene::drawSignInAsStudent(sf::RenderWindow& win, Static *a)
 {
 	win.draw(signInStudentPage);
 	win.draw(studentSignInPageText);
@@ -46,12 +46,12 @@ void SignInAsStudentScene::drawSignInAsStudent(sf::RenderWindow& win)
 	}
 	if (isWrong == true)
 	{
-		createText(incorrect, a.fontB, sf::Color::Red, "Username or password is incorrect", 50, a.width / 2.0f, 1000.0f);
+		createText(incorrect, a->fontB, sf::Color::Red, "Username or password is incorrect", 50, a->width / 2.0f, 1000.0f);
 		win.draw(incorrect);
 	}
 }
 
-void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, programState& currentState, sf::RenderWindow& win)
+void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, Static *a, sf::RenderWindow& win)
 {
 	// Handle mouse events
 	if (event.type == sf::Event::MouseButtonPressed)
@@ -64,7 +64,7 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, programState& 
 				passwordStudentInput = "";
 				usernameInputEnable = false;
 				passwordInputEnable = false;
-				currentState = programState::SignIn;
+				a->currentState = programState::SignIn;
 			}
 			else if (usernameStudentBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
@@ -83,7 +83,9 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, programState& 
 					isWrong = true;
 				}
 				else {
-					currentState = programState::MenuStudent;
+					a->username = usernameStudentInput;
+					a->password = passwordStudentInput;
+					a->currentState = programState::MenuStudent;
 				}
 			}
 		}
@@ -104,7 +106,9 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, programState& 
 				isWrong = true;
 			}
 			else {
-				currentState = programState::MenuStudent;
+				a->username = usernameStudentInput;
+				a->password = passwordStudentInput;
+				a->currentState = programState::MenuStudent;
 			}
 		}
 		if (usernameInputEnable || passwordInputEnable)

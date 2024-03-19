@@ -4,7 +4,6 @@
 
 struct MenuStaffScene
 {
-	Static a;
 	sf::Text menu;
 
 	sf::RectangleShape MenuStaffPage;
@@ -18,11 +17,14 @@ struct MenuStaffScene
 	sf::RectangleShape preButtonStaff;
 	sf::Text preText;
 
+	sf::RectangleShape changePassButton;
+	sf::Text changePassText;
+
 	//Constructor
-	MenuStaffScene();
+	MenuStaffScene(Static *a);
 
 	//Functions
 	void drawMenuStaff(sf::RenderWindow& win);
-	void renderMenuStaff(sf::Event event, programState& currentState, sf::RenderWindow& win);
+	void renderMenuStaff(sf::Event event, Static *a, sf::RenderWindow& win);
 	void changePassword();
 };

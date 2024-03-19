@@ -1,9 +1,9 @@
-#include "ChangePassStaff.h"
+#include "ChangePassStudent.h"
 #include "../UserInterface.h"
 #include <string>
 #include <fstream>
 
-ChangePassStaffScene::ChangePassStaffScene(Static* a)
+ChangePassStudentScene::ChangePassStudentScene(Static* a)
 {
 	createABox(changePassPage, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(changePassText, a->fontB, a->textColorBlue, "CHANGE PASSWORD", 120, a->width / 2.0f, 150.0f);
@@ -15,7 +15,7 @@ ChangePassStaffScene::ChangePassStaffScene(Static* a)
 	createAButton(submit, submitText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "CONFIRM", sf::Vector2f(a->width - 200.0f, 1000.0f));
 }
 
-void ChangePassStaffScene::drawChangePass(sf::RenderWindow& win, Static *a)
+void ChangePassStudentScene::drawChangePass(sf::RenderWindow& win, Static* a)
 {
 	win.draw(changePassPage);
 	win.draw(changePassText);
@@ -52,9 +52,9 @@ void ChangePassStaffScene::drawChangePass(sf::RenderWindow& win, Static *a)
 	}
 }
 
-void ChangePassStaffScene::renderChangePass(sf::Event event, Static *a, sf::RenderWindow& win)
+void ChangePassStudentScene::renderChangePass(sf::Event event, Static* a, sf::RenderWindow& win)
 {
-	
+
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
 		if (event.mouseButton.button == sf::Mouse::Left)
@@ -65,7 +65,7 @@ void ChangePassStaffScene::renderChangePass(sf::Event event, Static *a, sf::Rend
 				newPassInputEnable = false;
 				oldPassInput = "";
 				newPassInput = "";
-				a->currentState = programState::MenuStaff;
+				a->currentState = programState::MenuStudent;
 
 			}
 			else if (oldPassBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
@@ -83,14 +83,14 @@ void ChangePassStaffScene::renderChangePass(sf::Event event, Static *a, sf::Rend
 				if (checkOldPass(a->password) == true)
 				{
 					std::ofstream fOut;
-					std::string filename = "../AcademicAcc/" + a->username + ".txt";
+					std::string filename = "../StudentAcc/" + a->username + ".txt";
 					fOut.open(filename);
 					if (fOut.is_open() == true)
 					{
 						a->password = newPassInput;
 						fOut << a->password;
 						fOut.close();
-						a->currentState = programState::MenuStaff;
+						a->currentState = programState::MenuStudent;
 					}
 				}
 				else {
@@ -109,7 +109,7 @@ void ChangePassStaffScene::renderChangePass(sf::Event event, Static *a, sf::Rend
 		}
 		else if (newPassInputEnable == true && event.text.unicode == 13)
 		{
-			
+
 		}
 		if (oldPassInputEnable || newPassInputEnable)
 		{
@@ -141,7 +141,7 @@ void ChangePassStaffScene::renderChangePass(sf::Event event, Static *a, sf::Rend
 	}
 }
 
-bool ChangePassStaffScene::checkOldPass(std::string oldPass)
+bool ChangePassStudentScene::checkOldPass(std::string oldPass)
 {
 	if (oldPass == oldPassInput)
 		return true;

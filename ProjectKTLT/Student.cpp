@@ -43,18 +43,20 @@ void student::loadStudentProfile()
 }
 void student::viewStudentProfile()
 {
-    if(studentID.empty())
+    if (studentID.empty())
     {
-        std::cout <<"Your profile is not exsit";
+        std::cout << "Your profile is not exsit";
         return;
     }
-    std::cout << "Student Profile: \n";
-    std::cout << "No: " << No << std::endl;
-    std::cout << "ID: " << studentID << std::endl;
-    std::cout << "Name :" << lastName << " " << firstName << std::endl;
-    std::cout << "Gender: " << gender << std::endl;
-    std::cout << "Social ID : " << socialID << std::endl;
-    std::cout << "Date of birth : " << dateOfBirth.d << "/" << dateOfBirth.m <<"/" << dateOfBirth.y << std::endl; 
-}
+    std::string studentProfile;
+    studentProfile += "Student Profile: \n";
+    studentProfile += "No: " + std::to_string(No) + "\n";
+    studentProfile += "ID: " + studentID +"\n";
+    studentProfile += "Name :" + lastName + " " + firstName + "\n";
+    studentProfile += "Gender: " + gender + "\n";
+    studentProfile += "Social ID : " + socialID + "\n";
+    studentProfile += "Date of birth : " + std::to_string(dateOfBirth.d) + "/" + std::to_string(dateOfBirth.m) + "/" + std::to_string(dateOfBirth.y) + "\n";
 
+    std::cout << studentProfile;
+}
 

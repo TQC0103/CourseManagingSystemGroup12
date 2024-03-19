@@ -4,7 +4,6 @@
 
 struct SignInScene
 {
-	Static a;
 	// Scene elements
 	sf::RectangleShape signInPage;
 	sf::RectangleShape goBackToWelcome;
@@ -16,9 +15,9 @@ struct SignInScene
 	sf::Text signInAsStaffText;
 
 	// Constructor
-	SignInScene();
+	SignInScene(Static *a);
 
 	// Member functions
 	void drawSignIn(sf::RenderWindow& win);
-	void renderSignIn(sf::Event event, programState& currentState, sf::RenderWindow& win);
+	void renderSignIn(sf::Event event, Static *a, sf::RenderWindow& win);
 };

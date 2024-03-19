@@ -59,7 +59,7 @@ void schoolYear::findCurrentSchoolYear(std::string data)
 bool schoolYear::checkInputYear(std::string &data) {
 	// Norming the input data
 	int pos = 0;
-	int n = data.length();
+	int n = (int)data.length();
 	for (int i = 0; i < n; i++)
 	{
 		if (data[i] != ' ')
@@ -98,7 +98,7 @@ bool schoolYear::checkInputDate(std::string &data)
 {
 	// Norming the input data
 	int pos = 0;
-	int n = data.length();
+	int n = (int)data.length();
 	std::string testDay = "";
 	std::string monthDay = "";
 	for (int i = 0; i < n; i++)
@@ -233,7 +233,7 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 		return false;
 	}
 	std::string checknumber;
-	int n = data.length();
+	int n = (int)data.length();
 	checknumber = data.substr(n - 1);
 	if (std::stoi(checknumber) > 3) {
 		return false;
