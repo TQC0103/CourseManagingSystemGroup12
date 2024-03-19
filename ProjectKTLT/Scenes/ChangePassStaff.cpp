@@ -12,6 +12,8 @@ ChangePassStaffScene::ChangePassStaffScene(Static* a)
 	createText(oldPassText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, oldPassBox.getPosition().y);
 	createABox(newPassBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 800.0f));
 	createText(newPassText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, newPassBox.getPosition().y);
+	createText(enterOldPass, a->fontI, sf::Color::White, "ENTER CURRENT PASSWORD", 40, a->width / 2.0f, 475.0f);
+	createText(enterNewPass, a->fontI, sf::Color::White, "ENTER NEW PASSWORD", 40, a->width / 2.0f, 800.0f);
 	createAButton(submit, submitText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "CONFIRM", sf::Vector2f(a->width - 200.0f, 1000.0f));
 }
 
@@ -47,8 +49,16 @@ void ChangePassStaffScene::drawChangePass(sf::RenderWindow& win, Static *a)
 	if (incorrect == true)
 	{
 		sf::Text incorrectText;
-		createText(incorrectText, a->fontB, sf::Color::Red, "Password is incorrect, please enter the correct password", 50, a->width / 2.0f, 1000.0f);
+		createText(incorrectText, a->fontB, sf::Color::Red, "         Password is incorrect\n please enter the correct password", 50, a->width / 2.0f, 1000.0f);
 		win.draw(incorrectText);
+	}
+	if (oldPassInputEnable == false && oldPassInput == "")
+	{
+		win.draw(enterOldPass);
+	}
+	if (newPassInputEnable == false && newPassInput == "")
+	{
+		win.draw(enterNewPass);
 	}
 }
 
@@ -91,11 +101,19 @@ void ChangePassStaffScene::renderChangePass(sf::Event event, Static *a, sf::Rend
 						fOut << a->password;
 						fOut.close();
 						a->currentState = programState::MenuStaff;
+						newPassInput = "";
+						oldPassInput = "";
+						oldPassInputEnable = false;
+						newPassInputEnable = false;
 					}
 				}
 				else {
 					incorrect = true;
 				}
+			}
+			else {
+				oldPassInputEnable = false;
+				newPassInputEnable = false;
 			}
 		}
 	}
@@ -107,9 +125,28 @@ void ChangePassStaffScene::renderChangePass(sf::Event event, Static *a, sf::Rend
 			oldPassInputEnable = false;
 			newPassInputEnable = true;
 		}
-		else if (newPassInputEnable == true && event.text.unicode == 13)
+		else if ((newPassInputEnable == true && event.text.unicode == 13) || (newPassInputEnable == false && oldPassInputEnable == false))
 		{
-			
+			if (checkOldPass(a->password) == true)
+			{
+				std::ofstream fOut;
+				std::string filename = "../AcademicAcc/" + a->username + ".txt";
+				fOut.open(filename);
+				if (fOut.is_open() == true)
+				{
+					a->password = newPassInput;
+					fOut << a->password;
+					fOut.close();
+					a->currentState = programState::MenuStaff;
+					newPassInput = "";
+					oldPassInput = "";
+					oldPassInputEnable = false;
+					newPassInputEnable = false;
+				}
+			}
+			else {
+				incorrect = true;
+			}
 		}
 		if (oldPassInputEnable || newPassInputEnable)
 		{

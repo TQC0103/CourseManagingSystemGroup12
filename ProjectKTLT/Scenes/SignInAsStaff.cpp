@@ -13,6 +13,8 @@ SignInAsStaffScene::SignInAsStaffScene(Static *a)
 	createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 475.0f));
 	createText(usernameStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, usernameStudentBox.getPosition().y);
 	createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 800.0f));
+	createText(enterPasswordHere, a->fontI, sf::Color::White, "ENTER PASSWORD HERE", 40, a->width / 2.0f, 800.0f);
+	createText(enterUsernameHere, a->fontI, sf::Color::White, "ENTER USERNAME HERE", 40, a->width / 2.0f, 475.0f);
 	createText(passwordStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, passwordStudentBox.getPosition().y);
 }
 
@@ -48,6 +50,14 @@ void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win, Static *a)
 	{
 		createText(incorrect, a->fontB, sf::Color::Red, "Username or password is incorrect", 50, a->width / 2.0f, 1000.0f);
 		win.draw(incorrect);
+	}
+	if (usernameInputEnable == false && usernameStaffInput == "")
+	{
+		win.draw(enterUsernameHere);
+	}
+	if (passwordInputEnable == false && passwordStaffInput == "")
+	{
+		win.draw(enterPasswordHere);
 	}
 }
 
@@ -88,6 +98,10 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 					a->currentState = programState::MenuStaff;
 				}
 			}
+			else {
+				usernameInputEnable = false;
+				passwordInputEnable = false;
+			}
 		}
 	}
 
@@ -99,7 +113,7 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 			usernameInputEnable = false;
 			passwordInputEnable = true;
 		}
-		else if (passwordInputEnable == true && event.text.unicode == 13)
+		else if ((passwordInputEnable == true && event.text.unicode == 13) || (passwordInputEnable == false && usernameInputEnable == false))
 		{
 			if (checkAccount() == false)
 			{

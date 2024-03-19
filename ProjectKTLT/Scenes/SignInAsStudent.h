@@ -23,6 +23,9 @@ struct SignInAsStudentScene
 	sf::Text submitText;
 
 	sf::Text incorrect;
+
+	sf::Text enterUsernameHere;
+	sf::Text enterPasswordHere;
 	bool isWrong = false;
 	bool usernameInputEnable = false;
 	int maxUsernameLength = 15;
