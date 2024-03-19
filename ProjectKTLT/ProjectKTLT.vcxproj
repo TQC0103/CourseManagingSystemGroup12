@@ -147,6 +147,7 @@
     <ClCompile Include="Scenes\Welcome.cpp" />
     <ClCompile Include="SchoolYear.cpp" />
     <ClCompile Include="Semester.cpp" />
+    <ClCompile Include="Student.cpp" />
     <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -164,9 +165,7 @@
     <ClInclude Include="Scenes\Welcome.h" />
     <ClInclude Include="SchoolYear.h" />
     <ClInclude Include="Semester.h" />
-    <ClInclude Include="GlobalVariables.h" />
     <ClInclude Include="Student.h" />
-    <ClInclude Include="StudentAcc.h" />
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
