@@ -1,9 +1,10 @@
 #pragma once
+#pragma once
 #include "../UserInterface.h"
 #include "../config.h"
 #include "SFML/Graphics.hpp"
 
-struct ChangePassStaffScene
+struct ChangePassStudentScene
 {
 	sf::Text changePassText;
 	sf::RectangleShape changePassPage;
@@ -27,8 +28,8 @@ struct ChangePassStaffScene
 	bool incorrect = false;
 	int maxPassLength = 15;
 
-	ChangePassStaffScene(Static *a);
-	void drawChangePass(sf::RenderWindow& win, Static *a);
-	void renderChangePass(sf::Event event, Static *a, sf::RenderWindow& win);
+	ChangePassStudentScene(Static* a);
+	void drawChangePass(sf::RenderWindow& win, Static* a);
+	void renderChangePass(sf::Event event, Static* a, sf::RenderWindow& win);
 	bool checkOldPass(std::string oldPass);
 };
