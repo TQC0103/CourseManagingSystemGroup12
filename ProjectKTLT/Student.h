@@ -28,6 +28,6 @@ struct student
     
     //functions 
     void loadStudentProfile();
-    void viewStudentProfile();
+    std::string viewStudentProfile();
     void readStudentScore();
 };
