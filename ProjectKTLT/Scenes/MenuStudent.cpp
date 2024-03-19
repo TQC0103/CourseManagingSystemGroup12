@@ -1,15 +1,15 @@
 #include "MenuStudent.h"
 #include "../UserInterface.h"
 
-MenuStudentScene::MenuStudentScene()
+MenuStudentScene::MenuStudentScene(Static* a)
 {
-	createAButton(preButton, preText, sf::Vector2f(400.0f, 150.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-	createABox(menuStudentPage, sf::Vector2f((float)a.width, (float)a.height), a.backGroundWhite, sf::Vector2f((float)a.width / 2.0f, a.height / 2.0f));
-	createText(menu, a.fontB, a.textColorBlue, "MENU", 120, (float)a.width / 2.0f, 150.0f);
-	createAButton(viewScoreBoard, viewScoreBoardText, sf::Vector2f(500.0f, 200.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "     View\nscoreboard", sf::Vector2f((float)(a.width / 2.0f - 350.0f), (float)(a.height / 2.0f - 150.0f)));
-	createAButton(viewListsOfCourses, viewListsOfCoursesText, sf::Vector2f(500.0f, 200.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "View lists\nof courses", sf::Vector2f((float)(a.width / 2.0f + 350.0f), (float)(a.height / 2.0f - 150.0f)));
-	createAButton(viewStudentInfo, viewStudentInfoText, sf::Vector2f(500.0f, 200.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "View students\n   information", sf::Vector2f((float)(a.width / 2.0f - 350.0f), (float)(a.height / 2.0f + 150.0f)));
-	createAButton(changePass, changePassText, sf::Vector2f(500.0f, 200.0f), 60.0f, a.highlightCyan, a.fontB, sf::Color::White, "  Change\npassword", sf::Vector2f((float)(a.width / 2.0f + 350.0f), (float)(a.height / 2.0f + 150.0f)));
+	createAButton(preButton, preText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
+	createABox(menuStudentPage, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
+	createText(menu, a->fontB, a->textColorBlue, "MENU", 120, (float)a->width / 2.0f, 150.0f);
+	createAButton(viewScoreBoard, viewScoreBoardText, sf::Vector2f(500.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "     View\nscoreboard", sf::Vector2f((float)(a->width / 2.0f - 350.0f), (float)(a->height / 2.0f - 150.0f)));
+	createAButton(viewListsOfCourses, viewListsOfCoursesText, sf::Vector2f(500.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View lists\nof courses", sf::Vector2f((float)(a->width / 2.0f + 350.0f), (float)(a->height / 2.0f - 150.0f)));
+	createAButton(viewStudentInfo, viewStudentInfoText, sf::Vector2f(1200.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View students information", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f + 150.0f)));
+	createAButton(changePass, changePassText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "  CHANGE\nPASSWORD", sf::Vector2f(a->width - 200.0f, a->height - 1000.0f));
 }
 
 void MenuStudentScene::drawMenuStudent(sf::RenderWindow& win)
@@ -28,7 +28,7 @@ void MenuStudentScene::drawMenuStudent(sf::RenderWindow& win)
 	win.draw(viewStudentInfoText);
 }
 
-void MenuStudentScene::renderMenuStudent(sf::Event event, programState &currentState, sf::RenderWindow& win)
+void MenuStudentScene::renderMenuStudent(sf::Event event, Static *a, sf::RenderWindow& win)
 {
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
@@ -36,7 +36,11 @@ void MenuStudentScene::renderMenuStudent(sf::Event event, programState &currentS
 		{
 			if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				currentState = programState::SignInAsStudent;
+				a->currentState = programState::SignInAsStudent;
+			}
+			if (changePass.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				a->currentState = programState::ChangePassStu;
 			}
 		}
 	}

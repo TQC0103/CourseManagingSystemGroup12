@@ -7,13 +7,12 @@
 
 
 
-#define para event, a.currentState, window
+#define para event, scene->a, window
 
 // Functions
 int main() {
-    Static a;
-    Scene scene;
-    sf::RenderWindow window(sf::VideoMode((unsigned int)a.width, (unsigned int)a.height), "CourseManagingSystem");
+    Scene *scene = new Scene;
+    sf::RenderWindow window(sf::VideoMode((unsigned int)scene->a->width, (unsigned int)scene->a->height), "CourseManagingSystem");
 
     // A.currentState
     window.setFramerateLimit(60);
@@ -23,36 +22,46 @@ int main() {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
-            switch (a.currentState)
+            switch (scene->a->currentState)
             {
             case programState::Welcome:
             {
-                scene.welcome.renderWelcome(para);
+                scene->welcome->renderWelcome(para);
                 break;
             }
             case programState::SignIn:
             {
-                scene.signin.renderSignIn(para);
+                scene->signin->renderSignIn(para);
                 break;
             }
             case programState::SignInAsStudent:
             {
-                scene.signinasstudent.renderSignInAsStudent(para);
+                scene->signinasstudent->renderSignInAsStudent(para);
                 break;
             }
             case programState::SignInAsStaff:
             {
-                scene.signinasstaff.renderSignInAsStaff(para);
+                scene->signinasstaff->renderSignInAsStaff(para);
                 break;
             }
             case programState::MenuStudent:
             {
-                scene.menustudent.renderMenuStudent(para);
+                scene->menustudent->renderMenuStudent(para);
                 break;
             }
             case programState::MenuStaff:
             {
-                scene.menustaff.renderMenuStaff(para);
+                scene->menustaff->renderMenuStaff(para);
+                break;
+            }
+            case programState::ChangePassSta:
+            {
+                scene->changepasssta->renderChangePass(para);
+                break;
+            }
+            case programState::ChangePassStu:
+            {
+                scene->changepassstu->renderChangePass(para);
                 break;
             }
             default:
@@ -63,36 +72,46 @@ int main() {
             window.clear();
 
             // Draw the appropriate page based on the status
-            switch (a.currentState)
+            switch (scene->a->currentState)
             {
             case programState::Welcome:
             {
-                scene.welcome.drawWelcome(window);
+                scene->welcome->drawWelcome(window);
                 break;
             }
             case programState::SignIn:
             {
-                scene.signin.drawSignIn(window);
+                scene->signin->drawSignIn(window);
                 break;
             }
             case programState::SignInAsStudent:
             {
-                scene.signinasstudent.drawSignInAsStudent(window);
+                scene->signinasstudent->drawSignInAsStudent(window, scene->a);
                 break;
             }
             case programState::SignInAsStaff:
             {
-                scene.signinasstaff.drawSignInAsStaff(window);
+                scene->signinasstaff->drawSignInAsStaff(window, scene->a);
                 break;
             }
             case programState::MenuStudent:
             {
-                scene.menustudent.drawMenuStudent(window);
+                scene->menustudent->drawMenuStudent(window);
                 break;
             }
             case programState::MenuStaff:
             {
-                scene.menustaff.drawMenuStaff(window);
+                scene->menustaff->drawMenuStaff(window);
+                break;
+            }
+            case programState::ChangePassSta:
+            {
+                scene->changepasssta->drawChangePass(window, scene->a);
+                break;
+            }
+            case programState::ChangePassStu:
+            {
+                scene->changepassstu->drawChangePass(window, scene->a);
                 break;
             }
             default:

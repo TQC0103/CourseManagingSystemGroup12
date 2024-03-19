@@ -5,7 +5,7 @@
 
 struct WelcomeScene {
     // Scene elements
-    Static a;
+    
     sf::Text welcomeText;
     sf::Text course;
     sf::RectangleShape welcomeRect;
@@ -15,11 +15,11 @@ struct WelcomeScene {
     sf::Text exitText;
 
     // Constructor
-    WelcomeScene();
+    WelcomeScene(Static *a);
 
     // Member functions
     void drawWelcome(sf::RenderWindow& win);
-    void renderWelcome(sf::Event event, programState& currentState, sf::RenderWindow& win);
+    void renderWelcome(sf::Event event, Static *a, sf::RenderWindow& win);
 };
 
 

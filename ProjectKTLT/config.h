@@ -2,10 +2,12 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent};
+enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta};
 struct Static
 {
     programState currentState = programState::Welcome;
+    std::string username = "";
+    std::string password = "";
     float width = 2000;
     float height = 1200;
     sf::Font fontB;
@@ -41,7 +43,7 @@ struct Static
         }
         catch (const std::exception& e) {
             // Log or display the error message
-            std::cerr << "Font loading error: " << e.what() << std::endl;
+            std::cout << "Font loading error: " << e.what() << std::endl;
             // Optionally, you can terminate the program or handle the error in another way
         }
     }

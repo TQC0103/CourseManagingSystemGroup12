@@ -5,7 +5,6 @@
 
 struct MenuStudentScene
 {
-	Static a;
 	sf::RectangleShape menuStudentPage;
 
 	sf::Text menu;
@@ -26,10 +25,10 @@ struct MenuStudentScene
 	sf::Text changePassText;
 	
 
-	MenuStudentScene();
+	MenuStudentScene(Static *a);
 
 	//Functions
 	void drawMenuStudent(sf::RenderWindow& win);
-	void renderMenuStudent(sf::Event event, programState &currentState, sf::RenderWindow &win);
+	void renderMenuStudent(sf::Event event, Static *a, sf::RenderWindow &win);
 
 };
