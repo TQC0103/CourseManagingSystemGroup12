@@ -6,6 +6,7 @@
 #include "Scenes/Scene.h"
 
 
+
 #define para event, a.currentState, window
 
 // Functions

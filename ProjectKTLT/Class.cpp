@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //#include<iostream>
 //#include "Student.h"
 //#include"Class.h"
@@ -243,7 +242,6 @@
 //	}
 //	fOut.close();
 //}
-=======
 #include<iostream>
 #include "Student.h"
 #include "Class.h"
@@ -488,4 +486,4 @@ void Class::print_class_txt(Class* pHead) {
 	}
 	fOut.close();
 }
->>>>>>> 0904f518ba93f13dcfc54318cf801995c68799a2
+
