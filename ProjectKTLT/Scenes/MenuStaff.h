@@ -24,4 +24,5 @@ struct MenuStaffScene
 	//Functions
 	void drawMenuStaff(sf::RenderWindow& win);
 	void renderMenuStaff(sf::Event event, programState& currentState, sf::RenderWindow& win);
+	void changePassword();
 };

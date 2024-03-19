@@ -54,7 +54,11 @@
     <ClCompile Include="Scenes\MenuStudent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Student.cpp">
+=======
+    <ClCompile Include="Scenes\ChangePassStaff.cpp">
+>>>>>>> fcf5f6ceeee4c61b9dfe46aa7f763eac5083a3f6
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -99,6 +103,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\MenuStaff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\ChangePassStaff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
