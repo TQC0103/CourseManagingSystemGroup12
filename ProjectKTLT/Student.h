@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include "Date.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 struct student
 {
@@ -15,12 +18,16 @@ struct student
         double otherMark;
         scoreBoard* pNext;
     };
-    student* pStudent;
     student* pNext = nullptr;
+
+  
     //constructor
     student() {}
-    student(int no, std::string id, std::string firstname, std::string lastname, std::string gender, date dob, std::string socialId) :
-        No(no), studentID(id), firstName(firstname), lastName(lastname), gender(gender),
-        dateOfBirth(dob), socialID(socialId) {}
-
+    student(int no, std::string id, std::string firstname, std::string lastname, std::string gender, std::string socialId,  date dob) :
+        No(no), studentID(id), firstName(firstname), lastName(lastname), gender(gender), socialID(socialId), dateOfBirth(dob){}
+    
+    //functions 
+    void loadStudentProfile();
+    void viewStudentProfile();
+    void readStudentScore();
 };

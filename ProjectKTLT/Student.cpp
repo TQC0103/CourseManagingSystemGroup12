@@ -1,13 +1,14 @@
 #include "Student.h"
-
-
-
-void student::loadStudentProfile(std::string filename)
+extern std::string usernameStudentInput;
+void student::loadStudentProfile()
 {
-    std::ifstream file("../Database/Profile/StudentProfile" + filename +".csv");
-    if(!file)
+    std::cout <<"Input your username : ";
+    std::string username;
+    std::getline(std::cin, username);
+    std::ifstream file("../Database/Profile/StudentProfile/" + username +".csv");
+    if(!file.is_open())
     {
-        std::cout <<"Unable to open file!";
+        std::cout <<"Unable to open file! \n";
         return;
     }
 
@@ -22,7 +23,6 @@ void student::loadStudentProfile(std::string filename)
         std::getline(iss, firstName, ',');
         std::getline(iss, lastName, ',');
         std::getline(iss, gender, ',');
-        std::getline(iss, socialID, ',');
         std::getline(iss, dob, ',');
         std::string day, month, year;
         std::istringstream issdob(dob);
@@ -32,6 +32,7 @@ void student::loadStudentProfile(std::string filename)
         dateOfBirth.m = stoi(month);
         std::getline(issdob, year, '/');
         dateOfBirth.y = stoi(year);
+        std::getline(iss, socialID, ',');
 
     }
     else
@@ -42,25 +43,20 @@ void student::loadStudentProfile(std::string filename)
 }
 void student::viewStudentProfile()
 {
-    if(studentID.empty())
+    if (studentID.empty())
     {
-        std::cout <<"Your profile is not exsit";
+        std::cout << "Your profile is not exsit";
         return;
     }
+    std::string studentProfile;
+    studentProfile += "Student Profile: \n";
+    studentProfile += "No: " + std::to_string(No) + "\n";
+    studentProfile += "ID: " + studentID +"\n";
+    studentProfile += "Name :" + lastName + " " + firstName + "\n";
+    studentProfile += "Gender: " + gender + "\n";
+    studentProfile += "Social ID : " + socialID + "\n";
+    studentProfile += "Date of birth : " + std::to_string(dateOfBirth.d) + "/" + std::to_string(dateOfBirth.m) + "/" + std::to_string(dateOfBirth.y) + "\n";
 
-    std::cout << "Student Profile: \n";
-    std::cout << "ID: " << studentID << std::endl;
-    std::cout << "Name :" << lastName << " " << firstName << std::endl;
-    std::cout << "Gender: " << gender << std::endl;
-    std::cout << "Social ID : " << socialID << std::endl;
-    std::cout << "Date of birth : " << dateOfBirth.d << "/" << dateOfBirth.m <<"/" << dateOfBirth.y << std::endl; 
+    std::cout << studentProfile;
 }
 
-int main ()
-{
-    student myStudent; // Tạo một đối tượng sinh viên
-    std::string username = "23127158";
-    myStudent.loadStudentProfile(username); // Gọi hàm để tải hồ sơ sinh viên
-    myStudent.viewStudentProfile(); // Gọi hàm để hiển thị hồ sơ sinh viên
-    return 0;
-}
