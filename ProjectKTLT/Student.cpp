@@ -1,11 +1,11 @@
 #include "Student.h"
-
+extern std::string usernameStudentInput;
 void student::loadStudentProfile()
 {
-    std::string filename;
-    std::cout << "Input your student ID: \n";
-    std::getline(std::cin, filename);
-    std::ifstream file("../Database/Profile/StudentProfile/" + filename +".csv");
+    std::cout <<"Input your username : ";
+    std::string username;
+    std::getline(std::cin, username);
+    std::ifstream file("../Database/Profile/StudentProfile/" + username +".csv");
     if(!file.is_open())
     {
         std::cout <<"Unable to open file! \n";
@@ -58,11 +58,3 @@ void student::viewStudentProfile()
 }
 
 
-
-int main ()
-{
-    student myStudent;
-    myStudent.loadStudentProfile();
-    myStudent.viewStudentProfile();
-    return 0;
-}
