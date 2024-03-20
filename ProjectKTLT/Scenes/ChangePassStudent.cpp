@@ -176,6 +176,24 @@ void ChangePassStudentScene::renderChangePass(sf::Event event, Static* a, sf::Re
 			}
 		}
 	}
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+	if (a->currentState == programState::ChangePassStu && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		preButton.setFillColor(a->pastelTitleCyan);
+		preText.setFillColor(a->titleGreyColor);
+	}
+	else if (a->currentState == programState::ChangePassStu && submit.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		submit.setFillColor(a->pastelTitleCyan);
+		submitText.setFillColor(a->titleGreyColor);
+	}
+	else {
+		preButton.setFillColor(a->highlightCyan);
+		preText.setFillColor(sf::Color::White);
+		submit.setFillColor(a->highlightCyan);
+		submitText.setFillColor(sf::Color::White);
+	}
 }
 
 bool ChangePassStudentScene::checkOldPass(std::string oldPass)

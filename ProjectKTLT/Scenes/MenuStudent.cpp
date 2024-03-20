@@ -6,9 +6,9 @@ MenuStudentScene::MenuStudentScene(Static* a)
 	createAButton(preButton, preText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
 	createABox(menuStudentPage, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(menu, a->fontB, a->textColorBlue, "MENU", 120, (float)a->width / 2.0f, 150.0f);
-	createAButton(viewScoreBoard, viewScoreBoardText, sf::Vector2f(500.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "     View\nscoreboard", sf::Vector2f((float)(a->width / 2.0f - 350.0f), (float)(a->height / 2.0f - 150.0f)));
-	createAButton(viewListsOfCourses, viewListsOfCoursesText, sf::Vector2f(500.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View lists\nof courses", sf::Vector2f((float)(a->width / 2.0f + 350.0f), (float)(a->height / 2.0f - 150.0f)));
-	createAButton(viewStudentInfo, viewStudentInfoText, sf::Vector2f(1200.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View students information", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f + 150.0f)));
+	createAButton(viewScoreBoard, viewScoreBoardText, sf::Vector2f(600.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "         VIEW\nSCOREBOARD", sf::Vector2f((float)(a->width / 2.0f - 400.0f), (float)(a->height / 2.0f - 150.0f)));
+	createAButton(viewListsOfCourses, viewListsOfCoursesText, sf::Vector2f(600.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "    VIEW\nCOURSES", sf::Vector2f((float)(a->width / 2.0f + 400.0f), (float)(a->height / 2.0f - 150.0f)));
+	createAButton(viewStudentInfo, viewStudentInfoText, sf::Vector2f(1400.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "VIEW STUDENTS INFORMATION", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f + 150.0f)));
 	createAButton(changePass, changePassText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "  CHANGE\nPASSWORD", sf::Vector2f(a->width - 200.0f, a->height - 1000.0f));
 }
 
@@ -65,6 +65,16 @@ void MenuStudentScene::renderMenuStudent(sf::Event event, Static *a, sf::RenderW
 		viewStudentInfo.setFillColor(a->pastelTitleCyan);
 		viewStudentInfoText.setFillColor(a->titleGreyColor);
 	}
+	else if (a->currentState == programState::MenuStudent && viewListsOfCourses.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		viewListsOfCourses.setFillColor(a->pastelTitleCyan);
+		viewListsOfCoursesText.setFillColor(a->titleGreyColor);
+	}
+	else if (a->currentState == programState::MenuStudent && viewScoreBoard.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		viewScoreBoard.setFillColor(a->pastelTitleCyan);
+		viewScoreBoardText.setFillColor(a->titleGreyColor);
+	}
 	else {
 		preButton.setFillColor(a->highlightCyan);
 		preText.setFillColor(sf::Color::White);
@@ -72,5 +82,9 @@ void MenuStudentScene::renderMenuStudent(sf::Event event, Static *a, sf::RenderW
 		changePassText.setFillColor(sf::Color::White);
 		viewStudentInfo.setFillColor(a->highlightCyan);
 		viewStudentInfoText.setFillColor(sf::Color::White);
+		viewListsOfCourses.setFillColor(a->highlightCyan);
+		viewListsOfCoursesText.setFillColor(sf::Color::White);
+		viewScoreBoard.setFillColor(a->highlightCyan);
+		viewScoreBoardText.setFillColor(sf::Color::White);
 	}
 }
