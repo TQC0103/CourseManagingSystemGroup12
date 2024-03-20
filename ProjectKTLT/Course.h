@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Student.h"
+#include "Class.h"
 #include <string>
 #include <fstream>
 
@@ -19,15 +20,15 @@ struct Course
 	};
 
 	// Student basic infomation
-	std::string studentID, name, className, lecturer, weekDay;
+	std::string studentID, Name, className, Lecturer, weekDay;
 
 	// Credit, session
-	int credit, maxStudent, session;
+	int Credit, maxStudent, Session;
 
 	//construstor
-	Course(std::string studentID, std::string name, std::string className, std::string lecturer, int credit, int maxStudent, std::string weekDay, int session);
+	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, int session);
 
-	//ponter to score total
+	//ponter to student score 
 	studentScore* pHeadScore = nullptr;
 
 	//pointer to student in course
@@ -47,11 +48,20 @@ struct Course
 	void deleteStudentCourseList();
 	void deleteCourseList();
 
+	// Scoreboard functions
+	void ExportClass();
+	void ImportScoreboard();
+	void updateStudentResult();
+	void ViewScoreboard();
+	void saveIndividualScore(Course* curCourse);
+	void LoadScoreList();
+
+
 	// Supportive function
 	void showingStudentList();
-	void showStudent(student*& pHead, short range, short& Pcur);
+	void showStudent(student*& pHead, int range, int& Pcur);
 	int getAllStudent();
-	void showPStudent(student*& pHead, short range, short& Pcur);
+	void showPStudent(student*& pHead, int range, int& Pcur);
 
 };
 
