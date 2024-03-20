@@ -1,5 +1,7 @@
 #include "Student.h"
+#include "Class.h"
 extern std::string usernameStudentInput;
+std::string curClass;
 void student::loadStudentProfile(std::string username)
 {
     std::ifstream file("../Database/Profile/StudentProfile/" + username +".csv");
@@ -30,6 +32,7 @@ void student::loadStudentProfile(std::string username)
         std::getline(issdob, year, '/');
         dateOfBirth.y = stoi(year);
         std::getline(iss, socialID, ',');
+        std::getline(iss, curClass, ',');
 
     }
     else
@@ -42,12 +45,7 @@ std::string student::viewStudentProfile()
 {
     if (studentID.empty())
     {
-<<<<<<< HEAD
         return "Your profile is not exsit";
-=======
-        std::cout << "Your profile is not exist";
-        return "";
->>>>>>> 58838692ad9f63dce9200b9f0ee24b8c89473a63
     }
     std::string studentProfile;
     studentProfile += "No: " + std::to_string(No) + "\n";
@@ -56,10 +54,7 @@ std::string student::viewStudentProfile()
     studentProfile += "Gender: " + gender + "\n";
     studentProfile += "Social ID : " + socialID + "\n";
     studentProfile += "Date of birth : " + std::to_string(dateOfBirth.d) + "/" + std::to_string(dateOfBirth.m) + "/" + std::to_string(dateOfBirth.y) + "\n";
-<<<<<<< HEAD
-=======
-
->>>>>>> 58838692ad9f63dce9200b9f0ee24b8c89473a63
+    studentProfile += "Class : " + curClass + "\n";
     return studentProfile;
 }
 
