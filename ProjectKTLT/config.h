@@ -13,6 +13,7 @@ struct Static
     sf::Font fontB;
     sf::Font fontN;
     sf::Font fontI;
+    sf::Color lightCyan = sf::Color(208, 227, 255);
     sf::Color backGroundWhite = sf::Color(255, 249, 240);
     sf::Color textColorBlue = sf::Color(8, 31, 92);
     sf::Color highlightCyan = sf::Color(93, 117, 153);

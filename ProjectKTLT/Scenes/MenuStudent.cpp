@@ -48,4 +48,29 @@ void MenuStudentScene::renderMenuStudent(sf::Event event, Static *a, sf::RenderW
 			}
 		}
 	}
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+	if (a->currentState == programState::MenuStudent && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		preButton.setFillColor(a->pastelTitleCyan);
+		preText.setFillColor(a->titleGreyColor);
+	}
+	else if (a->currentState == programState::MenuStudent && changePass.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		changePass.setFillColor(a->pastelTitleCyan);
+		changePassText.setFillColor(a->titleGreyColor);
+	}
+	else if (a->currentState == programState::MenuStudent && viewStudentInfo.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		viewStudentInfo.setFillColor(a->pastelTitleCyan);
+		viewStudentInfoText.setFillColor(a->titleGreyColor);
+	}
+	else {
+		preButton.setFillColor(a->highlightCyan);
+		preText.setFillColor(sf::Color::White);
+		changePass.setFillColor(a->highlightCyan);
+		changePassText.setFillColor(sf::Color::White);
+		viewStudentInfo.setFillColor(a->highlightCyan);
+		viewStudentInfoText.setFillColor(sf::Color::White);
+	}
 }

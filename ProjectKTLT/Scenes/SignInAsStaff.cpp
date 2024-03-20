@@ -153,6 +153,24 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 			}
 		}
 	}
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+	if (a->currentState == programState::SignInAsStaff && signInStudentPreviousButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		signInStudentPreviousButton.setFillColor(a->pastelTitleCyan);
+		signInStudentPreviousText.setFillColor(a->titleGreyColor);
+	}
+	else if (a->currentState == programState::SignInAsStaff && submit.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		submit.setFillColor(a->pastelTitleCyan);
+		submitText.setFillColor(a->titleGreyColor);
+	}
+	else {
+		signInStudentPreviousButton.setFillColor(a->highlightCyan);
+		signInStudentPreviousText.setFillColor(sf::Color::White);
+		submit.setFillColor(a->highlightCyan);
+		submitText.setFillColor(sf::Color::White);
+	}
 }
 bool SignInAsStaffScene::checkAccount()
 {

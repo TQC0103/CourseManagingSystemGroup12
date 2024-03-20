@@ -153,6 +153,24 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, Static *a, sf:
 			}
 		}
 	}
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+	if (a->currentState == programState::SignInAsStudent && signInStudentPreviousButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		signInStudentPreviousButton.setFillColor(a->pastelTitleCyan);
+		signInStudentPreviousText.setFillColor(a->titleGreyColor);
+	}
+	else if (a->currentState == programState::SignInAsStudent && submit.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		submit.setFillColor(a->pastelTitleCyan);
+		submitText.setFillColor(a->titleGreyColor);
+	}
+	else {
+		signInStudentPreviousButton.setFillColor(a->highlightCyan);
+		signInStudentPreviousText.setFillColor(sf::Color::White);
+		submit.setFillColor(a->highlightCyan);
+		submitText.setFillColor(sf::Color::White);
+	}
 }
 
 bool SignInAsStudentScene::checkAccount()
