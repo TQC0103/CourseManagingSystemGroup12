@@ -8,6 +8,7 @@
 #include "MenuStaff.h"
 #include "ChangePassStaff.h"
 #include "ChangePassStudent.h"
+#include "ViewStudentProfile.h"
 
 struct Scene
 {
@@ -20,4 +21,5 @@ struct Scene
 	MenuStaffScene *menustaff = new MenuStaffScene(a);
 	ChangePassStaffScene *changepasssta = new ChangePassStaffScene(a);
 	ChangePassStudentScene *changepassstu = new ChangePassStudentScene(a);
+	ViewStudentProfileScene* viewstudentprofile = new ViewStudentProfileScene(a);
 };

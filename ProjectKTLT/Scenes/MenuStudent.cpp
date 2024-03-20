@@ -42,6 +42,10 @@ void MenuStudentScene::renderMenuStudent(sf::Event event, Static *a, sf::RenderW
 			{
 				a->currentState = programState::ChangePassStu;
 			}
+			if (viewStudentInfo.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				a->currentState = programState::ViewStudentProfile;
+			}
 		}
 	}
 }

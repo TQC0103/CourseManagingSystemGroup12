@@ -27,7 +27,7 @@ struct student
         No(no), studentID(id), firstName(firstname), lastName(lastname), gender(gender), socialID(socialId), dateOfBirth(dob){}
     
     //functions 
-    void loadStudentProfile();
-    void viewStudentProfile();
+    void loadStudentProfile(std::string username);
+    std::string viewStudentProfile();
     void readStudentScore();
 };

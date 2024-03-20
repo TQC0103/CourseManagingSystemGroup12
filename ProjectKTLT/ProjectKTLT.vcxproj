@@ -145,6 +145,7 @@
     <ClCompile Include="Scenes\SignIn.cpp" />
     <ClCompile Include="Scenes\SignInAsStaff.cpp" />
     <ClCompile Include="Scenes\SignInAsStudent.cpp" />
+    <ClCompile Include="Scenes\ViewStudentProfile.cpp" />
     <ClCompile Include="Scenes\Welcome.cpp" />
     <ClCompile Include="SchoolYear.cpp" />
     <ClCompile Include="Semester.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Scenes\SignIn.h" />
     <ClInclude Include="Scenes\SignInAsStaff.h" />
     <ClInclude Include="Scenes\SignInAsStudent.h" />
+    <ClInclude Include="Scenes\ViewStudentProfile.h" />
     <ClInclude Include="Scenes\Welcome.h" />
     <ClInclude Include="SchoolYear.h" />
     <ClInclude Include="Semester.h" />
