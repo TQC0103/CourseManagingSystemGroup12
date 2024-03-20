@@ -55,4 +55,29 @@ void SignInScene::renderSignIn(sf::Event event, Static *a, sf::RenderWindow& win
             }
         }
     }
+
+    sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+    if (a->currentState == programState::SignIn  && goBackToWelcome.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+    {
+        goBackToWelcome.setFillColor(a->pastelTitleCyan);
+        prePageToWelcome.setFillColor(a->titleGreyColor);
+    }
+    else if (a->currentState == programState::SignIn && signInAsStaffButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+    {
+        signInAsStaffButton.setFillColor(a->pastelTitleCyan);
+        signInAsStaffText.setFillColor(a->titleGreyColor);
+    }
+    else if (a->currentState == programState::SignIn && signInAsStudentButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+    {
+        signInAsStudentButton.setFillColor(a->pastelTitleCyan);
+        signInAsStudentText.setFillColor(a->titleGreyColor);
+    }
+    else {
+        goBackToWelcome.setFillColor(a->highlightCyan);
+        prePageToWelcome.setFillColor(sf::Color::White);
+        signInAsStaffButton.setFillColor(a->highlightCyan);
+        signInAsStaffText.setFillColor(sf::Color::White);
+        signInAsStudentButton.setFillColor(a->highlightCyan);
+        signInAsStudentText.setFillColor(sf::Color::White);
+    }
 }

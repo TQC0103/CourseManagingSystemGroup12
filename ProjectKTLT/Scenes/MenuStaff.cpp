@@ -43,6 +43,25 @@ void MenuStaffScene::renderMenuStaff(sf::Event event, Static *a, sf::RenderWindo
 			}
 		}
 	}
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+	if (a->currentState == programState::MenuStaff && preButtonStaff.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		preButtonStaff.setFillColor(a->pastelTitleCyan);
+		preText.setFillColor(a->titleGreyColor);
+	}
+	else if (a->currentState == programState::MenuStaff && changePassButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		changePassButton.setFillColor(a->pastelTitleCyan);
+		changePassText.setFillColor(a->titleGreyColor);
+	}
+	else {
+		preButtonStaff.setFillColor(a->highlightCyan);
+		preText.setFillColor(sf::Color::White);
+		changePassButton.setFillColor(a->highlightCyan);
+		changePassText.setFillColor(sf::Color::White);
+		
+	}
 }
 
 void MenuStaffScene::changePassword()

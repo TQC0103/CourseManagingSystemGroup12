@@ -29,6 +29,9 @@ struct SignInAsStaffScene
 	int maxUsernameLength = 15;
 	bool passwordInputEnable = false;
 	int maxPassWordLength = 15;
+
+	sf::Text enterUsernameHere;
+	sf::Text enterPasswordHere;
 	// Constructors
 	SignInAsStaffScene(Static *a);
 
@@ -36,8 +39,4 @@ struct SignInAsStaffScene
 	void drawSignInAsStaff(sf::RenderWindow& win, Static *a);
 	void renderSignInAsStaff(sf::Event event, Static *a, sf::RenderWindow& win);
 	bool checkAccount();
-	std::string getUsername()
-	{
-		return usernameStaffInput;
-	}
 };

@@ -13,6 +13,8 @@ SignInAsStudentScene::SignInAsStudentScene(Static *a)
 	createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 475.0f));
 	createText(usernameStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, usernameStudentBox.getPosition().y);
 	createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 800.0f));
+	createText(enterPasswordHere, a->fontI, sf::Color::White, "ENTER PASSWORD HERE", 40, a->width / 2.0f, 800.0f);
+	createText(enterUsernameHere, a->fontI, sf::Color::White, "ENTER USERNAME HERE", 40, a->width / 2.0f, 475.0f);
 	createText(passwordStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, passwordStudentBox.getPosition().y);
 }
 
@@ -48,6 +50,14 @@ void SignInAsStudentScene::drawSignInAsStudent(sf::RenderWindow& win, Static *a)
 	{
 		createText(incorrect, a->fontB, sf::Color::Red, "Username or password is incorrect", 50, a->width / 2.0f, 1000.0f);
 		win.draw(incorrect);
+	}
+	if (usernameInputEnable == false && usernameStudentInput == "")
+	{
+		win.draw(enterUsernameHere);
+	}
+	if (passwordInputEnable == false && passwordStudentInput == "")
+	{
+		win.draw(enterPasswordHere);
 	}
 }
 
@@ -88,6 +98,10 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, Static *a, sf:
 					a->currentState = programState::MenuStudent;
 				}
 			}
+			else {
+				usernameInputEnable = false;
+				passwordInputEnable = false;
+			}
 		}
 	}
 
@@ -99,7 +113,7 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, Static *a, sf:
 			usernameInputEnable = false;
 			passwordInputEnable = true;
 		}
-		else if (passwordInputEnable == true && event.text.unicode == 13)
+		else if ((passwordInputEnable == true && event.text.unicode == 13) || (passwordInputEnable == false && usernameInputEnable == false))
 		{
 			if (checkAccount() == false)
 			{
@@ -138,6 +152,24 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, Static *a, sf:
 				}
 			}
 		}
+	}
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+	if (a->currentState == programState::SignInAsStudent && signInStudentPreviousButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		signInStudentPreviousButton.setFillColor(a->pastelTitleCyan);
+		signInStudentPreviousText.setFillColor(a->titleGreyColor);
+	}
+	else if (a->currentState == programState::SignInAsStudent && submit.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		submit.setFillColor(a->pastelTitleCyan);
+		submitText.setFillColor(a->titleGreyColor);
+	}
+	else {
+		signInStudentPreviousButton.setFillColor(a->highlightCyan);
+		signInStudentPreviousText.setFillColor(sf::Color::White);
+		submit.setFillColor(a->highlightCyan);
+		submitText.setFillColor(sf::Color::White);
 	}
 }
 

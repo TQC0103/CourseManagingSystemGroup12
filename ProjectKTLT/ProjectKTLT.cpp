@@ -64,6 +64,11 @@ int main() {
                 scene->changepassstu->renderChangePass(para);
                 break;
             }
+            case programState::ViewStudentProfile:
+            {
+                scene->viewstudentprofile->renderProfile(para);
+                break;
+            }
             default:
                 break;
             }
@@ -112,6 +117,11 @@ int main() {
             case programState::ChangePassStu:
             {
                 scene->changepassstu->drawChangePass(window, scene->a);
+                break;
+            }
+            case programState::ViewStudentProfile:
+            {
+                scene->viewstudentprofile->drawProfile(window, scene->a);
                 break;
             }
             default:

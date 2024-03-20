@@ -4,6 +4,7 @@
 #include <iostream>
 
 void WelcomeScene::renderWelcome(sf::Event event, Static *a, sf::RenderWindow& win) {
+
     if (event.type == sf::Event::Closed) {
         win.close();
     }
@@ -16,6 +17,23 @@ void WelcomeScene::renderWelcome(sf::Event event, Static *a, sf::RenderWindow& w
                 win.close();
             }
         }
+    }
+    sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+    if (a->currentState == programState::Welcome &&  signInRect.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+    {
+        signInRect.setFillColor(a->pastelTitleCyan);
+        signInText.setFillColor(a->titleGreyColor);
+    }
+    else if (a->currentState == programState::Welcome && exitRect.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+    {
+        exitRect.setFillColor(a->pastelTitleCyan);
+        exitText.setFillColor(a->titleGreyColor);
+    }
+    else {
+        signInRect.setFillColor(a->highlightCyan);
+        signInText.setFillColor(sf::Color::White);
+        exitRect.setFillColor(a->highlightCyan);
+        exitText.setFillColor(sf::Color::White);
     }
 }
 
