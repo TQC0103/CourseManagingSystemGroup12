@@ -70,6 +70,8 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -134,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Class.cpp" />
+    <ClCompile Include="Course.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="ProjectKTLT.cpp" />
     <ClCompile Include="Scenes\ChangePassStaff.cpp" />
@@ -144,6 +147,7 @@
     <ClCompile Include="Scenes\SignIn.cpp" />
     <ClCompile Include="Scenes\SignInAsStaff.cpp" />
     <ClCompile Include="Scenes\SignInAsStudent.cpp" />
+    <ClCompile Include="Scenes\ViewStudentProfile.cpp" />
     <ClCompile Include="Scenes\Welcome.cpp" />
     <ClCompile Include="SchoolYear.cpp" />
     <ClCompile Include="Semester.cpp" />
@@ -153,7 +157,7 @@
   <ItemGroup>
     <ClInclude Include="Class.h" />
     <ClInclude Include="config.h" />
-    <ClInclude Include="Courses.h" />
+    <ClInclude Include="Course.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Scenes\ChangePassStaff.h" />
     <ClInclude Include="Scenes\ChangePassStudent.h" />
@@ -163,6 +167,7 @@
     <ClInclude Include="Scenes\SignIn.h" />
     <ClInclude Include="Scenes\SignInAsStaff.h" />
     <ClInclude Include="Scenes\SignInAsStudent.h" />
+    <ClInclude Include="Scenes\ViewStudentProfile.h" />
     <ClInclude Include="Scenes\Welcome.h" />
     <ClInclude Include="SchoolYear.h" />
     <ClInclude Include="Semester.h" />

@@ -22,6 +22,8 @@ struct ChangePassStaffScene
 	sf::RectangleShape submit;
 	sf::Text submitText;
 
+	sf::Text enterOldPass;
+	sf::Text enterNewPass;
 	bool oldPassInputEnable = false;
 	bool newPassInputEnable = false;
 	bool incorrect = false;

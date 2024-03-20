@@ -1,6 +1,6 @@
-No	Student-ID	First Name	Last Name	Gender	Social ID
-1	21000001	Tran Thi	Lan	Nu	98446356475
-2	21000002	Nguyen Lan	Ngoc	Nu	85741363883
-3	21000003	Trinh Hong	Hoa	Nu	98333546363
-4	21000004	Dao Diep	Mai	Nu	33546473839
-5	21000005	Nguyen Cong	Chi	Nam	95858728249
+"No	",Student-ID,First Name,Last Name,"	Gender","Social ID"
+"1  ",21127016,Quach Thi,Ngoc,Nu,556475
+"2	",21127017,Nguyen Mai,Ngoc,Nu,63883
+"3	",21127018,Tran Nguyen Hoang,Nam,Nu,24546363
+"4	",21127019,Dao Ngoc,Mai,Nu,264839
+"5	",21127020,Nguyen Hong,Duc,Nam,2428728249
