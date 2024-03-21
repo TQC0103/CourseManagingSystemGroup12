@@ -29,5 +29,5 @@ struct student
     //functions 
     void loadStudentProfile(std::string username);
     std::string viewStudentProfile();
-    void readStudentScore();
+    //void readStudentScore();
 };

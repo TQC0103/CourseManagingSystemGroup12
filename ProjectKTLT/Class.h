@@ -29,10 +29,12 @@ struct Class {
 	void print_Student_scoreboard_in_class(student* pHeads);
 	void show_List_Student_scoreboard(Class* pHead, std::string name_class);
 	void export_File_score(Class* pHead, std::string name_Class, std::string path);
-	/* here or struct student
+
+
 	void Class::insert_a_Student_Class1st(Class*& pHead);
 	void Class::delete_a_Student_Class(Class*& pHead);
-	*/
+	void print_txt(Class* pHead, std::string AllClasses);
+
 
 	bool find_Class_of_Student(Class* pHead, std::string ID, std::string& Name_class); //ponter place which data stored
 
@@ -47,3 +49,4 @@ struct Class {
 static void input_Student_from_file(student*& pHeads, std::string new_name_Class);
 static Class* creat_new_Class(std::string path);
 
+void Delete_aCLass(Class*& aclass);

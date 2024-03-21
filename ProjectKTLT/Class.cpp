@@ -5,11 +5,14 @@
 #include <fstream>
 #include "Semester.h"
 #include <cstring>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 //Read data from files
 static void input_Student_from_file(student *&pHeads, std::string new_name_Class) {
 	pHeads->firstName = new_name_Class;
 	std::ifstream fIn;
-	fIn.open(new_name_Class);
+	fIn.open("../Database/Profile/Class/" + new_name_Class + ".csv");
 	if (!fIn.is_open()) {
 		std::cout << "Please, Enter file again!";
 		return;
@@ -23,16 +26,16 @@ static void input_Student_from_file(student *&pHeads, std::string new_name_Class
 		newNode->No = x;
 
 		// Read student information
-		std::getline(fIn, newNode->socialID, ';');
-		std::getline(fIn, newNode->firstName, ';');
-		std::getline(fIn, newNode->gender, ';');
+		std::getline(fIn, newNode->socialID, ',');
+		std::getline(fIn, newNode->firstName, ',);
+		std::getline(fIn, newNode->gender, ',);
 		fIn >> newNode->dateOfBirth.d;
 		fIn.ignore(1);
 		fIn >> newNode->dateOfBirth.m;
 		fIn.ignore(1);
 		fIn >> newNode->dateOfBirth.y;
 		fIn.ignore(1); // Consume the delimiter
-		std::getline(fIn, newNode->socialID, ';');
+		std::getline(fIn, newNode->socialID, ',');
 		newNode->pNext = nullptr;
 
 		// Update the linked list
@@ -47,9 +50,9 @@ static void input_Student_from_file(student *&pHeads, std::string new_name_Class
 	}
 	fIn.close();
 }
-void Class::load_Files(Class*& pHead, std::string path) {	//load File when open program; path is file .txt
+void Class::load_Files(Class*& pHead, std::string AllClasses) {	//load File when open program; path is file .txt
 	std::ifstream fIn;
-	fIn.open(path); //can insert link folder
+	fIn.open("../Database/Profile/Class/" + AllClasses + ".txt"); //can insert link folder
 	if (!fIn.is_open()) {
 		std::cout << "Open file isn't successfull!";
 		return;
@@ -152,17 +155,94 @@ static Class* creat_new_Class(std::string path) {
 	new_Class->pNext = NULL;
 	return new_Class;
 }
-void Class::insert_new_Class(Class*& pHead) {
+void print_txt(Class* pHead, std::string AllClasses) {
+	std::ifstream fOut;
+	fOut.open("../Database/Profile/Class/" + AllClasses + ".txt"); //can insert link folder
+	if (!fOut.is_open()) {
+		std::cout << "Open file isn't successfull!";
+		return;
+	}
+	while (pHead) {
+		fOut << pHead->name << "\n";
+		pHead = pHead->pNext;
+	}
+	fOut.close();
+}
+void Class::insert_new_Class(Class*& pHead, std::string name_Class) {
+	Class* new_Class = NULL;
+	input_Student_from_file(new_CLass, name_Class);
 	//insert class into linked list;
 	//update file into data
-	//update all.txt
+	if (!pHead) {
+		pHead = new_Class;
+		print_txt(pHead);
+		return;
+	}
+	Class* cur = pHead;
+	while ( cur->pNext && cur->pNext->name < name_Class) {
+		cur = cur->pNext;
+	}
+	Class* tmp = cur->pNext;
+	cur->pNext = new_Class;
+	new_Class->pNext = tmp;
+	print_txt(pHead, AllClasses);	//update all.txt
 }
-
-void Class::delete_Class(Class*& pHead, std::string name_class)
+// delete class from linked list
+void Delete_aCLass(Class* &aclass) {
+	student* tmp = aclass->pheads;
+	while (aclass->pheads) {
+		tmp = aclass->pheads
+		aclass->pheads = aclass->pheads->pNext;
+		delete tmp;
+	}
+	delete aclass->pheads;
+	delete aclass;
+}
+void Class::remove_Class(Class*& pHead, std::string name_class)
 {
-	// delete class from linked list
-	//delete class from data
-	//delete class from all.txt
+	if (!pHead) return;
+	if (pHead->name == name_class) {
+		Class* tmp = pHead;
+		pHead = pHead->pNext;
+		Delete_aClass(tmp);
+		print_txt(pHead);
+		//delete file
+		if (const std::exception & ex) {
+			std::cerr << "Error! " << ex.what() << '\n';
+		}
+		else {
+			// Link file which you need delete
+			fs::path file_to_delete = ".. / Database / Profile / Class / " + name_class + ".csv";
+
+			// delete file
+			fs::remove(file_to_delete);
+
+			std::cout << "File removed successfull!\n";
+		}
+		return;
+	}
+	Class* cur = pHead;
+	while (cur->pNext && cur->pNext->name != name_class) {
+		cur = cur->pNext;
+	}
+	if (!cur->pNext) return;
+	Class* tmp = cur->pNext;
+	Class* next = tmp->pNext;
+	cur->pNext = next;
+	Delete_aClass(tmp);
+	//delete file
+	if (const std::exception& ex) {
+		std::cerr << "Error! " << ex.what() << '\n';
+	}else{
+		// Link file which you need delete
+		fs::path file_to_delete = ".. / Database / Profile / Class / " + name_class + ".csv";
+
+		// delete file
+		fs::remove(file_to_delete);
+
+		std::cout << "File removed successfull!\n";
+	}
+	print_txt(pHead);
 }
 //export file:
 void Class::print_Student_profile_in_class_files(student* pHeads, std::ofstream &fOut) { // can replace by frame
@@ -177,7 +257,7 @@ void Class::print_Student_profile_in_class_files(student* pHeads, std::ofstream 
 void Class::export_File(Class* pHead, std::string name_Class, std::string path)
 {
 	std::ofstream fOut;
-	fOut.open(path); //can insert link folder
+	fOut.open("../Database/Profile/Class/" + path + ".csv"); //can insert link folder
 	if (!fOut.is_open()) {
 		std::cout << "Open file isn't successfull!";
 		return;
