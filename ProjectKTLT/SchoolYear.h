@@ -2,9 +2,6 @@
 #include<string>
 #include "Semester.h"
 
-
-
-
 struct schoolYear {
 	schoolYear();
 	schoolYear(std::string yearData);

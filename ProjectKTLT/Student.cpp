@@ -50,7 +50,7 @@ std::string student::viewStudentProfile()
     std::string studentProfile;
     studentProfile += "No: " + std::to_string(No) + "\n";
     studentProfile += "ID: " + studentID +"\n";
-    studentProfile += "Name :" + lastName + " " + firstName + "\n";
+    studentProfile += "Name: " + lastName + " " + firstName + "\n";
     studentProfile += "Gender: " + gender + "\n";
     studentProfile += "Social ID : " + socialID + "\n";
     studentProfile += "Date of birth : " + std::to_string(dateOfBirth.d) + "/" + std::to_string(dateOfBirth.m) + "/" + std::to_string(dateOfBirth.y) + "\n";

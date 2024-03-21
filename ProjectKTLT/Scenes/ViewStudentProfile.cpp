@@ -15,7 +15,7 @@ void ViewStudentProfileScene::drawProfile(sf::RenderWindow& win, Static *a)
 	if (i < 1)
 	{
 		stu->loadStudentProfile(a->username);
-		createText(studentProfile, a->fontN, sf::Color::White, stu->viewStudentProfile(), 60, a->width / 2.0f, a->height / 2.0f );
+		createText(studentProfile, a->fontN, sf::Color::White, stu->viewStudentProfile(), 50, a->width / 2.0f, a->height / 2.0f );
 		i++;
 	}
 	win.draw(ViewStudentProfilePage);
@@ -37,5 +37,15 @@ void ViewStudentProfileScene::renderProfile(sf::Event event, Static* a, sf::Rend
 				a->currentState = programState::MenuStudent;
 			}
 		}
+	}
+	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+	if (a->currentState == programState::ViewStudentProfile && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		preButton.setFillColor(a->pastelTitleCyan);
+		preText.setFillColor(a->titleGreyColor);
+	}
+	else {
+		preButton.setFillColor(a->highlightCyan);
+		preText.setFillColor(sf::Color::White);
 	}
 }
