@@ -67,6 +67,11 @@ int main() {
                 scene->viewstudentprofile->renderProfile(para);
                 break;
             }
+            case programState::ChooseSchoolYear:
+			{
+				scene->chooseschoolyear->renderChooseSchoolYear(para);
+				break;
+			}
             default:
                 break;
             }
@@ -122,6 +127,11 @@ int main() {
                 scene->viewstudentprofile->drawProfile(window, scene->a);
                 break;
             }
+            case programState::ChooseSchoolYear:
+            {
+                scene->chooseschoolyear->drawChooseSchoolYear(window, scene->a);
+				break;
+            }
             default:
                 break;
             }
@@ -131,6 +141,7 @@ int main() {
         }
         
     }
+    delete scene;
     return 0;
 }
 

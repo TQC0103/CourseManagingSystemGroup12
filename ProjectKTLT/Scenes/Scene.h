@@ -9,7 +9,7 @@
 #include "ChangePassStaff.h"
 #include "ChangePassStudent.h"
 #include "ViewStudentProfile.h"
-
+#include "ChooseSchoolYear.h"
 struct Scene
 {
 	Static *a = new Static;
@@ -22,4 +22,17 @@ struct Scene
 	ChangePassStaffScene *changepasssta = new ChangePassStaffScene(a);
 	ChangePassStudentScene *changepassstu = new ChangePassStudentScene(a);
 	ViewStudentProfileScene* viewstudentprofile = new ViewStudentProfileScene(a);
+	ChooseSchoolYearScene* chooseschoolyear = new ChooseSchoolYearScene(a);
+	~Scene() {
+		delete welcome;
+		delete signin;
+		delete signinasstudent;
+		delete signinasstaff;
+		delete menustudent;
+		delete menustaff;
+		delete changepasssta;
+		delete changepassstu;
+		delete viewstudentprofile;
+		delete a;
+	}
 };

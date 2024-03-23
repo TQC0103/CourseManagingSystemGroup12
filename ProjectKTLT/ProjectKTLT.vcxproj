@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChooseSchoolYear.cpp" />
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Course.cpp" />
     <ClCompile Include="Date.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChooseSchoolYear.h" />
     <ClInclude Include="Class.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="Course.h" />

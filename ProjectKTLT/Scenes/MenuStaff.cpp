@@ -41,6 +41,10 @@ void MenuStaffScene::renderMenuStaff(sf::Event event, Static *a, sf::RenderWindo
 			{
 				a->currentState = programState::ChangePassSta;
 			}
+			if(chooseSchoolYearButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				a->currentState = programState::ChooseSchoolYear;
+			}
 		}
 	}
 
