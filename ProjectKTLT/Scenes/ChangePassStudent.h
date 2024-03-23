@@ -28,8 +28,14 @@ struct ChangePassStudentScene
 
 	bool oldPassInputEnable = false;
 	bool newPassInputEnable = false;
-	bool incorrect = false;
+	int incorrect = 0;
+	sf::Text successful;
 	int maxPassLength = 15;
+
+	sf::Clock cursorClock;
+	bool isCursorVisible = false;
+
+
 
 	ChangePassStudentScene(Static* a);
 	void drawChangePass(sf::RenderWindow& win, Static* a);

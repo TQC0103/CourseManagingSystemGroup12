@@ -25,8 +25,23 @@ struct Static
     sf::Color pastelSoftBlue = sf::Color(155, 184, 205);
     sf::Color titleGreyColor = sf::Color(64, 64, 64);
     sf::Color lightGrey = sf::Color(200, 200, 200);
+    sf::Color fcc689 = sf::Color(48, 58,  60);
+    sf::Color blurGrey = sf::Color(64, 64, 64, 150);
+    sf::Texture texture;
+    
+    sf::Sprite sprite;
+    
     Static()
     {
+        if (!texture.loadFromFile("Background.jpg")) // Replace with your image file
+        {
+            // Handle error
+        }
+        sprite.setTexture(texture);
+        sprite.setScale(
+            static_cast<float>(width) / sprite.getLocalBounds().width, // Scale X
+            static_cast<float>(height) / sprite.getLocalBounds().height // Scale Y
+        );
         try {
 
             if (!fontB.loadFromFile("Palatino Linotype Bold.ttf")) {

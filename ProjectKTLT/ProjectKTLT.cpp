@@ -14,9 +14,7 @@ int main() {
     Scene *scene = new Scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)scene->a->width, (unsigned int)scene->a->height), "CourseManagingSystem");
 
-    // A.currentState
-    window.setFramerateLimit(60);
-    sf::Clock clock;
+    window.setFramerateLimit(60); // Set frame rate limit to 60 FPS
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -81,7 +79,7 @@ int main() {
             {
             case programState::Welcome:
             {
-                scene->welcome->drawWelcome(window);
+                scene->welcome->drawWelcome(window, scene->a);
                 break;
             }
             case programState::SignIn:
