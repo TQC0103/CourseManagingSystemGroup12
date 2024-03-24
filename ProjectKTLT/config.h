@@ -2,12 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile};
+enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear, ChooseClass};
 struct Static
 {
     programState currentState = programState::Welcome;
     std::string username = "";
     std::string password = "";
+    std::string schoolYear = "";
+    std::string semester = "";
     float width = 2000;
     float height = 1200;
     sf::Font fontB;
@@ -25,8 +27,23 @@ struct Static
     sf::Color pastelSoftBlue = sf::Color(155, 184, 205);
     sf::Color titleGreyColor = sf::Color(64, 64, 64);
     sf::Color lightGrey = sf::Color(200, 200, 200);
+    sf::Color fcc689 = sf::Color(48, 58,  60);
+    sf::Color blurGrey = sf::Color(64, 64, 64, 150);
+    sf::Texture texture;
+    
+    sf::Sprite sprite;
+    
     Static()
     {
+        if (!texture.loadFromFile("Background.jpg")) // Replace with your image file
+        {
+            // Handle error
+        }
+        sprite.setTexture(texture);
+        sprite.setScale(
+            static_cast<float>(width) / sprite.getLocalBounds().width, // Scale X
+            static_cast<float>(height) / sprite.getLocalBounds().height // Scale Y
+        );
         try {
 
             if (!fontB.loadFromFile("Palatino Linotype Bold.ttf")) {

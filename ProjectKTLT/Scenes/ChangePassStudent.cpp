@@ -15,6 +15,7 @@ ChangePassStudentScene::ChangePassStudentScene(Static* a)
 	createText(enterOldPass, a->fontI, sf::Color::White, "ENTER CURRENT PASSWORD", 40, a->width / 2.0f, 475.0f);
 	createText(enterNewPass, a->fontI, sf::Color::White, "ENTER NEW PASSWORD", 40, a->width / 2.0f, 800.0f);
 	createAButton(submit, submitText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "CONFIRM", sf::Vector2f(a->width - 200.0f, 1000.0f));
+	createText(successful, a->fontB, sf::Color::Green, "Password changed successfully", 50, a->width / 2.0f, 1000.0f);
 }
 
 void ChangePassStudentScene::drawChangePass(sf::RenderWindow& win, Static* a)
@@ -35,18 +36,17 @@ void ChangePassStudentScene::drawChangePass(sf::RenderWindow& win, Static* a)
 	win.draw(newPassText);
 	win.draw(submit);
 	win.draw(submitText);
-	sf::Clock cursorClock;
 	if (oldPassInputEnable)
 	{
 		sf::RectangleShape cursorOld;
-		setBlinkingCursorInTypingBox(oldPassText, cursorOld, win, cursorClock);
+		setBlinkingCursorInTypingBox(oldPassText, cursorOld, win, cursorClock, isCursorVisible);
 	}
 	if (newPassInputEnable)
 	{
 		sf::RectangleShape cursorNew;
-		setBlinkingCursorInTypingBox(newPassText, cursorNew, win, cursorClock);
+		setBlinkingCursorInTypingBox(newPassText, cursorNew, win, cursorClock, isCursorVisible);
 	}
-	if (incorrect == true)
+	if (incorrect == 1)
 	{
 		sf::Text incorrectText;
 		createText(incorrectText, a->fontB, sf::Color::Red, "         Password is incorrect\n please enter the correct password", 50, a->width / 2.0f, 1000.0f);
@@ -60,11 +60,24 @@ void ChangePassStudentScene::drawChangePass(sf::RenderWindow& win, Static* a)
 	{
 		win.draw(enterNewPass);
 	}
+	if (incorrect == 2)
+	{
+		win.draw(successful);
+	}
 }
 
 void ChangePassStudentScene::renderChangePass(sf::Event event, Static* a, sf::RenderWindow& win)
 {
-
+	if (incorrect == 2)
+	{
+		sf::sleep(sf::seconds(1));
+		newPassInput = "";
+		oldPassInput = "";
+		oldPassInputEnable = false;
+		newPassInputEnable = false;
+		a->currentState = programState::MenuStudent;
+		incorrect = 0;
+	}
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
 		if (event.mouseButton.button == sf::Mouse::Left)
@@ -92,6 +105,7 @@ void ChangePassStudentScene::renderChangePass(sf::Event event, Static* a, sf::Re
 			{
 				if (checkOldPass(a->password) == true)
 				{
+					incorrect = 2;
 					std::ofstream fOut;
 					std::string filename = "../StudentAcc/" + a->username + ".txt";
 					fOut.open(filename);
@@ -100,11 +114,6 @@ void ChangePassStudentScene::renderChangePass(sf::Event event, Static* a, sf::Re
 						a->password = newPassInput;
 						fOut << a->password;
 						fOut.close();
-						a->currentState = programState::MenuStudent;
-						newPassInput = "";
-						oldPassInput = "";
-						oldPassInputEnable = false;
-						newPassInputEnable = false;
 					}
 				}
 				else {
@@ -175,6 +184,24 @@ void ChangePassStudentScene::renderChangePass(sf::Event event, Static* a, sf::Re
 				}
 			}
 		}
+	}
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+	if (a->currentState == programState::ChangePassStu && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		preButton.setFillColor(a->pastelTitleCyan);
+		preText.setFillColor(a->titleGreyColor);
+	}
+	else if (a->currentState == programState::ChangePassStu && submit.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		submit.setFillColor(a->pastelTitleCyan);
+		submitText.setFillColor(a->titleGreyColor);
+	}
+	else {
+		preButton.setFillColor(a->highlightCyan);
+		preText.setFillColor(sf::Color::White);
+		submit.setFillColor(a->highlightCyan);
+		submitText.setFillColor(sf::Color::White);
 	}
 }
 

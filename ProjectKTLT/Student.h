@@ -8,7 +8,7 @@
 struct student
 {
     int No;
-    std::string studentID, firstName, lastName, gender, socialID;
+    std::string studentID = "", firstName = "", lastName = "", gender = "", socialID = "";
     date dateOfBirth;
     struct scoreBoard
     {
@@ -22,12 +22,13 @@ struct student
 
   
     //constructor
-    student() {}
+    student() {
+    }
     student(int no, std::string id, std::string firstname, std::string lastname, std::string gender, std::string socialId,  date dob) :
         No(no), studentID(id), firstName(firstname), lastName(lastname), gender(gender), socialID(socialId), dateOfBirth(dob){}
     
     //functions 
     void loadStudentProfile(std::string username);
     std::string viewStudentProfile();
-    void readStudentScore();
+    //void readStudentScore();
 };

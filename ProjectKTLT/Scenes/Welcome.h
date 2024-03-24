@@ -7,6 +7,7 @@ struct WelcomeScene {
     // Scene elements
     
     sf::Text welcomeText;
+    sf::Text welcomeTextBlur;
     sf::Text course;
     sf::RectangleShape welcomeRect;
     sf::RectangleShape signInRect;
@@ -18,7 +19,7 @@ struct WelcomeScene {
     WelcomeScene(Static *a);
 
     // Member functions
-    void drawWelcome(sf::RenderWindow& win);
+    void drawWelcome(sf::RenderWindow& win, Static *a);
     void renderWelcome(sf::Event event, Static *a, sf::RenderWindow& win);
 };
 

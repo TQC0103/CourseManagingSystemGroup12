@@ -22,11 +22,14 @@ struct SignInAsStudentScene
 	sf::RectangleShape submit;
 	sf::Text submitText;
 
-	sf::Text incorrect;
+	sf::Clock cursorClock;
+	bool isCursorVisible;
 
+	sf::Text incorrect;
+	sf::Text successful;
 	sf::Text enterUsernameHere;
 	sf::Text enterPasswordHere;
-	bool isWrong = false;
+	int isWrong = 0;
 	bool usernameInputEnable = false;
 	int maxUsernameLength = 15;
 	bool passwordInputEnable = false;
