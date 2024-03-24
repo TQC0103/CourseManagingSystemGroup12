@@ -55,7 +55,13 @@
     <ClCompile Include="Scenes\Welcome.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ChooseSchoolYear.cpp">
+    <ClCompile Include="Scenes\ChooseSchoolYear.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\MenuSchoolYear.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\ChooseClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,7 +120,13 @@
     <ClInclude Include="Scenes\Welcome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ChooseSchoolYear.h">
+    <ClInclude Include="Scenes\ChooseSchoolYear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\MenuSchoolYear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\ChooseClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

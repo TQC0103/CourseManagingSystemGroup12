@@ -85,7 +85,7 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Static* a, s
 	}
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     for (int i = 0; i < numSchoolYears; i++) {
-        if (buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+        if (a->currentState == programState::ChooseSchoolYear && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
             buttons[i].setFillColor(a->pastelTitleCyan);
             labels[i].setFillColor(a->titleGreyColor);
         }
@@ -94,7 +94,7 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Static* a, s
             labels[i].setFillColor(sf::Color::White);
         }
     }
-    if(preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+    if(a->currentState == programState::ChooseSchoolYear && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
 		preButton.setFillColor(a->pastelTitleCyan);
 		preText.setFillColor(a->titleGreyColor);

@@ -10,6 +10,8 @@
 #include "ChangePassStudent.h"
 #include "ViewStudentProfile.h"
 #include "ChooseSchoolYear.h"
+#include "MenuSchoolYear.h"
+#include "ChooseClass.h"
 struct Scene
 {
 	Static *a = new Static;
@@ -23,6 +25,8 @@ struct Scene
 	ChangePassStudentScene *changepassstu = new ChangePassStudentScene(a);
 	ViewStudentProfileScene* viewstudentprofile = new ViewStudentProfileScene(a);
 	ChooseSchoolYearScene* chooseschoolyear = new ChooseSchoolYearScene(a);
+	MenuSchoolYearScene* menuschoolyear = new MenuSchoolYearScene(a);
+	ChooseClassScene* chooseclass = new ChooseClassScene(a);
 	~Scene() {
 		delete welcome;
 		delete signin;
@@ -33,6 +37,10 @@ struct Scene
 		delete changepasssta;
 		delete changepassstu;
 		delete viewstudentprofile;
+		delete chooseschoolyear;
+		delete menuschoolyear;
+		delete chooseclass;
 		delete a;
+
 	}
 };

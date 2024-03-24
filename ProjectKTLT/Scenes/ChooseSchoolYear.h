@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "UserInterface.h"
-#include "SchoolYear.h"
-#include "config.h"
+#include "../UserInterface.h"
+#include "../SchoolYear.h"
+#include "../config.h"
 
 struct ChooseSchoolYearScene
 {

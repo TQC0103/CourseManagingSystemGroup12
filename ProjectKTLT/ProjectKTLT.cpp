@@ -72,6 +72,16 @@ int main() {
 				scene->chooseschoolyear->renderChooseSchoolYear(para);
 				break;
 			}
+            case programState::MenuSchoolYear:
+            {
+				scene->menuschoolyear->renderMenuSchoolYear(para);
+				break;
+			}
+            case programState::ChooseClass:
+            {
+                scene->chooseclass->renderChooseClass(para);
+				break;
+			}
             default:
                 break;
             }
@@ -131,6 +141,16 @@ int main() {
             {
                 scene->chooseschoolyear->drawChooseSchoolYear(window, scene->a);
 				break;
+            }
+            case programState::MenuSchoolYear:
+            {
+				scene->menuschoolyear->drawMenuSchoolYear(window, scene->a);
+                break;
+            }
+            case programState::ChooseClass:
+            {
+				scene->chooseclass->drawChooseClass(window, scene->a);
+                break;
             }
             default:
                 break;
