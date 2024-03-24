@@ -2,14 +2,11 @@
 #include<string>
 #include "Semester.h"
 
-<<<<<<< HEAD
 
 
 
-schoolYear* curSchoolYear;
 
-=======
->>>>>>> b6fb874ab3e659994840cdbec3f2592389b0b11e
+
 struct schoolYear {
 	schoolYear();
 	schoolYear(std::string yearData);

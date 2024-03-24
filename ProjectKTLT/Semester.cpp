@@ -1,4 +1,6 @@
+#pragma once
 #include "Semester.h"
+#include "SchoolYear.h"
 #include<SFML/Graphics.hpp>
 #include<string>
 #include<fstream>
@@ -6,9 +8,8 @@
 #include "Date.h"
 #include<direct.h>
 
-
-extern semester* curSemester;
-
+semester* curSemester = nullptr;
+extern schoolYear* curSchoolYear;
 semester::semester(std::string semesterNum, std::string StartDate, std::string EndDate) {
 	semesterData = semesterNum;
 	startDate = StartDate;	
@@ -31,11 +32,11 @@ void semester::loadCourse()
 		return;
 	}
 	std::string tmpCourseName;
-	pHeadCourse = new Course;
-	Course* cur = pHeadCourse;
+	//pHeadCourse = new Course;
+	//Course* cur = pHeadCourse;
 	while (getline(fin, tmpCourseName))
 	{
-		Course* newCourse = new Course;
+		//Course* newCourse = new Course;
 		
 	}
 

@@ -1,12 +1,12 @@
+#pragma once
 #include "SchoolYear.h"
-#include "Semester.h"
 #include <fstream>
 #include<iostream>
 #include<direct.h>
 #include "Date.h"
 #include <cctype>
 
-extern schoolYear* curSchoolYear;
+schoolYear* curSchoolYear;
 extern semester* curSemester;
 
 schoolYear::schoolYear() {
@@ -51,7 +51,7 @@ void schoolYear::loadSchoolYear()
 bool schoolYear::findCurrentSchoolYear(std::string data)
 {
 	checkInputYear(data);
-	if (!checkInputYear)
+	if (!checkInputYear(data))
 	{
 		return false;
 	}

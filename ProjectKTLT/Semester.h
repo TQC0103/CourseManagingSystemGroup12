@@ -1,9 +1,9 @@
 #pragma once
 #include<string>
 #include "Course.h"
-#include "SchoolYear.h"
 
-semester* curSemester = nullptr;
+
+
 
 
 
@@ -45,4 +45,5 @@ struct semester {
 
 
 };
+
 
