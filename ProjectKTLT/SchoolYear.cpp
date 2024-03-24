@@ -6,7 +6,9 @@
 #include "Date.h"
 #include <cctype>
 
-schoolYear* curSchoolYear;
+extern schoolYear* curSchoolYear;
+extern semester* curSemester;
+
 schoolYear::schoolYear() {
 	year = "";
 	pHead = nullptr;
@@ -22,6 +24,9 @@ schoolYear::schoolYear(std::string yearData) {
 
 void schoolYear::loadSchoolYear()
 {
+	if (pHead) {
+		return;
+	}
 	std::ifstream fin("../Database/SchoolYear/AllSchoolYear.txt");
 	if (!fin.is_open()) {
 		std::cerr << "Error: File not found" << std::endl;
@@ -43,17 +48,26 @@ void schoolYear::loadSchoolYear()
 	fin.close();
 }
 
-void schoolYear::findCurrentSchoolYear(std::string data)
+bool schoolYear::findCurrentSchoolYear(std::string data)
 {
+	checkInputYear(data);
+	if (!checkInputYear)
+	{
+		return false;
+	}
+
 	schoolYear* cur = pHead;
 	while (cur)
 	{
 		if (cur->year == data)
 		{
 			curSchoolYear = cur;
-			return;
+			return true;
+			
 		}
+		cur = cur->pNext;
 	}
+	return false;
 }
 
 bool schoolYear::checkInputYear(std::string &data) {
@@ -170,38 +184,61 @@ bool schoolYear::checkInputDate(std::string &data)
 	}
 }
 
-bool schoolYear::addSchoolYear(std::string yearData) {
-	checkInputYear(yearData);
-	if (!checkInputYear(yearData)) {
-		return false;
-	}
-	std::ifstream fin("../Database/SchoolYear/AllSchoolYear.txt");
-	std::string check;
-	while (getline(fin, check)) {
-		if (check == yearData) {
-			return false;
-		}
-	}
-	//fin.ignore();
-	fin.close();
-	std::ofstream fout("../Database/SchoolYear/AllSchoolYear.txt", std::ios::app);
+void schoolYear::addSchoolYear() {
 	
-	fout << yearData << std::endl;
-	fout.close();
-	_mkdir(("../Database/SchoolYear/" + (std::string)yearData).c_str());
 	schoolYear* cur = pHead;
-	while (cur->pNext) {
+	while (cur->pNext)
+	{
 		cur = cur->pNext;
 	}
-	cur->pNext = new schoolYear(yearData);
-	cur = cur->pNext;
-	cur->pNext = nullptr;
-	curSchoolYear = cur;
-	return true;
+	std::string curYear = cur->year;
+	std::string nextYear1 = std::to_string(std::stoi(curYear.substr(0, 4)) + 1);
+	std::string nextYear2 = std::to_string(std::stoi(curYear.substr(5, 4)) + 1);
+	std::string nextYear = nextYear1 + "-" + nextYear2;
+    std::ofstream fout("../Database/SchoolYear/AllSchoolYear.txt", std::ios::app);
+	fout << nextYear << std::endl;
+	fout.close();
+	_mkdir(("../Database/SchoolYear/" + nextYear).c_str());
+	cur->pNext = new schoolYear(nextYear);
 
+	//checkInputYear(yearData);
+	//if (!checkInputYear(yearData)) {
+	//	return false;
+	//}
+	//std::ifstream fin("../Database/SchoolYear/AllSchoolYear.txt");
+	//std::string check;
+	//while (getline(fin, check)) {
+	//	if (check == yearData) {
+	//		return false;
+	//	}
+	//}
+	////fin.ignore();
+	//fin.close();
+	//std::ofstream fout("../Database/SchoolYear/AllSchoolYear.txt", std::ios::app);
+	//
+	//fout << yearData << std::endl;
+	//fout.close();
+	//_mkdir(("../Database/SchoolYear/" + (std::string)yearData).c_str());
+	//schoolYear* cur = pHead;
+	//while (cur->pNext) {
+	//	cur = cur->pNext;
+	//}
+	//cur->pNext = new schoolYear(yearData);
+	//cur = cur->pNext;
+	//cur->pNext = nullptr;
+	//curSchoolYear = cur;
+	//return true;
+}
+
+void schoolYear::movetoNextSchoolYear()
+{
+	curSchoolYear = curSchoolYear->pNext;
 }
 
 void schoolYear::loadSemester() {
+	if (curSchoolYear->pHeadSemester) {
+		return;
+	}
 	std::ifstream fin("../Database/SchoolYear/" + curSchoolYear->year + "/AllSemester.txt");
 	if (!fin.is_open()) {
 		std::cerr << "Error: File not found" << std::endl;
@@ -225,6 +262,19 @@ void schoolYear::loadSemester() {
 	delete temp;
 	cur->pNext = nullptr;
 
+}
+
+bool schoolYear::findCurrentSemester(std::string data) {
+	semester* cur = curSchoolYear->pHeadSemester;
+	while (cur) {
+		if (cur->semesterData == data)
+		{
+			curSemester = cur;
+			return true;
+		}
+		cur = cur->pNext;
+	}
+	return false;
 }
 
 bool schoolYear::addSemester(std::string data, std::string start, std::string end)
@@ -285,6 +335,8 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 	return true;
 
 }
+
+
 
 
 

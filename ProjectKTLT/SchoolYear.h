@@ -5,6 +5,8 @@
 
 
 
+schoolYear* curSchoolYear;
+
 struct schoolYear {
 	schoolYear();
 	schoolYear(std::string yearData);
@@ -15,11 +17,13 @@ struct schoolYear {
 	// User Experience	
 	void loadSchoolYear();// done
 	
-	bool addSchoolYear(std::string yearData);// done
+	void addSchoolYear();// done
+	// After add, staff can choose to move to the next school year now or later
+	void movetoNextSchoolYear(); // done
 	
 	bool checkInputYear(std::string &data); // done
 
-	void findCurrentSchoolYear(std::string data); // done
+	bool findCurrentSchoolYear(std::string data); // done
 	
 	// User Interface
 
@@ -34,10 +38,13 @@ struct schoolYear {
 	void loadSemester(); // done
 	
 	// Data must be like (Semester1) not (1)
-	
+	bool findCurrentSemester(std::string data); // done
+
+	// Instruction: Input of data must be like Semester1, Semester2, Semester3. If the input is 1, 2, 3, you must convert it to Semester1, Semester2, Semester3
 	bool addSemester(std::string data, std::string start, std::string end);// done
 	
 	bool checkInputDate(std::string &data); // done
+
 
 	// Deallocate
 	
