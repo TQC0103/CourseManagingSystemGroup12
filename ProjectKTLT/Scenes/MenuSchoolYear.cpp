@@ -1,5 +1,6 @@
 #include "MenuSchoolYear.h"
-#include "../config.h"
+#include "../SchoolYear.h"
+
 
 MenuSchoolYearScene::MenuSchoolYearScene(Static* a)
 {
@@ -14,8 +15,9 @@ void MenuSchoolYearScene::drawMenuSchoolYear(sf::RenderWindow& window, Static* a
 {
 	window.draw(menuSchoolYearBackground);
 	window.draw(menuSchoolYearText);
+	
 	if(i == 0)
-		createText(yearText, a->fontB, a->textColorBlue, a->schoolYear, 100, a->width / 2.0f, 250.0f);
+		createText(yearText, a->fontB, a->textColorBlue, a->curSchoolYear->year, 100, a->width / 2.0f, 250.0f);
 	window.draw(yearText);
 	window.draw(preButton);
 	window.draw(preText);
@@ -33,7 +35,7 @@ void MenuSchoolYearScene::renderMenuSchoolYear(sf::Event event, Static* a, sf::R
 		{
 			if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				a->schoolYear = "";
+				a->curSchoolYear = nullptr;
 				a->currentState = programState::ChooseSchoolYear;
 			}
 		}

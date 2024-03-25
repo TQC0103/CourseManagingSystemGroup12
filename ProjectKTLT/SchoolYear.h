@@ -1,6 +1,7 @@
 #pragma once
 #include<string>
 #include "Semester.h"
+#include "config.h"
 
 
 struct schoolYear {
@@ -16,15 +17,15 @@ struct schoolYear {
 	
 	void addSchoolYear();// done
 	// After add, staff can choose to move to the next school year now or later
-	void movetoNextSchoolYear(); // done
+	//void movetoNextSchoolYear(); // done
 	
 	bool checkInputYear(std::string &data); // done
 
-	bool findCurrentSchoolYear(std::string data); // done
+	//bool findCurrentSchoolYear(std::string data); // done
 	
 	// User Interface
 
-	void viewSchoolYear(); // UI (later)
+	//void viewSchoolYear(); // UI (later)
 		
 	// SEMESTER IN A SCHOOL YEAR
 	// // // // // 
@@ -32,22 +33,20 @@ struct schoolYear {
 
 	semester* pHeadSemester = nullptr;
 	
-	void loadSemester(); // done
+	void loadSemester(Static *a); // done
 	
 	// Data must be like (Semester1) not (1)
-	bool findCurrentSemester(std::string data); // done
+	//bool findCurrentSemester(std::string data); // done
 
 	// Instruction: Input of data must be like Semester1, Semester2, Semester3. If the input is 1, 2, 3, you must convert it to Semester1, Semester2, Semester3
-	bool addSemester(std::string data, std::string start, std::string end);// done
+	bool addSemester(std::string data, std::string start, std::string end, Static *a);// done
 	
-	bool checkInputDate(std::string &data); // done
+	bool checkInputDate(std::string &data, Static *a); // done
 
 
 	// Deallocate
 	
-	void deallocateSchoolYear(); // done
-	
-	void deallocateSemester(); // done
+	~schoolYear();
 };
 
 

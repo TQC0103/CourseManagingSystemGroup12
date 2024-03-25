@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../UserInterface.h"
-#include "../SchoolYear.h"
 #include "../config.h"
+#include "../SchoolYear.h"
 
 struct ChooseSchoolYearScene
 {
@@ -13,7 +13,7 @@ struct ChooseSchoolYearScene
 
     sf::RectangleShape* buttons;
     sf::Text* labels;
-    std::string* schoolYears; // LL
+    schoolYear *listSchoolYear = nullptr; // LL
 
 
     int numSchoolYears = 0;

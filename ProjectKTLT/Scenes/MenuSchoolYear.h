@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../config.h"
 #include "../UserInterface.h"
+#include "../config.h"
 
 struct MenuSchoolYearScene
 {

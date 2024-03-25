@@ -4,6 +4,7 @@
 #include "UserInterface.h"
 #include "config.h"
 #include "Scenes/Scene.h"
+#include "SchoolYear.h"
 
 
 
@@ -11,6 +12,8 @@
 
 // Functions
 int main() {
+	
+
     Scene *scene = new Scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)scene->a->width, (unsigned int)scene->a->height), "CourseManagingSystem");
 

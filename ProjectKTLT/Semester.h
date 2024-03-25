@@ -34,11 +34,13 @@ struct semester {
 
 	void normingCourseData(std::string& data);
 
-	bool findCurrentCourse(const std::string& data);
+	//bool findCurrentCourse(const std::string& data);
 
 	void addCourse(const std::string& name, const std::string& id, const std::string& className, const std::string& lecturer, int credit, int maxStudent, const std::string& weekDay, int session);
 
 	void deleteCourse(const std::string courseID);
+
+	void deallocateCourse();
 	
 
 
