@@ -8,8 +8,10 @@ struct Static
     programState currentState = programState::Welcome;
     std::string username = "";
     std::string password = "";
+
     std::string schoolYear = "";
     std::string semester = "";
+
     float width = 2000;
     float height = 1200;
     sf::Font fontB;

@@ -15,6 +15,7 @@
 struct Scene
 {
 	Static *a = new Static;
+
 	WelcomeScene *welcome = new WelcomeScene(a);
 	SignInScene *signin = new SignInScene(a);
 	SignInAsStudentScene *signinasstudent = new SignInAsStudentScene(a);

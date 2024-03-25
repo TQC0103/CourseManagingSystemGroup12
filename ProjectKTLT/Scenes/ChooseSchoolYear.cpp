@@ -1,5 +1,6 @@
 #include "ChooseSchoolYear.h"
 #include <fstream>
+#include "ChooseSchoolYear.h"
 
 ChooseSchoolYearScene::ChooseSchoolYearScene(Static* a)
 {

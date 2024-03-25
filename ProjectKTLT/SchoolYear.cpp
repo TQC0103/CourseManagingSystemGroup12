@@ -1,8 +1,8 @@
 #pragma once
 #include "SchoolYear.h"
 #include <fstream>
-#include<iostream>
-#include<direct.h>
+#include <iostream>
+#include <direct.h>
 #include "Date.h"
 #include <cctype>
 

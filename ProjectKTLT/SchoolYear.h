@@ -3,14 +3,11 @@
 #include "Semester.h"
 
 
-
-
-
-
 struct schoolYear {
 	schoolYear();
 	schoolYear(std::string yearData);
 	std::string year;
+
 	schoolYear* pHead = nullptr;
 	schoolYear* pNext = nullptr;
 

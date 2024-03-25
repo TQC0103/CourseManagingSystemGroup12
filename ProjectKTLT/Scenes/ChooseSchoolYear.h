@@ -8,9 +8,14 @@ struct ChooseSchoolYearScene
 {
     sf::RectangleShape chooseSchoolYearBackground;
     sf::Text chooseSchoolYearText;
+
+
+
     sf::RectangleShape* buttons;
     sf::Text* labels;
-    std::string* schoolYears;
+    std::string* schoolYears; // LL
+
+
     int numSchoolYears = 0;
 
     sf::RectangleShape preButton;
