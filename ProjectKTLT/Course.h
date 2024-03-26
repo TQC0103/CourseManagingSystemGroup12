@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "Student.h"
@@ -20,14 +19,14 @@ struct Course
 	};
 
 	// Student basic infomation
-	std::string studentID, Name, className, Lecturer, weekDay;
+	std::string ID, Name, className, Lecturer, weekDay;
 
 	// Credit, session
 	int Credit, maxStudent, Session;
 
 	//construstor
 	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, int session);
-
+	Course();
 	//ponter to student score 
 	studentScore* pHeadScore = nullptr;
 

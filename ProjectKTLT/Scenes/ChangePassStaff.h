@@ -22,12 +22,17 @@ struct ChangePassStaffScene
 	sf::RectangleShape submit;
 	sf::Text submitText;
 
+	sf::Text successful;
+
 	sf::Text enterOldPass;
 	sf::Text enterNewPass;
 	bool oldPassInputEnable = false;
 	bool newPassInputEnable = false;
-	bool incorrect = false;
+	int incorrect = 0;
 	int maxPassLength = 15;
+
+	sf::Clock cursorClock;
+	bool isCursorVisible = false;
 
 	ChangePassStaffScene(Static *a);
 	void drawChangePass(sf::RenderWindow& win, Static *a);

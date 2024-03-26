@@ -20,6 +20,12 @@ struct MenuStaffScene
 	sf::RectangleShape changePassButton;
 	sf::Text changePassText;
 
+	sf::RectangleShape createClassButton;
+	sf::Text createClassText;
+
+	sf::RectangleShape chooseClassButton;
+	sf::Text chooseClassText;
+
 	//Constructor
 	MenuStaffScene(Static *a);
 

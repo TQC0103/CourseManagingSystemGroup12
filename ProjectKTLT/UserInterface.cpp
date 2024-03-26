@@ -49,20 +49,26 @@ void createABox(sf::RectangleShape& box, const sf::Vector2f size, const sf::Colo
     box.setPosition(position);
 }
 
-void setBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& cursor, sf::RenderWindow& window, sf::Clock& cursorClock) {
+void setBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& cursor, sf::RenderWindow& window, sf::Clock& cursorClock, bool& isCursorVisible) {
     // Calculate cursor position
     sf::Vector2f cursorPos(typingText.getPosition().x + typingText.getLocalBounds().width / 2.0f + 10.0f, typingText.getPosition().y);
-
-    // Toggle cursor visibility every 0.5 seconds
-    cursor.setFillColor(sf::Color::Black);
 
     // Draw cursor as a vertical line
     cursor.setSize(sf::Vector2f(3.0f, static_cast<float>(typingText.getCharacterSize())));
     cursor.setOrigin(cursor.getSize().x / 2.0f, cursor.getSize().y / 2.0f); // Set origin to the middle
     cursor.setPosition(cursorPos);
 
+    // Toggle cursor visibility every 1 second
+    if (cursorClock.getElapsedTime().asSeconds() > 0.5f) {
+        isCursorVisible = !isCursorVisible;
+        cursorClock.restart();
+    }
+
+    // Set cursor color based on visibility
+    cursor.setFillColor(isCursorVisible ? sf::Color::White : sf::Color::Transparent);
+
     // Draw cursor only if it's visible
-    if (cursor.getFillColor() != sf::Color::Transparent) {
+    if (isCursorVisible) {
         window.draw(cursor);
     }
 }

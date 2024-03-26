@@ -1,3 +1,4 @@
+
 #include<iostream>
 #include "Student.h"
 #include "Class.h"
@@ -5,11 +6,9 @@
 #include <fstream>
 #include "Semester.h"
 #include <cstring>
-#include <filesystem>
 
-using namespace fs : std::filesystem;
 //Read data from files
-void input_Student_from_file(student *&pHeads, std::string new_name_Class) {
+void Class::input_Student_from_file(student *&pHeads, std::string new_name_Class) {
 	pHeads->firstName = new_name_Class;
 	std::ifstream fIn;
 	fIn.open("../Database/Profile/Class/" + new_name_Class + ".csv");
@@ -27,8 +26,8 @@ void input_Student_from_file(student *&pHeads, std::string new_name_Class) {
 
 		// Read student information
 		std::getline(fIn, newNode->socialID, ',');
-		std::getline(fIn, newNode->firstName, ',);
-		std::getline(fIn, newNode->gender, ',);
+		std::getline(fIn, newNode->firstName, ',');
+		std::getline(fIn, newNode->gender, ',');
 		fIn >> newNode->dateOfBirth.d;
 		fIn.ignore(1);
 		fIn >> newNode->dateOfBirth.m;
@@ -72,7 +71,7 @@ void Class::load_Files(Class*& pHead, std::string AllClasses) {	//load File when
 	}
 	fIn.close();
 }
-void Class::delete_Class(Class*& pHead) {
+void Class::delete_Class(Class*& pHead) {   //clean program if program end.
 	Class * tmp = pHead;
 	while (pHead) {
 		tmp = pHead;
@@ -90,7 +89,8 @@ void Class::print_Student_profile_in_class(student* pHeads) { // can replace by 
 		pHeads = pHeads->pNext;
 	}
 }
-void Class::show_List_Student_profile(Class* pHead, std::string name_class) {
+//view profile student in class.(16)
+void Class::view_List_Student_profile(Class* pHead, std::string name_class) {
 	Class* cur = pHead;
 	if (!cur) return;
 	while (cur) {
@@ -148,16 +148,16 @@ void Class::show_Student_each_profile(Class* pHead, std::string ID_student) {
 
 
 
-static Class* creat_new_Class(std::string path) {
+ Class* Class::creat_new_Class(std::string path) {
 	Class* new_Class = new Class;
 	student *pnewHead = new_Class->pHeads;
 	input_Student_from_file(pnewHead, path);
 	new_Class->pNext = NULL;
 	return new_Class;
 }
-void print_txt(Class* pHead) {
-	std::ifstream fOut;
-	fOut.open("../Database/Profile/Class/" + "AllClasses" + ".txt"); //can insert link folder
+void Class::print_txt(Class* pHead) {
+	std::ofstream fOut;
+	fOut.open("../Database/Profile/Class/AllClasses.txt"); //can insert link folder
 	if (!fOut.is_open()) {
 		std::cout << "Open file isn't successfull!";
 		return;
@@ -168,9 +168,11 @@ void print_txt(Class* pHead) {
 	}
 	fOut.close();
 }
+//Insert file new class by csv (4) 
 void Class::insert_new_Class(Class*& pHead, std::string name_Class) {
-	Class* new_Class = NULL;
-	input_Student_from_file(new_CLass, name_Class);
+	Class* new_Class = new Class;
+	new_Class->pNext = NULL;
+	input_Student_from_file(new_Class->pHeads, name_Class);
 	//insert class into linked list;
 	//update file into data
 	if (!pHead) {
@@ -188,7 +190,7 @@ void Class::insert_new_Class(Class*& pHead, std::string name_Class) {
 	print_txt(pHead);	//update all.txt
 }
 // delete class from linked list
-void Delete_aCLass(Class* &aclass) {
+/*void Delete_aCLass(Class*& aclass) {
 	student* tmp = aclass->pheads;
 	while (aclass->pheads) {
 		tmp = aclass->pheads
@@ -243,8 +245,8 @@ void Class::remove_Class(Class*& pHead, std::string name_class)
 		std::cout << "File removed successfull!\n";
 	}
 	print_txt(pHead);
-}
-//export file:
+}*/
+//export file.(can 19)
 void Class::print_Student_profile_in_class_files(student* pHeads, std::ofstream &fOut) { // can replace by frame
 	//to print student outside files
 	while (pHeads) {
@@ -273,9 +275,10 @@ void Class::export_File(Class* pHead, std::string name_Class, std::string path)
 	}
 	fOut.close();
 }
-void Class::show_Student_each_scoreboard(Class* pHead, std::string ID_student){}
-void Class::export_File_score(Class* pHead, std::string name_Class, std::string path) {}
 
+//void Class::show_Student_each_scoreboard(Class* pHead, std::string ID_student){}
+//void Class::export_File_score(Class* pHead, std::string name_Class, std::string path) {}
+// Show list last(15)
 void Class::show_List_Class(Class* pHead)
 {
 	while (pHead) {
@@ -322,4 +325,3 @@ void Class::print_class_txt(Class* pHead) {
 	}
 	fOut.close();
 }
-

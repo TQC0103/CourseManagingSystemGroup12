@@ -5,6 +5,7 @@
 
 SignInAsStaffScene::SignInAsStaffScene(Static *a)
 {
+	isCursorVisible = false;
 	signInStudentPage.setFillColor(a->backGroundWhite);
 	signInStudentPage.setSize(sf::Vector2f((float)a->width, (float)a->height));
 	createText(studentSignInPageText, a->fontB, a->textColorBlue, "STAFF", 120, a->width / 2.0f, 150.0f);
@@ -16,6 +17,7 @@ SignInAsStaffScene::SignInAsStaffScene(Static *a)
 	createText(enterPasswordHere, a->fontI, sf::Color::White, "ENTER PASSWORD HERE", 40, a->width / 2.0f, 800.0f);
 	createText(enterUsernameHere, a->fontI, sf::Color::White, "ENTER USERNAME HERE", 40, a->width / 2.0f, 475.0f);
 	createText(passwordStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, passwordStudentBox.getPosition().y);
+	createText(successful, a->fontB, sf::Color::Green, "Sign in successfully", 50, a->width / 2.0f, 1000.0f);
 }
 
 void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win, Static *a)
@@ -35,16 +37,15 @@ void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win, Static *a)
 	passwordStudentText.setString(passwordStaffInput);
 	setOriginTextToMiddle(passwordStudentText);
 	win.draw(passwordStudentText);
-	sf::Clock cursorClock;
 	if (usernameInputEnable)
 	{
 		sf::RectangleShape cursorUsername;
-		setBlinkingCursorInTypingBox(usernameStudentText, cursorUsername, win, cursorClock);
+		setBlinkingCursorInTypingBox(usernameStudentText, cursorUsername, win, cursorClock,	isCursorVisible);
 	}
 	if (passwordInputEnable)
 	{
 		sf::RectangleShape cursorPassword;
-		setBlinkingCursorInTypingBox(passwordStudentText, cursorPassword, win, cursorClock);
+		setBlinkingCursorInTypingBox(passwordStudentText, cursorPassword, win, cursorClock, isCursorVisible);
 	}
 	if (isWrong == true)
 	{
@@ -59,10 +60,20 @@ void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win, Static *a)
 	{
 		win.draw(enterPasswordHere);
 	}
+	if (isWrong == 2)
+	{
+		win.draw(successful);
+	}
 }
 
 void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::RenderWindow& win)
 {
+	if (isWrong == 2)
+	{
+		sf::sleep(sf::seconds(1.0f));
+		a->currentState = programState::MenuStaff;
+		isWrong = 0;
+	}
 	// Handle mouse events
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
@@ -93,9 +104,9 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 					isWrong = true;
 				}
 				else {
+					isWrong = 2;
 					a->username = usernameStaffInput;
 					a->password = passwordStaffInput;
-					a->currentState = programState::MenuStaff;
 				}
 			}
 			else {
@@ -120,9 +131,9 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 				isWrong = true;
 			}
 			else {
+				isWrong = 2;
 				a->username = usernameStaffInput;
 				a->password = passwordStaffInput;
-				a->currentState = programState::MenuStaff;
 			}
 		}
 		if (usernameInputEnable || passwordInputEnable)

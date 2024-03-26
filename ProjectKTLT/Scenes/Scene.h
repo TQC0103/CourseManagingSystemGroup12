@@ -3,16 +3,19 @@
 #include "Welcome.h"
 #include "SignIn.h"
 #include "SignInAsStudent.h"
+#include "MenuStaff.h"
 #include "SignInAsStaff.h"
 #include "MenuStudent.h"
-#include "MenuStaff.h"
 #include "ChangePassStaff.h"
 #include "ChangePassStudent.h"
 #include "ViewStudentProfile.h"
-
+#include "ChooseSchoolYear.h"
+#include "MenuSchoolYear.h"
+#include "ChooseClass.h"
 struct Scene
 {
 	Static *a = new Static;
+
 	WelcomeScene *welcome = new WelcomeScene(a);
 	SignInScene *signin = new SignInScene(a);
 	SignInAsStudentScene *signinasstudent = new SignInAsStudentScene(a);
@@ -22,4 +25,23 @@ struct Scene
 	ChangePassStaffScene *changepasssta = new ChangePassStaffScene(a);
 	ChangePassStudentScene *changepassstu = new ChangePassStudentScene(a);
 	ViewStudentProfileScene* viewstudentprofile = new ViewStudentProfileScene(a);
+	ChooseSchoolYearScene* chooseschoolyear = new ChooseSchoolYearScene(a);
+	MenuSchoolYearScene* menuschoolyear = new MenuSchoolYearScene(a);
+	ChooseClassScene* chooseclass = new ChooseClassScene(a);
+	~Scene() {
+		delete welcome;
+		delete signin;
+		delete signinasstudent;
+		delete signinasstaff;
+		delete menustudent;
+		delete menustaff;
+		delete changepasssta;
+		delete changepassstu;
+		delete viewstudentprofile;
+		delete chooseschoolyear;
+		delete menuschoolyear;
+		delete chooseclass;
+		delete a;
+
+	}
 };

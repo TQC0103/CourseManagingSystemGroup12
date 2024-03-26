@@ -23,8 +23,12 @@ struct SignInAsStaffScene
 	sf::Text submitText;
 
 	sf::Text incorrect;
+	sf::Text successful;
 
-	bool isWrong = false;
+	sf::Clock cursorClock;
+	bool isCursorVisible = false;
+
+	int isWrong = 0;
 	bool usernameInputEnable = false;
 	int maxUsernameLength = 15;
 	bool passwordInputEnable = false;

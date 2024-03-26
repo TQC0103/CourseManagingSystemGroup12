@@ -7,4 +7,4 @@ void createText(sf::Text& text, const sf::Font &font, const sf::Color &fillColor
 void createABox(sf::RectangleShape& box, const sf::Vector2f size, const sf::Color& fillColor, const sf::Vector2f position);
 void setOriginRecToMiddle(sf::RectangleShape& rectangle);
 void setOriginTextToMiddle(sf::Text& text);
-void setBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& cursor, sf::RenderWindow& window, sf::Clock& cursorClock);
+void setBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& cursor, sf::RenderWindow& window, sf::Clock& cursorClock, bool& isCursorVisible);

@@ -4,6 +4,7 @@
 #include "UserInterface.h"
 #include "config.h"
 #include "Scenes/Scene.h"
+#include "SchoolYear.h"
 
 
 
@@ -11,12 +12,12 @@
 
 // Functions
 int main() {
+	
+
     Scene *scene = new Scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)scene->a->width, (unsigned int)scene->a->height), "CourseManagingSystem");
 
-    // A.currentState
-    window.setFramerateLimit(60);
-    sf::Clock clock;
+    window.setFramerateLimit(60); // Set frame rate limit to 60 FPS
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -69,6 +70,21 @@ int main() {
                 scene->viewstudentprofile->renderProfile(para);
                 break;
             }
+            case programState::ChooseSchoolYear:
+			{
+				scene->chooseschoolyear->renderChooseSchoolYear(para);
+				break;
+			}
+            case programState::MenuSchoolYear:
+            {
+				scene->menuschoolyear->renderMenuSchoolYear(para);
+				break;
+			}
+            case programState::ChooseClass:
+            {
+                scene->chooseclass->renderChooseClass(para);
+				break;
+			}
             default:
                 break;
             }
@@ -81,7 +97,7 @@ int main() {
             {
             case programState::Welcome:
             {
-                scene->welcome->drawWelcome(window);
+                scene->welcome->drawWelcome(window, scene->a);
                 break;
             }
             case programState::SignIn:
@@ -124,6 +140,21 @@ int main() {
                 scene->viewstudentprofile->drawProfile(window, scene->a);
                 break;
             }
+            case programState::ChooseSchoolYear:
+            {
+                scene->chooseschoolyear->drawChooseSchoolYear(window, scene->a);
+				break;
+            }
+            case programState::MenuSchoolYear:
+            {
+				scene->menuschoolyear->drawMenuSchoolYear(window, scene->a);
+                break;
+            }
+            case programState::ChooseClass:
+            {
+				scene->chooseclass->drawChooseClass(window, scene->a);
+                break;
+            }
             default:
                 break;
             }
@@ -133,6 +164,7 @@ int main() {
         }
         
     }
+    delete scene;
     return 0;
 }
 
