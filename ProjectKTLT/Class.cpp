@@ -27,8 +27,8 @@
 //
 //		// Read student information
 //		std::getline(fIn, newNode->socialID, ',');
-//		std::getline(fIn, newNode->firstName, ',);
-//		std::getline(fIn, newNode->gender, ',);
+//		std::getline(fIn, newNode->firstName, ',');
+//		std::getline(fIn, newNode->gender, ',');
 //		fIn >> newNode->dateOfBirth.d;
 //		fIn.ignore(1);
 //		fIn >> newNode->dateOfBirth.m;

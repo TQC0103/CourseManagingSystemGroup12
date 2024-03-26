@@ -8,7 +8,7 @@ ChooseSchoolYearScene::ChooseSchoolYearScene(Static* a)
     createABox(chooseSchoolYearBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
     createText(chooseSchoolYearText, a->fontB, a->textColorBlue, "CHOOSE SCHOOL YEAR", 100, (float)a->width / 2.0f, 150.0f);
     createAButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(150.0f, 1000.0f));
-  
+    
     listSchoolYear = new schoolYear();
     listSchoolYear->loadSchoolYear();
     schoolYear* tmpHead = listSchoolYear->pHead;
@@ -17,16 +17,19 @@ ChooseSchoolYearScene::ChooseSchoolYearScene(Static* a)
         numSchoolYears++;
 		tmpHead = tmpHead->pNext;
     }
-
+    if (numSchoolYears > 6)
+    {
+		numSchoolYears = 6;
+	}
     tmpHead = listSchoolYear->pHead;
-    numSchoolYears = std::min(numSchoolYears, 6);
-    buttons = new sf::RectangleShape[numSchoolYears + 5];
-    labels = new sf::Text[numSchoolYears + 5];
+    
+    buttons = new sf::RectangleShape[numSchoolYears];
+    labels = new sf::Text[numSchoolYears];
 
 
     // Create buttons and labels
 
-    for (int i = 0; i < numSchoolYears; ++i) {
+    for (int i = 0; i < numSchoolYears ; ++i) {
         sf::RectangleShape button;
         if(i % 2 == 0)
             createABox(button, sf::Vector2f(500.0f, 200.0f), a->highlightCyan, sf::Vector2f((float)a->width / 2.0f - 350.0f, 400.0f + (i / 2) * 300.0f));
