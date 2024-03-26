@@ -12,8 +12,6 @@
 
 // Functions
 int main() {
-	
-
     Scene *scene = new Scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)scene->a->width, (unsigned int)scene->a->height), "CourseManagingSystem");
 
