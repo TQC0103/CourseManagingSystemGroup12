@@ -10,6 +10,7 @@
 Class::Class() {
 	pHeadListClasses = nullptr;
 	pNext = nullptr;
+	pHeads = nullptr;
 }
 
 //Read data from files
@@ -164,16 +165,17 @@ void Class::show_Student_each_profile(Class* pHead, std::string ID_student) {
 	new_Class->pNext = NULL;
 	return new_Class;
 }
-void Class::print_txt(Class* pHead) {
+void Class::print_txt() {
 	std::ofstream fOut;
 	fOut.open("../Database/Profile/Class/AllClasses.txt"); //can insert link folder
 	if (!fOut.is_open()) {
 		std::cout << "Open file isn't successfull!";
 		return;
 	}
-	while (pHead) {
-		fOut << pHead->name << "\n";
-		pHead = pHead->pNext;
+	Class* cur = pHead;
+	while (cur) {
+		fOut << cur->name << "\n";
+		cur = cur->pNext;
 	}
 	fOut.close();
 }
@@ -186,7 +188,7 @@ void Class::insert_new_Class(Class*& pHead, std::string name_Class) {
 	//update file into data
 	if (!pHead) {
 		pHead = new_Class;
-		print_txt(pHead);
+		print_txt();
 		return;
 	}
 	Class* cur = pHead;
@@ -196,7 +198,7 @@ void Class::insert_new_Class(Class*& pHead, std::string name_Class) {
 	Class* tmp = cur->pNext;
 	cur->pNext = new_Class;
 	new_Class->pNext = tmp;
-	print_txt(pHead);	//update all.txt
+	print_txt();	//update all.txt
 }
 // delete class from linked list
 /*void Delete_aCLass(Class*& aclass) {
