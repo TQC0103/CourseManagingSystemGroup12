@@ -8,17 +8,18 @@ struct Class {
 
 	//Pointer
 	Class* pNext = nullptr;
+	Class* pHead = nullptr;
 	//List students
 	student* pHeads = nullptr;
 
 	//Constructor
-	Class(){}
+	Class();
 
 	//Fuction
 	// data start
 	//Read data from files
 	void input_Student_from_file(student*& pHeads, std::string new_name_Class);
-	void load_Files(Class*& pHead, std::string AllClasses) ; // load data from files
+	void load_Files() ; // load data from files
 	void delete_Class(Class*& pHead);
 	void print_Student_profile_in_class(student* pHeads);
 	//view profile student in class.(16)

@@ -7,6 +7,11 @@
 #include "Semester.h"
 #include <cstring>
 
+Class::Class() {
+	pHead = nullptr;
+	pNext = nullptr;
+}
+
 //Read data from files
 void Class::input_Student_from_file(student *&pHeads, std::string new_name_Class) {
 	pHeads->firstName = new_name_Class;
@@ -49,16 +54,16 @@ void Class::input_Student_from_file(student *&pHeads, std::string new_name_Class
 	}
 	fIn.close();
 }
-void Class::load_Files(Class*& pHead, std::string AllClasses) {	//load File when open program; path is file .txt
+void Class::load_Files() {	//load File when open program; path is file .txt
 	std::ifstream fIn;
-	fIn.open("../Database/Profile/Class/" + AllClasses + ".txt"); //can insert link folder
+	fIn.open("../Database/Profile/Class/AllClasses.txt"); //can insert link folder
 	if (!fIn.is_open()) {
-		std::cout << "Open file isn't successfull!";
+		std::cout << "Error: File not found!";
 		return;
 	}
 	Class *cur = pHead;
 	std::string name_class;
-	while (fIn >> name_class) {
+	while (getline(fIn, name_class)) {
 		if (!pHead) {
 			pHead = new Class;
 			cur = pHead;
