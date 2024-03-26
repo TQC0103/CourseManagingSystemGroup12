@@ -3,7 +3,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 struct schoolYear;
-
+struct Semester;
+struct Class;
+struct Course;
+struct Student;
 
 
 enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear, ChooseClass};
@@ -16,7 +19,10 @@ struct Static
     //std::string schoolYear = "";
 
     schoolYear* curSchoolYear = nullptr;
-    std::string semester = "";
+    Semester* curSemester = nullptr;
+    Class* curClass = nullptr;
+    Course* curCourse = nullptr;
+    Student *curStudent = nullptr;
 
     float width = 2000;
     float height = 1200;
