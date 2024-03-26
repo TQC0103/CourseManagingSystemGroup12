@@ -7,9 +7,9 @@
 #include <cstring>
 #include <filesystem>
 
-namespace fs = std::filesystem;
+using namespace fs : std::filesystem;
 //Read data from files
-static void input_Student_from_file(student *&pHeads, std::string new_name_Class) {
+void input_Student_from_file(student *&pHeads, std::string new_name_Class) {
 	pHeads->firstName = new_name_Class;
 	std::ifstream fIn;
 	fIn.open("../Database/Profile/Class/" + new_name_Class + ".csv");
@@ -155,9 +155,9 @@ static Class* creat_new_Class(std::string path) {
 	new_Class->pNext = NULL;
 	return new_Class;
 }
-void print_txt(Class* pHead, std::string AllClasses) {
+void print_txt(Class* pHead) {
 	std::ifstream fOut;
-	fOut.open("../Database/Profile/Class/" + AllClasses + ".txt"); //can insert link folder
+	fOut.open("../Database/Profile/Class/" + "AllClasses" + ".txt"); //can insert link folder
 	if (!fOut.is_open()) {
 		std::cout << "Open file isn't successfull!";
 		return;
@@ -185,7 +185,7 @@ void Class::insert_new_Class(Class*& pHead, std::string name_Class) {
 	Class* tmp = cur->pNext;
 	cur->pNext = new_Class;
 	new_Class->pNext = tmp;
-	print_txt(pHead, AllClasses);	//update all.txt
+	print_txt(pHead);	//update all.txt
 }
 // delete class from linked list
 void Delete_aCLass(Class* &aclass) {
@@ -210,7 +210,7 @@ void Class::remove_Class(Class*& pHead, std::string name_class)
 		if (const std::exception & ex) {
 			std::cerr << "Error! " << ex.what() << '\n';
 		}
-		else {
+		eypelse {
 			// Link file which you need delete
 			fs::path file_to_delete = ".. / Database / Profile / Class / " + name_class + ".csv";
 
@@ -231,7 +231,7 @@ void Class::remove_Class(Class*& pHead, std::string name_class)
 	cur->pNext = next;
 	Delete_aClass(tmp);
 	//delete file
-	if (const std::exception& ex) {
+	 if (const std::exception& ex) {
 		std::cerr << "Error! " << ex.what() << '\n';
 	}else{
 		// Link file which you need delete
