@@ -1,6 +1,8 @@
 #include "ChooseSchoolYear.h"
 #include "../SchoolYear.h"
 #include <fstream>
+#include "../Scenes/Scene.h"
+
 
 
 ChooseSchoolYearScene::ChooseSchoolYearScene(Static* a)
@@ -79,6 +81,8 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Static* a, s
             {
                 a->currentState = programState::MenuStaff;
             }
+            // deallocate listSchoolYear here
+            listSchoolYear->deallocateSchoolYear(a);
 		}
 	}
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -102,11 +106,12 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Static* a, s
         preButton.setFillColor(a->highlightCyan);
         preText.setFillColor(sf::Color::White);
     }
+    
 }
 
 ChooseSchoolYearScene::~ChooseSchoolYearScene()
 {
     delete[] buttons;
     delete[] labels;
-    listSchoolYear->~schoolYear();
+    
 }
