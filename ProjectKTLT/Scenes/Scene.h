@@ -12,6 +12,7 @@
 #include "ChooseSchoolYear.h"
 #include "MenuSchoolYear.h"
 #include "ChooseClass.h"
+
 struct Scene
 {
 	Static *a = new Static;
@@ -45,3 +46,5 @@ struct Scene
 
 	}
 };
+//Q: error appears, why?
+//A: because of the circular dependency between Scene.h and Scene.cpp

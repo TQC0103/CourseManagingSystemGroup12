@@ -50,7 +50,7 @@ int main() {
             }
             case programState::MenuStaff:
             {
-                scene->menustaff->renderMenuStaff(para);
+                scene->menustaff->renderMenuStaff(event, scene->a, scene, window);
                 break;
             }
             case programState::ChangePassSta:

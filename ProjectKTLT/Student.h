@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include "config.h"
+#include "SchoolYear.h"
 
 struct student
 {
@@ -23,6 +25,11 @@ struct student
   
     //constructor
     student() {
+        No = 0;
+		studentID = "";
+		firstName = "";
+		lastName = "";
+        dateOfBirth = {1,1,0};
     }
     student(int no, std::string id, std::string firstname, std::string lastname, std::string gender, std::string socialId,  date dob) :
         No(no), studentID(id), firstName(firstname), lastName(lastname), gender(gender), socialID(socialId), dateOfBirth(dob){}
@@ -31,5 +38,5 @@ struct student
     void loadStudentProfile(std::string username);
     std::string viewStudentProfile();
     //void readStudentScore();
-    std::string getCoursesInformations();
+    std::string getCoursesInformations(Static *a);
 };

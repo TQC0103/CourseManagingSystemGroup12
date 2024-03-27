@@ -3,7 +3,8 @@
 #include "../UserInterface.h"
 #include <fstream>
 #include "../SchoolYear.h"
-
+#include "../Scenes/Scene.h"
+#include "../Scenes/ChooseSchoolYear.h"
 MenuStaffScene::MenuStaffScene(Static* a)
 {
 	createABox(MenuStaffPage, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
@@ -34,7 +35,7 @@ void MenuStaffScene::drawMenuStaff(sf::RenderWindow& win)
 	win.draw(chooseClassText);
 }
 
-void MenuStaffScene::renderMenuStaff(sf::Event event, Static *a, sf::RenderWindow& win)
+void MenuStaffScene::renderMenuStaff(sf::Event event, Static *a, Scene *scene, sf::RenderWindow& win)
 {
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
@@ -61,8 +62,10 @@ void MenuStaffScene::renderMenuStaff(sf::Event event, Static *a, sf::RenderWindo
 				schoolYear* tmp = new schoolYear();
 				tmp->loadSchoolYear();
 				tmp->addSchoolYear();
-
+				ChooseSchoolYearScene* tmp1 = scene->chooseschoolyear;
+				scene->chooseschoolyear = new ChooseSchoolYearScene(a);
 				delete tmp;
+				delete tmp1;
 			}
 			
 

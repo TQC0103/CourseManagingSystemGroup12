@@ -1,5 +1,8 @@
 #include "Student.h"
 #include "Class.h"
+#include "config.h"
+#include "SchoolYear.h"
+
 extern std::string usernameStudentInput;
 std::string curClass;
 void student::loadStudentProfile(std::string username)
@@ -59,18 +62,11 @@ std::string student::viewStudentProfile()
 }
 
 
-std::string student::getCoursesInformations()
-{
-    std::string schoolyear;
-    std::string semester;
-    std::cout << "Input schoolyear : ";
-    std::getline(std::cin, schoolyear);
-    std::cout << "Input semester : ";
-    std::getline(std::cin, semester);
-    
+std::string student::getCoursesInformations(Static *a)
+{   
     std::string listCourse;
     listCourse += "Your Courses In This Semester : \n";
-    std::ifstream file("../Database/SchoolYear/"+schoolyear+"/"+semester+"/courses.txt");
+    std::ifstream file("../Database/SchoolYear/"+a->curSchoolYear->year+"/"+a->curSchoolYear->pHeadSemester->semesterData+"/courses.txt");
     if(!file.is_open())
     {
         return "Unable to open file! \n";
@@ -78,7 +74,7 @@ std::string student::getCoursesInformations()
     std::string courseName;
     while(std::getline(file, courseName))
     {
-        std::ifstream fIn("../Database/SchoolYear/"+schoolyear+"/"+semester+"/" + courseName + "/Informations.txt");
+        std::ifstream fIn("../Database/SchoolYear/"+ a->curSchoolYear->year +"/"+ a->curSchoolYear->pHeadSemester->semesterData +"/" + courseName + "/Informations.txt");
         std::string courseInformations;
         if(std::getline(fIn, courseInformations))
         {
