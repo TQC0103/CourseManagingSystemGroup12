@@ -8,9 +8,9 @@
 #include <cstring>
 
 Class::Class() {
-	pHead = nullptr;
+	pHeadListClasses = nullptr;
 	pNext = nullptr;
-	pHeads = nullptr;
+	pHeadListStudents = nullptr;
 }
 
 //Read data from files
@@ -55,27 +55,31 @@ void Class::input_Student_from_file(student *&pHeads, std::string new_name_Class
 	}
 	fIn.close();
 }
-void Class::load_Files() {	//load File when open program; path is file .txt
+int Class::load_classes() // load data from files
+ {	
 	std::ifstream fIn;
-	fIn.open("../Database/Profile/Class/AllClasses.txt"); //can insert link folder
+	int num = 0;
+	fIn.open("../Database/Class/AllClasses.txt"); //can insert link folder
 	if (!fIn.is_open()) {
 		std::cout << "Error: File not found!";
-		return;
+		return 0;
 	}
-	Class *cur = pHead;
+	Class *cur = pHeadListClasses;
 	std::string name_class;
 	while (getline(fIn, name_class)) {
-		if (!pHead) {
-			pHead = new Class;
-			cur = pHead;
+		if (pHeadListClasses == nullptr) {
+			pHeadListClasses = new Class;
+			cur = pHeadListClasses;
 		}else{
 			cur->pNext = new Class;
 			cur = cur->pNext;
 		}
-		input_Student_from_file(cur->pHeads, cur->name); //read data of each student
+		cur->name = name_class;
+		num++;
 		cur->pNext = NULL;
 	}
 	fIn.close();
+	return num;
 }
 void Class::delete_Class(Class*& pHead) {   //clean program if program end.
 	Class * tmp = pHead;
@@ -101,7 +105,7 @@ void Class::view_List_Student_profile(Class* pHead, std::string name_class) {
 	if (!cur) return;
 	while (cur) {
 		if (cur->name == name_class) {
-			print_Student_profile_in_class(pHead->pHeads);
+			print_Student_profile_in_class(pHead->pHeadListStudents);
 			break;
 		}
 		cur = cur->pNext;
@@ -128,8 +132,8 @@ void Class::delete_a_Student_Class(Class*& pHead);
 bool Class::find_Class_of_Student(Class* pHead, std::string ID, std::string& Name_class) // find class of student
 {
 	while (pHead) {
-		student* pHeads = pHead->pHeads;
-		if (pHead->pHeads->studentID == ID) {
+		student* pHeads = pHead->pHeadListStudents;
+		if (pHead->pHeadListStudents->studentID == ID) {
 			Name_class = pHead->name;
 			return 1;
 		}
@@ -142,10 +146,10 @@ void Class::show_Student_each_profile(Class* pHead, std::string ID_student) {
 	Class* cur = pHead;
 	if (!cur) return;
 	while (cur) {
-		if (cur->pHeads->studentID == ID_student) {
-			std::cout << pHeads->No << ";" << pHeads->studentID << ";" << pHeads->firstName << ";" << pHeads->lastName << ";";
-			std::cout << pHeads->gender << ";" << pHeads->dateOfBirth.d << "/" << pHeads->dateOfBirth.m << "/" << pHeads->dateOfBirth.y << pHeads->socialID << "\n";
-			pHeads = pHeads->pNext;
+		if (cur->pHeadListStudents->studentID == ID_student) {
+			std::cout << pHeadListStudents->No << ";" << pHeadListStudents->studentID << ";" << pHeadListStudents->firstName << ";" << pHeadListStudents->lastName << ";";
+			std::cout << pHeadListStudents->gender << ";" << pHeadListStudents->dateOfBirth.d << "/" << pHeadListStudents->dateOfBirth.m << "/" << pHeadListStudents->dateOfBirth.y << pHeadListStudents->socialID << "\n";
+			pHeadListStudents = pHeadListStudents->pNext;
 			break;
 		}
 		cur = cur->pNext;
@@ -156,7 +160,7 @@ void Class::show_Student_each_profile(Class* pHead, std::string ID_student) {
 
  Class* Class::creat_new_Class(std::string path) {
 	Class* new_Class = new Class;
-	student *pnewHead = new_Class->pHeads;
+	student *pnewHead = new_Class->pHeadListStudents;
 	input_Student_from_file(pnewHead, path);
 	new_Class->pNext = NULL;
 	return new_Class;
@@ -168,7 +172,7 @@ void Class::print_txt() {
 		std::cout << "Open file isn't successfull!";
 		return;
 	}
-	Class* cur = pHead;
+	Class* cur = pHeadListClasses;
 	while (cur) {
 		fOut << cur->name << "\n";
 		cur = cur->pNext;
@@ -179,7 +183,7 @@ void Class::print_txt() {
 void Class::insert_new_Class(Class*& pHead, std::string name_Class) {
 	Class* new_Class = new Class;
 	new_Class->pNext = NULL;
-	input_Student_from_file(new_Class->pHeads, name_Class);
+	input_Student_from_file(new_Class->pHeadListStudents, name_Class);
 	//insert class into linked list;
 	//update file into data
 	if (!pHead) {
@@ -275,7 +279,7 @@ void Class::export_File(Class* pHead, std::string name_Class, std::string path)
 	if (!cur) return;
 	while (cur) {
 		if (cur->name == name_Class) {
-			print_Student_profile_in_class_files(cur->pHeads, fOut);
+			print_Student_profile_in_class_files(cur->pHeadListStudents, fOut);
 			break;
 		}
 		cur = cur->pNext;
@@ -331,4 +335,13 @@ void Class::print_class_txt(Class* pHead) {
 		cur = cur->pNext;
 	}
 	fOut.close();
+}
+Class::~Class() {
+	Class* cur = pHeadListClasses;
+	while (cur)
+	{
+		Class* tmp = cur;
+		cur = cur->pNext;
+		delete tmp;
+	}
 }

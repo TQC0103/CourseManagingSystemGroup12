@@ -3,26 +3,22 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 struct schoolYear;
-struct Semester;
 struct Class;
-struct Course;
-struct Student;
 
-
-enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear, ChooseClass};
+enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear, ChooseClass, MenuClass};
 struct Static
 {
     programState currentState = programState::Welcome;
+
     std::string username = "";
     std::string password = "";
 
     //std::string schoolYear = "";
 
     schoolYear* curSchoolYear = nullptr;
-    Semester* curSemester = nullptr;
     Class* curClass = nullptr;
-    Course* curCourse = nullptr;
-    Student *curStudent = nullptr;
+
+    std::string semester = "";
 
     float width = 2000;
     float height = 1200;
@@ -31,8 +27,13 @@ struct Static
     sf::Font fontI;
     sf::Color lightCyan = sf::Color(208, 227, 255);
     sf::Color backGroundWhite = sf::Color(255, 249, 240);
+    sf::Color backGroundWhiteDarker = sf::Color(235, 229, 220); // Darker
+    sf::Color backGroundWhiteLighter = sf::Color(255, 252, 240); // Creamier
+    sf::Color backGroundWhiteDarkerStill = sf::Color(215, 209, 200); // Even darker
+    sf::Color backGroundWhiteMuchDarker = sf::Color(175, 169, 160); // Much darker
     sf::Color textColorBlue = sf::Color(8, 31, 92);
     sf::Color highlightCyan = sf::Color(93, 117, 153);
+    
     sf::Color pastelGrey = sf::Color(192, 192, 192);
     sf::Color pastelCyan = sf::Color(156, 217, 207);
     sf::Color pastelPink1 = sf::Color(255, 230, 230);

@@ -2,6 +2,7 @@
 #include "../config.h"
 #include "../UserInterface.h"
 
+struct Scene;
 struct MenuStaffScene
 {
 	sf::Text menu;
@@ -31,6 +32,5 @@ struct MenuStaffScene
 
 	//Functions
 	void drawMenuStaff(sf::RenderWindow& win);
-	void renderMenuStaff(sf::Event event, Static *a, sf::RenderWindow& win);
-	void changePassword();
+	void renderMenuStaff(sf::Event event, Static *a, Scene *scene, sf::RenderWindow& win);
 };

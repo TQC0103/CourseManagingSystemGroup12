@@ -12,8 +12,6 @@
 
 // Functions
 int main() {
-	
-
     Scene *scene = new Scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)scene->a->width, (unsigned int)scene->a->height), "CourseManagingSystem");
 
@@ -52,7 +50,7 @@ int main() {
             }
             case programState::MenuStaff:
             {
-                scene->menustaff->renderMenuStaff(para);
+                scene->menustaff->renderMenuStaff(event, scene->a, scene, window);
                 break;
             }
             case programState::ChangePassSta:

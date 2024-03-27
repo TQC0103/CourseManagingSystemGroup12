@@ -2,16 +2,15 @@
 #include <string>
 #include "Student.h"
 #include<fstream>
-#include "config.h"
 struct Class {
 	//Name Class;
 	std::string name;
 
 	//Pointer
 	Class* pNext = nullptr;
-	Class* pHead = nullptr;
+	Class* pHeadListClasses = nullptr;
 	//List students
-	student* pHeads = nullptr; // pHeadStudents
+	student* pHeadListStudents = nullptr;
 
 	//Constructor
 	Class();
@@ -20,10 +19,10 @@ struct Class {
 	// data start
 	//Read data from files
 	void input_Student_from_file(student*& pHeads, std::string new_name_Class);
-	void load_Files() ; // load data from files
-	void delete_Class(Class*& pHead); // fix this into destructor ~Class();
-	void print_Student_profile_in_class(student* pHeads); // remove this
-	//view profile student in class.(16) // UNESSECARY
+	int load_classes() ; // load data from files
+	void delete_Class(Class*& pHead);
+	void print_Student_profile_in_class(student* pHeads);
+	//view profile student in class.(16)
 	void view_List_Student_profile(Class* pHead, std::string name_class);
 	void print_Student_scoreboard_in_class(student* pHeads);
 	void show_List_Student_scoreboard(Class* pHead, std::string name_class);
@@ -31,23 +30,23 @@ struct Class {
 	void Class::insert_a_Student_Class1st(Class*& pHead);
 	void Class::delete_a_Student_Class(Class*& pHead);
 	*/
-	
-	bool find_Class_of_Student(Class* pHead, std::string ID, std::string& Name_class);// void findCurClass(Static *a);
+	bool find_Class_of_Student(Class* pHead, std::string ID, std::string& Name_class);
 
-	void show_Student_each_profile(Class* pHead, std::string ID_student); // REMOVE
+	void show_Student_each_profile(Class* pHead, std::string ID_student);
 
 	Class* creat_new_Class(std::string path);
-	void print_txt();
+	void print_txt(Class* pHead);
 	//Insert file new class by csv (4) 
 	void insert_new_Class(Class*& pHead, std::string name_Class);
 	void print_Student_profile_in_class_files(student* pHeads, std::ofstream& fOut);
 	void export_File(Class* pHead, std::string name_Class, std::string path);
-	void show_Student_each_scoreboard(Class* pHead, std::string ID_student) {} // Remove
+	void print_txt();
+	void show_Student_each_scoreboard(Class* pHead, std::string ID_student) {}
 	void export_File_score(Class* pHead, std::string name_Class, std::string path) {}
 	// Show list last(15)
-	void show_List_Class(Class* pHead);//  Remove
+	void show_List_Class(Class* pHead);
 	// sort file name follow name in data, all.txt;
 	void Sort_Class(Class*& pHead, Class* new_Class);
 	void print_class_txt(Class* pHead);
+	~Class();
 };
-// Remove all pHead in prototype

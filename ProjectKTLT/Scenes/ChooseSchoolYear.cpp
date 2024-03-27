@@ -71,7 +71,6 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Static* a, s
 		{
 			for (int i = 0; i < numSchoolYears; i++) {
 				if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
-					//a->schoolYear = schoolYears[i];
                     a->curSchoolYear = tmpHead;
                     a->currentState = programState::MenuSchoolYear;
 				}

@@ -1,5 +1,8 @@
 #include "Student.h"
 #include "Class.h"
+#include "config.h"
+#include "SchoolYear.h"
+
 extern std::string usernameStudentInput;
 std::string curClass;
 void student::loadStudentProfile(std::string username)
@@ -56,5 +59,37 @@ std::string student::viewStudentProfile()
     studentProfile += "Date of birth : " + std::to_string(dateOfBirth.d) + "/" + std::to_string(dateOfBirth.m) + "/" + std::to_string(dateOfBirth.y) + "\n";
     studentProfile += "Class : " + curClass + "\n";
     return studentProfile;
+}
+
+
+std::string student::getCoursesInformations(Static *a)
+{   
+    std::string listCourse;
+    listCourse += "Your Courses In This Semester : \n";
+    std::ifstream file("../Database/SchoolYear/"+a->curSchoolYear->year+"/"+a->curSchoolYear->pHeadSemester->semesterData+"/courses.txt");
+    if(!file.is_open())
+    {
+        return "Unable to open file! \n";
+    }
+    std::string courseName;
+    while(std::getline(file, courseName))
+    {
+        std::ifstream fIn("../Database/SchoolYear/"+ a->curSchoolYear->year +"/"+ a->curSchoolYear->pHeadSemester->semesterData +"/" + courseName + "/Informations.txt");
+        std::string courseInformations;
+        if(std::getline(fIn, courseInformations))
+        {
+                std::istringstream iss(courseInformations);
+                listCourse += courseInformations + "\n";
+        }
+        else
+        {
+            return "File is empty! \n";
+
+        }
+        fIn.close();
+    }
+    file.close();
+   
+    return listCourse;
 }
 
