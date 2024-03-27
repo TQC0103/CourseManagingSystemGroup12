@@ -202,6 +202,7 @@ void schoolYear::addSchoolYear() {
 	while (cur)
 	{
 		fout << cur->year << std::endl;
+		cur = cur->pNext;
 	}
 	fout.close();
 	_mkdir(("../Database/SchoolYear/" + nextYear).c_str());

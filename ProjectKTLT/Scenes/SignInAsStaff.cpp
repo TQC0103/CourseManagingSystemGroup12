@@ -47,7 +47,7 @@ void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win, Static *a)
 		sf::RectangleShape cursorPassword;
 		setBlinkingCursorInTypingBox(passwordStudentText, cursorPassword, win, cursorClock, isCursorVisible);
 	}
-	if (isWrong == true)
+	if (isWrong == 1)
 	{
 		createText(incorrect, a->fontB, sf::Color::Red, "Username or password is incorrect", 50, a->width / 2.0f, 1000.0f);
 		win.draw(incorrect);

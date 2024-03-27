@@ -10,7 +10,7 @@
 Class::Class() {
 	pHeadListClasses = nullptr;
 	pNext = nullptr;
-	pHeads = nullptr;
+	pHeadListStudents = nullptr;
 }
 
 //Read data from files
@@ -172,7 +172,7 @@ void Class::print_txt() {
 		std::cout << "Open file isn't successfull!";
 		return;
 	}
-	Class* cur = pHead;
+	Class* cur = pHeadListClasses;
 	while (cur) {
 		fOut << cur->name << "\n";
 		cur = cur->pNext;

@@ -38,6 +38,7 @@ void MenuSchoolYearScene::renderMenuSchoolYear(sf::Event event, Static* a, sf::R
 				a->curSchoolYear = nullptr;
 				a->currentState = programState::ChooseSchoolYear;
 			}
+
 		}
 	}
 	

@@ -51,7 +51,6 @@ void ChooseClassScene::drawChooseClass(sf::RenderWindow& window, Static* a)
 	scrollbar.setPosition(1700.0f, 300.0f + scrollOffset / (numClass * 150.0f - 500.0f) * 650.0f);
 	window.draw(scrollbarArea);
 	window.draw(scrollbar);
-	
 }
 
 void ChooseClassScene::renderChooseClass(sf::Event event, Static* a, sf::RenderWindow& window)

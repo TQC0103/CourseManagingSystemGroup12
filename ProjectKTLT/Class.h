@@ -40,7 +40,7 @@ struct Class {
 	void insert_new_Class(Class*& pHead, std::string name_Class);
 	void print_Student_profile_in_class_files(student* pHeads, std::ofstream& fOut);
 	void export_File(Class* pHead, std::string name_Class, std::string path);
-
+	void print_txt();
 	void show_Student_each_scoreboard(Class* pHead, std::string ID_student) {}
 	void export_File_score(Class* pHead, std::string name_Class, std::string path) {}
 	// Show list last(15)
