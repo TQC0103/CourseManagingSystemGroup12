@@ -31,4 +31,5 @@ struct student
     void loadStudentProfile(std::string username);
     std::string viewStudentProfile();
     //void readStudentScore();
+    std::string getCoursesInformations();
 };
