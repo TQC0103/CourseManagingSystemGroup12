@@ -10,6 +10,7 @@
 
 
 
+
 schoolYear::schoolYear() {
 	year = "";
 	pHead = nullptr;
@@ -345,21 +346,55 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 
 
 
-
-schoolYear::~schoolYear()
+void schoolYear::deallocateSchoolYear(Static* a)
 {
-	schoolYear* cur = pHead;
+
+	while (pHead)
+	{
+		schoolYear* tmp = pHead;
+		semester* cur = pHead->pHeadSemester;
+		if (pHead != a->curSchoolYear)
+		{
+			while (cur)
+			{
+				semester* temp = cur;
+				cur = cur->pNext;
+				delete temp;
+			}
+			pHead = pHead->pNext;
+			delete tmp;
+		}
+		else {
+			pHead = pHead->pNext;
+		}
+	}
+	pHead = a->curSchoolYear;
+}
+void schoolYear::deallocateCurrentSchoolYear()
+{
+	semester * cur = pHeadSemester;
 	while (cur)
 	{
-		semester* tmp = cur->pHeadSemester;
-		while (tmp != nullptr)
-		{
-			semester* curSem = tmp;
-			tmp = tmp->pNext;
-			delete curSem;
-		}
-		schoolYear *tmpYear = cur;
+		semester* tmp = cur;
 		cur = cur->pNext;
-		delete tmpYear;
+		delete tmp;
 	}
 }
+schoolYear::~schoolYear()
+{
+	while (pHead)
+	{
+		schoolYear* tmp = pHead;
+		semester* cur = pHead->pHeadSemester;
+		while (cur)
+		{
+			semester* temp = cur;
+			cur = cur->pNext;
+			delete temp;
+		}
+		pHead = pHead->pNext;
+		delete tmp;
+
+	}
+}
+

@@ -4,6 +4,7 @@
 #include "../config.h"
 #include "../SchoolYear.h"
 
+
 struct ChooseSchoolYearScene
 {
     sf::RectangleShape chooseSchoolYearBackground;
