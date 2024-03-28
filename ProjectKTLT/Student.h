@@ -5,8 +5,8 @@
 #include <iostream>
 #include <sstream>
 #include "config.h"
-#include "SchoolYear.h"
 
+struct schoolYear;
 struct student
 {
     int No;

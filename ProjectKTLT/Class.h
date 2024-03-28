@@ -2,6 +2,8 @@
 #include <string>
 #include "Student.h"
 #include<fstream>
+
+struct student;
 struct Class {
 	//Name Class;
 	std::string name;
@@ -9,6 +11,7 @@ struct Class {
 	//Pointer
 	Class* pNext = nullptr;
 	Class* pHeadListClasses = nullptr;
+
 	//List students
 	student* pHeadListStudents = nullptr;
 
@@ -50,3 +53,5 @@ struct Class {
 	void print_class_txt(Class* pHead);
 	~Class();
 };
+//Q: why error when i use Class* pHeadListClasses = nullptr; in Class.h
+//A: Because you have already declared pHeadListClasses in Class struct, so you can't declare it again in Class.cpp

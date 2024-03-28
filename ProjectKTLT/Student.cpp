@@ -1,7 +1,6 @@
 #include "Student.h"
 #include "Class.h"
 #include "config.h"
-#include "SchoolYear.h"
 
 extern std::string usernameStudentInput;
 std::string curClass;

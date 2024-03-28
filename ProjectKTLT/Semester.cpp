@@ -1,6 +1,5 @@
 #pragma once
 #include "Semester.h"
-#include "SchoolYear.h"
 #include<SFML/Graphics.hpp>
 #include<string>
 #include<fstream>
