@@ -72,3 +72,57 @@ void setBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& curs
         window.draw(cursor);
     }
 }
+
+void createAScrollbar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, const sf::Vector2f& size, const sf::Color& fillColorScrollBar, const sf::Color& fillColorArea, const sf::Vector2f& position, int times) {
+	scrollbar.setSize(sf::Vector2f(size.x, size.y));
+	scrollbar.setFillColor(fillColorScrollBar);
+	scrollbar.setOrigin(scrollbar.getSize().x / 2.0f, scrollbar.getSize().y / 2.0f);
+	scrollbar.setPosition(position);
+
+	scrollbarArea.setSize(sf::Vector2f(size.x, size.y * times));
+	scrollbarArea.setFillColor(fillColorArea);
+	scrollbarArea.setOrigin(size.x / 2.0f, size.y / 2.0f);
+	scrollbarArea.setPosition(position);
+}
+
+void renderScrollbar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, sf::RenderWindow& window, float &scrollOffset, sf::Event &event, bool &isDragging, Static *a, sf::Vector2f &startingPoint, float &sizeDisplay, float &fullSize) {
+    if (event.type == sf::Event::MouseWheelScrolled) {
+        scrollOffset += event.mouseWheelScroll.delta * -30.0f;
+        if (scrollOffset < 0.0f) {
+            scrollOffset = 0.0f;
+        }
+        if (scrollOffset > fullSize) {
+            scrollOffset = fullSize;
+        }
+    }
+    if (event.type == sf::Event::MouseButtonPressed)
+	{
+		if (scrollbar.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+		{
+			isDragging = true;
+			scrollbar.setFillColor(a->backGroundWhiteMuchDarker);
+		}
+	}
+	if (event.type == sf::Event::MouseButtonReleased)
+	{
+		isDragging = false;
+		scrollbar.setFillColor(a->backGroundWhiteDarkerStill);
+	}
+	if (event.type == sf::Event::MouseMoved && isDragging)
+	{
+		scrollOffset = (static_cast<float>(event.mouseMove.y - startingPoint.y) / sizeDisplay) * (fullSize);
+		if (scrollOffset < 0.0f) {
+			scrollOffset = 0.0f;
+		}
+		if (scrollOffset > (fullSize)) {
+			scrollOffset = fullSize;
+		}
+	}
+}
+
+void drawScrollBar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, sf::RenderWindow& window, float& scrollOffset, float& sizeDisplay, float& fullSize, sf::Vector2f& startingOriginPos)
+{
+    scrollbar.setPosition(startingOriginPos.x, startingOriginPos.y + scrollOffset / fullSize * sizeDisplay);
+    window.draw(scrollbarArea);
+    window.draw(scrollbar);
+}

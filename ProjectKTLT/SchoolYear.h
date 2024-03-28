@@ -46,7 +46,10 @@ struct schoolYear {
 
 	// Deallocate
 	
+	void deallocateSchoolYear(Static * a);
+	void deallocateCurrentSchoolYear();
 	~schoolYear();
+
 };
 
 

@@ -2,17 +2,19 @@
 #include "../config.h"
 #include "../UserInterface.h"
 #include <fstream>
-
+#include "../SchoolYear.h"
+#include "../Scenes/Scene.h"
+#include "../Scenes/ChooseSchoolYear.h"
 MenuStaffScene::MenuStaffScene(Static* a)
 {
 	createABox(MenuStaffPage, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-	createAButton(preButtonStaff, preText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-	createAButton(chooseSchoolYearButton, chooseSchoolYearText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "CHOOSE SCHOOL YEAR", sf::Vector2f(a->width / 2.0f - 400.0f, 750.0f));
-	createAButton(createSchoolYearButton, createSchoolYearText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "CREATE SCHOOL YEAR", sf::Vector2f(a->width / 2.0f - 400.0f, 450.0f));
-	createText(menu, a->fontB, a->textColorBlue, "MENU", 120, (float)a->width / 2.0f, 150.0f);
-	createAButton(createClassButton, createClassText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "CREATE CLASS", sf::Vector2f(a->width / 2.0f + 400.0f, 450.0f));
-	createAButton(chooseClassButton, chooseClassText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "CHOOSE CLASS", sf::Vector2f(a->width / 2.0f + 400.0f, 750.0f));
-	createAButton(changePassButton, changePassText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "  CHANGE\nPASSWORD", sf::Vector2f(a->width - 200.0f, a->height - 1000.0f));
+	createAButton(preButtonStaff, preText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(200.0f, 1000.0f));
+	createAButton(chooseSchoolYearButton, chooseSchoolYearText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Choose school year", sf::Vector2f(a->width / 2.0f - 400.0f, 750.0f));
+	createAButton(createSchoolYearButton, createSchoolYearText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Create school year", sf::Vector2f(a->width / 2.0f - 400.0f, 450.0f));
+	createText(menu, a->fontB, a->textColorBlue, "Menu", 120, (float)a->width / 2.0f, 150.0f);
+	createAButton(createClassButton, createClassText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Create class", sf::Vector2f(a->width / 2.0f + 400.0f, 450.0f));
+	createAButton(chooseClassButton, chooseClassText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Choose class", sf::Vector2f(a->width / 2.0f + 400.0f, 750.0f));
+	createAButton(changePassButton, changePassText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "  Change\npassword", sf::Vector2f(a->width - 200.0f, a->height - 1000.0f));
 }
 
 void MenuStaffScene::drawMenuStaff(sf::RenderWindow& win)
@@ -33,7 +35,7 @@ void MenuStaffScene::drawMenuStaff(sf::RenderWindow& win)
 	win.draw(chooseClassText);
 }
 
-void MenuStaffScene::renderMenuStaff(sf::Event event, Static *a, sf::RenderWindow& win)
+void MenuStaffScene::renderMenuStaff(sf::Event event, Static *a, Scene *scene, sf::RenderWindow& win)
 {
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
@@ -43,18 +45,30 @@ void MenuStaffScene::renderMenuStaff(sf::Event event, Static *a, sf::RenderWindo
 			{
 				a->currentState = programState::SignInAsStaff;
 			}
-			if (changePassButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			else if (changePassButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
 				a->currentState = programState::ChangePassSta;
 			}
-			if(chooseSchoolYearButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			else if(chooseSchoolYearButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
 				a->currentState = programState::ChooseSchoolYear;
 			}
-			if (chooseClassButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			else if (chooseClassButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
 				a->currentState = programState::ChooseClass;
 			}
+			else if (createSchoolYearButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				schoolYear* tmp = new schoolYear();
+				tmp->loadSchoolYear();
+				tmp->addSchoolYear();
+				ChooseSchoolYearScene* tmp1 = scene->chooseschoolyear;
+				scene->chooseschoolyear = new ChooseSchoolYearScene(a);
+				delete tmp;
+				delete tmp1;
+			}
+			
+
 		}
 	}
 
@@ -103,10 +117,4 @@ void MenuStaffScene::renderMenuStaff(sf::Event event, Static *a, sf::RenderWindo
 		chooseClassButton.setFillColor(a->highlightCyan);
 		chooseClassText.setFillColor(sf::Color::White);
 	}
-}
-
-void MenuStaffScene::changePassword()
-{
-	std::ofstream fOut;
-	
 }
