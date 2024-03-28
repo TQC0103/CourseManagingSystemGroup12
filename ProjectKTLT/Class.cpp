@@ -6,6 +6,8 @@
 #include <fstream>
 #include "Semester.h"
 #include <cstring>
+#include"config.h"
+
 
 Class::Class() {
 	pHeadListClasses = nullptr;
@@ -19,7 +21,7 @@ void Class::input_Student_from_file(student *&pHeads, std::string new_name_Class
 	std::ifstream fIn;
 	fIn.open("../Database/Profile/Class/" + new_name_Class + ".csv");
 	if (!fIn.is_open()) {
-		std::cout << "Please, Enter file again!";
+		std::cout << "Error! Enter file again!";
 		return;
 	}
 	pHeads = nullptr;
@@ -81,54 +83,7 @@ int Class::load_classes() // load data from files
 	fIn.close();
 	return num;
 }
-void Class::delete_Class(Class*& pHead) {   //clean program if program end.
-	Class * tmp = pHead;
-	while (pHead) {
-		tmp = pHead;
-		pHead = pHead->pNext;
-		delete tmp;
-	}
-	delete pHead;
-}
-void Class::print_Student_profile_in_class(student* pHeads) { // can replace by frame
-	//to print student outside screen
-	while (pHeads) {
-		std::cout << pHeads->No << ";" << pHeads->studentID << ";" << pHeads->firstName << ";" << pHeads->lastName << ";";
 
-		std::cout<< pHeads->gender << ";"<< pHeads->dateOfBirth.d <<"/" << pHeads->dateOfBirth.m << "/"<< pHeads->dateOfBirth.y << pHeads->socialID << "\n";
-		pHeads = pHeads->pNext;
-	}
-}
-//view profile student in class.(16)
-void Class::view_List_Student_profile(Class* pHead, std::string name_class) {
-	Class* cur = pHead;
-	if (!cur) return;
-	while (cur) {
-		if (cur->name == name_class) {
-			print_Student_profile_in_class(pHead->pHeadListStudents);
-			break;
-		}
-		cur = cur->pNext;
-	}
-}
-void Class::print_Student_scoreboard_in_class(student* pHeads) { // can replace by frame (not Done!)
-	//to print student outside screen
-	// depend on semester
-	while (pHeads) {
-		std::cout << pHeads->No << ";" << pHeads->studentID << ";" << pHeads->firstName << ";" << pHeads->lastName << ";";
-
-		std::cout << pHeads->gender << ";" << pHeads->dateOfBirth.d << "/" << pHeads->dateOfBirth.m << "/" << pHeads->dateOfBirth.y << pHeads->socialID << "\n";
-		pHeads = pHeads->pNext;
-	}
-}
-void Class::show_List_Student_scoreboard(Class* pHead, std::string name_class) { // depend on semester
-	//(not Done!)
-
-}
-/* here or struct student
-void Class::insert_a_Student_Class1st(Class*& pHead);
-void Class::delete_a_Student_Class(Class*& pHead);
-*/	
 bool Class::find_Class_of_Student(Class* pHead, std::string ID, std::string& Name_class) // find class of student
 {
 	while (pHead) {
@@ -142,21 +97,6 @@ bool Class::find_Class_of_Student(Class* pHead, std::string ID, std::string& Nam
 	return 0;
 }
 
-void Class::show_Student_each_profile(Class* pHead, std::string ID_student) {
-	Class* cur = pHead;
-	if (!cur) return;
-	while (cur) {
-		if (cur->pHeadListStudents->studentID == ID_student) {
-			std::cout << pHeadListStudents->No << ";" << pHeadListStudents->studentID << ";" << pHeadListStudents->firstName << ";" << pHeadListStudents->lastName << ";";
-			std::cout << pHeadListStudents->gender << ";" << pHeadListStudents->dateOfBirth.d << "/" << pHeadListStudents->dateOfBirth.m << "/" << pHeadListStudents->dateOfBirth.y << pHeadListStudents->socialID << "\n";
-			pHeadListStudents = pHeadListStudents->pNext;
-			break;
-		}
-		cur = cur->pNext;
-	}
-}
-
-
 
  Class* Class::creat_new_Class(std::string path) {
 	Class* new_Class = new Class;
@@ -169,7 +109,7 @@ void Class::print_txt() {
 	std::ofstream fOut;
 	fOut.open("../Database/Profile/Class/AllClasses.txt"); //can insert link folder
 	if (!fOut.is_open()) {
-		std::cout << "Open file isn't successfull!";
+		std::cout << "Error! Open file isn't successfull!";
 		return;
 	}
 	Class* cur = pHeadListClasses;
@@ -200,6 +140,145 @@ void Class::insert_new_Class(Class*& pHead, std::string name_Class) {
 	new_Class->pNext = tmp;
 	print_txt();	//update all.txt
 }
+
+
+void Class::print_Student_profile_in_class_files(student* pHeads, std::ofstream &fOut) { // can replace by frame
+	//to print student outside files
+	while (pHeads) {
+		fOut << pHeads->No << ";" << pHeads->studentID << ";" << pHeads->firstName << ";" << pHeads->lastName << ";";
+
+		fOut << pHeads->gender << ";" << pHeads->dateOfBirth.d << "/" << pHeads->dateOfBirth.m << "/" << pHeads->dateOfBirth.y << pHeads->socialID << "\n";
+		pHeads = pHeads->pNext;
+	}
+}
+void Class::export_File(Class* pHead, std::string name_Class, std::string path)
+{
+	std::ofstream fOut;
+	fOut.open("../Database/Profile/Class/" + path + ".csv"); //can insert link folder
+	if (!fOut.is_open()) {
+		std::cout << "Error! Open file isn't successfull!";
+		return;
+	}
+	Class* cur = pHead;
+	if (!cur) return;
+	while (cur) {
+		if (cur->name == name_Class) {
+			print_Student_profile_in_class_files(cur->pHeadListStudents, fOut);
+			break;
+		}
+		cur = cur->pNext;
+	}
+	fOut.close();
+}
+// sort file name follow name in data, all.txt;
+void Class::Sort_Class(Class*& pHead, Class* new_Class) {
+	if (!pHead) {
+		pHead = new_Class;
+		return;
+	}
+	if (pHead->name > new_Class->name) {
+		new_Class->pNext = pHead;
+		pHead = new_Class;
+		return;
+	}
+	Class* cur = pHead->pNext;
+	Class* pre = pHead;
+	while (cur) {
+		if (cur->name > new_Class->name) {
+			new_Class->pNext = cur;
+			pre->pNext = new_Class;
+		}
+		pre = cur;
+		cur = cur->pNext;
+	}
+	if (!cur) pre->pNext = new_Class;
+	print_class_txt(pHead);
+}
+void Class::print_class_txt(Class* pHead) {
+	std::ofstream fOut;
+	fOut.open("class.txt");
+	if (!fOut.is_open()) {
+		std::cout << "Error! Open file isn't successfull!";
+		return;
+	}
+	Class* cur = pHead;
+	if (!cur) return;
+	while (cur) {
+		fOut << cur->name << "\n";
+		cur = cur->pNext;
+	}
+	fOut.close();
+}
+Class::~Class() {
+	Class* cur = pHeadListClasses;
+	while (cur)
+	{
+		Class* tmp = cur;
+		cur = cur->pNext;
+		delete tmp;
+	}
+}
+
+
+/*
+void class::print_student_profile_in_class(student* pheads) { // can replace by frame
+	//to print student outside screen
+	while (pheads) {
+		std::cout << pheads->no << ";" << pheads->studentid << ";" << pheads->firstname << ";" << pheads->lastname << ";";
+
+		std::cout<< pheads->gender << ";"<< pheads->dateofbirth.d <<"/" << pheads->dateofbirth.m << "/"<< pheads->dateofbirth.y << pheads->socialid << "\n";
+		pheads = pheads->pnext;
+	}
+}*/
+//view profile student in class.(16)
+
+/*
+void Class::view_List_Student_profile(Class* pHead, std::string name_class) {
+	Class* cur = pHead;
+	if (!cur) return;
+	while (cur) {
+		if (cur->name == name_class) {
+			print_Student_profile_in_class(pHead->pHeadListStudents);
+			break;
+		}
+		cur = cur->pNext;
+	}
+}
+void Class::print_Student_scoreboard_in_class(student* pHeads) { // can replace by frame (not Done!)
+	//to print student outside screen
+	// depend on semester
+	while (pHeads) {
+		std::cout << pHeads->No << ";" << pHeads->studentID << ";" << pHeads->firstName << ";" << pHeads->lastName << ";";
+
+		std::cout << pHeads->gender << ";" << pHeads->dateOfBirth.d << "/" << pHeads->dateOfBirth.m << "/" << pHeads->dateOfBirth.y << pHeads->socialID << "\n";
+		pHeads = pHeads->pNext;
+	}
+}
+void Class::show_List_Student_scoreboard(Class* pHead, std::string name_class) { // depend on semester
+	//(not Done!)
+
+}
+/* here or struct student
+void Class::insert_a_Student_Class1st(Class*& pHead);
+void Class::delete_a_Student_Class(Class*& pHead);
+*/
+
+/*
+void Class::show_Student_each_profile(Class* pHead, std::string ID_student) {
+	Class* cur = pHead;
+	if (!cur) return;
+	while (cur) {
+		if (cur->pHeadListStudents->studentID == ID_student) {
+			std::cout << pHeadListStudents->No << ";" << pHeadListStudents->studentID << ";" << pHeadListStudents->firstName << ";" << pHeadListStudents->lastName << ";";
+			std::cout << pHeadListStudents->gender << ";" << pHeadListStudents->dateOfBirth.d << "/" << pHeadListStudents->dateOfBirth.m << "/" << pHeadListStudents->dateOfBirth.y << pHeadListStudents->socialID << "\n";
+			pHeadListStudents = pHeadListStudents->pNext;
+			break;
+		}
+		cur = cur->pNext;
+	}
+}
+
+*/
 // delete class from linked list
 /*void Delete_aCLass(Class*& aclass) {
 	student* tmp = aclass->pheads;
@@ -258,90 +337,16 @@ void Class::remove_Class(Class*& pHead, std::string name_class)
 	print_txt(pHead);
 }*/
 //export file.(can 19)
-void Class::print_Student_profile_in_class_files(student* pHeads, std::ofstream &fOut) { // can replace by frame
-	//to print student outside files
-	while (pHeads) {
-		fOut << pHeads->No << ";" << pHeads->studentID << ";" << pHeads->firstName << ";" << pHeads->lastName << ";";
 
-		fOut << pHeads->gender << ";" << pHeads->dateOfBirth.d << "/" << pHeads->dateOfBirth.m << "/" << pHeads->dateOfBirth.y << pHeads->socialID << "\n";
-		pHeads = pHeads->pNext;
-	}
-}
-void Class::export_File(Class* pHead, std::string name_Class, std::string path)
-{
-	std::ofstream fOut;
-	fOut.open("../Database/Profile/Class/" + path + ".csv"); //can insert link folder
-	if (!fOut.is_open()) {
-		std::cout << "Open file isn't successfull!";
-		return;
-	}
-	Class* cur = pHead;
-	if (!cur) return;
-	while (cur) {
-		if (cur->name == name_Class) {
-			print_Student_profile_in_class_files(cur->pHeadListStudents, fOut);
-			break;
-		}
-		cur = cur->pNext;
-	}
-	fOut.close();
-}
 
 //void Class::show_Student_each_scoreboard(Class* pHead, std::string ID_student){}
 //void Class::export_File_score(Class* pHead, std::string name_Class, std::string path) {}
 // Show list last(15)
+/*
 void Class::show_List_Class(Class* pHead)
 {
 	while (pHead) {
 		std::cout << pHead->name << "\n";
 		pHead = pHead -> pNext;
 	}
-}
-// sort file name follow name in data, all.txt;
-void Class::Sort_Class(Class*& pHead, Class* new_Class) {
-	if (!pHead) {
-		pHead = new_Class;
-		return;
-	}
-	if (pHead->name > new_Class->name) {
-		new_Class->pNext = pHead;
-		pHead = new_Class;
-		return;
-	}
-	Class* cur = pHead->pNext;
-	Class* pre = pHead;
-	while (cur) {
-		if (cur->name > new_Class->name) {
-			new_Class->pNext = cur;
-			pre->pNext = new_Class;
-		}
-		pre = cur;
-		cur = cur->pNext;
-	}
-	if (!cur) pre->pNext = new_Class;
-	print_class_txt(pHead);
-}
-void Class::print_class_txt(Class* pHead) {
-	std::ofstream fOut;
-	fOut.open("class.txt");
-	if (!fOut.is_open()) {
-		std::cout << "Open file isn't successfull!";
-		return;
-	}
-	Class* cur = pHead;
-	if (!cur) return;
-	while (cur) {
-		fOut << cur->name << "\n";
-		cur = cur->pNext;
-	}
-	fOut.close();
-}
-Class::~Class() {
-	Class* cur = pHeadListClasses;
-	while (cur)
-	{
-		Class* tmp = cur;
-		cur = cur->pNext;
-		delete tmp;
-	}
-}
+}*/
