@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../UserInterface.h"
-#include "../config.h"
 #include "../SchoolYear.h"
+struct Static;
 
 
 struct ChooseSchoolYearScene
@@ -23,7 +23,7 @@ struct ChooseSchoolYearScene
     sf::Text preText;
 
     ChooseSchoolYearScene(Static* a);
-    ~ChooseSchoolYearScene();
+    //~ChooseSchoolYearScene();
     void drawChooseSchoolYear(sf::RenderWindow& window, Static* a);
     void renderChooseSchoolYear(sf::Event event, Static* a, sf::RenderWindow& window);
 };
