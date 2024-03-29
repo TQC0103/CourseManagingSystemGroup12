@@ -4,6 +4,7 @@
 #include <iostream>
 struct schoolYear;
 struct Class;
+struct semester;
 
 enum programState{Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear, ChooseClass, MenuClass};
 struct Static
@@ -18,7 +19,7 @@ struct Static
     schoolYear* curSchoolYear = nullptr;
     Class* curClass = nullptr;
 
-    std::string semester = "";
+    semester* curSemester = nullptr;
 
     float width = 2000;
     float height = 1200;

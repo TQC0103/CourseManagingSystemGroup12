@@ -352,15 +352,9 @@ void schoolYear::deallocateSchoolYear(Static* a)
 	while (pHead)
 	{
 		schoolYear* tmp = pHead;
-		semester* cur = pHead->pHeadSemester;
+		
 		if (pHead != a->curSchoolYear)
 		{
-			while (cur)
-			{
-				semester* temp = cur;
-				cur = cur->pNext;
-				delete temp;
-			}
 			pHead = pHead->pNext;
 			delete tmp;
 		}
@@ -369,29 +363,18 @@ void schoolYear::deallocateSchoolYear(Static* a)
 		}
 	}
 	pHead = a->curSchoolYear;
+	pHead->pNext = nullptr;
 }
 void schoolYear::deallocateCurrentSchoolYear()
 {
-	semester * cur = pHeadSemester;
-	while (cur)
-	{
-		semester* tmp = cur;
-		cur = cur->pNext;
-		delete tmp;
-	}
+	delete pHead;
+	pHead = nullptr;
 }
 schoolYear::~schoolYear()
 {
 	while (pHead)
 	{
 		schoolYear* tmp = pHead;
-		semester* cur = pHead->pHeadSemester;
-		while (cur)
-		{
-			semester* temp = cur;
-			cur = cur->pNext;
-			delete temp;
-		}
 		pHead = pHead->pNext;
 		delete tmp;
 

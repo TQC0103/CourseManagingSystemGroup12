@@ -1,7 +1,7 @@
 #pragma once
 #include<string>
 #include "Course.h"
-
+#include "config.h"
 
 
 
@@ -28,19 +28,22 @@ struct semester {
 
 	Course* pHeadCourseForStudent = nullptr;
 
-	void loadCourse();
+	void loadCourse(Static *a);
 
-	void specifyCourseForStudent(std::string studentID);
+	void specifyCourseForStudent(Static *a);
 
 	void normingCourseData(std::string& data);
 
-	//bool findCurrentCourse(const std::string& data);
-
 	void addCourse(const std::string& name, const std::string& id, const std::string& className, const std::string& lecturer, int credit, int maxStudent, const std::string& weekDay, int session);
 
-	void deleteCourse(const std::string courseID);
+	// Delete Operation
+	void deleteCourse(const std::string courseID); // this is remove a course in DATABASE
 
-	void deallocateCourse();
+	void deallocateRedundantSemester(Static *a);
+	
+	void deallocateCurrentSemester();
+
+	~semester();
 	
 
 
