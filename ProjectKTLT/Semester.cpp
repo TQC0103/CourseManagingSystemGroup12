@@ -8,6 +8,7 @@
 #include "SchoolYear.h"
 
 
+
 semester::semester(std::string semesterNum, std::string StartDate, std::string EndDate) {
 	semesterData = semesterNum;
 	startDate = StartDate;	
@@ -29,14 +30,25 @@ void semester::loadCourse(Static *a)
 		std::cerr << "Can't open file" << std::endl;
 		return;
 	}
-	std::string tmpCourseName;
-	//pHeadCourse = new Course;
-	//Course* cur = pHeadCourse;
-	while (getline(fin, tmpCourseName))
+	std::string tmpCourseID;
+	Course* cur = pHeadCourse;
+	while (getline(fin, tmpCourseID))
 	{
-		//Course* newCourse = new Course;
+		if (!pHeadCourse)
+		{
+			pHeadCourse = new Course;
+			cur = pHeadCourse;
+			cur->ID = tmpCourseID;
+		}
+		else {
+			cur->pNext = new Course;
+			cur = cur->pNext;
+			cur->ID = tmpCourseID;
+		}
 		
 	}
+	fin.close();
+	cur->pNext = nullptr;
 
 
 }
