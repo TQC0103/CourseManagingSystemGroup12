@@ -38,7 +38,6 @@ struct Class {
 	void show_Student_each_profile(Class* pHead, std::string ID_student);
 
 	Class* creat_new_Class(std::string path);
-	void print_txt();
 	//Insert file new class by csv (4) 
 	void insert_new_Class(Class*& pHead, std::string name_Class);
 	void print_Student_profile_in_class_files(student* pHeads, std::ofstream& fOut);

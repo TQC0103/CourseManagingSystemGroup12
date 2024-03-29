@@ -5,6 +5,7 @@
 #include<fstream>
 #include<iostream>
 #include<direct.h>
+#include "SchoolYear.h"
 
 
 semester::semester(std::string semesterNum, std::string StartDate, std::string EndDate) {
