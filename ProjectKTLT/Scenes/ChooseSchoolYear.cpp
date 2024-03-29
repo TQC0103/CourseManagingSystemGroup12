@@ -1,7 +1,7 @@
 #include "ChooseSchoolYear.h"
-#include "../SchoolYear.h"
+#include "../config.h"
 #include <fstream>
-#include "../Scenes/Scene.h"
+
 
 
 
@@ -108,9 +108,9 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Static* a, s
     
 }
 
-ChooseSchoolYearScene::~ChooseSchoolYearScene()
+/*ChooseSchoolYearScene::~ChooseSchoolYearScene()
 {
     delete[] buttons;
     delete[] labels;
     
-}
+}*/

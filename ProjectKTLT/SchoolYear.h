@@ -2,7 +2,7 @@
 #include<string>
 #include "Semester.h"
 #include "config.h"
-#include "Scenes/Scene.h"
+
 
 struct schoolYear {
 	schoolYear();
