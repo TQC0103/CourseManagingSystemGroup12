@@ -19,7 +19,7 @@ Class::Class() {
 void Class::input_Student_from_file(student *&pHeads, std::string new_name_Class) {
 	pHeads->firstName = new_name_Class;
 	std::ifstream fIn;
-	fIn.open("../Database/Profile/Class/" + new_name_Class + ".csv");
+	fIn.open("../Database/Class/" + new_name_Class + "/Students/" + new_name_Class +".csv");
 	if (!fIn.is_open()) {
 		std::cout << "Error! Enter file again!";
 		return;
@@ -107,7 +107,7 @@ bool Class::find_Class_of_Student(Class* pHead, std::string ID, std::string& Nam
 }
 void Class::print_txt() {
 	std::ofstream fOut;
-	fOut.open("../Database/Profile/Class/AllClasses.txt"); //can insert link folder
+	fOut.open("../Database/Class/AllClasses.txt"); //can insert link folder
 	if (!fOut.is_open()) {
 		std::cout << "Error! Open file isn't successfull!";
 		return;
@@ -151,10 +151,11 @@ void Class::print_Student_profile_in_class_files(student* pHeads, std::ofstream 
 		pHeads = pHeads->pNext;
 	}
 }
+//Not finished!
 void Class::export_File(Class* pHead, std::string name_Class, std::string path)
 {
 	std::ofstream fOut;
-	fOut.open("../Database/Profile/Class/" + path + ".csv"); //can insert link folder
+	fOut.open("../Database/Class/" + path + ".csv"); //can insert link folder
 	if (!fOut.is_open()) {
 		std::cout << "Error! Open file isn't successfull!";
 		return;
