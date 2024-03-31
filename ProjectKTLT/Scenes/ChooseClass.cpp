@@ -1,6 +1,6 @@
 #include "ChooseClass.h"
 #include "../Class.h"
-
+#include "Scene.h"
 
 ChooseClassScene::ChooseClassScene(Static* a)
 {
@@ -53,7 +53,7 @@ void ChooseClassScene::drawChooseClass(sf::RenderWindow& window, Static* a)
 	window.draw(scrollbar);
 }
 
-void ChooseClassScene::renderChooseClass(sf::Event event, Static* a, sf::RenderWindow& window)
+void ChooseClassScene::renderChooseClass(sf::Event event, Scene *scene, sf::RenderWindow& window)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	if (event.type == sf::Event::MouseWheelScrolled) {
@@ -72,27 +72,32 @@ void ChooseClassScene::renderChooseClass(sf::Event event, Static* a, sf::RenderW
 		{
 			if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				a->currentState = programState::MenuStaff;
+				delete scene->chooseclass;
+				scene->chooseclass = nullptr;
+				if(scene->menustaff == nullptr)
+					scene->menustaff = new MenuStaffScene(scene->a);
+				scene->a->currentState = programState::MenuStaff;
 			}
 		}
 		for (int i = 0; i < numClass; i++)
 		{
 			if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
-				a->curClass = tmp;
-				a->currentState = programState::MenuClass;
-			} 
+				scene->a->curClass = tmp;
+				scene->menuclass = new MenuClassScene(scene->a);
+				scene->a->currentState = programState::MenuClass;
+			}
 			tmp = tmp->pNext;
 		}
 		if (scrollbar.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 		{
 			isDragging = true;
-			scrollbar.setFillColor(a->backGroundWhiteMuchDarker);
+			scrollbar.setFillColor(scene->a->backGroundWhiteMuchDarker);
 		}
 	}
 	if (event.type == sf::Event::MouseButtonReleased)
 	{
 		isDragging = false;
-		scrollbar.setFillColor(a->backGroundWhiteDarkerStill);
+		scrollbar.setFillColor(scene->a->backGroundWhiteDarkerStill);
 	}
 	if (event.type == sf::Event::MouseMoved && isDragging)
 	{
@@ -104,28 +109,29 @@ void ChooseClassScene::renderChooseClass(sf::Event event, Static* a, sf::RenderW
 			scrollOffset = numClass * 150.0f - 500.0f;
 		}
 	}
-	
+
 	for (int i = 0; i < numClass; i++) {
-		if (a->currentState == programState::ChooseClass && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-			buttons[i].setFillColor(a->pastelTitleCyan);
-			labels[i].setFillColor(a->titleGreyColor);
+		if (scene->a->currentState == programState::ChooseClass && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+			buttons[i].setFillColor(scene->a->pastelTitleCyan);
+			labels[i].setFillColor(scene->a->titleGreyColor);
 		}
 		else {
-			buttons[i].setFillColor(a->highlightCyan);
+			buttons[i].setFillColor(scene->a->highlightCyan);
 			labels[i].setFillColor(sf::Color::White);
 		}
 	}
-	if (a->currentState == programState::ChooseClass && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	if (scene->a->currentState == programState::ChooseClass && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
-		preButton.setFillColor(a->pastelTitleCyan);
-		preText.setFillColor(a->titleGreyColor);
+		preButton.setFillColor(scene->a->pastelTitleCyan);
+		preText.setFillColor(scene->a->titleGreyColor);
 	}
 	else
 	{
-		preButton.setFillColor(a->highlightCyan);
+		preButton.setFillColor(scene->a->highlightCyan);
 		preText.setFillColor(sf::Color::White);
 	}
-	
+
+
 }
 
 ChooseClassScene::~ChooseClassScene()

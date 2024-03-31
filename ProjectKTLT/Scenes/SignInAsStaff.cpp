@@ -2,6 +2,7 @@
 #include "SignInAsStaff.h"
 #include <fstream>
 #include <string>
+#include "Scene.h"
 
 SignInAsStaffScene::SignInAsStaffScene(Static *a)
 {
@@ -66,12 +67,33 @@ void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win, Static *a)
 	}
 }
 
-void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::RenderWindow& win)
+void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Scene *scene, sf::RenderWindow& win)
 {
+	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+	if (scene->a->currentState == programState::SignInAsStaff && signInStudentPreviousButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		signInStudentPreviousButton.setFillColor(scene->a->pastelTitleCyan);
+		signInStudentPreviousText.setFillColor(scene->a->titleGreyColor);
+	}
+	else if (scene->a->currentState == programState::SignInAsStaff && submit.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		submit.setFillColor(scene->a->pastelTitleCyan);
+		submitText.setFillColor(scene->a->titleGreyColor);
+	}
+	else {
+		signInStudentPreviousButton.setFillColor(scene->a->highlightCyan);
+		signInStudentPreviousText.setFillColor(sf::Color::White);
+		submit.setFillColor(scene->a->highlightCyan);
+		submitText.setFillColor(sf::Color::White);
+	}
 	if (isWrong == 2)
 	{
 		sf::sleep(sf::seconds(1.0f));
-		a->currentState = programState::MenuStaff;
+		delete scene->signinasstaff;
+		scene->signinasstaff = nullptr;
+		if (scene->menustaff == nullptr)
+			scene->menustaff = new MenuStaffScene(scene->a);
+		scene->a->currentState = programState::MenuStaff;
 		isWrong = 0;
 	}
 	// Handle mouse events
@@ -81,12 +103,21 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 		{
 			if (signInStudentPreviousButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
+<<<<<<< Updated upstream
 				usernameStaffInput = "";
 				passwordStaffInput = "";
 				usernameInputEnable = false;
 				passwordInputEnable = false;
 				isWrong = 0;
 				a->currentState = programState::SignIn;
+=======
+				isWrong = 0;
+				delete scene->signinasstaff;
+				scene->signinasstaff = nullptr;
+				if(scene->signin == nullptr)
+					scene->signin = new SignInScene(scene->a);
+				scene->a->currentState = programState::SignIn;
+>>>>>>> Stashed changes
 			}
 			else if (usernameStudentBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
@@ -106,8 +137,8 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 				}
 				else {
 					isWrong = 2;
-					a->username = usernameStaffInput;
-					a->password = passwordStaffInput;
+					scene->a->username = usernameStaffInput;
+					scene->a->password = passwordStaffInput;
 				}
 			}
 			else {
@@ -133,8 +164,8 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 			}
 			else {
 				isWrong = 2;
-				a->username = usernameStaffInput;
-				a->password = passwordStaffInput;
+				scene->a->username = usernameStaffInput;
+				scene->a->password = passwordStaffInput;
 			}
 		}
 		if (usernameInputEnable || passwordInputEnable)
@@ -166,23 +197,8 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 		}
 	}
 
-	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
-	if (a->currentState == programState::SignInAsStaff && signInStudentPreviousButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		signInStudentPreviousButton.setFillColor(a->pastelTitleCyan);
-		signInStudentPreviousText.setFillColor(a->titleGreyColor);
-	}
-	else if (a->currentState == programState::SignInAsStaff && submit.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		submit.setFillColor(a->pastelTitleCyan);
-		submitText.setFillColor(a->titleGreyColor);
-	}
-	else {
-		signInStudentPreviousButton.setFillColor(a->highlightCyan);
-		signInStudentPreviousText.setFillColor(sf::Color::White);
-		submit.setFillColor(a->highlightCyan);
-		submitText.setFillColor(sf::Color::White);
-	}
+	
+
 }
 bool SignInAsStaffScene::checkAccount()
 {

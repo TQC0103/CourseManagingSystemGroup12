@@ -206,7 +206,10 @@ void schoolYear::addSchoolYear() {
 		cur = cur->pNext;
 	}
 	fout.close();
-	_mkdir(("../Database/SchoolYear/" + nextYear).c_str());
+	int result = _mkdir(("../Database/SchoolYear/" + nextYear).c_str());
+	if (result != 0) {
+		std::cout << "Error: Unable to create directory" << std::endl;
+	}
 
 	//checkInputYear(yearData);
 	//if (!checkInputYear(yearData)) {
@@ -323,7 +326,11 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 	fout << data << std::endl;
 	fout << start << ";" << end << std::endl;
 	fout.close();
-	_mkdir(("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/" + (std::string)data).c_str());
+	int result = _mkdir(("../Database/SchoolYear/" + a->curSchoolYear->year).c_str());
+	if (result != 0) {
+		std::cout << "Error: Unable to create directory" << std::endl;
+		return false;
+	}
 	semester* cur = a->curSchoolYear->pHeadSemester;
 	if (!cur) {
 		cur = new semester(data, start, end);
@@ -349,7 +356,9 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 void schoolYear::deallocateSchoolYear(Static* a)
 {
 
-	while (pHead)
+<<<<<<< Updated upstream
+=======
+	while (pHead != nullptr)
 	{
 		schoolYear* tmp = pHead;
 		
@@ -370,14 +379,22 @@ void schoolYear::deallocateCurrentSchoolYear()
 	delete pHead;
 	pHead = nullptr;
 }
+>>>>>>> Stashed changes
 schoolYear::~schoolYear()
 {
-	while (pHead)
+	schoolYear* cur = pHead;
+	while (cur)
 	{
-		schoolYear* tmp = pHead;
-		pHead = pHead->pNext;
-		delete tmp;
-
+		semester* tmp = cur->pHeadSemester;
+		while (tmp != nullptr)
+		{
+			semester* curSem = tmp;
+			tmp = tmp->pNext;
+			delete curSem;
+		}
+		schoolYear *tmpYear = cur;
+		cur = cur->pNext;
+		delete tmpYear;
 	}
 }
 

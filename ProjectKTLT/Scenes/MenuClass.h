@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../config.h"
-
+#include "../Class.h"
+struct Scene;
 struct MenuClassScene
 {
 	sf::RectangleShape menuClassBackground;
@@ -25,5 +26,5 @@ struct MenuClassScene
 	MenuClassScene(Static* a);
 
 	void drawMenuClass(sf::RenderWindow& window, Static* a);
-	void renderMenuClass(sf::Event event, Static* a, sf::RenderWindow& window);
+	void renderMenuClass(sf::Event event, Scene *scene, sf::RenderWindow& window);
 };

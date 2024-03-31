@@ -2,8 +2,11 @@
 #include <SFML/Graphics.hpp>
 #include "../UserInterface.h"
 #include "../SchoolYear.h"
-struct Static;
+<<<<<<< Updated upstream
+=======
+struct Scene;
 
+>>>>>>> Stashed changes
 
 struct ChooseSchoolYearScene
 {
@@ -25,5 +28,5 @@ struct ChooseSchoolYearScene
     ChooseSchoolYearScene(Static* a);
     //~ChooseSchoolYearScene();
     void drawChooseSchoolYear(sf::RenderWindow& window, Static* a);
-    void renderChooseSchoolYear(sf::Event event, Static* a, sf::RenderWindow& window);
+    void renderChooseSchoolYear(sf::Event event, Scene *scene, sf::RenderWindow& window);
 };
