@@ -5,10 +5,10 @@
 MenuSchoolYearScene::MenuSchoolYearScene(Static* a)
 {
 	createABox(menuSchoolYearBackground, sf::Vector2f(a->width, a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-	createText(menuSchoolYearText, a->fontB, a->textColorBlue, "MENU SCHOOL YEAR", 80, a->width / 2.0f, 100.0f);
-	createAButton(preButton, preText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "RE-SELECT YEAR", sf::Vector2f(200.0f, 1000.0f));
-	createAButton(createSemestersButton, createSemestersText, sf::Vector2f(600.0f, 200.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "CREATE SEMESTER", sf::Vector2f(a->width / 2.0f, 500.0f));
-	createAButton(chooseSemesterButton, chooseSemesterText, sf::Vector2f(600.0f, 200.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "CHOOSE SEMESTER", sf::Vector2f(a->width / 2.0f, 800.0f));	
+	createText(menuSchoolYearText, a->fontB, a->textColorBlue, "Menu School Year", 80, a->width / 2.0f, 100.0f);
+	createAButton(preButton, preText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Re-select year", sf::Vector2f(200.0f, 1000.0f));
+	createAButton(createSemestersButton, createSemestersText, sf::Vector2f(600.0f, 200.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "Createt semester", sf::Vector2f(a->width / 2.0f, 500.0f));
+	createAButton(chooseSemesterButton, chooseSemesterText, sf::Vector2f(600.0f, 200.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "Choose semester", sf::Vector2f(a->width / 2.0f, 800.0f));	
 }
 
 void MenuSchoolYearScene::drawMenuSchoolYear(sf::RenderWindow& window, Static* a)
@@ -16,8 +16,11 @@ void MenuSchoolYearScene::drawMenuSchoolYear(sf::RenderWindow& window, Static* a
 	window.draw(menuSchoolYearBackground);
 	window.draw(menuSchoolYearText);
 	
-	if(i == 0)
+	if (i == 0)
+	{
+		i++;
 		createText(yearText, a->fontB, a->textColorBlue, a->curSchoolYear->year, 100, a->width / 2.0f, 250.0f);
+	}
 	window.draw(yearText);
 	window.draw(preButton);
 	window.draw(preText);

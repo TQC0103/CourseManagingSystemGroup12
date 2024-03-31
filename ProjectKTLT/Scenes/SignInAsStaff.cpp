@@ -8,14 +8,14 @@ SignInAsStaffScene::SignInAsStaffScene(Static *a)
 	isCursorVisible = false;
 	signInStudentPage.setFillColor(a->backGroundWhite);
 	signInStudentPage.setSize(sf::Vector2f((float)a->width, (float)a->height));
-	createText(studentSignInPageText, a->fontB, a->textColorBlue, "STAFF", 120, a->width / 2.0f, 150.0f);
-	createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-	createAButton(submit, submitText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "SIGN IN", sf::Vector2f(a->width - 200.0f, 1000.0f));
+	createText(studentSignInPageText, a->fontB, a->textColorBlue, "- STAFF -", 120, a->width / 2.0f, 150.0f);
+	createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(200.0f, 1000.0f));
+	createAButton(submit, submitText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Sign in", sf::Vector2f(a->width - 200.0f, 1000.0f));
 	createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 475.0f));
 	createText(usernameStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, usernameStudentBox.getPosition().y);
 	createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 800.0f));
-	createText(enterPasswordHere, a->fontI, sf::Color::White, "ENTER PASSWORD HERE", 40, a->width / 2.0f, 800.0f);
-	createText(enterUsernameHere, a->fontI, sf::Color::White, "ENTER USERNAME HERE", 40, a->width / 2.0f, 475.0f);
+	createText(enterPasswordHere, a->fontI, sf::Color::White, "Enter password here", 60, a->width / 2.0f, 800.0f);
+	createText(enterUsernameHere, a->fontI, sf::Color::White, "Enter username here", 60, a->width / 2.0f, 475.0f);
 	createText(passwordStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, passwordStudentBox.getPosition().y);
 	createText(successful, a->fontB, sf::Color::Green, "Sign in successfully", 50, a->width / 2.0f, 1000.0f);
 }
@@ -85,6 +85,7 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 				passwordStaffInput = "";
 				usernameInputEnable = false;
 				passwordInputEnable = false;
+				isWrong = 0;
 				a->currentState = programState::SignIn;
 			}
 			else if (usernameStudentBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))

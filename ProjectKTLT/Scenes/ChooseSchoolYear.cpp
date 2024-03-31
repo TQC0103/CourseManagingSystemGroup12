@@ -8,8 +8,8 @@
 ChooseSchoolYearScene::ChooseSchoolYearScene(Static* a)
 {
     createABox(chooseSchoolYearBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-    createText(chooseSchoolYearText, a->fontB, a->textColorBlue, "CHOOSE SCHOOL YEAR", 100, (float)a->width / 2.0f, 150.0f);
-    createAButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(150.0f, 1000.0f));
+    createText(chooseSchoolYearText, a->fontB, a->textColorBlue, "Choose school year", 100, (float)a->width / 2.0f, 150.0f);
+    createAButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f));
     
     listSchoolYear = new schoolYear();
     listSchoolYear->loadSchoolYear();
@@ -76,6 +76,7 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Static* a, s
 				}
                 tmpHead = tmpHead->pNext;
 			}
+            //Q:change the for loop to while loop to avoid the bug for me please
             if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
             {
                 a->currentState = programState::MenuStaff;

@@ -12,7 +12,7 @@
 #include "ChooseSchoolYear.h"
 #include "MenuSchoolYear.h"
 #include "ChooseClass.h"
-
+#include "MenuClass.h"
 
 struct Scene
 {
@@ -29,9 +29,9 @@ struct Scene
 	ChangePassStudentScene *changepassstu = new ChangePassStudentScene(a);
 	ChooseSchoolYearScene* chooseschoolyear = new ChooseSchoolYearScene(a);
 	ViewStudentProfileScene* viewstudentprofile = new ViewStudentProfileScene(a);
-	
 	MenuSchoolYearScene* menuschoolyear = new MenuSchoolYearScene(a);
 	ChooseClassScene* chooseclass = new ChooseClassScene(a);
+	MenuClassScene* menuclass = new MenuClassScene(a);
 	~Scene() {
 		delete welcome;
 		delete signin;
@@ -45,6 +45,7 @@ struct Scene
 		delete chooseschoolyear;
 		delete menuschoolyear;
 		delete chooseclass;
+		delete menuclass;
 		delete a;
 
 	}

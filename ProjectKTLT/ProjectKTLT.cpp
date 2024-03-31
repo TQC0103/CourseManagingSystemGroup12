@@ -83,6 +83,11 @@ int main() {
                 scene->chooseclass->renderChooseClass(para);
 				break;
 			}
+            case programState::MenuClass:
+            {
+				scene->menuclass->renderMenuClass(para);
+                break;
+            }
             default:
                 break;
             }
@@ -151,6 +156,11 @@ int main() {
             case programState::ChooseClass:
             {
 				scene->chooseclass->drawChooseClass(window, scene->a);
+                break;
+            }
+            case programState::MenuClass:
+            {
+                scene->menuclass->drawMenuClass(window, scene->a);
                 break;
             }
             default:
