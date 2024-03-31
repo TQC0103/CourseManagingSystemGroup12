@@ -125,4 +125,6 @@ ChooseSchoolYearScene::~ChooseSchoolYearScene()
 {
     delete[] buttons;
     delete[] labels;
+
 }
+

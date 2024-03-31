@@ -2,9 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "../UserInterface.h"
 #include "../SchoolYear.h"
+
 struct Scene;
-
-
 struct ChooseSchoolYearScene
 {
     sf::RectangleShape chooseSchoolYearBackground;
