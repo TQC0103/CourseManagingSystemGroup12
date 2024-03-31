@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "../UserInterface.h"
 #include "../config.h"
-
+struct Scene;
 struct MenuSchoolYearScene
 {
 	sf::RectangleShape menuSchoolYearBackground;
@@ -23,5 +23,5 @@ struct MenuSchoolYearScene
 	MenuSchoolYearScene(Static* a);
 	
 	void drawMenuSchoolYear(sf::RenderWindow& window, Static* a);
-	void renderMenuSchoolYear(sf::Event event, Static* a, sf::RenderWindow& window);
+	void renderMenuSchoolYear(sf::Event event, Scene *scene, sf::RenderWindow& window);
 };

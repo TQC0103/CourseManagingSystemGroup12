@@ -3,7 +3,7 @@
 #include "../config.h"
 #include "../UserInterface.h"
 #include "../Class.h"
-
+struct Scene;
 struct ChooseClassScene
 {
 	sf::RectangleShape chooseClassBackground;
@@ -26,5 +26,5 @@ struct ChooseClassScene
 	ChooseClassScene(Static* a);
 	~ChooseClassScene();
 	void drawChooseClass(sf::RenderWindow& window, Static* a);
-	void renderChooseClass(sf::Event event, Static* a, sf::RenderWindow& window);
+	void renderChooseClass(sf::Event event, Scene *scene, sf::RenderWindow& window);
 };

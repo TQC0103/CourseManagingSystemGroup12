@@ -32,5 +32,5 @@ struct MenuStaffScene
 
 	//Functions
 	void drawMenuStaff(sf::RenderWindow& win);
-	void renderMenuStaff(sf::Event event, Static *a, Scene *scene, sf::RenderWindow& win);
+	void renderMenuStaff(sf::Event event, Scene *scene, sf::RenderWindow& win);
 };

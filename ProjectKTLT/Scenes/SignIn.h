@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../config.h"
+#include "../UserInterface.h"
+struct Scene;
 
 struct SignInScene
 {
@@ -19,5 +21,5 @@ struct SignInScene
 
 	// Member functions
 	void drawSignIn(sf::RenderWindow& win);
-	void renderSignIn(sf::Event event, Static *a, sf::RenderWindow& win);
+	void renderSignIn(sf::Event event, Scene *scene, sf::RenderWindow& win);
 };

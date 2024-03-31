@@ -1,7 +1,7 @@
 #include "ChooseSchoolYear.h"
 #include "../SchoolYear.h"
 #include <fstream>
-
+#include "Scene.h"
 
 ChooseSchoolYearScene::ChooseSchoolYearScene(Static* a)
 {
@@ -60,8 +60,9 @@ void ChooseSchoolYearScene::drawChooseSchoolYear(sf::RenderWindow &window, Stati
     }
 }
 
-void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Static* a, sf::RenderWindow& window)
+void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Scene *scene, sf::RenderWindow& window)
 {
+<<<<<<< Updated upstream
     schoolYear* tmpHead = listSchoolYear->pHead;
     if(event.type == sf::Event::MouseButtonPressed)
 	{
@@ -80,32 +81,80 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Static* a, s
             }
 		}
 	}
+=======
+>>>>>>> Stashed changes
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    if (scene->a->currentState == programState::ChooseSchoolYear && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+    {
+        preButton.setFillColor(scene->a->pastelTitleCyan);
+        preText.setFillColor(scene->a->titleGreyColor);
+    }
+    else
+    {
+        preButton.setFillColor(scene->a->highlightCyan);
+        preText.setFillColor(sf::Color::White);
+    }
     for (int i = 0; i < numSchoolYears; i++) {
-        if (a->currentState == programState::ChooseSchoolYear && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-            buttons[i].setFillColor(a->pastelTitleCyan);
-            labels[i].setFillColor(a->titleGreyColor);
+        if (scene->a->currentState == programState::ChooseSchoolYear && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+            buttons[i].setFillColor(scene->a->pastelTitleCyan);
+            labels[i].setFillColor(scene->a->titleGreyColor);
         }
         else {
-            buttons[i].setFillColor(a->highlightCyan);
+            buttons[i].setFillColor(scene->a->highlightCyan);
             labels[i].setFillColor(sf::Color::White);
         }
     }
-    if(a->currentState == programState::ChooseSchoolYear && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		preButton.setFillColor(a->pastelTitleCyan);
-		preText.setFillColor(a->titleGreyColor);
-	}
-    else
+
+    schoolYear* tmpHead = listSchoolYear->pHead;
+    if (event.type == sf::Event::MouseButtonPressed)
     {
-        preButton.setFillColor(a->highlightCyan);
-        preText.setFillColor(sf::Color::White);
+        if (event.mouseButton.button == sf::Mouse::Left)
+        {
+            for (int i = 0; i < numSchoolYears; i++) {
+                if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
+                    scene->a->curSchoolYear = tmpHead;
+                    listSchoolYear->deallocateSchoolYear(scene->a);
+                    if(scene->menuschoolyear == nullptr)
+                        scene->menuschoolyear = new MenuSchoolYearScene(scene->a);
+                    scene->a->currentState = programState::MenuSchoolYear;
+                    delete scene->chooseschoolyear;
+                    scene->chooseschoolyear = nullptr;
+                    break;
+                }
+                else {
+					tmpHead = tmpHead->pNext;
+				}
+            }
+            
+            if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+            {
+                listSchoolYear->~schoolYear();
+                delete scene->chooseschoolyear;
+                scene->chooseschoolyear = nullptr;
+                if(scene->menustaff == nullptr)
+                    scene->menustaff = new MenuStaffScene(scene->a);
+                scene->a->currentState = programState::MenuStaff;
+                
+            }
+            
+        }
     }
+<<<<<<< Updated upstream
+=======
+    
+    
+    
+
+    
+>>>>>>> Stashed changes
 }
 
 ChooseSchoolYearScene::~ChooseSchoolYearScene()
 {
     delete[] buttons;
     delete[] labels;
+<<<<<<< Updated upstream
     listSchoolYear->~schoolYear();
+=======
+>>>>>>> Stashed changes
 }
