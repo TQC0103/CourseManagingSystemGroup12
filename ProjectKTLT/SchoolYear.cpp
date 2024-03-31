@@ -355,9 +355,6 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 
 void schoolYear::deallocateSchoolYear(Static* a)
 {
-
-<<<<<<< Updated upstream
-=======
 	while (pHead != nullptr)
 	{
 		schoolYear* tmp = pHead;
@@ -379,7 +376,7 @@ void schoolYear::deallocateCurrentSchoolYear()
 	delete pHead;
 	pHead = nullptr;
 }
->>>>>>> Stashed changes
+
 schoolYear::~schoolYear()
 {
 	schoolYear* cur = pHead;

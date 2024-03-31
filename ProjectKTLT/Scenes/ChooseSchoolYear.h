@@ -2,11 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "../UserInterface.h"
 #include "../SchoolYear.h"
-<<<<<<< Updated upstream
-=======
 struct Scene;
 
->>>>>>> Stashed changes
 
 struct ChooseSchoolYearScene
 {

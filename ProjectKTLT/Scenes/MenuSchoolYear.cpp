@@ -63,10 +63,6 @@ void MenuSchoolYearScene::renderMenuSchoolYear(sf::Event event, Scene *scene, sf
 		{
 			if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-<<<<<<< Updated upstream
-				a->curSchoolYear = nullptr;
-				a->currentState = programState::ChooseSchoolYear;
-=======
 				scene->a->curSchoolYear->deallocateCurrentSchoolYear();
 				delete scene->a->curSchoolYear;
 				scene->a->curSchoolYear = nullptr;
@@ -76,7 +72,6 @@ void MenuSchoolYearScene::renderMenuSchoolYear(sf::Event event, Scene *scene, sf
 				if(scene->chooseschoolyear == nullptr)
 					scene->chooseschoolyear = new ChooseSchoolYearScene(scene->a);
 				scene->a->currentState = programState::ChooseSchoolYear;
->>>>>>> Stashed changes
 			}
 
 		}

@@ -62,30 +62,6 @@ void ChooseSchoolYearScene::drawChooseSchoolYear(sf::RenderWindow &window, Stati
 
 void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Scene *scene, sf::RenderWindow& window)
 {
-<<<<<<< Updated upstream
-    schoolYear* tmpHead = listSchoolYear->pHead;
-    if(event.type == sf::Event::MouseButtonPressed)
-	{
-		if(event.mouseButton.button == sf::Mouse::Left)
-		{
-			for (int i = 0; i < numSchoolYears; i++) {
-				if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
-                    a->curSchoolYear = tmpHead;
-                    a->currentState = programState::MenuSchoolYear;
-				}
-                tmpHead = tmpHead->pNext;
-			}
-            //Q:change the for loop to while loop to avoid the bug for me please
-            if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
-            {
-                a->currentState = programState::MenuStaff;
-            }
-            // deallocate listSchoolYear here
-            listSchoolYear->deallocateSchoolYear(a);
-		}
-	}
-=======
->>>>>>> Stashed changes
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     if (scene->a->currentState == programState::ChooseSchoolYear && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
     {
@@ -151,3 +127,4 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Scene *scene
     delete[] labels;
     listSchoolYear->~schoolYear();
 }
+*/

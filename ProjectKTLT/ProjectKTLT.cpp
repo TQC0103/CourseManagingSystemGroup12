@@ -80,14 +80,11 @@ int main() {
                 scene->chooseclass->renderChooseClass(event, scene, window);
 				break;
 			}
-<<<<<<< Updated upstream
-=======
             case programState::MenuClass:
             {
 				scene->menuclass->renderMenuClass(event, scene, window);
                 break;
             }
->>>>>>> Stashed changes
             default:
                 break;
             }

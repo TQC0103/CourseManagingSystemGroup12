@@ -16,37 +16,7 @@
 
 struct Scene
 {
-
-	Static *a = new Static;
-
-<<<<<<< Updated upstream
-	WelcomeScene *welcome = new WelcomeScene(a);
-	SignInScene *signin = new SignInScene(a);
-	SignInAsStudentScene *signinasstudent = new SignInAsStudentScene(a);
-	SignInAsStaffScene *signinasstaff = new SignInAsStaffScene(a);
-	MenuStudentScene *menustudent = new MenuStudentScene(a);
-	MenuStaffScene *menustaff = new MenuStaffScene(a);
-	ChangePassStaffScene *changepasssta = new ChangePassStaffScene(a);
-	ChangePassStudentScene *changepassstu = new ChangePassStudentScene(a);
-	ChooseSchoolYearScene* chooseschoolyear = new ChooseSchoolYearScene(a);
-	ViewStudentProfileScene* viewstudentprofile = new ViewStudentProfileScene(a);
-	MenuSchoolYearScene* menuschoolyear = new MenuSchoolYearScene(a);
-	ChooseClassScene* chooseclass = new ChooseClassScene(a);
-	MenuClassScene* menuclass = new MenuClassScene(a);
-	~Scene() {
-		delete welcome;
-		delete signin;
-		delete signinasstudent;
-		delete signinasstaff;
-		delete menustudent;
-		delete menustaff;
-		delete changepasssta;
-		delete changepassstu;
-		delete viewstudentprofile;
-		delete chooseschoolyear;
-		delete menuschoolyear;
-		delete chooseclass;
-=======
+	Static* a = new Static();
 	WelcomeScene* welcome = nullptr;
 	SignInScene *signin = nullptr;
 	SignInAsStudentScene *signinasstudent = nullptr;
@@ -91,7 +61,6 @@ struct Scene
 			delete chooseclass;
 		if(menuclass != nullptr)
 			delete menuclass;
->>>>>>> Stashed changes
 		delete a;
 
 	}

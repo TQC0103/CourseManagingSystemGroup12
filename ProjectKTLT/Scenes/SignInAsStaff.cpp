@@ -103,21 +103,12 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Scene *scene, sf::
 		{
 			if (signInStudentPreviousButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-<<<<<<< Updated upstream
-				usernameStaffInput = "";
-				passwordStaffInput = "";
-				usernameInputEnable = false;
-				passwordInputEnable = false;
-				isWrong = 0;
-				a->currentState = programState::SignIn;
-=======
 				isWrong = 0;
 				delete scene->signinasstaff;
 				scene->signinasstaff = nullptr;
 				if(scene->signin == nullptr)
 					scene->signin = new SignInScene(scene->a);
 				scene->a->currentState = programState::SignIn;
->>>>>>> Stashed changes
 			}
 			else if (usernameStudentBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
