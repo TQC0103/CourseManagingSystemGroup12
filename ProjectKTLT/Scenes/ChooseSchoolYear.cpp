@@ -121,10 +121,8 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Scene *scene
     
 }
 
-/*ChooseSchoolYearScene::~ChooseSchoolYearScene()
+ChooseSchoolYearScene::~ChooseSchoolYearScene()
 {
     delete[] buttons;
     delete[] labels;
-    listSchoolYear->~schoolYear();
 }
-*/
