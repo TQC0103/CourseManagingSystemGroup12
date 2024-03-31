@@ -33,7 +33,7 @@ void WelcomeScene::renderWelcome(sf::Event event, Scene *scene, sf::RenderWindow
                 if(scene -> signin == nullptr)
                     scene -> signin = new SignInScene(scene -> a);
                 scene -> a -> currentState = programState::SignIn;
-                    delete scene->welcome;
+                delete scene->welcome;
                 scene->welcome = nullptr;
             }
             else if (exitRect.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
