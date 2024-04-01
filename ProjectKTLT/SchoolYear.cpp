@@ -323,7 +323,7 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 	fout << data << std::endl;
 	fout << start << ";" << end << std::endl;
 	fout.close();
-	_mkdir(("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/" + (std::string)data).c_str());
+	int makeFile = _mkdir(("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/" + (std::string)data).c_str());
 	semester* cur = a->curSchoolYear->pHeadSemester;
 	if (!cur) {
 		cur = new semester(data, start, end);
