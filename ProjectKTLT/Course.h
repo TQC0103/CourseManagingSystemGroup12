@@ -25,11 +25,16 @@ struct Course
 	// Credit, session
 	int Credit, maxStudent;
 	std::string weekDay;
+
+	// Session should be string because it likes : 7:30 - 9:30
+
+
 	std::string	Session;
+
+
 
 	//construstor
 	Course();
-	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session);
 	
 	//ponter to student score 
 	studentScore* pHeadScore = nullptr;
