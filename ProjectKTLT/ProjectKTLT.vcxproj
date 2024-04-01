@@ -150,6 +150,7 @@
     <ClCompile Include="Scenes\SignIn.cpp" />
     <ClCompile Include="Scenes\SignInAsStaff.cpp" />
     <ClCompile Include="Scenes\SignInAsStudent.cpp" />
+    <ClCompile Include="Scenes\MenuClass.cpp" />
     <ClCompile Include="Scenes\ViewStudentProfile.cpp" />
     <ClCompile Include="Scenes\Welcome.cpp" />
     <ClCompile Include="SchoolYear.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Scenes\ChangePassStudent.h" />
     <ClInclude Include="Scenes\ChooseClass.h" />
     <ClInclude Include="Scenes\ChooseSchoolYear.h" />
+    <ClInclude Include="Scenes\MenuClass.h" />
     <ClInclude Include="Scenes\MenuSchoolYear.h" />
     <ClInclude Include="Scenes\MenuStaff.h" />
     <ClInclude Include="Scenes\MenuStudent.h" />

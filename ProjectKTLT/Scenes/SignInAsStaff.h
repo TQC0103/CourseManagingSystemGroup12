@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "../UserInterface.h"
 
+struct Scene;
 struct SignInAsStaffScene
 {
 	sf::RectangleShape signInStudentPage;
@@ -41,6 +42,6 @@ struct SignInAsStaffScene
 
 	// Functions
 	void drawSignInAsStaff(sf::RenderWindow& win, Static *a);
-	void renderSignInAsStaff(sf::Event event, Static *a, sf::RenderWindow& win);
+	void renderSignInAsStaff(sf::Event event, Scene *scene, sf::RenderWindow& win);
 	bool checkAccount();
 };

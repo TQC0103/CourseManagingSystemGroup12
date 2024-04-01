@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "../UserInterface.h"
 #include "../config.h"
-
+struct Scene;
 struct MenuStudentScene
 {
 	sf::RectangleShape menuStudentPage;
@@ -29,6 +29,6 @@ struct MenuStudentScene
 
 	//Functions
 	void drawMenuStudent(sf::RenderWindow& win);
-	void renderMenuStudent(sf::Event event, Static *a, sf::RenderWindow &win);
+	void renderMenuStudent(sf::Event event, Scene *scene, sf::RenderWindow &win);
 
 };

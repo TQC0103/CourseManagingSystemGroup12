@@ -4,6 +4,7 @@
 #include "Class.h"
 #include <string>
 #include <fstream>
+#include "config.h"
 
 struct Course
 {
@@ -24,13 +25,18 @@ struct Course
 	// Credit, session
 	int Credit, maxStudent;
 	std::string weekDay;
+<<<<<<< HEAD
 	// Session should be string because it likes : 7:30 - 9:30
 	int	Session;
+=======
+	std::string	Session;
+>>>>>>> 0dcf67ca7cd4072b221f48f6e9f1902f54b1b7fc
 
 
 	//construstor
-	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, int session);
+	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session)
 	Course();
+	
 	//ponter to student score 
 	studentScore* pHeadScore = nullptr;
 
@@ -63,6 +69,7 @@ struct Course
 	// Supportive function
 	void showingStudentList();
 	void showStudent(student*& pHead, int range, int& Pcur);
+	void loadDataOfTheCourse();
 	int getAllStudent();
 	void showPStudent(student*& pHead, int range, int& Pcur);
 

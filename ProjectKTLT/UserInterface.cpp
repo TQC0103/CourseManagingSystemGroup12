@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "UserInterface.h"
 #include "config.h"
+#define POINTS 20.0f
+
 void setOriginTextToMiddle(sf::Text& text) {
     sf::FloatRect bounds = text.getLocalBounds();
     text.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
@@ -11,6 +13,7 @@ void setOriginRecToMiddle(sf::RectangleShape& rectangle) {
     sf::FloatRect bounds = rectangle.getLocalBounds();
     rectangle.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
+
 void createAButton(sf::RectangleShape& button, sf::Text& buttonText, const sf::Vector2f& size, float textSize, const sf::Color& fillColor, const sf::Font& font, const sf::Color& textColor, const std::string& text, const sf::Vector2f& position) {
     // Set button properties
     button.setSize(size);
@@ -125,4 +128,65 @@ void drawScrollBar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarA
     scrollbar.setPosition(startingOriginPos.x, startingOriginPos.y + scrollOffset / fullSize * sizeDisplay);
     window.draw(scrollbarArea);
     window.draw(scrollbar);
+}
+
+sf::ConvexShape RoundedRectangle(float x, float y, float rectWidth, float rectHeight, float radius, const sf::Color& Col, float Outline, const sf::Color& OutlineCol)
+{
+    sf::ConvexShape rrect;
+    rrect.setOutlineThickness(Outline);
+    rrect.setOutlineColor(OutlineCol);
+    rrect.setFillColor(Col);
+    rrect.setPointCount(4 * POINTS);
+
+    float X = 0, Y = 0;
+    for (int i = 0; i < POINTS; i++)
+    {
+        X += radius / POINTS;
+        Y = sqrt(radius * radius - X * X);
+        rrect.setPoint(i, sf::Vector2f(X + rectWidth - radius, -Y + radius));
+    }
+    Y = 0;
+    for (int i = 0; i < POINTS; i++)
+    {
+        Y += radius / POINTS;
+        X = sqrt(radius * radius - Y * Y);
+        rrect.setPoint(i + POINTS, sf::Vector2f(rectWidth + X - radius, rectHeight - radius + Y));
+    }
+    X = 0;
+    for (int i = 0; i < POINTS; i++)
+    {
+        X += radius / POINTS;
+        Y = sqrt(radius * radius - X * X);
+        rrect.setPoint(i + 2 * POINTS, sf::Vector2f(radius - X, rectHeight - radius + Y));
+    }
+    Y = 0;
+    for (int i = 0; i < POINTS; i++)
+    {
+        Y += radius / POINTS;
+        X = sqrt(radius * radius - Y * Y);
+        rrect.setPoint(i + 3 * POINTS, sf::Vector2f(-X + radius, radius - Y));
+    }
+
+    rrect.setPosition(x, y);
+    rrect.setOrigin(rectWidth / 2, rectHeight / 2);
+    return rrect;
+}
+
+void createCornerRoundedButton(sf::ConvexShape& button, sf::Text& buttonText, const sf::Vector2f& size, float textSize, const sf::Color& fillColor, const sf::Font& font, const sf::Color& textColor, const std::string& text, const sf::Vector2f& position, float outlineSize, const sf::Color& outlineColor) {
+    // Set button properties
+    button = RoundedRectangle(position.x, position.y, size.x, size.y, 20.0f, fillColor, outlineSize, outlineColor);
+
+    // Set button text properties
+    buttonText.setFont(font);
+    buttonText.setFillColor(textColor);
+    buttonText.setString(text);
+    buttonText.setCharacterSize((int)textSize);
+
+    // Set text origin to center if requested
+
+    setOriginTextToMiddle(buttonText);
+
+    // Set button position
+    button.setPosition(position);
+    buttonText.setPosition(position);
 }
