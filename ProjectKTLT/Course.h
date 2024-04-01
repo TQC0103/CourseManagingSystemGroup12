@@ -28,8 +28,8 @@ struct Course
 	std::string	Session;
 
 	//construstor
-	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session)
 	Course();
+	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session);
 	
 	//ponter to student score 
 	studentScore* pHeadScore = nullptr;
@@ -63,7 +63,7 @@ struct Course
 	// Supportive function
 	void showingStudentList();
 	void showStudent(student*& pHead, int range, int& Pcur);
-	void loadDataOfTheCourse();
+	void loadDataOfTheCourse(Static *a);
 	int getAllStudent();
 	void showPStudent(student*& pHead, int range, int& Pcur);
 
