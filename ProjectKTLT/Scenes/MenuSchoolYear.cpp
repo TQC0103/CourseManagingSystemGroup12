@@ -35,9 +35,12 @@ void MenuSchoolYearScene::renderMenuSchoolYear(sf::Event event, Static* a, sf::R
 		{
 			if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
+				a->curSchoolYear->deallocateCurrentSchoolYear();
+				delete a->curSchoolYear;
 				a->curSchoolYear = nullptr;
 				a->currentState = programState::ChooseSchoolYear;
 			}
+
 		}
 	}
 	

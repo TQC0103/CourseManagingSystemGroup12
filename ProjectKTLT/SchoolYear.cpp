@@ -10,6 +10,7 @@
 
 
 
+
 schoolYear::schoolYear() {
 	year = "";
 	pHead = nullptr;
@@ -202,6 +203,7 @@ void schoolYear::addSchoolYear() {
 	while (cur)
 	{
 		fout << cur->year << std::endl;
+		cur = cur->pNext;
 	}
 	fout.close();
 	_mkdir(("../Database/SchoolYear/" + nextYear).c_str());
@@ -344,21 +346,38 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 
 
 
+void schoolYear::deallocateSchoolYear(Static* a)
+{
 
+	while (pHead)
+	{
+		schoolYear* tmp = pHead;
+		
+		if (pHead != a->curSchoolYear)
+		{
+			pHead = pHead->pNext;
+			delete tmp;
+		}
+		else {
+			pHead = pHead->pNext;
+		}
+	}
+	pHead = a->curSchoolYear;
+	pHead->pNext = nullptr;
+}
+void schoolYear::deallocateCurrentSchoolYear()
+{
+	delete pHead;
+	pHead = nullptr;
+}
 schoolYear::~schoolYear()
 {
-	schoolYear* cur = pHead;
-	while (cur)
+	while (pHead)
 	{
-		semester* tmp = cur->pHeadSemester;
-		while (tmp != nullptr)
-		{
-			semester* curSem = tmp;
-			tmp = tmp->pNext;
-			delete curSem;
-		}
-		schoolYear *tmpYear = cur;
-		cur = cur->pNext;
-		delete tmpYear;
+		schoolYear* tmp = pHead;
+		pHead = pHead->pNext;
+		delete tmp;
+
 	}
 }
+

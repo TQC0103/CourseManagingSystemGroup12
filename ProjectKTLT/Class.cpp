@@ -10,9 +10,10 @@
 
 
 Class::Class() {
-	pHeadListClasses = nullptr;
 	pNext = nullptr;
+
 	pHeadListStudents = nullptr;
+
 }
 
 //Read data from files
