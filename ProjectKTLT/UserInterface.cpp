@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "UserInterface.h"
 #include "config.h"
-#define POINTS 20
+#define POINTS 20.0f
 
 void setOriginTextToMiddle(sf::Text& text) {
     sf::FloatRect bounds = text.getLocalBounds();
@@ -13,6 +13,7 @@ void setOriginRecToMiddle(sf::RectangleShape& rectangle) {
     sf::FloatRect bounds = rectangle.getLocalBounds();
     rectangle.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
+
 void createAButton(sf::RectangleShape& button, sf::Text& buttonText, const sf::Vector2f& size, float textSize, const sf::Color& fillColor, const sf::Font& font, const sf::Color& textColor, const std::string& text, const sf::Vector2f& position) {
     // Set button properties
     button.setSize(size);
@@ -167,6 +168,25 @@ sf::ConvexShape RoundedRectangle(float x, float y, float rectWidth, float rectHe
     }
 
     rrect.setPosition(x, y);
-
+    rrect.setOrigin(rectWidth / 2, rectHeight / 2);
     return rrect;
+}
+
+void createCornerRoundedButton(sf::ConvexShape& button, sf::Text& buttonText, const sf::Vector2f& size, float textSize, const sf::Color& fillColor, const sf::Font& font, const sf::Color& textColor, const std::string& text, const sf::Vector2f& position, float outlineSize, const sf::Color& outlineColor) {
+    // Set button properties
+    button = RoundedRectangle(position.x, position.y, size.x, size.y, 20.0f, fillColor, outlineSize, outlineColor);
+
+    // Set button text properties
+    buttonText.setFont(font);
+    buttonText.setFillColor(textColor);
+    buttonText.setString(text);
+    buttonText.setCharacterSize((int)textSize);
+
+    // Set text origin to center if requested
+
+    setOriginTextToMiddle(buttonText);
+
+    // Set button position
+    button.setPosition(position);
+    buttonText.setPosition(position);
 }

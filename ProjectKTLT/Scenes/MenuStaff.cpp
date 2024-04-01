@@ -38,50 +38,55 @@ void MenuStaffScene::drawMenuStaff(sf::RenderWindow& win)
 void MenuStaffScene::renderMenuStaff(sf::Event event, Scene *scene, sf::RenderWindow& win)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
-	if (scene->a->currentState == programState::MenuStaff && preButtonStaff.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	if (scene->a->currentState == programState::MenuStaff)
 	{
-		preButtonStaff.setFillColor(scene->a->pastelTitleCyan);
-		preText.setFillColor(scene->a->titleGreyColor);
+		if (preButtonStaff.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			preButtonStaff.setFillColor(scene->a->pastelTitleCyan);
+			preText.setFillColor(scene->a->titleGreyColor);
+		}
+		else if (changePassButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			changePassButton.setFillColor(scene->a->pastelTitleCyan);
+			changePassText.setFillColor(scene->a->titleGreyColor);
+		}
+		else if (chooseSchoolYearButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			chooseSchoolYearButton.setFillColor(scene->a->pastelTitleCyan);
+			chooseSchoolYearText.setFillColor(scene->a->titleGreyColor);
+		}
+		else if (createSchoolYearButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			createSchoolYearButton.setFillColor(scene->a->pastelTitleCyan);
+			createSchoolYearText.setFillColor(scene->a->titleGreyColor);
+		}
+		else if (createClassButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			createClassButton.setFillColor(scene->a->pastelTitleCyan);
+			createClassText.setFillColor(scene->a->titleGreyColor);
+		}
+		else if (chooseClassButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			chooseClassButton.setFillColor(scene->a->pastelTitleCyan);
+			chooseClassText.setFillColor(scene->a->titleGreyColor);
+		}
+		else {
+			preButtonStaff.setFillColor(scene->a->highlightCyan);
+			preText.setFillColor(sf::Color::White);
+			changePassButton.setFillColor(scene->a->highlightCyan);
+			changePassText.setFillColor(sf::Color::White);
+			chooseSchoolYearButton.setFillColor(scene->a->highlightCyan);
+			chooseSchoolYearText.setFillColor(sf::Color::White);
+			createSchoolYearButton.setFillColor(scene->a->highlightCyan);
+			createSchoolYearText.setFillColor(sf::Color::White);
+			createClassButton.setFillColor(scene->a->highlightCyan);
+			createClassText.setFillColor(sf::Color::White);
+			chooseClassButton.setFillColor(scene->a->highlightCyan);
+			chooseClassText.setFillColor(sf::Color::White);
+		}
 	}
-	else if (scene->a->currentState == programState::MenuStaff && changePassButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		changePassButton.setFillColor(scene->a->pastelTitleCyan);
-		changePassText.setFillColor(scene->a->titleGreyColor);
-	}
-	else if (scene->a->currentState == programState::MenuStaff && chooseSchoolYearButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		chooseSchoolYearButton.setFillColor(scene->a->pastelTitleCyan);
-		chooseSchoolYearText.setFillColor(scene->a->titleGreyColor);
-	}
-	else if (scene->a->currentState == programState::MenuStaff && createSchoolYearButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		createSchoolYearButton.setFillColor(scene->a->pastelTitleCyan);
-		createSchoolYearText.setFillColor(scene->a->titleGreyColor);
-	}
-	else if (scene->a->currentState == programState::MenuStaff && createClassButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		createClassButton.setFillColor(scene->a->pastelTitleCyan);
-		createClassText.setFillColor(scene->a->titleGreyColor);
-	}
-	else if (scene->a->currentState == programState::MenuStaff && chooseClassButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		chooseClassButton.setFillColor(scene->a->pastelTitleCyan);
-		chooseClassText.setFillColor(scene->a->titleGreyColor);
-	}
-	else {
-		preButtonStaff.setFillColor(scene->a->highlightCyan);
-		preText.setFillColor(sf::Color::White);
-		changePassButton.setFillColor(scene->a->highlightCyan);
-		changePassText.setFillColor(sf::Color::White);
-		chooseSchoolYearButton.setFillColor(scene->a->highlightCyan);
-		chooseSchoolYearText.setFillColor(sf::Color::White);
-		createSchoolYearButton.setFillColor(scene->a->highlightCyan);
-		createSchoolYearText.setFillColor(sf::Color::White);
-		createClassButton.setFillColor(scene->a->highlightCyan);
-		createClassText.setFillColor(sf::Color::White);
-		chooseClassButton.setFillColor(scene->a->highlightCyan);
-		chooseClassText.setFillColor(sf::Color::White);
-	}
+	
+	
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
 		if (event.mouseButton.button == sf::Mouse::Left)

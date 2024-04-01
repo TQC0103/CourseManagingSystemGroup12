@@ -58,16 +58,16 @@ void WelcomeScene::drawWelcome(sf::RenderWindow& win, Static *a) {
 }
 WelcomeScene::WelcomeScene(Static *a){
 
-    createText(welcomeText, a->fontB, a->fcc689, "WELCOME TO", 80, a->width / 2, 100.0f);
+    createText(welcomeText, a->fontB, a->fcc689, "Welcome to", 80, a->width / 2, 100.0f);
     createText(course, a->fontB, a->fcc689, "COURSE MANAGING SYSTEM" , 120, a->width / 2, 250.0f);
     createText(welcomeTextBlur, a->fontB, a->blurGrey, "COURSE MANAGING SYSTEM", 120, a->width / 2 + 5.0f, 257.0f);
     welcomeRect.setSize(sf::Vector2f(a->width, a->height));
     welcomeRect.setFillColor(a->backGroundWhite);
 
     
-    createAButton(signInRect, signInText, sf::Vector2f(600.0f, 200.0f), 80, a->fcc689, a->fontB, sf::Color::White, "Sign in", sf::Vector2f(575.0f, 675.0f));
+    createCornerRoundedButton(signInRect, signInText, sf::Vector2f(600.0f, 200.0f), 80, a->fcc689, a->fontB, sf::Color::White, "Sign in", sf::Vector2f(575.0f, 675.0f), 2.0f, a->fcc689);
 
-    createAButton(exitRect, exitText, sf::Vector2f(600.0f, 200.0f), 80, a->fcc689, a->fontB, sf::Color::White, "Exit", sf::Vector2f(575.0f, 975.0f));
+    createCornerRoundedButton(exitRect, exitText, sf::Vector2f(600.0f, 200.0f), 80, a->fcc689, a->fontB, sf::Color::White, "Exit", sf::Vector2f(575.0f, 975.0f), 2.0f, a->fcc689);
 }
 
 
