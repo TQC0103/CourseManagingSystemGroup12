@@ -382,13 +382,7 @@ schoolYear::~schoolYear()
 	schoolYear* cur = pHead;
 	while (cur)
 	{
-		semester* tmp = cur->pHeadSemester;
-		while (tmp != nullptr)
-		{
-			semester* curSem = tmp;
-			tmp = tmp->pNext;
-			delete curSem;
-		}
+		
 		schoolYear *tmpYear = cur;
 		cur = cur->pNext;
 		delete tmpYear;

@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "UserInterface.h"
 #include "config.h"
+#define POINTS 20
+
 void setOriginTextToMiddle(sf::Text& text) {
     sf::FloatRect bounds = text.getLocalBounds();
     text.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
@@ -125,4 +127,46 @@ void drawScrollBar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarA
     scrollbar.setPosition(startingOriginPos.x, startingOriginPos.y + scrollOffset / fullSize * sizeDisplay);
     window.draw(scrollbarArea);
     window.draw(scrollbar);
+}
+
+sf::ConvexShape RoundedRectangle(float x, float y, float rectWidth, float rectHeight, float radius, const sf::Color& Col, float Outline, const sf::Color& OutlineCol)
+{
+    sf::ConvexShape rrect;
+    rrect.setOutlineThickness(Outline);
+    rrect.setOutlineColor(OutlineCol);
+    rrect.setFillColor(Col);
+    rrect.setPointCount(4 * POINTS);
+
+    float X = 0, Y = 0;
+    for (int i = 0; i < POINTS; i++)
+    {
+        X += radius / POINTS;
+        Y = sqrt(radius * radius - X * X);
+        rrect.setPoint(i, sf::Vector2f(X + rectWidth - radius, -Y + radius));
+    }
+    Y = 0;
+    for (int i = 0; i < POINTS; i++)
+    {
+        Y += radius / POINTS;
+        X = sqrt(radius * radius - Y * Y);
+        rrect.setPoint(i + POINTS, sf::Vector2f(rectWidth + X - radius, rectHeight - radius + Y));
+    }
+    X = 0;
+    for (int i = 0; i < POINTS; i++)
+    {
+        X += radius / POINTS;
+        Y = sqrt(radius * radius - X * X);
+        rrect.setPoint(i + 2 * POINTS, sf::Vector2f(radius - X, rectHeight - radius + Y));
+    }
+    Y = 0;
+    for (int i = 0; i < POINTS; i++)
+    {
+        Y += radius / POINTS;
+        X = sqrt(radius * radius - Y * Y);
+        rrect.setPoint(i + 3 * POINTS, sf::Vector2f(-X + radius, radius - Y));
+    }
+
+    rrect.setPosition(x, y);
+
+    return rrect;
 }
