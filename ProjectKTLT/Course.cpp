@@ -142,3 +142,4 @@ void Course::loadDataOfTheCourse(Static* a)
         {
         }
     }
+}

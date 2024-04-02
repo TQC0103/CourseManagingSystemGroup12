@@ -47,7 +47,10 @@ struct semester {
 	
 	void deallocateCurrentSemester();
 
-	~semester();
+	~semester()
+	{
+
+	}
 	
 
 

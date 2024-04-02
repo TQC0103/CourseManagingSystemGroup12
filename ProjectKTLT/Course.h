@@ -34,10 +34,7 @@ struct Course
 
 
 	//construstor
-	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session)
-	{
-
-	}
+	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session);
 	Course()
 	{
 
