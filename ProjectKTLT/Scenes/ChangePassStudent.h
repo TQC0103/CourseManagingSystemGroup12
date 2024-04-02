@@ -3,7 +3,7 @@
 #include "../UserInterface.h"
 #include "../config.h"
 #include "SFML/Graphics.hpp"
-
+struct Scene;
 struct ChangePassStudentScene
 {
 	sf::Text changePassText;
@@ -39,6 +39,6 @@ struct ChangePassStudentScene
 
 	ChangePassStudentScene(Static* a);
 	void drawChangePass(sf::RenderWindow& win, Static* a);
-	void renderChangePass(sf::Event event, Static* a, sf::RenderWindow& win);
+	void renderChangePass(sf::Event event, Scene *scene, sf::RenderWindow& win);
 	bool checkOldPass(std::string oldPass);
 };

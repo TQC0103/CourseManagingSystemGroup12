@@ -3,6 +3,7 @@
 #include "../UserInterface.h"
 #include "SFML/Graphics.hpp"
 
+struct Scene;
 struct WelcomeScene {
     // Scene elements
     
@@ -10,8 +11,8 @@ struct WelcomeScene {
     sf::Text welcomeTextBlur;
     sf::Text course;
     sf::RectangleShape welcomeRect;
-    sf::RectangleShape signInRect;
-    sf::RectangleShape exitRect;
+    sf::ConvexShape signInRect;
+    sf::ConvexShape exitRect;
     sf::Text signInText;
     sf::Text exitText;
 
@@ -20,7 +21,7 @@ struct WelcomeScene {
 
     // Member functions
     void drawWelcome(sf::RenderWindow& win, Static *a);
-    void renderWelcome(sf::Event event, Static *a, sf::RenderWindow& win);
+    void renderWelcome(sf::Event event, Scene *scene, sf::RenderWindow& win);
 };
 
 

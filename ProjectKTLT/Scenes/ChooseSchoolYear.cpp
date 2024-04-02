@@ -1,15 +1,13 @@
 #include "ChooseSchoolYear.h"
-#include "../config.h"
+#include "../SchoolYear.h"
 #include <fstream>
-
-
-
+#include "Scene.h"
 
 ChooseSchoolYearScene::ChooseSchoolYearScene(Static* a)
 {
     createABox(chooseSchoolYearBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-    createText(chooseSchoolYearText, a->fontB, a->textColorBlue, "CHOOSE SCHOOL YEAR", 100, (float)a->width / 2.0f, 150.0f);
-    createAButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(150.0f, 1000.0f));
+    createText(chooseSchoolYearText, a->fontB, a->textColorBlue, "Choose school year", 100, (float)a->width / 2.0f, 150.0f);
+    createAButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f));
     
     listSchoolYear = new schoolYear();
     listSchoolYear->loadSchoolYear();
@@ -62,55 +60,71 @@ void ChooseSchoolYearScene::drawChooseSchoolYear(sf::RenderWindow &window, Stati
     }
 }
 
-void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Static* a, sf::RenderWindow& window)
+void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Scene *scene, sf::RenderWindow& window)
 {
-    schoolYear* tmpHead = listSchoolYear->pHead;
-    if(event.type == sf::Event::MouseButtonPressed)
-	{
-		if(event.mouseButton.button == sf::Mouse::Left)
-		{
-			for (int i = 0; i < numSchoolYears; i++) {
-				if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
-                    a->curSchoolYear = tmpHead;
-                    a->currentState = programState::MenuSchoolYear;
-				}
-                tmpHead = tmpHead->pNext;
-			}
-            if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
-            {
-                a->currentState = programState::MenuStaff;
-            }
-            // deallocate listSchoolYear here
-            listSchoolYear->deallocateSchoolYear(a);
-		}
-	}
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    if (scene->a->currentState == programState::ChooseSchoolYear && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+    {
+        preButton.setFillColor(scene->a->pastelTitleCyan);
+        preText.setFillColor(scene->a->titleGreyColor);
+    }
+    else
+    {
+        preButton.setFillColor(scene->a->highlightCyan);
+        preText.setFillColor(sf::Color::White);
+    }
     for (int i = 0; i < numSchoolYears; i++) {
-        if (a->currentState == programState::ChooseSchoolYear && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-            buttons[i].setFillColor(a->pastelTitleCyan);
-            labels[i].setFillColor(a->titleGreyColor);
+        if (scene->a->currentState == programState::ChooseSchoolYear && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+            buttons[i].setFillColor(scene->a->pastelTitleCyan);
+            labels[i].setFillColor(scene->a->titleGreyColor);
         }
         else {
-            buttons[i].setFillColor(a->highlightCyan);
+            buttons[i].setFillColor(scene->a->highlightCyan);
             labels[i].setFillColor(sf::Color::White);
         }
     }
-    if(a->currentState == programState::ChooseSchoolYear && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		preButton.setFillColor(a->pastelTitleCyan);
-		preText.setFillColor(a->titleGreyColor);
-	}
-    else
+
+    schoolYear* tmpHead = listSchoolYear->pHead;
+    if (event.type == sf::Event::MouseButtonPressed)
     {
-        preButton.setFillColor(a->highlightCyan);
-        preText.setFillColor(sf::Color::White);
+        if (event.mouseButton.button == sf::Mouse::Left)
+        {
+            if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+            {
+                delete scene->chooseschoolyear;
+                scene->chooseschoolyear = nullptr;
+                if (scene->menustaff == nullptr)
+                    scene->menustaff = new MenuStaffScene(scene->a);
+                scene->a->currentState = programState::MenuStaff;
+
+            }
+            else for (int i = 0; i < numSchoolYears; i++) {
+                if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
+                    scene->a->curSchoolYear = new schoolYear();
+                    *(scene->a->curSchoolYear) = *tmpHead;
+                    if(scene->menuschoolyear == nullptr)
+                        scene->menuschoolyear = new MenuSchoolYearScene(scene->a);
+                    scene->a->currentState = programState::MenuSchoolYear;
+                    delete scene->chooseschoolyear;
+                    scene->chooseschoolyear = nullptr;
+                    break;
+                }
+                else {
+					tmpHead = tmpHead->pNext;
+				}
+            }
+            
+            
+            
+        }
     }
     
 }
 
-/*ChooseSchoolYearScene::~ChooseSchoolYearScene()
+ChooseSchoolYearScene::~ChooseSchoolYearScene()
 {
     delete[] buttons;
     delete[] labels;
-    
-}*/
+    listSchoolYear->~schoolYear();
+}
+

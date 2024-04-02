@@ -2,15 +2,16 @@
 #include "SignInAsStaff.h"
 #include <fstream>
 #include <string>
+#include "Scene.h"
 
 SignInAsStaffScene::SignInAsStaffScene(Static *a)
 {
 	isCursorVisible = false;
 	signInStudentPage.setFillColor(a->backGroundWhite);
 	signInStudentPage.setSize(sf::Vector2f((float)a->width, (float)a->height));
-	createText(studentSignInPageText, a->fontB, a->textColorBlue, "STAFF", 120, a->width / 2.0f, 150.0f);
-	createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "PREVIOUS", sf::Vector2f(200.0f, 1000.0f));
-	createAButton(submit, submitText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "SIGN IN", sf::Vector2f(a->width - 200.0f, 1000.0f));
+	createText(studentSignInPageText, a->fontB, a->textColorBlue, "- STAFF -", 120, a->width / 2.0f, 150.0f);
+	createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(200.0f, 1000.0f));
+	createAButton(submit, submitText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Sign in", sf::Vector2f(a->width - 200.0f, 1000.0f));
 	createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 475.0f));
 	createText(usernameStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, usernameStudentBox.getPosition().y);
 	createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 800.0f));
@@ -66,12 +67,33 @@ void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win, Static *a)
 	}
 }
 
-void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::RenderWindow& win)
+void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Scene *scene, sf::RenderWindow& win)
 {
+	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+	if (scene->a->currentState == programState::SignInAsStaff && signInStudentPreviousButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		signInStudentPreviousButton.setFillColor(scene->a->pastelTitleCyan);
+		signInStudentPreviousText.setFillColor(scene->a->titleGreyColor);
+	}
+	else if (scene->a->currentState == programState::SignInAsStaff && submit.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		submit.setFillColor(scene->a->pastelTitleCyan);
+		submitText.setFillColor(scene->a->titleGreyColor);
+	}
+	else {
+		signInStudentPreviousButton.setFillColor(scene->a->highlightCyan);
+		signInStudentPreviousText.setFillColor(sf::Color::White);
+		submit.setFillColor(scene->a->highlightCyan);
+		submitText.setFillColor(sf::Color::White);
+	}
 	if (isWrong == 2)
 	{
 		sf::sleep(sf::seconds(1.0f));
-		a->currentState = programState::MenuStaff;
+		delete scene->signinasstaff;
+		scene->signinasstaff = nullptr;
+		if (scene->menustaff == nullptr)
+			scene->menustaff = new MenuStaffScene(scene->a);
+		scene->a->currentState = programState::MenuStaff;
 		isWrong = 0;
 	}
 	// Handle mouse events
@@ -81,11 +103,12 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 		{
 			if (signInStudentPreviousButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				usernameStaffInput = "";
-				passwordStaffInput = "";
-				usernameInputEnable = false;
-				passwordInputEnable = false;
-				a->currentState = programState::SignIn;
+				isWrong = 0;
+				delete scene->signinasstaff;
+				scene->signinasstaff = nullptr;
+				if(scene->signin == nullptr)
+					scene->signin = new SignInScene(scene->a);
+				scene->a->currentState = programState::SignIn;
 			}
 			else if (usernameStudentBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
@@ -105,8 +128,8 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 				}
 				else {
 					isWrong = 2;
-					a->username = usernameStaffInput;
-					a->password = passwordStaffInput;
+					scene->a->username = usernameStaffInput;
+					scene->a->password = passwordStaffInput;
 				}
 			}
 			else {
@@ -132,8 +155,8 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 			}
 			else {
 				isWrong = 2;
-				a->username = usernameStaffInput;
-				a->password = passwordStaffInput;
+				scene->a->username = usernameStaffInput;
+				scene->a->password = passwordStaffInput;
 			}
 		}
 		if (usernameInputEnable || passwordInputEnable)
@@ -165,23 +188,8 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Static *a, sf::Ren
 		}
 	}
 
-	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
-	if (a->currentState == programState::SignInAsStaff && signInStudentPreviousButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		signInStudentPreviousButton.setFillColor(a->pastelTitleCyan);
-		signInStudentPreviousText.setFillColor(a->titleGreyColor);
-	}
-	else if (a->currentState == programState::SignInAsStaff && submit.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		submit.setFillColor(a->pastelTitleCyan);
-		submitText.setFillColor(a->titleGreyColor);
-	}
-	else {
-		signInStudentPreviousButton.setFillColor(a->highlightCyan);
-		signInStudentPreviousText.setFillColor(sf::Color::White);
-		submit.setFillColor(a->highlightCyan);
-		submitText.setFillColor(sf::Color::White);
-	}
+	
+
 }
 bool SignInAsStaffScene::checkAccount()
 {

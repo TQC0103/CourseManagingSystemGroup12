@@ -7,9 +7,6 @@
 #include "SchoolYear.h"
 
 
-
-#define para event, scene->a, window
-
 // Functions
 int main() {
     Scene *scene = new Scene;
@@ -25,64 +22,69 @@ int main() {
             {
             case programState::Welcome:
             {
-                scene->welcome->renderWelcome(para);
+                scene->welcome->renderWelcome(event, scene, window);
                 break;
             }
             case programState::SignIn:
             {
-                scene->signin->renderSignIn(para);
+                scene->signin->renderSignIn(event, scene, window);
                 break;
             }
             case programState::SignInAsStudent:
             {
-                scene->signinasstudent->renderSignInAsStudent(para);
+                scene->signinasstudent->renderSignInAsStudent(event, scene, window);
                 break;
             }
             case programState::SignInAsStaff:
             {
-                scene->signinasstaff->renderSignInAsStaff(para);
+                scene->signinasstaff->renderSignInAsStaff(event, scene, window);
                 break;
             }
             case programState::MenuStudent:
             {
-                scene->menustudent->renderMenuStudent(para);
+                scene->menustudent->renderMenuStudent(event, scene, window);
                 break;
             }
             case programState::MenuStaff:
             {
-                scene->menustaff->renderMenuStaff(event, scene->a, scene, window);
+                scene->menustaff->renderMenuStaff(event, scene, window);
                 break;
             }
             case programState::ChangePassSta:
             {
-                scene->changepasssta->renderChangePass(para);
+                scene->changepasssta->renderChangePass(event, scene, window);
                 break;
             }
             case programState::ChangePassStu:
             {
-                scene->changepassstu->renderChangePass(para);
+                scene->changepassstu->renderChangePass(event, scene, window);
                 break;
             }
             case programState::ViewStudentProfile:
             {
-                scene->viewstudentprofile->renderProfile(para);
+                scene->viewstudentprofile->renderProfile(event, scene, window);
                 break;
             }
             case programState::ChooseSchoolYear:
 			{
-				scene->chooseschoolyear->renderChooseSchoolYear(para);
+				scene->chooseschoolyear->renderChooseSchoolYear(event, scene, window);
 				break;
 			}
             case programState::MenuSchoolYear:
             {
-				scene->menuschoolyear->renderMenuSchoolYear(para);
+				scene->menuschoolyear->renderMenuSchoolYear(event, scene, window);
 				break;
 			}
             case programState::ChooseClass:
             {
-                scene->chooseclass->renderChooseClass(para);
+                scene->chooseclass->renderChooseClass(event, scene, window);
 				break;
 			}
+            case programState::MenuClass:
+            {
+				scene->menuclass->renderMenuClass(event, scene, window);
+                break;
+            }
             default:
                 break;
             }
@@ -151,6 +153,11 @@ int main() {
             case programState::ChooseClass:
             {
 				scene->chooseclass->drawChooseClass(window, scene->a);
+                break;
+            }
+            case programState::MenuClass:
+            {
+                scene->menuclass->drawMenuClass(window, scene->a);
                 break;
             }
             default:

@@ -12,39 +12,59 @@
 #include "ChooseSchoolYear.h"
 #include "MenuSchoolYear.h"
 #include "ChooseClass.h"
-
+#include "MenuClass.h"
+#include "ChooseSemester.h"
 
 struct Scene
 {
-
-	Static *a = new Static;
-
-	WelcomeScene *welcome = new WelcomeScene(a);
-	SignInScene *signin = new SignInScene(a);
-	SignInAsStudentScene *signinasstudent = new SignInAsStudentScene(a);
-	SignInAsStaffScene *signinasstaff = new SignInAsStaffScene(a);
-	MenuStudentScene *menustudent = new MenuStudentScene(a);
-	MenuStaffScene *menustaff = new MenuStaffScene(a);
-	ChangePassStaffScene *changepasssta = new ChangePassStaffScene(a);
-	ChangePassStudentScene *changepassstu = new ChangePassStudentScene(a);
-	ChooseSchoolYearScene* chooseschoolyear = new ChooseSchoolYearScene(a);
-	ViewStudentProfileScene* viewstudentprofile = new ViewStudentProfileScene(a);
-	
-	MenuSchoolYearScene* menuschoolyear = new MenuSchoolYearScene(a);
-	ChooseClassScene* chooseclass = new ChooseClassScene(a);
+	Static* a = new Static();
+	WelcomeScene* welcome = nullptr;
+	SignInScene *signin = nullptr;
+	SignInAsStudentScene *signinasstudent = nullptr;
+	SignInAsStaffScene *signinasstaff = nullptr;
+	MenuStudentScene *menustudent = nullptr;
+	MenuStaffScene *menustaff = nullptr;
+	ChangePassStaffScene *changepasssta = nullptr;
+	ChangePassStudentScene *changepassstu = nullptr;
+	ChooseSchoolYearScene* chooseschoolyear = nullptr;
+	ViewStudentProfileScene* viewstudentprofile = nullptr;
+	MenuSchoolYearScene* menuschoolyear = nullptr;
+	ChooseClassScene* chooseclass = nullptr;
+	MenuClassScene* menuclass = nullptr;
+	ChooseSchoolSemesterScene* choosesemester = nullptr;
+	Scene() {
+		a->currentState = programState::Welcome;
+		welcome = new WelcomeScene(a);
+	}
 	~Scene() {
-		delete welcome;
-		delete signin;
-		delete signinasstudent;
-		delete signinasstaff;
-		delete menustudent;
-		delete menustaff;
-		delete changepasssta;
-		delete changepassstu;
-		delete viewstudentprofile;
-		delete chooseschoolyear;
-		delete menuschoolyear;
-		delete chooseclass;
+		if(welcome != nullptr)
+			delete welcome;
+		if(signin != nullptr) 
+			delete signin;
+		if(signinasstudent != nullptr)
+			delete signinasstudent;
+		if(signinasstaff != nullptr)
+			delete signinasstaff;
+		if(menustudent != nullptr)
+			delete menustudent;
+		if(menustaff != nullptr)
+			delete menustaff;
+		if(changepasssta != nullptr)
+			delete changepasssta;
+		if(changepassstu != nullptr)
+			delete changepassstu;
+		if(chooseschoolyear != nullptr)
+			delete chooseschoolyear;
+		if(viewstudentprofile != nullptr)
+			delete viewstudentprofile;
+		if(menuschoolyear != nullptr)
+			delete menuschoolyear;
+		if(chooseclass != nullptr)
+			delete chooseclass;
+		if(menuclass != nullptr)
+			delete menuclass;
+		if (chooseclass != nullptr)
+			delete chooseclass;
 		delete a;
 
 	}
