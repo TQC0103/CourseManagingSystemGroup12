@@ -326,11 +326,7 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 	fout << data << std::endl;
 	fout << start << ";" << end << std::endl;
 	fout.close();
-	int result = _mkdir(("../Database/SchoolYear/" + a->curSchoolYear->year).c_str());
-	if (result != 0) {
-		std::cout << "Error: Unable to create directory" << std::endl;
-		return false;
-	}
+	int makeFile = _mkdir(("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/" + (std::string)data).c_str());
 	semester* cur = a->curSchoolYear->pHeadSemester;
 	if (!cur) {
 		cur = new semester(data, start, end);
@@ -382,13 +378,7 @@ schoolYear::~schoolYear()
 	schoolYear* cur = pHead;
 	while (cur)
 	{
-		semester* tmp = cur->pHeadSemester;
-		while (tmp != nullptr)
-		{
-			semester* curSem = tmp;
-			tmp = tmp->pNext;
-			delete curSem;
-		}
+		
 		schoolYear *tmpYear = cur;
 		cur = cur->pNext;
 		delete tmpYear;

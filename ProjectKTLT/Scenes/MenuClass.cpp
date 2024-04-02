@@ -8,12 +8,10 @@ MenuClassScene::MenuClassScene(Static* a)
 {
 	createABox(menuClassBackground, sf::Vector2f(a->width, a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(menuClassText, a->fontB, a->textColorBlue, "Menu Class", 100, a->width / 2.0f, 100.0f);
-	createAButton(preButton, preText, sf::Vector2f(400.0f, 155.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(200.0f, 1000.0f));
-	createAButton(addStudentButton, addStudentText, sf::Vector2f(600.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Add student", sf::Vector2f(a->width / 2.0f - 400.0f, 500.0f));
-	createAButton(viewStudentGPA, viewStudentGPAText, sf::Vector2f(600.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View students GPA", sf::Vector2f(a->width / 2.0f - 400.0f, 750.0f));
-	createAButton(viewMembers, viewMembersText, sf::Vector2f(600.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View members", sf::Vector2f(a->width / 2.0f + 400.0f, 500.0f));
-	
-
+	createAButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f));
+	createAButton(addStudentButton, addStudentText, sf::Vector2f(400.0f, 155.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Add student", sf::Vector2f(a->width / 2.0f - 300.0f, 500.0f));
+	createAButton(viewStudentGPA, viewStudentGPAText, sf::Vector2f(400.0f, 155.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "View students GPA", sf::Vector2f(a->width / 2.0f - 300.0f, 750.0f));
+	createAButton(viewMembers, viewMembersText, sf::Vector2f(400.0f, 155.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "View members", sf::Vector2f(a->width / 2.0f + 300.0f, 500.0f));
 }
 
 void MenuClassScene::drawMenuClass(sf::RenderWindow& window, Static* a)

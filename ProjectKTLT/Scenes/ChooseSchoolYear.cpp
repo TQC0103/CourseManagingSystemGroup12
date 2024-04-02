@@ -89,10 +89,19 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Scene *scene
     {
         if (event.mouseButton.button == sf::Mouse::Left)
         {
-            for (int i = 0; i < numSchoolYears; i++) {
+            if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+            {
+                delete scene->chooseschoolyear;
+                scene->chooseschoolyear = nullptr;
+                if (scene->menustaff == nullptr)
+                    scene->menustaff = new MenuStaffScene(scene->a);
+                scene->a->currentState = programState::MenuStaff;
+
+            }
+            else for (int i = 0; i < numSchoolYears; i++) {
                 if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
-                    scene->a->curSchoolYear = tmpHead;
-                    listSchoolYear->deallocateSchoolYear(scene->a);
+                    scene->a->curSchoolYear = new schoolYear();
+                    *(scene->a->curSchoolYear) = *tmpHead;
                     if(scene->menuschoolyear == nullptr)
                         scene->menuschoolyear = new MenuSchoolYearScene(scene->a);
                     scene->a->currentState = programState::MenuSchoolYear;
@@ -105,16 +114,7 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Scene *scene
 				}
             }
             
-            if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
-            {
-                listSchoolYear->~schoolYear();
-                delete scene->chooseschoolyear;
-                scene->chooseschoolyear = nullptr;
-                if(scene->menustaff == nullptr)
-                    scene->menustaff = new MenuStaffScene(scene->a);
-                scene->a->currentState = programState::MenuStaff;
-                
-            }
+            
             
         }
     }
@@ -125,6 +125,6 @@ ChooseSchoolYearScene::~ChooseSchoolYearScene()
 {
     delete[] buttons;
     delete[] labels;
-
+    listSchoolYear->~schoolYear();
 }
 

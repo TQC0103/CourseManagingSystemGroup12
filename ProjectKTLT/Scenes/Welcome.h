@@ -11,8 +11,8 @@ struct WelcomeScene {
     sf::Text welcomeTextBlur;
     sf::Text course;
     sf::RectangleShape welcomeRect;
-    sf::RectangleShape signInRect;
-    sf::RectangleShape exitRect;
+    sf::ConvexShape signInRect;
+    sf::ConvexShape exitRect;
     sf::Text signInText;
     sf::Text exitText;
 
