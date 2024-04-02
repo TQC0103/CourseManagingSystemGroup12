@@ -13,6 +13,7 @@
 #include "MenuSchoolYear.h"
 #include "ChooseClass.h"
 #include "MenuClass.h"
+#include "ChooseSemester.h"
 
 struct Scene
 {
@@ -30,6 +31,7 @@ struct Scene
 	MenuSchoolYearScene* menuschoolyear = nullptr;
 	ChooseClassScene* chooseclass = nullptr;
 	MenuClassScene* menuclass = nullptr;
+	ChooseSchoolSemesterScene* choosesemester = nullptr;
 	Scene() {
 		a->currentState = programState::Welcome;
 		welcome = new WelcomeScene(a);
@@ -61,6 +63,8 @@ struct Scene
 			delete chooseclass;
 		if(menuclass != nullptr)
 			delete menuclass;
+		if (chooseclass != nullptr)
+			delete chooseclass;
 		delete a;
 
 	}

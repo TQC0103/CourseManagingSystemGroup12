@@ -67,6 +67,7 @@ WelcomeScene::WelcomeScene(Static *a){
     createAButton(signInRect, signInText, sf::Vector2f(600.0f, 200.0f), 80, a->fcc689, a->fontB, sf::Color::White, "Sign in", sf::Vector2f(575.0f, 675.0f));
 
     createAButton(exitRect, exitText, sf::Vector2f(600.0f, 200.0f), 80, a->fcc689, a->fontB, sf::Color::White, "Exit", sf::Vector2f(575.0f, 975.0f));
+    createCornerRoundedButton(exitRect, exitText, sf::Vector2f(600.0f, 185.0f), 80, a->fcc689, a->fontB, sf::Color::White, "Exit", sf::Vector2f(575.0f, 925.0f), 2.0f, a->fcc689);
 }
 
 

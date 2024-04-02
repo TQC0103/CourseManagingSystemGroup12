@@ -143,6 +143,7 @@
     <ClCompile Include="Scenes\ChangePassStudent.cpp" />
     <ClCompile Include="Scenes\ChooseClass.cpp" />
     <ClCompile Include="Scenes\ChooseSchoolYear.cpp" />
+    <ClCompile Include="Scenes\ChooseSemester.cpp" />
     <ClCompile Include="Scenes\MenuSchoolYear.cpp" />
     <ClCompile Include="Scenes\MenuStaff.cpp" />
     <ClCompile Include="Scenes\MenuStudent.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Scenes\ChangePassStudent.h" />
     <ClInclude Include="Scenes\ChooseClass.h" />
     <ClInclude Include="Scenes\ChooseSchoolYear.h" />
+    <ClInclude Include="Scenes\ChooseSemester.h" />
     <ClInclude Include="Scenes\MenuClass.h" />
     <ClInclude Include="Scenes\MenuSchoolYear.h" />
     <ClInclude Include="Scenes\MenuStaff.h" />
