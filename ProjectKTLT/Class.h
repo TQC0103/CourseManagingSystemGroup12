@@ -2,12 +2,11 @@
 #include <string>
 #include "Student.h"
 #include<fstream>
-<<<<<<< HEAD
 #include"config.h"
-=======
+
 
 struct student;
->>>>>>> main
+
 struct Class {
 	//Name Class;
 	std::string name;
@@ -29,7 +28,7 @@ struct Class {
 
 	int load_classes() ; // load data from files
 
-	bool find_Class_of_Student(Class* pHead, std::string ID, std::string& Name_class);
+	bool find_Class_of_Student(Class* pHead, std::string ID, Static *a);
 
 	Class* creat_new_Class(std::string path);
 

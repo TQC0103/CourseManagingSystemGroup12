@@ -11,7 +11,7 @@
 
 Class::Class() {
 	pNext = nullptr;
-
+	name = "";
 	pHeadListStudents = nullptr;
 
 }
@@ -85,12 +85,13 @@ int Class::load_classes() // load data from files
 	return num;
 }
 
-bool Class::find_Class_of_Student(Class* pHead, std::string ID, std::string& Name_class) // find class of student
+bool Class::find_Class_of_Student(Class* pHead, std::string ID, Static *a) // find class of student
 {
 	while (pHead) {
 		student* pHeads = pHead->pHeadListStudents;
 		if (pHead->pHeadListStudents->studentID == ID) {
-			Name_class = pHead->name;
+			a->curClass = new Class;
+			a->curClass->name = pHeads->name;
 			return 1;
 		}
 		pHead = pHead->pNext;
