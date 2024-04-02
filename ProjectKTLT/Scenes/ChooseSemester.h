@@ -13,8 +13,6 @@ struct ChooseSchoolSemesterScene
 
     sf::ConvexShape* buttons;
     sf::Text* labels;
-    
-
 
     int numSemester = 0;
 
