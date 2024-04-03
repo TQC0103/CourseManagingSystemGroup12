@@ -14,3 +14,8 @@ void MenuSemesterScene::renderMenuSemester(sf::Event event, Scene* scene, sf::Re
 {
 
 }
+
+MenuSemesterScene::~MenuSemesterScene()
+{
+
+}
