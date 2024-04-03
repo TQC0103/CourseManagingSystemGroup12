@@ -245,33 +245,31 @@ void schoolYear::addSchoolYear() {
 //	curSchoolYear = curSchoolYear->pNext;
 //}
 
-void schoolYear::loadSemester(Static *a) {
-	if (a->curSchoolYear->pHeadSemester) {
-		return;
-	}
-	std::ifstream fin("../Database/SchoolYear/" + a->curSchoolYear->year + "/AllSemester.txt");
+void schoolYear::loadSemester(std::string& year) {
+	std::ifstream fin("../Database/SchoolYear/" + year + "/AllSemester.txt");
 	if (!fin.is_open()) {
 		std::cerr << "Error: File not found" << std::endl;
 		return;
 	}
-	a->curSchoolYear->pHeadSemester = new semester;
-	semester* cur = a->curSchoolYear->pHeadSemester;
+
+	if (!pHeadSemester) {
+		pHeadSemester = new semester();
+	}
+
+	semester* cur = pHeadSemester;
 	std::string data;
 	while (getline(fin, data)) {
-		if (cur->pNext) {
-			cur = cur->pNext;
-		}
 		cur->semesterData = data;
 		getline(fin, cur->startDate, ';');
 		getline(fin, cur->endDate);
-		cur->pNext = new semester;
 
+		if (!fin.eof()) {
+			cur->pNext = new semester;
+			cur = cur->pNext;
+		}
 	}
-	fin.close();
-	semester* temp = cur->pNext;
-	delete temp;
-	cur->pNext = nullptr;
 
+	fin.close();
 }
 
 //bool schoolYear::findCurrentSemester(std::string data) {
@@ -378,7 +376,12 @@ schoolYear::~schoolYear()
 	schoolYear* cur = pHead;
 	while (cur)
 	{
-		
+		while (cur->pHeadSemester)
+		{
+			semester* tmpSem = cur->pHeadSemester;
+			cur->pHeadSemester = cur->pHeadSemester->pNext;
+			delete tmpSem;
+		}
 		schoolYear *tmpYear = cur;
 		cur = cur->pNext;
 		delete tmpYear;

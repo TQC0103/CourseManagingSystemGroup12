@@ -7,7 +7,7 @@ struct Class;
 struct semester;
 struct Course;
 
-enum programState { Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear, ChooseClass, MenuClass, ChooseSemester };
+enum programState { Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear, ChooseClass, MenuClass, ChooseSemester, MenuSemester };
 struct Static
 {
     programState currentState = programState::Welcome;

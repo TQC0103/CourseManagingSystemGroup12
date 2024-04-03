@@ -66,7 +66,7 @@ std::string student::getCoursesInformations(Static *a)
 {   
     std::string listCourse;
     listCourse += "Your Courses In This Semester : \n";
-    std::ifstream file("../Database/SchoolYear/"+a->curSchoolYear->year+"/"+a->curSchoolYear->pHeadSemester->semesterData+"/courses.txt");
+    std::ifstream file("../Database/SchoolYear/"+a->curSchoolYear->year+"/"+a->curSemester->semesterData+"/courses.txt");
     if(!file.is_open())
     {
         return "Unable to open file! \n";

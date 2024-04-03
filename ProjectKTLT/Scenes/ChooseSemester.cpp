@@ -1,125 +1,114 @@
-//#include "ChooseSemester.h"
-//#include "../Semester.h"
-//#include <fstream>
-//#include "Scene.h"
-//
-//ChooseSchoolSemesterScene::ChooseSchoolSemesterScene(Static* a)
-//{
-//    createABox(chooseSemesterYearBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-//    createText(chooseSemesterYearText, a->fontB, a->textColorBlue, "Choose semester year", 100, (float)a->width / 2.0f, 150.0f);
-//    createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::White);
-//
-//    
-//    
-//    while (tmpHead)
-//    {
-//        numSemester++;
-//        tmpHead = tmpHead->pNext;
-//    }
-//    tmpHead = listSchoolYear->pHead;
-//
-//    buttons = new sf::RectangleShape[numSchoolYears];
-//    labels = new sf::Text[numSchoolYears];
-//
-//
-//    // Create buttons and labels
-//
-//    for (int i = 0; i < numSchoolYears; ++i) {
-//        sf::RectangleShape button;
-//        if (i % 2 == 0)
-//            createABox(button, sf::Vector2f(500.0f, 200.0f), a->highlightCyan, sf::Vector2f((float)a->width / 2.0f - 350.0f, 400.0f + (i / 2) * 300.0f));
-//        else
-//        {
-//            createABox(button, sf::Vector2f(500.0f, 200.0f), a->highlightCyan, sf::Vector2f((float)a->width / 2.0f + 350.0f, 400.0f + (i / 2) * 300.0f));
-//        }
-//
-//        buttons[i] = button;
-//
-//        sf::Text label;
-//        createText(label, a->fontB, sf::Color::White, tmpHead->year, 60, buttons[i].getPosition().x, buttons[i].getPosition().y);
-//        tmpHead = tmpHead->pNext;
-//        labels[i] = label;
-//    }
-//}
-//
-//void ChooseSchoolYearScene::drawChooseSchoolYear(sf::RenderWindow& window, Static* a)
-//{
-//    window.draw(chooseSchoolYearBackground);
-//    window.draw(chooseSchoolYearText);
-//    window.draw(preButton);
-//    window.draw(preText);
-//
-//    for (int i = 0; i < numSchoolYears; i++) {
-//        window.draw(buttons[i]);
-//        window.draw(labels[i]);
-//    }
-//}
-//
-//void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Scene* scene, sf::RenderWindow& window)
-//{
-//    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-//    if (scene->a->currentState == programState::ChooseSchoolYear && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-//    {
-//        preButton.setFillColor(scene->a->pastelTitleCyan);
-//        preText.setFillColor(scene->a->titleGreyColor);
-//    }
-//    else
-//    {
-//        preButton.setFillColor(scene->a->highlightCyan);
-//        preText.setFillColor(sf::Color::White);
-//    }
-//    for (int i = 0; i < numSchoolYears; i++) {
-//        if (scene->a->currentState == programState::ChooseSchoolYear && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-//            buttons[i].setFillColor(scene->a->pastelTitleCyan);
-//            labels[i].setFillColor(scene->a->titleGreyColor);
-//        }
-//        else {
-//            buttons[i].setFillColor(scene->a->highlightCyan);
-//            labels[i].setFillColor(sf::Color::White);
-//        }
-//    }
-//
-//    schoolYear* tmpHead = listSchoolYear->pHead;
-//    if (event.type == sf::Event::MouseButtonPressed)
-//    {
-//        if (event.mouseButton.button == sf::Mouse::Left)
-//        {
-//            if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
-//            {
-//                delete scene->chooseschoolyear;
-//                scene->chooseschoolyear = nullptr;
-//                if (scene->menustaff == nullptr)
-//                    scene->menustaff = new MenuStaffScene(scene->a);
-//                scene->a->currentState = programState::MenuStaff;
-//
-//            }
-//            else for (int i = 0; i < numSchoolYears; i++) {
-//                if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
-//                    scene->a->curSchoolYear = new schoolYear();
-//                    *(scene->a->curSchoolYear) = *tmpHead;
-//                    if (scene->menuschoolyear == nullptr)
-//                        scene->menuschoolyear = new MenuSchoolYearScene(scene->a);
-//                    scene->a->currentState = programState::MenuSchoolYear;
-//                    delete scene->chooseschoolyear;
-//                    scene->chooseschoolyear = nullptr;
-//                    break;
-//                }
-//                else {
-//                    tmpHead = tmpHead->pNext;
-//                }
-//            }
-//
-//
-//
-//        }
-//    }
-//
-//}
-//
-//ChooseSchoolYearScene::~ChooseSchoolYearScene()
-//{
-//    delete[] buttons;
-//    delete[] labels;
-//    listSchoolYear->~schoolYear();
-//}
-//
+#include "ChooseSemester.h"
+#include "../Semester.h"
+#include <fstream>
+#include "Scene.h"
+
+ChooseSemesterScene::ChooseSemesterScene(Static* a)
+{
+    createABox(chooseSemesterBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
+    createText(chooseSemesterText, a->fontB, a->textColorBlue, "Choose Semester", 100, (float)a->width / 2.0f, 150.0f);
+    createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::White);
+    year = new schoolYear();
+    year->loadSemester(a->curSchoolYear->year);
+    tmpHead = year->pHeadSemester;
+    while (tmpHead != nullptr)
+    {
+        numSemester++;
+        tmpHead = tmpHead->pNext;
+    }
+    tmpHead = year->pHeadSemester;
+
+    buttons = new sf::ConvexShape[numSemester];
+    labels = new sf::Text[numSemester];
+
+
+    // Create buttons and labels
+
+    for (int i = 0; i < numSemester; ++i) {
+        sf::ConvexShape button;
+        sf::Text label;
+        std::string text = tmpHead->semesterData;
+        text = text + text[text.size() - 1];
+        text[8] = ' ';
+        createCornerRoundedButton(button, label, sf::Vector2f(500.0f, 200.0f), 60, a->highlightCyan, a->fontB, sf::Color::White, text, sf::Vector2f((float)a->width / 2.0f, 400.0f + i * 300.0f), 2.0f, a->blurGrey);
+        buttons[i] = button;
+        labels[i] = label;
+        tmpHead = tmpHead->pNext;
+    }
+}
+
+void ChooseSemesterScene::drawChooseSemester(sf::RenderWindow& window, Static* a)
+{
+    window.draw(chooseSemesterBackground);
+    window.draw(chooseSemesterText);
+    window.draw(preButton);
+    window.draw(preText);
+
+    for (int i = 0; i < numSemester; i++) {
+        window.draw(buttons[i]);
+        window.draw(labels[i]);
+    }
+}
+
+void ChooseSemesterScene::renderChooseSemester(sf::Event event, Scene* scene, sf::RenderWindow& window)
+{
+    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    if (scene->a->currentState == programState::ChooseSemester && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+    {
+        preButton.setFillColor(scene->a->pastelTitleCyan);
+        preText.setFillColor(scene->a->titleGreyColor);
+    }
+    else
+    {
+        preButton.setFillColor(scene->a->highlightCyan);
+        preText.setFillColor(sf::Color::White);
+    }
+    for (int i = 0; i < numSemester; i++) {
+        if (scene->a->currentState == programState::ChooseSemester && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+            buttons[i].setFillColor(scene->a->pastelTitleCyan);
+            labels[i].setFillColor(scene->a->titleGreyColor);
+        }
+        else {
+            buttons[i].setFillColor(scene->a->highlightCyan);
+            labels[i].setFillColor(sf::Color::White);
+        }
+    }
+    tmpHead = year->pHeadSemester;
+    if (event.type == sf::Event::MouseButtonPressed)
+    {
+        if (event.mouseButton.button == sf::Mouse::Left)
+        {
+            if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+            {
+                delete scene->choosesemester;
+                scene->choosesemester = nullptr;
+                if (scene->menuschoolyear == nullptr)
+                    scene->menuschoolyear = new MenuSchoolYearScene(scene->a);
+                scene->a->currentState = programState::MenuSchoolYear;
+            }
+            else for (int i = 0; i < numSemester; i++) {
+                if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
+                    scene->a->curSemester = new semester();
+                    *(scene->a->curSemester) = *tmpHead;
+                    if (scene->menusemester == nullptr)
+                        scene->menusemester = new MenuSemesterScene(scene->a);
+                    scene->a->currentState = programState::MenuSemester;
+                    delete scene->choosesemester;
+                    scene->choosesemester = nullptr;
+                    tmpHead = year->pHeadSemester;
+                    break;
+                }
+                tmpHead = tmpHead->pNext;
+            }
+        }
+    }
+
+}
+
+ChooseSemesterScene::~ChooseSemesterScene()
+{
+    delete[] buttons;
+    delete[] labels;
+    delete year;
+}
+

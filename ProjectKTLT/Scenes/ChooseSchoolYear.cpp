@@ -109,9 +109,7 @@ void ChooseSchoolYearScene::renderChooseSchoolYear(sf::Event event, Scene *scene
                     scene->chooseschoolyear = nullptr;
                     break;
                 }
-                else {
-					tmpHead = tmpHead->pNext;
-				}
+				tmpHead = tmpHead->pNext;
             }
             
             

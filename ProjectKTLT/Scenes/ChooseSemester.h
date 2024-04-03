@@ -4,13 +4,14 @@
 #include "../Semester.h"
 
 struct Scene;
-struct ChooseSchoolSemesterScene
+struct ChooseSemesterScene
 {
-    sf::RectangleShape chooseSemesterYearBackground;
-    sf::Text chooseSemesterYearText;
+    sf::RectangleShape chooseSemesterBackground;
+    sf::Text chooseSemesterText;
 
-    semester* listSemester = nullptr;  
 
+    schoolYear* year = nullptr;
+    semester* tmpHead = nullptr;
     sf::ConvexShape* buttons;
     sf::Text* labels;
 
@@ -19,8 +20,8 @@ struct ChooseSchoolSemesterScene
     sf::ConvexShape preButton;
     sf::Text preText;
 
-    ChooseSchoolSemesterScene(Static* a);
-    ~ChooseSchoolSemesterScene();
+    ChooseSemesterScene(Static* a);
+    ~ChooseSemesterScene();
     void drawChooseSemester(sf::RenderWindow& window, Static* a);
     void renderChooseSemester(sf::Event event, Scene* scene, sf::RenderWindow& window);
 };

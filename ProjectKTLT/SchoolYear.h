@@ -33,7 +33,7 @@ struct schoolYear {
 
 	semester* pHeadSemester = nullptr;
 	
-	void loadSemester(Static *a); // done
+	void loadSemester(std::string& year); // done
 	
 	// Data must be like (Semester1) not (1)
 	//bool findCurrentSemester(std::string data); // done

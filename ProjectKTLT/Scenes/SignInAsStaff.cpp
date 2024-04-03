@@ -80,12 +80,14 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Scene *scene, sf::
 		submit.setFillColor(scene->a->pastelTitleCyan);
 		submitText.setFillColor(scene->a->titleGreyColor);
 	}
-	else {
+	else if(scene->a->currentState == programState::SignInAsStaff)
+	{
 		signInStudentPreviousButton.setFillColor(scene->a->highlightCyan);
 		signInStudentPreviousText.setFillColor(sf::Color::White);
 		submit.setFillColor(scene->a->highlightCyan);
 		submitText.setFillColor(sf::Color::White);
 	}
+
 	if (isWrong == 2)
 	{
 		sf::sleep(sf::seconds(1.0f));

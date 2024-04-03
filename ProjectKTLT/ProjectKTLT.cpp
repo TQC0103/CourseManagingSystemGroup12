@@ -85,6 +85,16 @@ int main() {
 				scene->menuclass->renderMenuClass(event, scene, window);
                 break;
             }
+            case programState::ChooseSemester:
+            {
+                scene->choosesemester->renderChooseSemester(event, scene, window);
+                break;
+            }
+            case programState::MenuSemester:
+            {
+                scene->menusemester->renderMenuSemester(event, scene, window);
+                break;
+            }
             default:
                 break;
             }
@@ -158,6 +168,16 @@ int main() {
             case programState::MenuClass:
             {
                 scene->menuclass->drawMenuClass(window, scene->a);
+                break;
+            }
+            case programState::ChooseSemester:
+            {
+                scene->choosesemester->drawChooseSemester(window, scene->a);
+                break;
+            }
+            case programState::MenuSemester:
+            {
+                scene->menusemester->drawMenuSemester(window, scene->a);
                 break;
             }
             default:
