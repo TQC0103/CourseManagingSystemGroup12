@@ -2,3 +2,7 @@ CSC10001;Nhap Mon Lap Trinh
 MTH00041;Toan Roi Rac
 CSC00004;Nhap Mon Cong Nghe Thong Tin
 CSC10121;Ky Nang Mem
+<<<<<<< HEAD
+
+=======
+>>>>>>> 0ddee96ff62a609a545baab9356a73f1717d4725
