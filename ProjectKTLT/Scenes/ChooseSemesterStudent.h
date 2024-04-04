@@ -8,7 +8,7 @@ struct ChooseSemesterStudentScene
 {
     sf::RectangleShape chooseSemesterBackground;
     sf::Text chooseSemesterText;
-
+    sf::Text yearText;
 
     schoolYear* year = nullptr;
     semester* tmpHead = nullptr;

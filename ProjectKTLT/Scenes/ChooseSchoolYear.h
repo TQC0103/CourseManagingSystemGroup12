@@ -11,15 +11,17 @@ struct ChooseSchoolYearScene
 
 
 
-    sf::RectangleShape* buttons;
+    sf::ConvexShape* buttons;
     sf::Text* labels;
     schoolYear *listSchoolYear = nullptr; // LL
 
 
     int numSchoolYears = 0;
 
-    sf::RectangleShape preButton;
+    sf::ConvexShape  preButton;
     sf::Text preText;
+
+    sf::Text pleaseAddYear;
 
     ChooseSchoolYearScene(Static* a);
     ~ChooseSchoolYearScene();

@@ -18,6 +18,7 @@
 #include "ChooseSchoolYearStudent.h"
 #include "ChooseSemesterStudent.h"
 #include "MenuSemesterStudent.h"
+#include "AddStudentClass.h"
 struct Scene
 {
 	Static* a = new Static();
@@ -39,7 +40,7 @@ struct Scene
 	ChooseSchoolYearStudentScene* chooseschoolyearstudent = nullptr;
 	ChooseSemesterStudentScene* choosesemesterstudent = nullptr;
 	MenuSemesterStudentScene* menusemesterstudent = nullptr;
-
+	AddStudentClassScene* addstudentclass = nullptr;
 	Scene() {
 		a->currentState = programState::Welcome;
 		welcome = new WelcomeScene(a);
@@ -81,6 +82,8 @@ struct Scene
 			delete choosesemesterstudent;
 		if (menusemesterstudent != nullptr)
 			delete menusemesterstudent;
+		if (addstudentclass != nullptr)
+			delete addstudentclass;
 		delete a;
 
 	}

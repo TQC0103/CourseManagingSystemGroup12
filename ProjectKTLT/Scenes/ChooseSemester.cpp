@@ -6,21 +6,25 @@
 ChooseSemesterScene::ChooseSemesterScene(Static* a)
 {
     createABox(chooseSemesterBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-    createText(chooseSemesterText, a->fontB, a->textColorBlue, "Choose Semester", 100, (float)a->width / 2.0f, 150.0f);
-    createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::White);
+    createText(chooseSemesterText, a->fontB, a->textColorBlue, "Choose Semester", 80, (float)a->width / 2.0f, 75.0f);
+    createText(pleaseAddSemester, a->fontB, a->blurGrey, "     There are no\nsemester currently", 100, a->width / 2.0f, a->height / 2.0f);
+    createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
     year = new schoolYear();
     year->loadSemester(a->curSchoolYear->year);
     tmpHead = year->pHeadSemester;
-    while (tmpHead != nullptr)
-    {
-        numSemester++;
-        tmpHead = tmpHead->pNext;
+    if (tmpHead == nullptr)
+        numSemester = 0;
+    else {
+        while (tmpHead != nullptr)
+        {
+            numSemester++;
+            tmpHead = tmpHead->pNext;
+        }
+        tmpHead = year->pHeadSemester;
+
+        buttons = new sf::ConvexShape[numSemester];
+        labels = new sf::Text[numSemester];
     }
-    tmpHead = year->pHeadSemester;
-
-    buttons = new sf::ConvexShape[numSemester];
-    labels = new sf::Text[numSemester];
-
 
     // Create buttons and labels
 
@@ -30,7 +34,7 @@ ChooseSemesterScene::ChooseSemesterScene(Static* a)
         std::string text = tmpHead->semesterData;
         text = text + text[text.size() - 1];
         text[8] = ' ';
-        createCornerRoundedButton(button, label, sf::Vector2f(500.0f, 200.0f), 60, a->highlightCyan, a->fontB, sf::Color::White, text, sf::Vector2f((float)a->width / 2.0f, 400.0f + i * 300.0f), 2.0f, a->blurGrey);
+        createCornerRoundedButton(button, label, sf::Vector2f(500.0f, 200.0f), 60, a->highlightCyan, a->fontB, sf::Color::White, text, sf::Vector2f((float)a->width / 2.0f, 400.0f + i * 300.0f), 2.0f, sf::Color::Black);
         buttons[i] = button;
         labels[i] = label;
         tmpHead = tmpHead->pNext;
@@ -43,11 +47,15 @@ void ChooseSemesterScene::drawChooseSemester(sf::RenderWindow& window, Static* a
     window.draw(chooseSemesterText);
     window.draw(preButton);
     window.draw(preText);
-
+    if (numSemester == 0)
+        window.draw(pleaseAddSemester);
     for (int i = 0; i < numSemester; i++) {
+        if (i == 0)
+            createText(yearText, a->fontB, a->textColorBlue, a->curSchoolYear->year, 80, (float)a->width / 2.0f, 200.0f);
         window.draw(buttons[i]);
         window.draw(labels[i]);
     }
+    window.draw(yearText);
 }
 
 void ChooseSemesterScene::renderChooseSemester(sf::Event event, Scene* scene, sf::RenderWindow& window)
@@ -95,7 +103,6 @@ void ChooseSemesterScene::renderChooseSemester(sf::Event event, Scene* scene, sf
                     scene->a->currentState = programState::MenuSemester;
                     delete scene->choosesemester;
                     scene->choosesemester = nullptr;
-                    tmpHead = year->pHeadSemester;
                     break;
                 }
                 tmpHead = tmpHead->pNext;
@@ -107,8 +114,11 @@ void ChooseSemesterScene::renderChooseSemester(sf::Event event, Scene* scene, sf
 
 ChooseSemesterScene::~ChooseSemesterScene()
 {
-    delete[] buttons;
-    delete[] labels;
+    if(numSemester != 0)
+    {
+        delete[] buttons;
+        delete[] labels;
+    }
     delete year;
 }
 

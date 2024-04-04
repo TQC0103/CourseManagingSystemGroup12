@@ -44,7 +44,8 @@ void schoolYear::loadSchoolYear()
 			cur = cur->pNext;
 		}
 	}
-	
+	if (cur == nullptr)
+		return;
 	cur->pNext = nullptr;
 	fin.close();
 }
@@ -257,7 +258,7 @@ void schoolYear::loadSemester(std::string& year) {
 	}
 
 	semester* cur = pHeadSemester;
-	std::string data;
+	std::string data = "";
 	while (getline(fin, data)) {
 		cur->semesterData = data;
 		getline(fin, cur->startDate, ';');
@@ -268,7 +269,11 @@ void schoolYear::loadSemester(std::string& year) {
 			cur = cur->pNext;
 		}
 	}
-
+	if (data == "")
+	{
+		delete pHeadSemester;
+		pHeadSemester = nullptr;
+	}
 	fin.close();
 }
 

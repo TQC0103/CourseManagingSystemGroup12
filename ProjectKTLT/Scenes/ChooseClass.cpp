@@ -8,27 +8,25 @@ ChooseClassScene::ChooseClassScene(Static* a)
 	createABox(scrollbar, sf::Vector2f(20.0f, 50.0f), a->backGroundWhiteDarkerStill, sf::Vector2f(1700.0f, 300.0f));
 	createABox(chooseClassBackground, sf::Vector2f(a->width, a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(chooseClassText, a->fontB, a->textColorBlue, "Choose Class", 100, a->width / 2.0f, 100.0f);
-	createAButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f));
-	createABox(hideBack, sf::Vector2f((float)a->width, 300.0f), a->backGroundWhite, sf::Vector2f(a->width / 2.0f, 100.0f));
+	createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
+	createABox(hideBack, sf::Vector2f((float)a->width, 250.0f), a->backGroundWhite, sf::Vector2f(a->width / 2.0f, 100.0f));
 	createABox(scrollbarArea, sf::Vector2f(20.0f, 750.0f), a->backGroundWhiteDarker, sf::Vector2f(1700.0f, 625.0f));
 	listClasses = new Class();
 	numClass = listClasses->load_classes();
 	Class *tmp = listClasses->pHeadListClasses;
-	buttons = new sf::RectangleShape[numClass];
+	buttons = new sf::ConvexShape[numClass];
 	labels = new sf::Text[numClass];
-	for (int i = 0; i < numClass; ++i) {
-		sf::RectangleShape button;
+	for(int i = 0; i < numClass; ++i) {
+		sf::ConvexShape button;
+		sf::Text label;
 		if (i % 2 == 0)
-			createABox(button, sf::Vector2f(500.0f, 200.0f), a->highlightCyan, sf::Vector2f((float)a->width / 2.0f - 350.0f, 350.0f + (i / 2) * 300.0f));
+			createCornerRoundedButton(button, label, sf::Vector2f(500.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, tmp->name, sf::Vector2f((float)a->width / 2.0f - 350.0f, 400.0f + (i / 2) * 300.0f), 2.0f, sf::Color::Black);
 		else
 		{
-			createABox(button, sf::Vector2f(500.0f, 200.0f), a->highlightCyan, sf::Vector2f((float)a->width / 2.0f + 350.0f, 350.0f + (i / 2) * 300.0f));
+			createCornerRoundedButton(button, label, sf::Vector2f(500.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, tmp->name, sf::Vector2f((float)a->width / 2.0f + 350.0f, 400.0f + (i / 2) * 300.0f), 2.0f, sf::Color::Black);
 		}
 
 		buttons[i] = button;
-
-		sf::Text label;
-		createText(label, a->fontB, sf::Color::White, tmp->name, 60, buttons[i].getPosition().x, buttons[i].getPosition().y);
 		tmp = tmp->pNext;
 		labels[i] = label;
 	}

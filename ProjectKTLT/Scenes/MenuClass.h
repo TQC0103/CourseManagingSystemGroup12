@@ -9,16 +9,16 @@ struct MenuClassScene
 	sf::Text menuClassText;
 	sf::Text classText;
 
-	sf::RectangleShape preButton;
+	sf::ConvexShape preButton;
 	sf::Text preText;
 
-	sf::RectangleShape viewStudentGPA;
+	sf::ConvexShape viewStudentGPA;
 	sf::Text viewStudentGPAText;
 
-	sf::RectangleShape viewMembers;
+	sf::ConvexShape viewMembers;
 	sf::Text viewMembersText;
 
-	sf::RectangleShape addStudentButton;
+	sf::ConvexShape addStudentButton;
 	sf::Text addStudentText;
 
 	int i = 0;

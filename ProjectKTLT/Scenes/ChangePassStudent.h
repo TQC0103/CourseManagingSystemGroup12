@@ -10,7 +10,7 @@ struct ChangePassStudentScene
 	sf::RectangleShape changePassPage;
 
 	sf::Text preText;
-	sf::RectangleShape preButton;
+	sf::ConvexShape preButton;
 
 	sf::RectangleShape oldPassBox;
 	sf::Text oldPassText;
@@ -20,7 +20,7 @@ struct ChangePassStudentScene
 	sf::Text newPassText;
 	std::string newPassInput = "";
 
-	sf::RectangleShape submit;
+	sf::ConvexShape submit;
 	sf::Text submitText;
 
 	sf::Text enterOldPass;

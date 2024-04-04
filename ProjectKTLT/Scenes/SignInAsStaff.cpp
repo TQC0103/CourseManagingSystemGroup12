@@ -10,8 +10,8 @@ SignInAsStaffScene::SignInAsStaffScene(Static *a)
 	signInStudentPage.setFillColor(a->backGroundWhite);
 	signInStudentPage.setSize(sf::Vector2f((float)a->width, (float)a->height));
 	createText(studentSignInPageText, a->fontB, a->textColorBlue, "- STAFF -", 120, a->width / 2.0f, 150.0f);
-	createAButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(200.0f, 1000.0f));
-	createAButton(submit, submitText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Sign in", sf::Vector2f(a->width - 200.0f, 1000.0f));
+	createCornerRoundedButton(signInStudentPreviousButton, signInStudentPreviousText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(submit, submitText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Sign in", sf::Vector2f(a->width - 150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createABox(usernameStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 475.0f));
 	createText(usernameStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, usernameStudentBox.getPosition().y);
 	createABox(passwordStudentBox, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 800.0f));
@@ -96,7 +96,6 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Scene *scene, sf::
 		if (scene->menustaff == nullptr)
 			scene->menustaff = new MenuStaffScene(scene->a);
 		scene->a->currentState = programState::MenuStaff;
-		isWrong = 0;
 	}
 	// Handle mouse events
 	if (event.type == sf::Event::MouseButtonPressed)

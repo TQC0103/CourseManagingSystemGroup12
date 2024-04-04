@@ -8,13 +8,13 @@
 MenuStaffScene::MenuStaffScene(Static* a)
 {
 	createABox(MenuStaffPage, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-	createAButton(preButtonStaff, preText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(200.0f, 1000.0f));
-	createAButton(chooseSchoolYearButton, chooseSchoolYearText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Choose school year", sf::Vector2f(a->width / 2.0f - 400.0f, 750.0f));
-	createAButton(createSchoolYearButton, createSchoolYearText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Create school year", sf::Vector2f(a->width / 2.0f - 400.0f, 450.0f));
+	createCornerRoundedButton(preButtonStaff, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(chooseSchoolYearButton, chooseSchoolYearText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Manage a year", sf::Vector2f(a->width / 2.0f - 400.0f, 750.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(createSchoolYearButton, createSchoolYearText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Create next year", sf::Vector2f(a->width / 2.0f - 400.0f, 450.0f), 2.0f, sf::Color::Black);
 	createText(menu, a->fontB, a->textColorBlue, "Menu", 120, (float)a->width / 2.0f, 150.0f);
-	createAButton(createClassButton, createClassText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Create class", sf::Vector2f(a->width / 2.0f + 400.0f, 450.0f));
-	createAButton(chooseClassButton, chooseClassText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Choose class", sf::Vector2f(a->width / 2.0f + 400.0f, 750.0f));
-	createAButton(changePassButton, changePassText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "  Change\npassword", sf::Vector2f(a->width - 200.0f, a->height - 1000.0f));
+	createCornerRoundedButton(createClassButton, createClassText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Create new class", sf::Vector2f(a->width / 2.0f + 400.0f, 450.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(chooseClassButton, chooseClassText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Manage a class", sf::Vector2f(a->width / 2.0f + 400.0f, 750.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(changePassButton, changePassText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "  Change\npassword", sf::Vector2f(a->width - 200.0f, a->height - 1000.0f), 2.0f, sf::Color::Black);
 }
 
 void MenuStaffScene::drawMenuStaff(sf::RenderWindow& win)
@@ -33,6 +33,10 @@ void MenuStaffScene::drawMenuStaff(sf::RenderWindow& win)
 	win.draw(createClassText);
 	win.draw(chooseClassButton);
 	win.draw(chooseClassText);
+	if (cl.getElapsedTime() <= sf::seconds(2.0f))
+	{
+		win.draw(createYearSuccessfulText);
+	}
 }
 
 void MenuStaffScene::renderMenuStaff(sf::Event event, Scene *scene, sf::RenderWindow& win)
@@ -86,7 +90,14 @@ void MenuStaffScene::renderMenuStaff(sf::Event event, Scene *scene, sf::RenderWi
 		}
 	}
 	
-	
+	if (createYearSuccessful == true)
+	{
+		schoolYear* cur = new schoolYear();
+		cur->loadSchoolYear();
+		createText(createYearSuccessfulText, scene->a->fontB, sf::Color::Green, "Successfully create year: " + cur->pHead->year, 40, scene->a->width / 2.0f, 1050.0f);
+		delete cur;
+		createYearSuccessful = false;
+	}
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
 		if (event.mouseButton.button == sf::Mouse::Left)
@@ -126,6 +137,8 @@ void MenuStaffScene::renderMenuStaff(sf::Event event, Scene *scene, sf::RenderWi
 			}
 			else if (createSchoolYearButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
+				cl.restart();
+				createYearSuccessful = true;
 				schoolYear* tmp = new schoolYear();
 				tmp->loadSchoolYear();
 				tmp->addSchoolYear();

@@ -9,7 +9,7 @@ struct ViewStudentProfileScene
 	sf::RectangleShape ViewStudentProfilePage;
 	sf::Text title;
 
-	sf::RectangleShape preButton;
+	sf::ConvexShape preButton;
 	sf::Text preText;
 
 	sf::Text studentProfile;

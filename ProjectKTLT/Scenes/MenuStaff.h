@@ -9,23 +9,29 @@ struct MenuStaffScene
 
 	sf::RectangleShape MenuStaffPage;
 
-	sf::RectangleShape createSchoolYearButton;
+	sf::ConvexShape createSchoolYearButton;
 	sf::Text createSchoolYearText;
 
-	sf::RectangleShape chooseSchoolYearButton;
+	sf::ConvexShape chooseSchoolYearButton;
 	sf::Text chooseSchoolYearText;
 
-	sf::RectangleShape preButtonStaff;
+	sf::ConvexShape preButtonStaff;
 	sf::Text preText;
 
-	sf::RectangleShape changePassButton;
+	sf::ConvexShape changePassButton;
 	sf::Text changePassText;
 
-	sf::RectangleShape createClassButton;
+	sf::ConvexShape createClassButton;
 	sf::Text createClassText;
 
-	sf::RectangleShape chooseClassButton;
+	sf::ConvexShape chooseClassButton;
 	sf::Text chooseClassText;
+
+	sf::Text createYearSuccessfulText;
+
+	bool createYearSuccessful = false;
+	sf::Clock cl;
+	
 
 	//Constructor
 	MenuStaffScene(Static *a);

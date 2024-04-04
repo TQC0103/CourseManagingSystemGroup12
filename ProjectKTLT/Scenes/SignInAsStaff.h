@@ -9,7 +9,7 @@ struct SignInAsStaffScene
 	sf::RectangleShape signInStudentPage;
 	sf::Text studentSignInPageText;
 
-	sf::RectangleShape signInStudentPreviousButton;
+	sf::ConvexShape signInStudentPreviousButton;
 	sf::Text signInStudentPreviousText;
 
 	sf::RectangleShape usernameStudentBox;
@@ -20,7 +20,7 @@ struct SignInAsStaffScene
 	sf::Text passwordStudentText;
 	std::string passwordStaffInput = "";
 
-	sf::RectangleShape submit;
+	sf::ConvexShape submit;
 	sf::Text submitText;
 
 	sf::Text incorrect;

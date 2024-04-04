@@ -9,7 +9,7 @@ struct ChooseClassScene
 	sf::RectangleShape chooseClassBackground;
 	sf::Text chooseClassText;
 
-	sf::RectangleShape preButton;
+	sf::ConvexShape preButton;
 	sf::Text preText;
 
 	int numClass = 0;
@@ -19,7 +19,7 @@ struct ChooseClassScene
 	sf::RectangleShape scrollbar;
 	sf::RectangleShape scrollbarArea;
 
-	sf::RectangleShape* buttons = nullptr;
+	sf::ConvexShape* buttons = nullptr;
 	sf::Text* labels = nullptr;
 	Class *listClasses = nullptr;
 

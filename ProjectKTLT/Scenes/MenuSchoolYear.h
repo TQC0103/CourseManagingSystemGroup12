@@ -9,13 +9,13 @@ struct MenuSchoolYearScene
 	sf::Text menuSchoolYearText;
 	sf::Text yearText;
 
-	sf::RectangleShape preButton;
+	sf::ConvexShape preButton;
 	sf::Text preText;
 
-	sf::RectangleShape chooseSemesterButton;
+	sf::ConvexShape chooseSemesterButton;
 	sf::Text chooseSemesterText;
 
-	sf::RectangleShape createSemestersButton;
+	sf::ConvexShape createSemestersButton;
 	sf::Text createSemestersText;
 
 	int i = 0;

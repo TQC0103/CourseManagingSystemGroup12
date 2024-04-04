@@ -8,11 +8,11 @@ struct SignInScene
 {
 	// Scene elements
 	sf::RectangleShape signInPage;
-	sf::RectangleShape goBackToWelcome;
+	sf::ConvexShape goBackToWelcome;
 	sf::Text prePageToWelcome;
 	sf::Text ChooseAcc;
-	sf::RectangleShape signInAsStudentButton;
-	sf::RectangleShape signInAsStaffButton;
+	sf::ConvexShape signInAsStudentButton;
+	sf::ConvexShape signInAsStaffButton;
 	sf::Text signInAsStudentText;
 	sf::Text signInAsStaffText;
 

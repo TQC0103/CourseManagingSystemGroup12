@@ -12,19 +12,16 @@ SignInScene::SignInScene(Static *a)
     signInPage.setFillColor(a->backGroundWhite);
 
     // Set up goBackToWelcome button
-    goBackToWelcome.setSize(sf::Vector2f(600.0f, 200.0f));
-    createAButton(goBackToWelcome, prePageToWelcome, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(200.0f, 1000.0f));
+    createCornerRoundedButton(goBackToWelcome,prePageToWelcome, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 
     // Set up ChooseAcc text
     createText(ChooseAcc, a->fontB, a->textColorBlue, "Sign In As", 120, a->width / 2.0f, 150.0f);
 
     // Set up signInAsStudentButton
-    signInAsStudentButton.setSize(sf::Vector2f(600.0f, 200.0f));
-    createAButton(signInAsStudentButton, signInAsStudentText, sf::Vector2f(600.0f, 200.0f), 80.0f, a->highlightCyan, a->fontB, sf::Color::White, "Student", sf::Vector2f(a->width / 2.0f, 500.0f));
+    createCornerRoundedButton(signInAsStudentButton, signInAsStudentText, sf::Vector2f(600.0f, 200.0f), 80.0f, a->highlightCyan, a->fontB, sf::Color::White, "Student", sf::Vector2f(a->width / 2.0f, 500.0f), 2.0f, sf::Color::Black);
 
     // Set up signInAsStaffButton
-    signInAsStaffButton.setSize(sf::Vector2f(600.0f, 200.0f));
-    createAButton(signInAsStaffButton, signInAsStaffText, sf::Vector2f(600.0f, 200.0f), 80.0f, a->highlightCyan, a->fontB, sf::Color::White, "Staff", sf::Vector2f(a->width / 2.0f, 800.0f));
+    createCornerRoundedButton(signInAsStaffButton, signInAsStaffText, sf::Vector2f(600.0f, 200.0f), 80.0f, a->highlightCyan, a->fontB, sf::Color::White, "Staff", sf::Vector2f(a->width / 2.0f, 800.0f), 2.0f, sf::Color::Black);
 }
 
 void SignInScene::drawSignIn(sf::RenderWindow &win)
