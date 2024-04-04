@@ -8,7 +8,7 @@ MenuClassScene::MenuClassScene(Static* a)
 {
 	createABox(menuClassBackground, sf::Vector2f(a->width, a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(menuClassText, a->fontB, a->textColorBlue, "Menu Class", 80, a->width / 2.0f, 75.0f);
-	createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Re-select", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createCornerRoundedButton(addStudentButton, addStudentText, sf::Vector2f(500.0f, 175.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "Add student", sf::Vector2f(a->width / 2.0f, 400.0f), 2.0f, sf::Color::Black);
 	createCornerRoundedButton(viewStudentGPA, viewStudentGPAText, sf::Vector2f(500.0f, 175.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "View students GPA", sf::Vector2f(a->width / 2.0f, 675.0f), 2.0f, sf::Color::Black);
 	createCornerRoundedButton(viewMembers, viewMembersText, sf::Vector2f(500.0f, 175.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "View members", sf::Vector2f(a->width / 2.0f, 950.0f), 2.0f, sf::Color::Black);
