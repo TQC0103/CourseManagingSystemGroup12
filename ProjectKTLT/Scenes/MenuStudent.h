@@ -9,19 +9,16 @@ struct MenuStudentScene
 
 	sf::Text menu;
 
-	sf::RectangleShape preButton;
+	sf::ConvexShape preButton;
 	sf::Text preText;
 	
-	sf::RectangleShape viewScoreBoard;
+	sf::ConvexShape viewScoreBoard;
 	sf::Text viewScoreBoardText;
 
-	sf::RectangleShape viewListsOfCourses;
-	sf::Text viewListsOfCoursesText;
-
-	sf::RectangleShape viewStudentInfo;
+	sf::ConvexShape viewStudentInfo;
 	sf::Text viewStudentInfoText;
 
-	sf::RectangleShape changePass;
+	sf::ConvexShape changePass;
 	sf::Text changePassText;
 	
 

@@ -95,6 +95,21 @@ int main() {
                 scene->menusemester->renderMenuSemester(event, scene, window);
                 break;
             }
+            case programState::ChooseSchoolYearStudent:
+            {
+                scene->chooseschoolyearstudent->renderChooseSchoolYear(event, scene, window);
+                break;
+            }
+            case programState::ChooseSemesterStudent:
+            {
+                scene->choosesemesterstudent->renderChooseSemester(event, scene, window);
+                break;
+            }
+            case programState::MenuSemesterStudent:
+            {
+                scene->menusemesterstudent->renderMenuSemester(event, scene, window);
+                break;
+            }
             default:
                 break;
             }
@@ -178,6 +193,21 @@ int main() {
             case programState::MenuSemester:
             {
                 scene->menusemester->drawMenuSemester(window, scene->a);
+                break;
+            }
+            case programState::ChooseSchoolYearStudent:
+            {
+                scene->chooseschoolyearstudent->drawChooseSchoolYear(window, scene->a);
+                break;
+            }
+            case programState::ChooseSemesterStudent:
+            {
+                scene->choosesemesterstudent->drawChooseSemester(window, scene->a);
+                break;
+            }
+            case programState::MenuSemesterStudent:
+            {
+                scene->menusemesterstudent->drawMenuSemester(window, scene->a);
                 break;
             }
             default:

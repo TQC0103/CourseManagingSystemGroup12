@@ -4,13 +4,12 @@
 
 MenuStudentScene::MenuStudentScene(Static* a)
 {
-	createAButton(preButton, preText, sf::Vector2f(400.0f, 150.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(200.0f, 1000.0f));
+	createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createABox(menuStudentPage, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(menu, a->fontB, a->textColorBlue, "Menu", 120, (float)a->width / 2.0f, 150.0f);
-	createAButton(viewScoreBoard, viewScoreBoardText, sf::Vector2f(600.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "      View\nscoreboard", sf::Vector2f((float)(a->width / 2.0f - 400.0f), (float)(a->height / 2.0f - 150.0f)));
-	createAButton(viewListsOfCourses, viewListsOfCoursesText, sf::Vector2f(600.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "  View\ncourses", sf::Vector2f((float)(a->width / 2.0f + 400.0f), (float)(a->height / 2.0f - 150.0f)));
-	createAButton(viewStudentInfo, viewStudentInfoText, sf::Vector2f(1400.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View students information", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f + 150.0f)));
-	createAButton(changePass, changePassText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "  Change\npassword", sf::Vector2f(a->width - 200.0f, a->height - 1000.0f));
+	createCornerRoundedButton(viewScoreBoard, viewScoreBoardText, sf::Vector2f(1000.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View scoreboard and courses", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f - 150.0f)), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(viewStudentInfo, viewStudentInfoText, sf::Vector2f(1000.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View student information", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f + 150.0f)), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(changePass, changePassText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "  Change\npassword", sf::Vector2f(a->width - 200.0f, a->height - 1000.0f), 2.0f, sf::Color::Black);
 }
 
 void MenuStudentScene::drawMenuStudent(sf::RenderWindow& win)
@@ -21,8 +20,6 @@ void MenuStudentScene::drawMenuStudent(sf::RenderWindow& win)
 	win.draw(viewScoreBoard);
 	win.draw(viewScoreBoardText);
 	win.draw(menu);
-	win.draw(viewListsOfCourses);
-	win.draw(viewListsOfCoursesText);
 	win.draw(changePass);
 	win.draw(changePassText);
 	win.draw(viewStudentInfo);
@@ -47,11 +44,6 @@ void MenuStudentScene::renderMenuStudent(sf::Event event, Scene *scene, sf::Rend
 		viewStudentInfo.setFillColor(scene->a->pastelTitleCyan);
 		viewStudentInfoText.setFillColor(scene->a->titleGreyColor);
 	}
-	else if (scene->a->currentState == programState::MenuStudent && viewListsOfCourses.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-	{
-		viewListsOfCourses.setFillColor(scene->a->pastelTitleCyan);
-		viewListsOfCoursesText.setFillColor(scene->a->titleGreyColor);
-	}
 	else if (scene->a->currentState == programState::MenuStudent && viewScoreBoard.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
 		viewScoreBoard.setFillColor(scene->a->pastelTitleCyan);
@@ -64,8 +56,6 @@ void MenuStudentScene::renderMenuStudent(sf::Event event, Scene *scene, sf::Rend
 		changePassText.setFillColor(sf::Color::White);
 		viewStudentInfo.setFillColor(scene->a->highlightCyan);
 		viewStudentInfoText.setFillColor(sf::Color::White);
-		viewListsOfCourses.setFillColor(scene->a->highlightCyan);
-		viewListsOfCoursesText.setFillColor(sf::Color::White);
 		viewScoreBoard.setFillColor(scene->a->highlightCyan);
 		viewScoreBoardText.setFillColor(sf::Color::White);
 	}
@@ -96,6 +86,14 @@ void MenuStudentScene::renderMenuStudent(sf::Event event, Scene *scene, sf::Rend
 				if(scene->viewstudentprofile == nullptr)
 					scene->viewstudentprofile = new ViewStudentProfileScene(scene->a);
 				scene->a->currentState = programState::ViewStudentProfile;
+			}
+			else if (viewScoreBoard.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				delete scene->menustudent;
+				scene->menustudent = nullptr;
+				if (scene->chooseschoolyearstudent == nullptr)
+					scene->chooseschoolyearstudent = new ChooseSchoolYearStudentScene(scene->a);
+				scene->a->currentState = programState::ChooseSchoolYearStudent;
 			}
 		}
 	}

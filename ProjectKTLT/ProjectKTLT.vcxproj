@@ -143,9 +143,12 @@
     <ClCompile Include="Scenes\ChangePassStudent.cpp" />
     <ClCompile Include="Scenes\ChooseClass.cpp" />
     <ClCompile Include="Scenes\ChooseSchoolYear.cpp" />
+    <ClCompile Include="Scenes\ChooseSchoolYearStudent.cpp" />
     <ClCompile Include="Scenes\ChooseSemester.cpp" />
+    <ClCompile Include="Scenes\ChooseSemesterStudent.cpp" />
     <ClCompile Include="Scenes\MenuSchoolYear.cpp" />
     <ClCompile Include="Scenes\MenuSemester.cpp" />
+    <ClCompile Include="Scenes\MenuSemesterStudent.cpp" />
     <ClCompile Include="Scenes\MenuStaff.cpp" />
     <ClCompile Include="Scenes\MenuStudent.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
@@ -169,10 +172,13 @@
     <ClInclude Include="Scenes\ChangePassStudent.h" />
     <ClInclude Include="Scenes\ChooseClass.h" />
     <ClInclude Include="Scenes\ChooseSchoolYear.h" />
+    <ClInclude Include="Scenes\ChooseSchoolYearStudent.h" />
     <ClInclude Include="Scenes\ChooseSemester.h" />
+    <ClInclude Include="Scenes\ChooseSemesterStudent.h" />
     <ClInclude Include="Scenes\MenuClass.h" />
     <ClInclude Include="Scenes\MenuSchoolYear.h" />
     <ClInclude Include="Scenes\MenuSemester.h" />
+    <ClInclude Include="Scenes\MenuSemesterStudent.h" />
     <ClInclude Include="Scenes\MenuStaff.h" />
     <ClInclude Include="Scenes\MenuStudent.h" />
     <ClInclude Include="Scenes\Scene.h" />

@@ -15,6 +15,9 @@
 #include "MenuClass.h"
 #include "ChooseSemester.h"
 #include "MenuSemester.h"
+#include "ChooseSchoolYearStudent.h"
+#include "ChooseSemesterStudent.h"
+#include "MenuSemesterStudent.h"
 struct Scene
 {
 	Static* a = new Static();
@@ -33,6 +36,10 @@ struct Scene
 	MenuClassScene* menuclass = nullptr;
 	ChooseSemesterScene* choosesemester = nullptr;
 	MenuSemesterScene* menusemester = nullptr;
+	ChooseSchoolYearStudentScene* chooseschoolyearstudent = nullptr;
+	ChooseSemesterStudentScene* choosesemesterstudent = nullptr;
+	MenuSemesterStudentScene* menusemesterstudent = nullptr;
+
 	Scene() {
 		a->currentState = programState::Welcome;
 		welcome = new WelcomeScene(a);
@@ -68,9 +75,13 @@ struct Scene
 			delete choosesemester;
 		if (menusemester != nullptr)
 			delete menusemester;
+		if (chooseschoolyearstudent != nullptr)
+			delete chooseschoolyearstudent;
+		if (choosesemesterstudent != nullptr)
+			delete choosesemesterstudent;
+		if (menusemesterstudent != nullptr)
+			delete menusemesterstudent;
 		delete a;
 
 	}
 };
-//Q: error appears, why?
-//A: because of the circular dependency between Scene.h and Scene.cpp
