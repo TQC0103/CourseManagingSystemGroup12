@@ -1,0 +1,29 @@
+#pragma once
+#include "../UserInterface.h"
+#include <SFML/Graphics.hpp>
+#include "../Semester.h"
+
+struct Scene;
+struct ChooseSemesterScene
+{
+    sf::RectangleShape chooseSemesterBackground;
+    sf::Text chooseSemesterText;
+    sf::Text yearText;
+
+    schoolYear* year = nullptr;
+    semester* tmpHead = nullptr;
+    sf::ConvexShape* buttons;
+    sf::Text* labels;
+
+    int numSemester = 0;
+
+    sf::ConvexShape preButton;
+    sf::Text preText;
+
+    sf::Text pleaseAddSemester;
+
+    ChooseSemesterScene(Static* a);
+    ~ChooseSemesterScene();
+    void drawChooseSemester(sf::RenderWindow& window, Static* a);
+    void renderChooseSemester(sf::Event event, Scene* scene, sf::RenderWindow& window);
+};
