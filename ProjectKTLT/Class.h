@@ -28,7 +28,7 @@ struct Class {
 
 	bool find_Class_of_Student(Static* a);
 
-	Class* creat_new_Class(std::string path);
+	void creat_new_Class(std::string nameClass);
 
 	void print_txt();
 
@@ -39,7 +39,7 @@ struct Class {
 	void print_Student_profile_in_class_files(student* pHeads, std::ofstream& fOut);
 	void insert_data_Class(Static* a);
 	void export_File(std::string name_Class, std::string path);
-
+	bool isInvalid(std::string nameClass);
 	void Sort_Class(Class* new_Class);
 
 	void print_class_txt();
