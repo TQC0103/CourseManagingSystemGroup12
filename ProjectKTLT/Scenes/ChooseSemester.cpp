@@ -114,7 +114,7 @@ void ChooseSemesterScene::renderChooseSemester(sf::Event event, Scene* scene, sf
 
 ChooseSemesterScene::~ChooseSemesterScene()
 {
-    if(numSemester != 0)
+    if (numSemester != 0)
     {
         delete[] buttons;
         delete[] labels;

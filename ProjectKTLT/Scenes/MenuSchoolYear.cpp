@@ -80,6 +80,10 @@ void MenuSchoolYearScene::renderMenuSchoolYear(sf::Event event, Scene *scene, sf
 					scene->choosesemester = new ChooseSemesterScene(scene->a);
 				scene->a->currentState = programState::ChooseSemester;
 			}
+			else if (createSemestersButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+
+			}
 
 		}
 	}

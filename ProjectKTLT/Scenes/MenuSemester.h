@@ -10,12 +10,18 @@ struct MenuSemesterScene
 {
     sf::RectangleShape menuSemesterBackground;
     sf::Text menuSemesterText;
+    sf::Text title;
 
     sf::ConvexShape preButton;
     sf::Text preText;
 
+    sf::ConvexShape manageC;
+    sf::Text manageCText;
+
+    sf::ConvexShape addC;
+    sf::Text addCText;
+
     MenuSemesterScene(Static* a);
-    ~MenuSemesterScene();
     void drawMenuSemester(sf::RenderWindow& window, Static* a);
     void renderMenuSemester(sf::Event event, Scene* scene, sf::RenderWindow& window);
 };
