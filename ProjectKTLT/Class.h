@@ -15,6 +15,7 @@ struct Class {
 
 	//List students
 	student* pHeadListStudents = nullptr;
+	Course* pHeadListCourses = nullptr;
 
 	//Constructor
 	Class();
@@ -33,6 +34,12 @@ struct Class {
 	void print_txt();
 
 	//Insert file new class by csv (4) 
+	
+
+
+	// l0ad list students len 1 cai class
+	// Class *class;
+	// class->l0ad(...) => students trg class d0 se dc l0ad len
 
 	void insert_new_Class(std::string name_Class);
 

@@ -8,7 +8,10 @@
 
 struct Course
 {
-
+	// Course *course = new Course();
+	// int n = course->loadstudent..(...);
+	// 
+	
 	//Student score in the course
 	struct studentScore
 	{
