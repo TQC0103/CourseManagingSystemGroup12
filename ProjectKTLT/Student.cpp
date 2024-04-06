@@ -98,7 +98,7 @@ std::string student::getCoursesInformations(Static *a)
 std::string* student::loadNumberOfCourses(Static* a)
 {
     semester* tmp = new semester;
-    int n = tmp->specifyCourseForStudent;
+    int n = tmp->specifyCourseForStudent(a);
     std::string* listOfCourses = new std::string[n];
     std::ifstream file("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/courses.txt");
     if(!file.is_open())
