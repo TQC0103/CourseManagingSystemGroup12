@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include "Semester.h"
+#include <direct.h>
 #include <cstring>
 #include"config.h"
 
@@ -58,6 +59,7 @@ void Class::input_Student_from_file(student*& pHeads, std::string new_name_Class
 	}
 	fIn.close();
 }
+//Load data
 int Class::load_classes() // load data from files
 {
 	std::ifstream fIn;
@@ -101,11 +103,32 @@ bool Class::find_Class_of_Student(Static* a) // find class of student
 }
 
 //Not data to update pHeadListCLass
-Class* Class::creat_new_Class(std::string nameClass) {
-	//Class* new_Class = new Class;
-	//new_Class->name = nameClass;
-	//Sort_Class(new_Class);	
-	return NULL;
+bool Class::isInvalid(std::string nameClass) {
+	Class* tmp = pHeadListClasses;
+	while (tmp) {
+		if (tmp->name == nameClass) {
+			return true;
+		}
+	}
+	return false;
+}
+//create new Class Not to update data.
+void Class::creat_new_Class(std::string nameClass) {
+	if (!isInvalid(nameClass)) std::cout << "Error! The name Class is exist!\n";
+	int result = _mkdir(("../Database/Class/" + nameClass).c_str());
+	std::string name = "Student";
+	
+	if (result != 0) {
+		std::cout << "Error: Unable to create directory" << std::endl;
+	}
+	int result_student = _mkdir(("../Database/Class/nameClass/" + name).c_str());
+	if (result_student != 0) {
+		std::cout << "Error: Unable to create directory" << std::endl;
+	}
+	Class* new_Class = new Class;
+	new_Class->name = nameClass;
+	Sort_Class(new_Class);	
+	print_txt();
 }
 
 void Class::print_txt() {
