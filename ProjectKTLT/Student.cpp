@@ -2,8 +2,8 @@
 #include "Class.h"
 #include "config.h" 
 #include "SchoolYear.h"
+#include "Semester.h"
 
-extern std::string usernameStudentInput;
 std::string curClass;
 void student::loadStudentProfile(std::string username)
 {
@@ -68,7 +68,7 @@ std::string student::getCoursesInformations(Static *a)
     listCourse += "Your Courses In This Semester : \n";
     std::ifstream file("../Database/SchoolYear/"+a->curSchoolYear->year+"/"+a->curSemester->semesterData+"/courses.txt");
     if(!file.is_open())
-    {
+    {  
         return "Unable to open file! \n";
     }
     std::string courseName;
@@ -93,3 +93,33 @@ std::string student::getCoursesInformations(Static *a)
     return listCourse;
 }
 
+
+
+std::string* student::loadNumberOfCourses(Static* a)
+{
+    semester* tmp = new semester;
+    int n = tmp->specifyCourseForStudent;
+    std::string* listOfCourses = new std::string[n];
+    std::ifstream file("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/courses.txt");
+    if(!file.is_open())
+    {  
+        std::cout << "Unable to open file! \n";
+        return nullptr;
+    }
+    int index = 0;
+    std::string courseName;
+    while(std::getline(file, courseName))
+    {
+        std::ifstream fIn("../Database/SchoolYear/"+ a->curSchoolYear->year +"/"+ a->curSchoolYear->pHeadSemester->semesterData +"/" + courseName + "Classes.txt");  
+        std::string className;
+        while(std::getline(fIn, className))
+        {
+            if(curClass == className) 
+            {
+                listOfCourses[index] = courseName;
+                index++;
+            } 
+        }
+    }
+    return listOfCourses;
+}
