@@ -15,7 +15,7 @@ struct schoolYear {
 	// User Experience	
 	void loadSchoolYear();// done
 	
-	void addSchoolYear();// done
+	bool addSchoolYear();// done
 	// After add, staff can choose to move to the next school year now or later
 	//void movetoNextSchoolYear(); // done
 	
@@ -46,8 +46,7 @@ struct schoolYear {
 
 	// Deallocate
 	
-	void deallocateSchoolYear(Static * a);
-	void deallocateCurrentSchoolYear();
+	
 	~schoolYear();
 
 };

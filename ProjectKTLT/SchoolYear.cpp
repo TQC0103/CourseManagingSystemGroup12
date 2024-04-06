@@ -186,21 +186,21 @@ bool schoolYear::checkInputDate(std::string &data, Static* a)
 	}
 }
 
-void schoolYear::addSchoolYear() {
+bool schoolYear::addSchoolYear() {
 	
 	schoolYear* cur = pHead;
-	
+
 	std::string curYear = cur->year;
 	std::string nextYear1 = std::to_string(std::stoi(curYear.substr(0, 4)) + 1);
 	std::string nextYear2 = std::to_string(std::stoi(curYear.substr(5, 4)) + 1);
 	std::string nextYear = nextYear1 + "-" + nextYear2;
-	schoolYear *tmp = new schoolYear(nextYear);
+	schoolYear* tmp = new schoolYear(nextYear);
 	tmp->pNext = pHead;
 	pHead = tmp;
 	cur = pHead;
 
 
-    std::ofstream fout("../Database/SchoolYear/AllSchoolYear.txt");
+	std::ofstream fout("../Database/SchoolYear/AllSchoolYear.txt");
 	while (cur)
 	{
 		fout << cur->year << std::endl;
@@ -210,7 +210,11 @@ void schoolYear::addSchoolYear() {
 	int result = _mkdir(("../Database/SchoolYear/" + nextYear).c_str());
 	if (result != 0) {
 		std::cout << "Error: Unable to create directory" << std::endl;
+		return false;
 	}
+	fout.open("../Database/SchoolYear/" + nextYear + "/AllSemester.txt");
+	fout.close();
+	return true;
 
 	//checkInputYear(yearData);
 	//if (!checkInputYear(yearData)) {
@@ -307,7 +311,7 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 	if (!fin.is_open()) {
 		//std::cerr << "Error: File not found" << std::endl;
 		//_mkdir(("../Database/SchoolYear/" + (std::string)curSchoolYear->year + "/AllSemester.txt").c_str());
-        std::ofstream fout("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt");
+		std::ofstream fout("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt");
 		fout.close();
 		if (std::stoi(checknumber) != 1) {
 			return false;
@@ -322,7 +326,7 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 			}
 			getline(fin, ignore_one);
 		}
-		
+
 	}
 	fin.close();
 	std::ofstream fout("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt", std::ios::app);
@@ -330,21 +334,12 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 	fout << start << ";" << end << std::endl;
 	fout.close();
 	int makeFile = _mkdir(("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/" + (std::string)data).c_str());
-	semester* cur = a->curSchoolYear->pHeadSemester;
-	if (!cur) {
-		cur = new semester(data, start, end);
-		cur->pNext = nullptr;
+	if (makeFile != 0) {
+		std::cout << "Error: Unable to create directory" << std::endl;
+		return false;
 	}
-	else {
-		while (cur->pNext) {
-			cur = cur->pNext;
-		}
-		cur->pNext = new semester(data, start, end);
-		cur = cur->pNext;
-		cur->pNext = nullptr;
-	}
-	
-
+	fout.open("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/" + (std::string)data + "/courses.txt");
+	fout.close();
 	return true;
 
 }
@@ -352,44 +347,24 @@ bool schoolYear::addSemester(std::string data, std::string start, std::string en
 
 
 
-void schoolYear::deallocateSchoolYear(Static* a)
-{
-	while (pHead != nullptr)
-	{
-		schoolYear* tmp = pHead;
-		
-		if (pHead != a->curSchoolYear)
-		{
-			pHead = pHead->pNext;
-			delete tmp;
-		}
-		else {
-			pHead = pHead->pNext;
-		}
-	}
-	pHead = a->curSchoolYear;
-	pHead->pNext = nullptr;
-}
-void schoolYear::deallocateCurrentSchoolYear()
-{
-	delete pHead;
-	pHead = nullptr;
-}
+
 
 schoolYear::~schoolYear()
 {
+	while (pHeadSemester)
+	{
+		semester* tmpSemester = pHeadSemester;
+		pHeadSemester = pHeadSemester->pNext;
+		delete tmpSemester;
+	}
 	schoolYear* cur = pHead;
 	while (cur)
 	{
-		while (cur->pHeadSemester)
-		{
-			semester* tmpSem = cur->pHeadSemester;
-			cur->pHeadSemester = cur->pHeadSemester->pNext;
-			delete tmpSem;
-		}
-		schoolYear *tmpYear = cur;
+
+		schoolYear* tmpYear = cur;
 		cur = cur->pNext;
 		delete tmpYear;
 	}
+	//delete this;
 }
 
