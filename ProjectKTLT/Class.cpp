@@ -114,7 +114,7 @@ bool Class::isInvalid(std::string nameClass) {
 }
 //create new Class Not to update data.
 void Class::creat_new_Class(std::string nameClass) {
-	if (!isInvalid) std::cout << "Error! The name Class is exist!\n";
+	if (!isInvalid(nameClass)) std::cout << "Error! The name Class is exist!\n";
 	int result = _mkdir(("../Database/Class/" + nameClass).c_str());
 	std::string name = "Student";
 	
