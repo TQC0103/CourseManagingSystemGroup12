@@ -27,6 +27,7 @@ struct semester {
 	Course* pHeadCourse = nullptr;
 
 	Course* pHeadCourseForStudent = nullptr;
+
 	// This function is to load list of Course for Staff to see, it load include ID and Name, we should display Name only
 	int loadCourse(Static* a); // done 90%
 	// This function is to load list of Course for Student to see 
