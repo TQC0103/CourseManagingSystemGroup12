@@ -84,7 +84,7 @@ void MenuSchoolYearScene::renderMenuSchoolYear(sf::Event event, Scene *scene, sf
 			{
 				delete scene->menuschoolyear;
 				scene->menuschoolyear = nullptr;
-				if (scene->createsemester = nullptr)
+				if (scene->createsemester == nullptr)
 					scene->createsemester = new CreateSemesterScene(scene->a);
 				scene->a->currentState = programState::CreateSemester;
 			}

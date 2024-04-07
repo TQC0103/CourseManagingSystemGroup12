@@ -6,7 +6,7 @@
 
 CreateSemesterScene::CreateSemesterScene(Static* a)
 {
-	
+	year = new schoolYear();
 	isCursorVisible = false;
 	createABox(createSemesterBackgr, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(createSemesterText, a->fontB, a->textColorBlue, "Create Semester", 80, a->width / 2.0f, 150.0f);
@@ -15,10 +15,10 @@ CreateSemesterScene::CreateSemesterScene(Static* a)
 	createABox(startDay, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 475.0f));
 	createText(startDayText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, startDay.getPosition().y);
 	createABox(endDay, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 800.0f));
-	createText(enterEndDayHere, a->fontI, sf::Color::White, "ENTER PASSWORD HERE", 40, a->width / 2.0f, 800.0f);
-	createText(enterStartDayHere, a->fontI, sf::Color::White, "ENTER USERNAME HERE", 40, a->width / 2.0f, 475.0f);
+	createText(enterEndDayHere, a->fontI, sf::Color::White, "ENTER START DAY HERE", 40, a->width / 2.0f, 800.0f);
+	createText(enterStartDayHere, a->fontI, sf::Color::White, "ENTER END DAY HERE", 40, a->width / 2.0f, 475.0f);
 	createText(endDayText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, endDay.getPosition().y);
-	createText(successful, a->fontB, sf::Color::Green, "Sign in successfully", 50, a->width / 2.0f, 1000.0f);
+	
 }
 
 void CreateSemesterScene::drawCreateSemester(sf::RenderWindow& win, Static* a)
@@ -50,7 +50,7 @@ void CreateSemesterScene::drawCreateSemester(sf::RenderWindow& win, Static* a)
 	}
 	if (isWrong == 1)
 	{
-		createText(fail, a->fontB, sf::Color::Red, "Username or password is incorrect", 50, a->width / 2.0f, 1000.0f);
+		createText(fail, a->fontB, sf::Color::Red, "Input dates invalid. Example date: 01/01", 50, a->width / 2.0f, 1000.0f);
 		win.draw(fail);
 	}
 	if (startDayInputEnable == false && startDayInput == "")
@@ -63,7 +63,13 @@ void CreateSemesterScene::drawCreateSemester(sf::RenderWindow& win, Static* a)
 	}
 	if (isWrong == 2)
 	{
+		createText(successful, a->fontB, sf::Color::Green, "Create " + semesterData + " successfully", 50, a->width / 2.0f, 1000.0f);
 		win.draw(successful);
+	}
+	if (isWrong == 3)
+	{
+		createText(fail, a->fontB, sf::Color::Red, a->curSchoolYear->year + " already have 3 semesters", 50, a->width / 2.0f, 1000.0f);
+		win.draw(fail);
 	}
 
 }
@@ -71,17 +77,17 @@ void CreateSemesterScene::drawCreateSemester(sf::RenderWindow& win, Static* a)
 void CreateSemesterScene::renderCreateSemester(sf::Event event, Scene* scene, sf::RenderWindow& win)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
-	if (scene->a->currentState == programState::SignInAsStudent && preButt.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	if (scene->a->currentState == programState::CreateSemester && preButt.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
 		preButt.setFillColor(scene->a->pastelTitleCyan);
 		preText.setFillColor(scene->a->titleGreyColor);
 	}
-	else if (scene->a->currentState == programState::SignInAsStudent && create.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	else if (scene->a->currentState == programState::CreateSemester && create.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
 		create.setFillColor(scene->a->pastelTitleCyan);
 		creatingText.setFillColor(scene->a->titleGreyColor);
 	}
-	else {
+	else if(scene->a->currentState == programState::CreateSemester){
 		preButt.setFillColor(scene->a->highlightCyan);
 		preText.setFillColor(sf::Color::White);
 		create.setFillColor(scene->a->highlightCyan);
@@ -89,13 +95,12 @@ void CreateSemesterScene::renderCreateSemester(sf::Event event, Scene* scene, sf
 	}
 	if (isWrong == 2)
 	{
-		sf::sleep(sf::seconds(1.0f)); \
-			if (scene->menustudent == nullptr)
-				scene->menustudent = new MenuStudentScene(scene->a);
-		delete scene->signinasstudent;
-		scene->signinasstudent = nullptr;
-		scene->a->currentState = programState::MenuStudent;
-		isWrong = 0;
+		sf::sleep(sf::seconds(1.0f)); 
+		if (scene->menuschoolyear == nullptr)
+			scene->menuschoolyear = new MenuSchoolYearScene(scene->a);
+		delete scene->createsemester;
+		scene->createsemester = nullptr;
+		scene->a->currentState = programState::MenuSchoolYear;
 	}
 	// Handle mouse events
 	if (event.type == sf::Event::MouseButtonPressed)
@@ -104,14 +109,10 @@ void CreateSemesterScene::renderCreateSemester(sf::Event event, Scene* scene, sf
 		{
 			if (preButt.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				startDayInput = "";
-				endDayInput = "";
-				startDayInputEnable = false;
-				endDayInputEnable = false;
-				scene->signin = new SignInScene(scene->a);
-				delete scene->signinasstudent;
-				scene->signinasstudent = nullptr;
-				scene->a->currentState = programState::SignIn;
+				scene->menuschoolyear = new MenuSchoolYearScene(scene->a);
+				delete scene->createsemester;
+				scene->createsemester = nullptr;
+				scene->a->currentState = programState::MenuSchoolYear;
 			}
 			else if (startDay.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
@@ -125,14 +126,16 @@ void CreateSemesterScene::renderCreateSemester(sf::Event event, Scene* scene, sf
 			}
 			else if (create.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				if (add() == false)
+				if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 0)
 				{
 					isWrong = 1;
 				}
+				else if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 2)
+				{
+					isWrong = 3;
+				}
 				else {
 					isWrong = 2;
-					scene->a->username = startDayInput;
-					scene->a->password = endDayInput;
 				}
 			}
 			else {
@@ -152,13 +155,15 @@ void CreateSemesterScene::renderCreateSemester(sf::Event event, Scene* scene, sf
 		}
 		else if ((endDayInputEnable == true && event.text.unicode == 13) || (endDayInputEnable == false && startDayInputEnable == false))
 		{
-			if (checkAccount() == false)
+			if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 0)
 			{
-				isWrong = true;
+				isWrong = 1;
+			}
+			else if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 2)
+			{
+				isWrong = 3;
 			}
 			else {
-				scene->a->username = startDayInput;
-				scene->a->password = endDayInput;
 				isWrong = 2;
 			}
 		}
@@ -192,6 +197,11 @@ void CreateSemesterScene::renderCreateSemester(sf::Event event, Scene* scene, sf
 	}
 
 
+}
+
+CreateSemesterScene::~CreateSemesterScene()
+{
+	delete year;
 }
 
 
