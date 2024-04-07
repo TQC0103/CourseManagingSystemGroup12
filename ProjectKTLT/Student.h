@@ -39,4 +39,5 @@ struct student
     std::string viewStudentProfile();
     //void readStudentScore();
     std::string getCoursesInformations(Static *a);
+    std::string* loadNumberOfCourses(Static* a);
 };
