@@ -40,7 +40,6 @@ struct Course
 	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session);
 	Course()
 	{
-
 	}
 	//ponter to student score 
 	studentScore* pHeadScore = nullptr;
@@ -53,7 +52,7 @@ struct Course
 
 
 	// Function
-	void updateCourse();
+	void updateCourse(); //done
 	void addStudentMenu();
 	void addStudent(int choice);
 	void deleteStudent();
@@ -74,7 +73,7 @@ struct Course
 	// Supportive function
 	void showingStudentList();
 	void showStudent(student*& pHead, int range, int& Pcur);
-	void loadDataOfTheCourse(Static *a);
+	void loadDataOfTheCourse(Static *a); //done
 	int getAllStudent();
 	void showPStudent(student*& pHead, int range, int& Pcur);
 

@@ -31,7 +31,7 @@ int semester::loadCourse(Static* a)
 	std::string tmpCourseName;
 	Course* cur = pHeadCourse;
 	while (getline(fin, tmpCourseID, ';'))
-	{
+	{ 
 		getline(fin, tmpCourseName);
 		if (!pHeadCourse)
 		{
@@ -52,8 +52,6 @@ int semester::loadCourse(Static* a)
 	fin.close();
 	cur->pNext = nullptr;
 	return n;
-
-
 }
 
 
