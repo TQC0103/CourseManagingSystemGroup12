@@ -145,7 +145,11 @@ bool schoolYear::checkInputDate(std::string &data, Static* a)
 		monthDay = "0" + monthDay;
 	}
 	data = testDay + "/" + monthDay;
-
+	int len = data.length();
+	if (len != 5)
+	{
+		return false;
+	}
 	std::string stringDate = data.substr(0, 2);
 	std::string stringMonth = data.substr(3, 2);
 	int day = std::stoi(stringDate);
