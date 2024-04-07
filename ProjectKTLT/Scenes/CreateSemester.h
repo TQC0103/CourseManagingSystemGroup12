@@ -10,6 +10,7 @@ struct CreateSemesterScene
 {
 	sf::RectangleShape createSemesterBackgr;
 	sf::Text createSemesterText;
+	sf::Text yearText;
 
 	schoolYear* year = nullptr;
 	std::string semesterData = "";

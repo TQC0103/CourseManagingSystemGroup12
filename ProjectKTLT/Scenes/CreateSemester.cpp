@@ -9,7 +9,8 @@ CreateSemesterScene::CreateSemesterScene(Static* a)
 	year = new schoolYear();
 	isCursorVisible = false;
 	createABox(createSemesterBackgr, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-	createText(createSemesterText, a->fontB, a->textColorBlue, "Create Semester", 80, a->width / 2.0f, 150.0f);
+	createText(createSemesterText, a->fontB, a->textColorBlue, "Create Semester", 80, a->width / 2.0f, 100.0f);
+	createText(yearText, a->fontB, a->textColorBlue, a->curSchoolYear->year , 80, a->width / 2.0f, 225.0f);
 	createCornerRoundedButton(preButt, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createCornerRoundedButton(create, creatingText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Enter", sf::Vector2f(a->width - 150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createABox(startDay, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 475.0f));
@@ -25,6 +26,7 @@ void CreateSemesterScene::drawCreateSemester(sf::RenderWindow& win, Static* a)
 {
 	win.draw(createSemesterBackgr);
 	win.draw(createSemesterText);
+	win.draw(yearText);
 	win.draw(preButt);
 	win.draw(preText);
 	win.draw(create);
