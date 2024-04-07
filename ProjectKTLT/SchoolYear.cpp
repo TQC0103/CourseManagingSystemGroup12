@@ -312,23 +312,25 @@ int schoolYear::addSemester(std::string& data, std::string start, std::string en
 	}
 	std::string checkSemester = "";
 	std::string date = "";
-	while (getline(fin, checkSemester)) {
+	while (!fin.eof()) {
+		getline(fin, checkSemester);
 		getline(fin, date);
+		if (checkSemester != "")
+		{
+			std::string checkNumber = checkSemester.substr(8, 1);
+			int number = std::stoi(checkNumber);
+			number++;
+			if (number > 3)
+			{
+				return 2;
+
+			}
+			data = "Semester" + std::to_string(number);
+		}
 	}
-	if (checkSemester == "")
+	if (data == "")
 	{
 		data = "Semester1";
-	}
-	else {
-		std::string checkNumber = checkSemester.substr(8, 1);
-		int number = std::stoi(checkNumber);
-		number++;
-		if (number > 3)
-		{
-			return 2;
-
-		}
-		data = "Semester" + std::to_string(number);
 	}
 
 
