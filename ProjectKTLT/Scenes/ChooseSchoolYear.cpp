@@ -6,7 +6,7 @@
 ChooseSchoolYearScene::ChooseSchoolYearScene(Static* a)
 {
     createABox(chooseSchoolYearBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-    createText(chooseSchoolYearText, a->fontB, a->textColorBlue, "Choose school year", 100, (float)a->width / 2.0f, 150.0f);
+    createText(chooseSchoolYearText, a->fontB, a->textColorBlue, "Choose School Year", 100, (float)a->width / 2.0f, 150.0f);
     createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
     createText(pleaseAddYear, a->fontB, a->blurGrey, "       There are no \nschool year currently", 100, a->width / 2.0f, a->height / 2.0f);
     listSchoolYear = new schoolYear();

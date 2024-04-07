@@ -9,11 +9,11 @@ MenuStaffScene::MenuStaffScene(Static* a)
 {
 	createABox(MenuStaffPage, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createCornerRoundedButton(preButtonStaff, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
-	createCornerRoundedButton(chooseSchoolYearButton, chooseSchoolYearText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Manage a year", sf::Vector2f(a->width / 2.0f - 400.0f, 750.0f), 2.0f, sf::Color::Black);
-	createCornerRoundedButton(createSchoolYearButton, createSchoolYearText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Create next year", sf::Vector2f(a->width / 2.0f - 400.0f, 450.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(chooseSchoolYearButton, chooseSchoolYearText, sf::Vector2f(600.0f, 200.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "Manage years", sf::Vector2f(a->width / 2.0f - 400.0f, 750.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(createSchoolYearButton, createSchoolYearText, sf::Vector2f(600.0f, 200.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "Create next year", sf::Vector2f(a->width / 2.0f - 400.0f, 450.0f), 2.0f, sf::Color::Black);
 	createText(menu, a->fontB, a->textColorBlue, "Menu", 120, (float)a->width / 2.0f, 150.0f);
-	createCornerRoundedButton(createClassButton, createClassText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Create new class", sf::Vector2f(a->width / 2.0f + 400.0f, 450.0f), 2.0f, sf::Color::Black);
-	createCornerRoundedButton(chooseClassButton, chooseClassText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Manage a class", sf::Vector2f(a->width / 2.0f + 400.0f, 750.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(createClassButton, createClassText, sf::Vector2f(600.0f, 200.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "Create new class", sf::Vector2f(a->width / 2.0f + 400.0f, 450.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(chooseClassButton, chooseClassText, sf::Vector2f(600.0f, 200.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "Manage classes", sf::Vector2f(a->width / 2.0f + 400.0f, 750.0f), 2.0f, sf::Color::Black);
 	createCornerRoundedButton(changePassButton, changePassText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "  Change\npassword", sf::Vector2f(a->width - 200.0f, a->height - 1000.0f), 2.0f, sf::Color::Black);
 }
 
