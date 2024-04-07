@@ -128,11 +128,12 @@ void CreateSemesterScene::renderCreateSemester(sf::Event event, Scene* scene, sf
 			}
 			else if (create.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 0)
+				int check = year->addSemester(semesterData, startDayInput, endDayInput, scene->a);
+				if (check == 0)
 				{
 					isWrong = 1;
 				}
-				else if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 2)
+				else if (check == 2)
 				{
 					isWrong = 3;
 				}
@@ -157,11 +158,12 @@ void CreateSemesterScene::renderCreateSemester(sf::Event event, Scene* scene, sf
 		}
 		else if ((endDayInputEnable == true && event.text.unicode == 13) || (endDayInputEnable == false && startDayInputEnable == false))
 		{
-			if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 0)
+			int check = year->addSemester(semesterData, startDayInput, endDayInput, scene->a);
+			if (check == 0)
 			{
 				isWrong = 1;
 			}
-			else if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 2)
+			else if (check == 2)
 			{
 				isWrong = 3;
 			}

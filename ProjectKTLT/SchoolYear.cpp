@@ -312,10 +312,10 @@ int schoolYear::addSemester(std::string& data, std::string start, std::string en
 	}
 	std::string checkSemester = "";
 	std::string date = "";
-	while (!fin.eof()) {
-		getline(fin, checkSemester);
+	while (getline(fin, checkSemester)) {
+		
 		getline(fin, date);
-		if (checkSemester != "")
+		if (checkSemester.length() != 0)
 		{
 			std::string checkNumber = checkSemester.substr(8, 1);
 			int number = std::stoi(checkNumber);
@@ -327,15 +327,20 @@ int schoolYear::addSemester(std::string& data, std::string start, std::string en
 			}
 			data = "Semester" + std::to_string(number);
 		}
+		
 	}
-	if (data == "")
+	fin.close();
+	std::ofstream fout;
+	if (data.length() == 0)
 	{
 		data = "Semester1";
+		fout.open("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt");
 	}
-
-
-	fin.close();
-	std::ofstream fout("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt", std::ios::app);
+	else {
+		fout.open("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt", std::ios::app);
+	}
+	
+	
 	fout << data << std::endl;
 	fout << start << ";" << end << std::endl;
 	fout.close();
