@@ -6,12 +6,6 @@
 #include <string>
 #include <fstream>
 
-// global variables
-schoolYear* pheadschoolyear;
-schoolYear* curSchoolyear;
-semester* curSemester;
-Course* curCourse;
-
 
 // check if it is valid day (not sunday)
 bool isvalidweekday(const std::string& weekday)
@@ -47,10 +41,10 @@ Course::Course(std::string id, std::string name, std::string classname, std::str
     Session = session;
 }
 
+// Update the information of the Course
 void Course::updateCourse()
 {
     {
-        std::ofstream fout;
         while (true)
         {
             std::cout << "Here is the information: " << std::endl;
@@ -62,17 +56,17 @@ void Course::updateCourse()
             std::cout << "6. Max Student:" << maxStudent << std::endl;
             std::cout << "7. Day performed per week:" << weekDay << std::endl;
             std::cout << "8. Session: " << Session << std::endl;
-          
+
 
             std::cout << "Choose the information (input a number) you want to edit (press enter to stop): ";
             std::string choice;
             getline(std::cin, choice);
             if (choice == "") break;
 
-            while (choice <= "0" || choice >= "9" || choice.length() >= 2)
+            while (choice < "1" || choice > "8" || choice.length() > 1)
             {
                 if (choice == "") break;
-                std::cout << "Please input correctly!";
+                std::cerr << "Please input correctly!";
                 std::cout << "                       ";
                 std::cout << "                ";
                 getline(std::cin, choice);
@@ -119,27 +113,36 @@ void Course::updateCourse()
                 break;
             }
         }
-        // save course id to textfile
-        // not done yet
     }
 }
 
+// Load Data of the Course
 void Course::loadDataOfTheCourse(Static* a)
 {
     std::ifstream fIn;
     fIn.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "information.txt");
 
-    if (!fIn.is_open())
+    Course* cur = new Course();
+
+    if (fIn.is_open())
     {
-        std::cerr << "Error: Data is not exist" << std::endl;
+        getline(fIn, cur -> ID); 
+        getline(fIn, cur -> Name);
+        getline(fIn, cur -> className);
+        getline(fIn, cur -> Lecturer);
+        fIn >> cur -> Credit;
+        fIn >> cur -> maxStudent;
+        fIn.ignore();
+        getline(fIn, cur -> weekDay);
+        getline(fIn, cur->Session);
+    }
+    else
+    {
+        std::cerr << "Can't open file" << std::endl;
         return;
     }
 
-    std::string tmpCourse;
-    Course* tmp = nullptr;
-    {
-        while (getline(fIn, tmpCourse))
-        {
-        }
-    }
+    fIn.close();
 }
+
+
