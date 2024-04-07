@@ -255,33 +255,32 @@ bool schoolYear::addSchoolYear() {
 //}
 
 void schoolYear::loadSemester(std::string& year) {
-	std::ifstream fin("../Database/SchoolYear/" + year + "/AllSemester.txt");
+	
+	std::ifstream fin("../Database/SchoolYear/" + year +"/AllSemester.txt");
 	if (!fin.is_open()) {
-		std::cerr << "Error: File not found" << std::endl;
+		std::cout << "Error: File not found" << std::endl;
 		return;
 	}
-
-	if (!pHeadSemester) {
-		pHeadSemester = new semester();
-	}
-
+	std::string data;
+	std::string startDate;
+	std::string endDate;
 	semester* cur = pHeadSemester;
-	std::string data = "";
-	while (getline(fin, data)) {
-		cur->semesterData = data;
-		getline(fin, cur->startDate, ';');
-		getline(fin, cur->endDate);
 
-		if (!fin.eof()) {
-			cur->pNext = new semester;
+	while (getline(fin, data)) {
+		getline(fin, startDate, ';');
+		getline(fin, endDate);
+		if (!pHeadSemester) {
+			pHeadSemester = new semester(data, startDate, endDate);
+			cur = pHeadSemester;
+		}
+		else {
+			cur->pNext = new semester(data, startDate, endDate);
 			cur = cur->pNext;
 		}
 	}
-	if (data == "")
-	{
-		delete pHeadSemester;
-		pHeadSemester = nullptr;
-	}
+	if (cur == nullptr)
+		return;
+	cur->pNext = nullptr;
 	fin.close();
 }
 
@@ -322,6 +321,7 @@ int schoolYear::addSemester(std::string& data, std::string start, std::string en
 			number++;
 			if (number > 3)
 			{
+				fin.close();
 				return 2;
 
 			}
