@@ -294,40 +294,40 @@ void schoolYear::loadSemester(std::string& year) {
 //	return false;
 //}
 
-bool schoolYear::addSemester(std::string data, std::string start, std::string end, Static *a)
+bool schoolYear::addSemester(std::string& data, std::string start, std::string end, Static *a)
 {
 	if (!checkInputDate(start, a) || !checkInputDate(end, a)) {
 		return false;
 	}
-	std::string checknumber;
-	int n = (int)data.length();
-	checknumber = data.substr(n - 1);
-	if (std::stoi(checknumber) > 3) {
-		return false;
-	}
+	
 	std::ifstream fin("../Database/SchoolYear/" + a->curSchoolYear->year + "/AllSemester.txt");
 
 	// if the semester in a new school year, create a new file
 	if (!fin.is_open()) {
-		//std::cerr << "Error: File not found" << std::endl;
-		//_mkdir(("../Database/SchoolYear/" + (std::string)curSchoolYear->year + "/AllSemester.txt").c_str());
-		std::ofstream fout("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt");
-		fout.close();
-		if (std::stoi(checknumber) != 1) {
-			return false;
-		}
+		std::cerr << "Can't open file" << std::endl;
+		return false;
+	}
+	std::string checkSemester = "";
+	std::string date = "";
+	while (getline(fin, checkSemester)) {
+		getline(fin, date);
+	}
+	if (checkSemester == "")
+	{
+		data = "Semester1";
 	}
 	else {
-		std::string check;
-		std::string ignore_one;
-		while (getline(fin, check)) {
-			if (check == data) {
-				return false;
-			}
-			getline(fin, ignore_one);
+		std::string checkNumber = checkSemester.substr(8, 1);
+		int number = std::stoi(checkNumber);
+		number++;
+		if (number > 3)
+		{
+			return false;
 		}
-
+		data = "Semester" + std::to_string(number);
 	}
+
+	
 	fin.close();
 	std::ofstream fout("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt", std::ios::app);
 	fout << data << std::endl;
