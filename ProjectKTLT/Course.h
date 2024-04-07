@@ -53,8 +53,8 @@ struct Course
 
 	// Function
 	void updateCourse(); //done
-	void addStudentMenu();
-	void addStudent(int choice);
+	int addStudentOptions();
+	bool addStudent(Static* a, int choice, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID);
 	void deleteStudent();
 	void showStudent();
 	void showInfo();
@@ -72,10 +72,9 @@ struct Course
 
 	// Supportive function
 	void showingStudentList();
-	void showStudent(student*& pHead, int range, int& Pcur);
 	void loadDataOfTheCourse(Static *a); //done
+	int loadStudentInTheCourse();
 	int getAllStudent();
-	void showPStudent(student*& pHead, int range, int& Pcur);
 
 };
 

@@ -34,6 +34,14 @@ struct student
     student(int no, std::string id, std::string firstname, std::string lastname, std::string gender, std::string socialId,  date dob) :
         No(no), studentID(id), firstName(firstname), lastName(lastname), gender(gender), socialID(socialId), dateOfBirth(dob){}
     
+    student(int no, std::string id, std::string firstname, std::string lastname, std::string Gender, std::string socialId) {
+        No = no;
+        studentID = id;
+        firstName = firstname;
+        lastName = lastname;
+        gender = Gender;
+        socialID = socialId;
+    }
     //functions 
     void loadStudentProfile(std::string username);
     std::string viewStudentProfile();
