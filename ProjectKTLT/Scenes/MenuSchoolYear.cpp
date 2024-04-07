@@ -82,7 +82,11 @@ void MenuSchoolYearScene::renderMenuSchoolYear(sf::Event event, Scene *scene, sf
 			}
 			else if (createSemestersButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-
+				delete scene->menuschoolyear;
+				scene->menuschoolyear = nullptr;
+				if (scene->createsemester = nullptr)
+					scene->createsemester = new CreateSemesterScene(scene->a);
+				scene->a->currentState = programState::CreateSemester;
 			}
 
 		}
