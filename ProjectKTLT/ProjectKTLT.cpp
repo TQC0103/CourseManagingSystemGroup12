@@ -115,6 +115,11 @@ int main() {
                 scene->addstudentclass->renderAddStudentClass(event, scene, window);
                 break;
             }
+            case programState::CreateSemester:
+            {
+                scene->createsemester->renderCreateSemester(event, scene, window);
+                break;
+            }
             default:
                 break;
             }
@@ -218,6 +223,11 @@ int main() {
             case programState::AddStudentCLass:
             {
                 scene->addstudentclass->drawAddStudentClass(window, scene->a);
+                break;
+            }
+            case programState::CreateSemester:
+            {
+                scene->createsemester->drawCreateSemester(window, scene->a);
                 break;
             }
             default:
