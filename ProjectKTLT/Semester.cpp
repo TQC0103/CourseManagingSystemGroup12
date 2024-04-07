@@ -67,33 +67,35 @@ int semester::specifyCourseForStudent(Static* a)
 	for (int i = 0; i < n; i++)
 	{
 		std::ifstream fin;
-		fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + "ClassAndTeacher.txt");
+		fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + "Classes.txt");
 		std::string className;
-		std::string lecturer;
-		while (getline(fin, className, ';'))
+	
+		while (getline(fin, className))
 		{
-			getline(fin, lecturer);
+			
 			if (className == a->curClass->name)
 			{
 				if (!pHeadCourseForStudent)
 				{
 					pHeadCourseForStudent = new Course;
 					curStudent = pHeadCourseForStudent;
-					std::ifstream fin2;
-					fin2.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "information.txt");
-					getline(fin2, curStudent->ID);
-					getline(fin2, curStudent->Name);
-					fin2.close();
 				}
 				else {
 					curStudent->pNext = new Course;
 					curStudent = curStudent->pNext;
-					std::ifstream fin2;
-					fin2.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "information.txt");
-					getline(fin2, curStudent->ID);
-					getline(fin2, curStudent->Name);
-					fin2.close();
 				}
+				std::ifstream fin2;
+				fin2.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "information.txt");
+				getline(fin2, curStudent->ID);
+				getline(fin2, curStudent->Name);
+				getline(fin2, curStudent->className);
+				getline(fin2, curStudent->Lecturer);
+				fin2 >> curStudent->Credit;
+				fin2 >> curStudent->maxStudent;
+				fin2.ignore();
+				getline(fin2, curStudent->weekDay);
+				getline(fin2, curStudent->Session);
+				fin2.close();
 				nStudent++;
 			}
 		}
@@ -200,13 +202,13 @@ bool semester::addCourse(Static* a, std::string& id, std::string& name, std::str
 
 	// Make Folder and file .txt
 	int makeFile = _mkdir(("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + id).c_str());
-	fout.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + id + "/" + "ClassAndTeacher.txt", std::ios::app);
+	fout.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + id + "/" + "Classes.txt", std::ios::app);
 	if (!fout.is_open())
 	{
 		std::cerr << "Can't open file" << std::endl;
 		return false;
 	}
-	fout << className << ";" << lecturer << std::endl;
+	fout << className << std::endl;
 	fout.close();
 	int makeFile2 = _mkdir(("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + id + "/" + className).c_str());
 	fout.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + id + "/" + className + "/" + "information.txt");
