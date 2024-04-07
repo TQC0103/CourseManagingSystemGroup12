@@ -39,7 +39,7 @@ struct schoolYear {
 	//bool findCurrentSemester(std::string data); // done
 
 	// Instruction: Input of data must be like Semester1, Semester2, Semester3. If the input is 1, 2, 3, you must convert it to Semester1, Semester2, Semester3
-	bool addSemester(std::string &data, std::string start, std::string end, Static *a);// done
+	int addSemester(std::string& data, std::string start, std::string end, Static* a);// done
 	
 	bool checkInputDate(std::string &data, Static *a); // done
 

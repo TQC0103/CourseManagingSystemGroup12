@@ -19,7 +19,7 @@ void MenuSchoolYearScene::drawMenuSchoolYear(sf::RenderWindow& window, Static* a
 	if (i == 0)
 	{
 		i++;
-		createText(yearText, a->fontB, a->textColorBlue, a->curSchoolYear->year, 100, a->width / 2.0f, 250.0f);
+		createText(yearText, a->fontB, a->textColorBlue, a->curSchoolYear->year, 80, a->width / 2.0f, 225.0f);
 	}
 	window.draw(yearText);
 	window.draw(preButton);
@@ -84,7 +84,7 @@ void MenuSchoolYearScene::renderMenuSchoolYear(sf::Event event, Scene *scene, sf
 			{
 				delete scene->menuschoolyear;
 				scene->menuschoolyear = nullptr;
-				if (scene->createsemester = nullptr)
+				if (scene->createsemester == nullptr)
 					scene->createsemester = new CreateSemesterScene(scene->a);
 				scene->a->currentState = programState::CreateSemester;
 			}

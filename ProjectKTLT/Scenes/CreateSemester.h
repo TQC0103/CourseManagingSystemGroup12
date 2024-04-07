@@ -6,13 +6,14 @@
 #include "../Semester.h"
 
 struct Scene;
-
 struct CreateSemesterScene
 {
 	sf::RectangleShape createSemesterBackgr;
 	sf::Text createSemesterText;
+	sf::Text yearText;
 
 	schoolYear* year = nullptr;
+	std::string semesterData = "";
 
 	sf::ConvexShape preButt;
 	sf::Text preText;
@@ -46,4 +47,5 @@ struct CreateSemesterScene
 	// Functions
 	void drawCreateSemester(sf::RenderWindow& win, Static* a);
 	void renderCreateSemester(sf::Event event, Scene* scene, sf::RenderWindow& win);
+	~CreateSemesterScene();
 };

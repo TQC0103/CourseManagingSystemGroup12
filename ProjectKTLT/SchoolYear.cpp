@@ -298,18 +298,17 @@ void schoolYear::loadSemester(std::string& year) {
 //	return false;
 //}
 
-bool schoolYear::addSemester(std::string& data, std::string start, std::string end, Static *a)
+int schoolYear::addSemester(std::string& data, std::string start, std::string end, Static* a)
 {
 	if (!checkInputDate(start, a) || !checkInputDate(end, a)) {
-		return false;
+		return 0;
 	}
-	
 	std::ifstream fin("../Database/SchoolYear/" + a->curSchoolYear->year + "/AllSemester.txt");
 
 	// if the semester in a new school year, create a new file
 	if (!fin.is_open()) {
 		std::cerr << "Can't open file" << std::endl;
-		return false;
+		return 0;
 	}
 	std::string checkSemester = "";
 	std::string date = "";
@@ -326,12 +325,13 @@ bool schoolYear::addSemester(std::string& data, std::string start, std::string e
 		number++;
 		if (number > 3)
 		{
-			return false;
+			return 2;
+
 		}
 		data = "Semester" + std::to_string(number);
 	}
 
-	
+
 	fin.close();
 	std::ofstream fout("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt", std::ios::app);
 	fout << data << std::endl;
@@ -340,14 +340,13 @@ bool schoolYear::addSemester(std::string& data, std::string start, std::string e
 	int makeFile = _mkdir(("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/" + (std::string)data).c_str());
 	if (makeFile != 0) {
 		std::cout << "Error: Unable to create directory" << std::endl;
-		return false;
+		return 0;
 	}
 	fout.open("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/" + (std::string)data + "/courses.txt");
 	fout.close();
-	return true;
+	return 1;
 
 }
-
 
 
 
