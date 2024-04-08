@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "UserInterface.h"
 #include "config.h"
+#include "windows.h"
+
 #define POINTS 20.0f
 
 void setOriginTextToMiddle(sf::Text& text) {
@@ -77,25 +79,25 @@ void setBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& curs
 }
 
 void createAScrollbar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, const sf::Vector2f& size, const sf::Color& fillColorScrollBar, const sf::Color& fillColorArea, const sf::Vector2f& position, int times) {
-	scrollbar.setSize(sf::Vector2f(size.x, size.y));
-	scrollbar.setFillColor(fillColorScrollBar);
-	scrollbar.setOrigin(scrollbar.getSize().x / 2.0f, scrollbar.getSize().y / 2.0f);
-	scrollbar.setPosition(position);
-
 	scrollbarArea.setSize(sf::Vector2f(size.x, size.y * times));
 	scrollbarArea.setFillColor(fillColorArea);
-	scrollbarArea.setOrigin(size.x / 2.0f, size.y / 2.0f);
+	scrollbarArea.setOrigin(scrollbarArea.getSize().x / 2.0f, scrollbarArea.getSize().y / 2.0f);
 	scrollbarArea.setPosition(position);
+
+    scrollbar.setSize(sf::Vector2f(size.x, size.y));
+    scrollbar.setFillColor(fillColorScrollBar);
+    scrollbar.setOrigin(scrollbar.getSize().x / 2.0f, scrollbar.getSize().y / 2.0f);
+    scrollbar.setPosition(position.x, scrollbarArea.getPosition().y - scrollbarArea.getSize().y / 2 + size.y);
 }
 
-void renderScrollbar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, sf::RenderWindow& window, float &scrollOffset, sf::Event &event, bool &isDragging, Static *a, sf::Vector2f &startingPoint, float &sizeDisplay, float &fullSize) {
+void renderScrollbar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, sf::RenderWindow& window, float &scrollOffset, sf::Event &event, bool &isDragging, Static *a, sf::Vector2f startingPoint, float &sizeDisplay, float &fullSize) {
     if (event.type == sf::Event::MouseWheelScrolled) {
         scrollOffset += event.mouseWheelScroll.delta * -30.0f;
         if (scrollOffset < 0.0f) {
             scrollOffset = 0.0f;
         }
-        if (scrollOffset > fullSize) {
-            scrollOffset = fullSize;
+        if (scrollOffset > fullSize - scrollbar.getSize().y / scrollbarArea.getSize().y * fullSize ) {
+            scrollOffset = fullSize - scrollbar.getSize().y / scrollbarArea.getSize().y * fullSize;
         }
     }
     if (event.type == sf::Event::MouseButtonPressed)
@@ -113,19 +115,19 @@ void renderScrollbar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollba
 	}
 	if (event.type == sf::Event::MouseMoved && isDragging)
 	{
-		scrollOffset = (static_cast<float>(event.mouseMove.y - startingPoint.y) / sizeDisplay) * (fullSize);
+		scrollOffset = (static_cast<float>(event.mouseMove.y - startingPoint.y) / scrollbarArea.getSize().y * (fullSize));
 		if (scrollOffset < 0.0f) {
 			scrollOffset = 0.0f;
 		}
-		if (scrollOffset > (fullSize)) {
-			scrollOffset = fullSize;
+		if (scrollOffset > (fullSize - scrollbar.getSize().y / scrollbarArea.getSize().y * fullSize)) {
+			scrollOffset = fullSize - scrollbar.getSize().y / scrollbarArea.getSize().y * fullSize;
 		}
 	}
 }
 
-void drawScrollBar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, sf::RenderWindow& window, float& scrollOffset, float& sizeDisplay, float& fullSize, sf::Vector2f& startingOriginPos)
+void drawScrollBar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, sf::RenderWindow& window, float& scrollOffset, float& sizeDisplay, float& fullSize, sf::Vector2f startingOriginPos)
 {
-    scrollbar.setPosition(startingOriginPos.x, startingOriginPos.y + scrollOffset / fullSize * sizeDisplay);
+    scrollbar.setPosition(startingOriginPos.x, startingOriginPos.y + scrollOffset / fullSize * scrollbarArea.getSize().y);
     window.draw(scrollbarArea);
     window.draw(scrollbar);
 }
@@ -189,4 +191,27 @@ void createCornerRoundedButton(sf::ConvexShape& button, sf::Text& buttonText, co
     // Set button position
     button.setPosition(position);
     buttonText.setPosition(position);
+}
+
+std::wstring openFileDialog(HWND hwndOwner) {
+    OPENFILENAMEW ofn; // Note the 'W' suffix indicating Unicode version
+    wchar_t szFile[260] = { 0 };
+
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = hwndOwner;
+    ofn.lpstrFile = szFile;
+    ofn.lpstrFile[0] = L'\0'; // Use wide character
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = L"CSV Files (*.csv)\0*.csv\0"; // Only allow CSV files
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFileTitle = NULL;
+    ofn.nMaxFileTitle = 0;
+    ofn.lpstrInitialDir = NULL;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+    if (GetOpenFileNameW(&ofn) == TRUE)
+        return std::wstring(ofn.lpstrFile);
+    else
+        return std::wstring();
 }

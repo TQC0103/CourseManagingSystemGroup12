@@ -23,6 +23,10 @@ struct ChooseClassScene
 	sf::Text* labels = nullptr;
 	Class *listClasses = nullptr;
 
+	int times = 0;
+	float sizedisplay = 0;
+	float fullsize = 0;
+
 	ChooseClassScene(Static* a);
 	~ChooseClassScene();
 	void drawChooseClass(sf::RenderWindow& window, Static* a);

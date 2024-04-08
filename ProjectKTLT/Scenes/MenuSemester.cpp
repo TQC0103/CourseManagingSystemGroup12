@@ -74,7 +74,11 @@ void MenuSemesterScene::renderMenuSemester(sf::Event event, Scene* scene, sf::Re
 			}
 			else if (manageC.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				
+				delete scene->menusemester;
+				scene->menusemester = nullptr;
+				if (scene->choosecoursescene == nullptr)
+					scene->choosecoursescene = new ChooseCoursesScene(scene->a);
+				scene->a->currentState = programState::ChooseCourses;
 			}
 		}
 	}

@@ -5,24 +5,19 @@
 #include "date.h"
 #include <string>
 #include <fstream>
-
-// global variables
-schoolYear* pheadschoolyear;
-schoolYear* curSchoolyear;
-semester* curSemester;
-Course* curCourse;
+#include <sstream>
 
 
 // check if it is valid day (not sunday)
 bool isvalidweekday(const std::string& weekday)
 {
-        std::string validweekdays[] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY" };
-        for (int i = 0; i < 6; i++) 
-        {
-        if (weekday == validweekdays[i]) 
+    std::string validweekdays[] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY" };
+    for (int i = 0; i < 6; i++)
+    {
+        if (weekday == validweekdays[i])
             return true;
-   
-        }
+
+    }
     return false;
 }
 
@@ -47,10 +42,10 @@ Course::Course(std::string id, std::string name, std::string classname, std::str
     Session = session;
 }
 
+// Update the information of the Course
 void Course::updateCourse()
 {
     {
-        std::ofstream fout;
         while (true)
         {
             std::cout << "Here is the information: " << std::endl;
@@ -62,19 +57,17 @@ void Course::updateCourse()
             std::cout << "6. Max Student:" << maxStudent << std::endl;
             std::cout << "7. Day performed per week:" << weekDay << std::endl;
             std::cout << "8. Session: " << Session << std::endl;
-          
+
 
             std::cout << "Choose the information (input a number) you want to edit (press enter to stop): ";
             std::string choice;
             getline(std::cin, choice);
             if (choice == "") break;
 
-            while (choice <= "0" || choice >= "9" || choice.length() >= 2)
+            while (choice <= "1" || choice > "8" || choice.length() > 1)
             {
                 if (choice == "") break;
-                std::cout << "Please input correctly!";
-                std::cout << "                       ";
-                std::cout << "                ";
+                std::cerr << "Please input correctly: ";
                 getline(std::cin, choice);
             }
 
@@ -119,27 +112,198 @@ void Course::updateCourse()
                 break;
             }
         }
-        // save course id to textfile
-        // not done yet
     }
 }
 
+// Load data of the Course (Like Course ID, Course Name....)
 void Course::loadDataOfTheCourse(Static* a)
 {
     std::ifstream fIn;
     fIn.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "information.txt");
 
-    if (!fIn.is_open())
+    if (fIn.is_open())
     {
-        std::cerr << "Error: Data is not exist" << std::endl;
+        getline(fIn, a -> curCourse ->ID);
+        getline(fIn, a->curCourse -> Name);
+        getline(fIn, a->curCourse->className);
+        getline(fIn, a->curCourse->Lecturer);
+        fIn >> a->curCourse->Credit;
+        fIn >> a->curCourse->maxStudent;
+        fIn.ignore();
+        getline(fIn, a->curCourse->weekDay);
+        getline(fIn, a->curCourse->Session);
+    }
+    else
+    {
+        std::cerr << "Can't open file" << std::endl;
         return;
     }
+    fIn.close();
+}
 
-    std::string tmpCourse;
-    Course* tmp = nullptr;
+
+
+int Course::loadClassesInCourse(Static* a)
+{
+    std::ifstream fin;
+    fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + "Classes.txt");
+   
+    Course* cur = pHeadClasses;
+    int nClass = 0;
+    std::string ClassData = "";
+    while (getline(fin, ClassData))
     {
-        while (getline(fIn, tmpCourse))
+        if (!pHeadClasses)
         {
+            pHeadClasses = new Course;
+            cur = pHeadClasses;
+            cur->className = ClassData;
+        }
+        else {
+            cur->pNext = new Course;
+            cur = cur->pNext;
+            cur->className = ClassData;
+        }
+        nClass++;
+    }
+    if (cur)
+    {
+        cur->pNext = nullptr;
+    }
+    return nClass;
+
+}
+
+// Load the student list in the course
+int Course::loadStudentInTheCourse()
+{
+    int n = 0;
+    std::ifstream fIn;
+    std::string path = "../Database/SchoolYear/" + className + "/Students/" + className + ".csv";
+    fIn.open(path);
+
+    if (fIn.is_open())
+    {
+        std::string line;
+        getline(fIn, line); // Skip the headline
+
+        while (getline(fIn, line))
+        {
+            std::string No, studentID, firstName, lastName, gender, socialID;
+            std::stringstream s(line);
+            getline(s, No, ',');
+            getline(s, studentID, ',');
+            getline(s, firstName, ',');
+            getline(s, lastName, ',');
+            getline(s, gender, ',');
+            getline(s, socialID);
+
+            int StudentNo = std::stoi(No);
+            if (!pHeadStudent)
+            {
+                pHeadStudent = new student(StudentNo, studentID, firstName, lastName, gender, socialID);
+                pTailStudent = pHeadStudent;
+                n++;
+            }
+            else
+            {
+                pTailStudent->pNext = new student(StudentNo, studentID, firstName, lastName, gender, socialID);
+                pTailStudent = pTailStudent->pNext;
+                n++;
+            }
         }
     }
+    else
+    {
+        std::cerr << "Can't open file" << std::endl;
+        return -1;
+    }
+
+    fIn.close();
+    return n;
 }
+
+
+// Option to add student
+int Course::addStudentOptions()
+{
+    std::string choice;
+    while (true)
+    {
+        std::cout << "How do you want to add student?" << std::endl;
+        std::cout << "1: Add manually" << std::endl;
+        std::cout << "2: By a file" << std::endl;
+        std::cout << "3: Go back" << std::endl;
+
+        std::cout << "Choose the way (input a number) you want to add (press enter to stop): ";
+        getline(std::cin, choice);
+
+        if (choice == "") break;
+        while (choice < "1" || choice > "3" || choice.length() > 1)
+        {
+            if (choice == "") break;
+            std::cerr << "Please input correctly: ";
+            getline(std::cin, choice);
+        }
+        break;
+    }
+
+    return stoi(choice);
+}
+
+// Add student manually
+bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID)
+{
+    if (choice == 1)
+    {
+        std::ifstream fIn;
+        fIn.open("../Database/Class/" + a -> curClass -> name + "/Students/" + a->curClass->name + "csv");
+        if (!fIn.is_open())
+        {
+            std::cerr << "Can't open file" << std::endl;
+            return false;
+        }
+        std::string line;
+        std::string redundant;
+
+        getline(fIn, redundant);
+
+        while (getline(fIn, line))
+        {
+            std::stringstream s(line);
+            std::string checkID;
+            getline(s, checkID, ',');
+            getline(s, checkID, ',');
+
+            if (checkID == ID)
+            {
+                std::cerr << "This ID is already exist" << std::endl;
+                return false;
+            }
+        }
+        fIn.close();
+
+        // Update the csv file
+        std::fstream fOut;
+        fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "classList.csv", std::ios::app);
+        if (!fOut.is_open())
+        {
+            std::cerr << "Can't open file" << std::endl;
+            return false;
+        }
+        else
+        {
+            std::string tmp = std::to_string(No) + "," + ID + "," + FirstName + "," + LastName + "," + Gender + "," + SocialID;
+            fOut << tmp << std::endl;
+        }
+      
+        fOut.close();
+        return true;
+    }
+}
+
+
+//bool Course::deleteStudent(std::string ID)
+//{
+//    //for (int i = 0)
+//}

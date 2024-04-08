@@ -145,7 +145,11 @@ bool schoolYear::checkInputDate(std::string &data, Static* a)
 		monthDay = "0" + monthDay;
 	}
 	data = testDay + "/" + monthDay;
-
+	int len = data.length();
+	if (len != 5)
+	{
+		return false;
+	}
 	std::string stringDate = data.substr(0, 2);
 	std::string stringMonth = data.substr(3, 2);
 	int day = std::stoi(stringDate);
@@ -251,33 +255,35 @@ bool schoolYear::addSchoolYear() {
 //}
 
 void schoolYear::loadSemester(std::string& year) {
+
 	std::ifstream fin("../Database/SchoolYear/" + year + "/AllSemester.txt");
 	if (!fin.is_open()) {
-		std::cerr << "Error: File not found" << std::endl;
+		std::cout << "Error: File not found" << std::endl;
 		return;
 	}
-
-	if (!pHeadSemester) {
-		pHeadSemester = new semester();
-	}
+	std::string data;
+	std::string startDate;
+	std::string endDate;
 
 	semester* cur = pHeadSemester;
-	std::string data = "";
-	while (getline(fin, data)) {
-		cur->semesterData = data;
-		getline(fin, cur->startDate, ';');
-		getline(fin, cur->endDate);
 
-		if (!fin.eof()) {
-			cur->pNext = new semester;
+	while (getline(fin, data)) {
+		getline(fin, startDate, ';');
+		getline(fin, endDate);
+		if (!pHeadSemester) {
+			pHeadSemester = new semester(data, startDate, endDate);
+			cur = pHeadSemester;
+		}
+		else {
+			cur->pNext = new semester(data, startDate, endDate);
 			cur = cur->pNext;
 		}
 	}
-	if (data == "")
-	{
-		delete pHeadSemester;
-		pHeadSemester = nullptr;
-	}
+	if (cur == nullptr)
+		return;
+	cur->pNext = nullptr;
+
+
 	fin.close();
 }
 
@@ -294,56 +300,63 @@ void schoolYear::loadSemester(std::string& year) {
 //	return false;
 //}
 
-bool schoolYear::addSemester(std::string data, std::string start, std::string end, Static *a)
+int schoolYear::addSemester(std::string& data, std::string start, std::string end, Static* a)
 {
 	if (!checkInputDate(start, a) || !checkInputDate(end, a)) {
-		return false;
-	}
-	std::string checknumber;
-	int n = (int)data.length();
-	checknumber = data.substr(n - 1);
-	if (std::stoi(checknumber) > 3) {
-		return false;
+		return 0;
 	}
 	std::ifstream fin("../Database/SchoolYear/" + a->curSchoolYear->year + "/AllSemester.txt");
 
 	// if the semester in a new school year, create a new file
 	if (!fin.is_open()) {
-		//std::cerr << "Error: File not found" << std::endl;
-		//_mkdir(("../Database/SchoolYear/" + (std::string)curSchoolYear->year + "/AllSemester.txt").c_str());
-		std::ofstream fout("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt");
-		fout.close();
-		if (std::stoi(checknumber) != 1) {
-			return false;
-		}
+		std::cerr << "Can't open file" << std::endl;
+		return 0;
 	}
-	else {
-		std::string check;
-		std::string ignore_one;
-		while (getline(fin, check)) {
-			if (check == data) {
-				return false;
-			}
-			getline(fin, ignore_one);
-		}
+	std::string checkSemester = "";
+	std::string date = "";
+	while (getline(fin, checkSemester)) {
+		
+		getline(fin, date);
+		if (checkSemester.length() != 0)
+		{
+			std::string checkNumber = checkSemester.substr(8, 1);
+			int number = std::stoi(checkNumber);
+			number++;
+			if (number > 3)
+			{
+				fin.close();
+				return 2;
 
+			}
+			data = "Semester" + std::to_string(number);
+		}
+		
 	}
 	fin.close();
-	std::ofstream fout("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt", std::ios::app);
+	std::ofstream fout;
+	if (data.length() == 0)
+	{
+		data = "Semester1";
+		fout.open("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt");
+	}
+	else {
+		fout.open("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt", std::ios::app);
+	}
+	
+	
 	fout << data << std::endl;
 	fout << start << ";" << end << std::endl;
 	fout.close();
 	int makeFile = _mkdir(("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/" + (std::string)data).c_str());
 	if (makeFile != 0) {
 		std::cout << "Error: Unable to create directory" << std::endl;
-		return false;
+		return 0;
 	}
 	fout.open("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/" + (std::string)data + "/courses.txt");
 	fout.close();
-	return true;
+	return 1;
 
 }
-
 
 
 

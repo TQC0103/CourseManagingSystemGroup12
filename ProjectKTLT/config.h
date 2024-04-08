@@ -7,7 +7,9 @@ struct Class;
 struct semester;
 struct Course;
 
-enum programState { Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear, ChooseClass, MenuClass, ChooseSemester, MenuSemester, ChooseSchoolYearStudent, ChooseSemesterStudent, MenuSemesterStudent, AddStudentCLass
+enum programState { Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear
+, ChooseClass, MenuClass, ChooseSemester, MenuSemester, ChooseSchoolYearStudent, ChooseSemesterStudent, MenuSemesterStudent, AddStudentCLass, CreateSemester, AddStudentClassManually, AddStudentClassFile,
+ChooseCourses, ChooseClassCourse, MenuCourse
 };
 struct Static
 {
@@ -24,6 +26,7 @@ struct Static
 
     Class* curClass = nullptr;
 
+    Class* curClassCourse = nullptr;
     semester* curSemester = nullptr;
 
     float width = 2000;

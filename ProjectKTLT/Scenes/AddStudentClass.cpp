@@ -6,8 +6,8 @@ AddStudentClassScene::AddStudentClassScene(Static* a)
 {
     createABox(addStudentBackgr, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
     createText(addStudentText, a->fontB, a->textColorBlue, "Add Student To " + a->curClass->name, 100, (float)a->width / 2.0f, 150.0f);
-    createCornerRoundedButton(addManually, addManuallyText, sf::Vector2f(1000.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Manually", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f - 150.0f)), 2.0f, sf::Color::Black);
-    createCornerRoundedButton(addFile, addFileText, sf::Vector2f(1000.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "From file", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f + 150.0f)), 2.0f, sf::Color::Black);
+    createCornerRoundedButton(addManually, addManuallyText, sf::Vector2f(600.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "Manually", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f - 150.0f)), 2.0f, sf::Color::Black);
+    createCornerRoundedButton(addFile, addFileText, sf::Vector2f(600.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "From file", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f + 150.0f)), 2.0f, sf::Color::Black);
     createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 
 }
@@ -65,6 +65,22 @@ void AddStudentClassScene::renderAddStudentClass(sf::Event event, Scene* scene, 
                     scene->menuclass = new MenuClassScene(scene->a);
                 scene->a->currentState = programState::MenuClass;
             }
+            else if(addManually.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+            {
+                delete scene->addstudentclass;
+                scene->addstudentclass = nullptr;
+                if (scene->addstudentclassmanually == nullptr)
+                    scene->addstudentclassmanually = new AddStudentClassManuallyScene(scene->a);
+                scene->a->currentState = programState::AddStudentClassManually;
+            }
+            else if (addFile.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				delete scene->addstudentclass;
+				scene->addstudentclass = nullptr;
+				if (scene->addstudentclassfile == nullptr)
+					scene->addstudentclassfile = new AddStudentClassFileScene(scene->a);
+				scene->a->currentState = programState::AddStudentClassFile;
+			}
 
 
 
