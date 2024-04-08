@@ -138,10 +138,7 @@ std::string* student::loadNumberOfCourses(Static* a)
     return listOfCourses;
 }
 
-
-
-
-std::string** getAllCoursesInformations(Static* a)
+std::string** student::getAllCoursesInformations(Static* a)
 {
     semester* tmp = new semester;
     int n = tmp->specifyCourseForStudent(a);
