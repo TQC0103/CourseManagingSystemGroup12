@@ -144,6 +144,14 @@ void MenuStaffScene::renderMenuStaff(sf::Event event, Scene *scene, sf::RenderWi
 				tmp->addSchoolYear();
 				delete tmp;
 			}
+			else if(createClassButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				if(scene->createclass == nullptr)
+					scene->createclass = new CreateClassScene(scene->a);
+				delete scene->menustaff;
+				scene->menustaff = nullptr;
+				scene->a->currentState = programState::CreateClass;
+			}
 
 
 		}

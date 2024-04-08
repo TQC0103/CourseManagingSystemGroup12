@@ -120,7 +120,7 @@ int semester::specifyCourseForStudent(Static* a)
 
 void semester::normingNonSpace(std::string& data)
 {
-	int len = data.length();
+	int len = (int)data.length();
 	int pos = 0;
 	for (int i = 0; i < len; i++)
 	{
@@ -140,7 +140,7 @@ void semester::normingNonSpace(std::string& data)
 }
 void semester::normingOneSpace(std::string& data)
 {
-	int len = data.length();
+	int len = (int)data.length();
 	int pos = 0;
 	for (int i = 0; i < len; i++)
 	{

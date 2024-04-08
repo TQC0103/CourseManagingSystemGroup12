@@ -151,6 +151,7 @@
     <ClCompile Include="Scenes\ChooseSchoolYearStudent.cpp" />
     <ClCompile Include="Scenes\ChooseSemester.cpp" />
     <ClCompile Include="Scenes\ChooseSemesterStudent.cpp" />
+    <ClCompile Include="Scenes\CreateClass.cpp" />
     <ClCompile Include="Scenes\CreateSemester.cpp" />
     <ClCompile Include="Scenes\MenuCourse.cpp" />
     <ClCompile Include="Scenes\MenuSchoolYear.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Scenes\ChooseSchoolYearStudent.h" />
     <ClInclude Include="Scenes\ChooseSemester.h" />
     <ClInclude Include="Scenes\ChooseSemesterStudent.h" />
+    <ClInclude Include="Scenes\CreateClass.h" />
     <ClInclude Include="Scenes\CreateSemester.h" />
     <ClInclude Include="Scenes\MenuClass.h" />
     <ClInclude Include="Scenes\MenuCourse.h" />

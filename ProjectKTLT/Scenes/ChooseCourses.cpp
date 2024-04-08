@@ -59,7 +59,7 @@ ChooseCoursesScene::ChooseCoursesScene(Static* a)
         times = numCourses / 2 + 1;
     }
     displaysize = a->height - 300.0f;
-    fullsize = (times * 200 + (times - 1) * 100 );
+    fullsize = (float)(times * 200 + (times - 1) * 100 );
     if (numCourses > 6)
         createAScrollbar(scrollbar, scrollArea, sf::Vector2f(20.0f, 50.0f), a->backGroundWhiteDarkerStill, a->backGroundWhiteDarker, sf::Vector2f(1700.0f, 625.0f), 15);
 }
