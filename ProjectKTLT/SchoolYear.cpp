@@ -255,8 +255,8 @@ bool schoolYear::addSchoolYear() {
 //}
 
 void schoolYear::loadSemester(std::string& year) {
-	
-	std::ifstream fin("../Database/SchoolYear/" + year +"/AllSemester.txt");
+
+	std::ifstream fin("../Database/SchoolYear/" + year + "/AllSemester.txt");
 	if (!fin.is_open()) {
 		std::cout << "Error: File not found" << std::endl;
 		return;
@@ -264,6 +264,7 @@ void schoolYear::loadSemester(std::string& year) {
 	std::string data;
 	std::string startDate;
 	std::string endDate;
+
 	semester* cur = pHeadSemester;
 
 	while (getline(fin, data)) {
@@ -281,6 +282,8 @@ void schoolYear::loadSemester(std::string& year) {
 	if (cur == nullptr)
 		return;
 	cur->pNext = nullptr;
+
+
 	fin.close();
 }
 
