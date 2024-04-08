@@ -40,4 +40,5 @@ struct student
     //void readStudentScore();
     std::string getCoursesInformations(Static *a);
     std::string* loadNumberOfCourses(Static* a);
+    std::string** getAllCoursesInformations(Static* a);
 };

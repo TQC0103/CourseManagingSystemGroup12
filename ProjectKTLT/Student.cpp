@@ -1,4 +1,4 @@
-#include "Student.h"
+﻿#include "Student.h"
 #include "Class.h"
 #include "config.h" 
 #include "SchoolYear.h"
@@ -101,25 +101,83 @@ std::string* student::loadNumberOfCourses(Static* a)
     int n = tmp->specifyCourseForStudent(a);
     std::string* listOfCourses = new std::string[n];
     std::ifstream file("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/courses.txt");
-    if(!file.is_open())
-    {  
+    if (!file.is_open())
+    {
         std::cout << "Unable to open file! \n";
         return nullptr;
     }
     int index = 0;
     std::string courseName;
-    while(std::getline(file, courseName))
+    while (std::getline(file, courseName))
     {
-        std::ifstream fIn("../Database/SchoolYear/"+ a->curSchoolYear->year +"/"+ a->curSchoolYear->pHeadSemester->semesterData +"/" + courseName + "Classes.txt");  
+        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSchoolYear->pHeadSemester->semesterData + "/" + courseName + "Classes.txt");
         std::string className;
-        while(std::getline(fIn, className))
+        while (std::getline(fIn, className))
         {
-            if(curClass == className) 
+            if (curClass == className)
             {
-                listOfCourses[index] = courseName;
-                index++;
-            } 
+                if (index < n) // Kiểm tra chỉ số index
+                {
+                    listOfCourses[index] = courseName;
+                    index++;
+                }
+                else
+                {
+                    std::cout << "Error: Array index out of bounds!";
+                    break;
+                }
+            }
         }
+        fIn.close();
+    }
+    file.close(); // Đóng tệp
+    if (index == 0) {
+        delete[] listOfCourses; // Xóa mảng nếu không có phần tử nào được gán giá trị
+        return nullptr;
     }
     return listOfCourses;
+}
+
+
+
+
+std::string** getAllCoursesInformations(Static* a)
+{
+    semester* tmp = new semester;
+    int n = tmp->specifyCourseForStudent(a);
+
+    // Cấp phát bộ nhớ cho mảng hai chiều
+    std::string** res = new std::string * [n];
+    for (int i = 0; i < n; i++)
+    {
+        res[i] = new std::string[8];
+    }
+
+    // Nhận danh sách các khóa học mà sinh viên đã đăng ký
+    student* myStudent = new student;
+    std::string* listOfCourses = myStudent->loadNumberOfCourses(a);
+    if (listOfCourses == nullptr) {
+        // Nếu danh sách khóa học rỗng, giải phóng bộ nhớ và trả về nullptr
+        for (int i = 0; i < n; ++i) {
+            delete[] res[i];
+        }
+        delete[] res;
+        return nullptr;
+    }
+
+    // Đọc thông tin từ tệp cho mỗi khóa học
+    for (int i = 0; i < n; i++)
+    {
+        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSchoolYear->pHeadSemester->semesterData + "/" + listOfCourses[i] + "/" + curClass + "/information.txt");
+        for (int j = 0; j < 8; j++)
+        {
+            std::getline(fIn, res[i][j], '\n');
+        }
+        fIn.close();
+    }
+
+    // Giải phóng bộ nhớ của danh sách khóa học
+    delete[] listOfCourses;
+
+    return res;
 }
