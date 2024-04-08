@@ -126,6 +126,31 @@ int main() {
                 scene->addstudentclassmanually->renderAddManually(event, scene, window);
                 break;
             }
+            case programState::ChooseCourses:
+            {
+                scene->choosecoursescene->renderChooseCourses(event, scene, window);
+                break;
+            }
+            case programState::MenuCourse:
+            {
+                scene->menucourse->renderMenuCourse(event, scene, window);
+                break;
+            }
+            case programState::ChooseClassCourse:
+            {
+                scene->chooseclasscourse->renderChooseClassCourses(event, scene, window);
+                break;
+            }
+            case programState::AddStudentClassFile:
+                {
+				scene->addstudentclassfile->renderAddFromFile(event, scene, window);
+				break;
+			}
+            case programState::CreateClass:
+			{
+				scene->createclass->renderCreateClass(event, scene, window);
+				break;
+			}
             default:
                 break;
             }
@@ -239,6 +264,31 @@ int main() {
             case programState::AddStudentClassManually:
             {
                 scene->addstudentclassmanually->drawAddMunually(window, scene->a);
+                break;
+            }
+            case programState::ChooseCourses:
+            {
+                scene->choosecoursescene->drawChooseCourses(window, scene->a);
+                break;
+            }
+            case programState::MenuCourse:
+            {
+                scene->menucourse->drawMenuCourse(window, scene->a);
+                break;
+            }
+            case programState::ChooseClassCourse:
+            {
+                scene->chooseclasscourse->drawChooseClassCourses(window, scene->a);
+                break;
+            }
+            case programState::AddStudentClassFile:
+            {
+                scene->addstudentclassfile->drawAddFromFile(window, scene->a);
+                break;
+            }
+            case programState::CreateClass:
+            {
+                scene->createclass->drawCreateClass(window, scene->a);
                 break;
             }
             default:

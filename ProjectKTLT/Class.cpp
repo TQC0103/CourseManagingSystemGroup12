@@ -129,33 +129,41 @@ int Class::loadStudents(Static* a) {
 
 //Not data to update pHeadListCLass
 bool Class::isInvalid(std::string nameClass) {
-	Class* tmp = pHeadListClasses;
+	Class* tmpHead = new Class();
+	int num = tmpHead->load_classes();
+	Class* tmp = tmpHead->pHeadListClasses;
 	while (tmp) {
 		if (tmp->name == nameClass) {
+			delete tmpHead;
 			return true;
 		}
 	}
+	delete tmpHead;
 	return false;
 }
 //create new Class Not to update data.
-int Class::creat_new_Class(std::string nameClass) {
+
+bool Class::creat_new_Class(std::string nameClass) {
 	load_classes();
-	if (isInvalid(nameClass)) {
-		//std::cout << "Error! The name Class is exist!\n";
-		return 0;
+	if (isInvalid(nameClass) == true)
+	{
+		std::cout << "Error! The name Class is exist!\n";
+		return false;
 	}
 	int result = _mkdir(("../Database/Class/" + nameClass).c_str());
 	std::string name = "Students";
 	
 	if (result != 0) {
+
 		//std::cout << "Error: Unable to create directory" << std::endl;
-		return 0;
+		return false;
 	}
 	int result_student = _mkdir(("../Database/Class/" + nameClass + "/" + name).c_str());
 	if (result_student != 0) {
-		//std::cout << "Error: Unable to create directory" << std::endl;
-		return 0;
+		std::cout << "Error: Unable to create directory" << std::endl;
+		return false;
 	}
+
 	Class* new_Class = new Class;
 	new_Class->name = nameClass;
 	Sort_Class(new_Class);
@@ -163,10 +171,10 @@ int Class::creat_new_Class(std::string nameClass) {
 	fOut.open(("../Database/Class/" + nameClass +"/" + name + "/" + nameClass + ".csv"));
 	if (!fOut.is_open()) {
 		//std::cout << "Error: Unable to create directory" << std::endl;
-		return 0;
+		return false;
 	}
 	print_txt();
-	return 1;
+	return true;
 }
 
 void Class::print_txt() {
