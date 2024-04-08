@@ -251,9 +251,111 @@ int Course::addStudentOptions()
     return stoi(choice);
 }
 
+void Course::normingNumberInStudentList()
+{
+    student* tmp = pHeadStudent;
+
+    int i = 1;
+    while(tmp)
+    {
+        tmp->No = i;
+        tmp = tmp->pNext;
+        i++;
+    }
+
+    delete tmp;
+
+}
+// Delete the last student in the linked list
+//void Course::deleteStudentAfterSort(student* prev)
+//{
+//    student* cur = prev->pNext;
+//   while (cur && cur->pNext)
+//   {
+//        prev = cur;
+//        cur = cur->pNext;
+//   }
+//    prev->pNext = nullptr;
+//    pTailStudent = prev;
+//    student* tmp = pHeadStudent;
+//
+//    for (int i = 1; tmp; i++)
+//   {
+//        tmp->No = i;
+//       tmp = tmp->pNext;
+//    }
+//
+//    delete cur;
+//   delete tmp;
+//}
+
+//Add a student to a list and sort the list accroding to studentID
+void Course::sortStudentList(student* tmp)
+{
+    student* cur = pHeadStudent;
+    student* prev = nullptr;
+
+    if (tmp->studentID < cur->studentID)
+    {
+        tmp->pNext = cur;
+        pHeadStudent = tmp;
+        delete prev;
+        return;
+    }
+
+    while (cur)
+    {
+        if (tmp->studentID < cur->studentID)
+        {
+            tmp->pNext = cur;
+            prev->pNext = tmp;
+            delete cur;
+            delete prev;
+            return;
+        }
+        prev = cur;
+        cur = cur->pNext;
+    }
+
+    pTailStudent->pNext = tmp;
+    pTailStudent = pTailStudent->pNext;
+
+    delete cur;
+}
+
+
+bool Course::exportStudentListToFile(Static* a)
+{
+    std::ofstream fOut;
+    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "classList.csv");
+    if (!fOut.is_open())
+    {
+        std::cerr << "Can't open file" << std::endl;
+        return false;
+    }
+    else
+    { 
+        fOut << "No,Student - ID,First Name,Last Name,Gender,Social ID" << std::endl;
+        student* cur = pHeadStudent;
+        while (cur)
+        {
+            std::string tmp = std::to_string(cur->No) + "," + cur->studentID + "," + cur->firstName + "," + cur->lastName + "," + cur->gender + "," + cur->socialID;
+            fOut << tmp << std::endl;
+            cur = cur->pNext;
+        }
+        delete cur;
+    }
+
+    fOut.close();
+    return true;
+}
+
 // Add student manually
 bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID)
 {
+    if (!pHeadStudent)
+       loadStudentInTheCourse();
+
     if (choice == 1)
     {
         std::ifstream fIn;
@@ -264,9 +366,8 @@ bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::stri
             return false;
         }
         std::string line;
-        std::string redundant;
 
-        getline(fIn, redundant);
+        getline(fIn, line);
 
         while (getline(fIn, line))
         {
@@ -278,29 +379,21 @@ bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::stri
             if (checkID == ID)
             {
                 std::cerr << "This ID is already exist" << std::endl;
+                fIn.close();
                 return false;
             }
         }
         fIn.close();
+       
+        // Update the linked list
+        student* tmp = new student(No, ID, FirstName, LastName, Gender, SocialID);
+        sortStudentList(tmp);
+        normingNumberInStudentList();
 
         // Update the csv file
-        std::fstream fOut;
-        fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "classList.csv", std::ios::app);
-        if (!fOut.is_open())
-        {
-            std::cerr << "Can't open file" << std::endl;
-            return false;
-        }
-        else
-        {
-            std::string tmp = std::to_string(No) + "," + ID + "," + FirstName + "," + LastName + "," + Gender + "," + SocialID;
-            fOut << tmp << std::endl;
-        }
-      
-        fOut.close();
+        exportStudentListToFile(Static * a);
         return true;
     }
-}
 
 
 //bool Course::deleteStudent(std::string ID)

@@ -54,8 +54,8 @@ struct Course
 	// Function
 	void updateCourse(); //done
 	int addStudentOptions();
-	//done 1/2 
-	bool addStudent(Static* a, int choice, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID);
+	//done
+	bool addStudent(Static* a, int choice, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID); 
 	bool deleteStudent(std::string ID); 
 	void showStudent();
 	void showInfo();
@@ -74,8 +74,12 @@ struct Course
 	// Supportive function
 	void showingStudentList();
 	void loadDataOfTheCourse(Static *a); //done
-	int loadClassesInCourse(Static* a);
-	int loadStudentInTheCourse();
+	int loadClassesInCourse(Static* a); //done
+	int loadStudentInTheCourse(); //done
+	void sortStudentList(student* a);// done
+	//void deleteStudentAfterSort(student* a); //done
+	void normingNumberInStudentList(); //done
+	bool exportStudentListToFile(Static* a);
 	int getAllStudent();
 
 };
