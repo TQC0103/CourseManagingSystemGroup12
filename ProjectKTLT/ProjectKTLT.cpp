@@ -141,6 +141,11 @@ int main() {
                 scene->chooseclasscourse->renderChooseClassCourses(event, scene, window);
                 break;
             }
+            case programState::AddStudentClassFile:
+                {
+				scene->addstudentclassfile->renderAddFromFile(event, scene, window);
+				break;
+			}
             default:
                 break;
             }
@@ -269,6 +274,11 @@ int main() {
             case programState::ChooseClassCourse:
             {
                 scene->chooseclasscourse->drawChooseClassCourses(window, scene->a);
+                break;
+            }
+            case programState::AddStudentClassFile:
+            {
+                scene->addstudentclassfile->drawAddFromFile(window, scene->a);
                 break;
             }
             default:

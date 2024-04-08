@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "config.h"
+#include <windows.h>
 
 // Functions
 void createAButton(sf::RectangleShape& button, sf::Text& buttonText, const sf::Vector2f& size, float textSize, const sf::Color& fillColor, const sf::Font& font, const sf::Color& textColor, const std::string& text, const sf::Vector2f& position);
@@ -14,3 +15,4 @@ void renderScrollbar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollba
 void drawScrollBar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, sf::RenderWindow& window, float& scrollOffset, float& sizeDisplay, float& fullSize, sf::Vector2f startingOriginPos);
 sf::ConvexShape RoundedRectangle(float x, float y, float rectWidth, float rectHeight, float radius, const sf::Color& Col, float Outline, const sf::Color& OutlineCol);
 void createCornerRoundedButton(sf::ConvexShape& button, sf::Text& buttonText, const sf::Vector2f& size, float textSize, const sf::Color& fillColor, const sf::Font& font, const sf::Color& textColor, const std::string& text, const sf::Vector2f& position, float outlineSize, const sf::Color &outlineColor);
+std::wstring openFileDialog(HWND hwndOwner);

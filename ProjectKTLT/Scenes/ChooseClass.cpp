@@ -132,5 +132,5 @@ ChooseClassScene::~ChooseClassScene()
 {
 	delete[] buttons;
 	delete[] labels;
-	listClasses->~Class();
+	delete listClasses;
 }
