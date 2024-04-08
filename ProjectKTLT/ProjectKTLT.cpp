@@ -9,8 +9,8 @@
 
 // Functions
 int main() {
-	
-    Scene *scene = new Scene;
+
+    Scene* scene = new Scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)scene->a->width, (unsigned int)scene->a->height), "CourseManagingSystem");
 
     window.setFramerateLimit(60); // Set frame rate limit to 60 FPS
@@ -67,23 +67,23 @@ int main() {
                 break;
             }
             case programState::ChooseSchoolYear:
-			{
-				scene->chooseschoolyear->renderChooseSchoolYear(event, scene, window);
-				break;
-			}
+            {
+                scene->chooseschoolyear->renderChooseSchoolYear(event, scene, window);
+                break;
+            }
             case programState::MenuSchoolYear:
             {
-				scene->menuschoolyear->renderMenuSchoolYear(event, scene, window);
-				break;
-			}
+                scene->menuschoolyear->renderMenuSchoolYear(event, scene, window);
+                break;
+            }
             case programState::ChooseClass:
             {
                 scene->chooseclass->renderChooseClass(event, scene, window);
-				break;
-			}
+                break;
+            }
             case programState::MenuClass:
             {
-				scene->menuclass->renderMenuClass(event, scene, window);
+                scene->menuclass->renderMenuClass(event, scene, window);
                 break;
             }
             case programState::ChooseSemester:
@@ -184,16 +184,16 @@ int main() {
             case programState::ChooseSchoolYear:
             {
                 scene->chooseschoolyear->drawChooseSchoolYear(window, scene->a);
-				break;
+                break;
             }
             case programState::MenuSchoolYear:
             {
-				scene->menuschoolyear->drawMenuSchoolYear(window, scene->a);
+                scene->menuschoolyear->drawMenuSchoolYear(window, scene->a);
                 break;
             }
             case programState::ChooseClass:
             {
-				scene->chooseclass->drawChooseClass(window, scene->a);
+                scene->chooseclass->drawChooseClass(window, scene->a);
                 break;
             }
             case programState::MenuClass:
@@ -248,11 +248,8 @@ int main() {
             // Display the content
             window.display();
         }
-        
+
     }
     delete scene;
     return 0;
 }
-
-
-
