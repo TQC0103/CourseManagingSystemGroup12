@@ -46,6 +46,7 @@ struct Course
 
 	//pointer to student in course
 	Course* pNext = nullptr;
+	Course* pHeadClasses = nullptr;
 	student* pHeadStudent = nullptr;
 	student* pTailStudent = nullptr;
 
@@ -73,6 +74,7 @@ struct Course
 	// Supportive function
 	void showingStudentList();
 	void loadDataOfTheCourse(Static *a); //done
+	int loadClassesInCourse(Static* a);
 	int loadStudentInTheCourse();
 	int getAllStudent();
 
