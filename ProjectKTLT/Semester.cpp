@@ -15,6 +15,7 @@ semester::semester(std::string semesterNum, std::string StartDate, std::string E
 	endDate = EndDate;
 }
 semester::semester() {
+	
 }
 
 int semester::loadCourse(Static* a)
