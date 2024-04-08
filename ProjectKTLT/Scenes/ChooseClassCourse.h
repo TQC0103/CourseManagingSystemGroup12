@@ -1,13 +1,15 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include "../config.h"
 #include "../UserInterface.h"
-#include "../Class.h"
+#include <SFML/Graphics.hpp>
+#include "../Course.h"
+#include "../Semester.h"
+
 struct Scene;
-struct ChooseClassScene
+struct ChooseClassCourseScene
 {
 	sf::RectangleShape chooseClassBackground;
 	sf::Text chooseClassText;
+	sf::Text classCText;
 
 	sf::ConvexShape preButton;
 	sf::Text preText;
@@ -21,14 +23,15 @@ struct ChooseClassScene
 
 	sf::ConvexShape* buttons = nullptr;
 	sf::Text* labels = nullptr;
-	Class *listClasses = nullptr;
+	Course* listClassesC = nullptr;
+	Course* tmpHead = nullptr;
 
 	int times = 0;
 	float sizedisplay = 0;
 	float fullsize = 0;
 
-	ChooseClassScene(Static* a);
-	~ChooseClassScene();
-	void drawChooseClass(sf::RenderWindow& window, Static* a);
-	void renderChooseClass(sf::Event event, Scene *scene, sf::RenderWindow& window);
+    ChooseClassCourseScene(Static* a);
+    ~ChooseClassCourseScene();
+    void drawChooseClassCourses(sf::RenderWindow& window, Static* a);
+    void renderChooseClassCourses(sf::Event event, Scene* scene, sf::RenderWindow& window);
 };

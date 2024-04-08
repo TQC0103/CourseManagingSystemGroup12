@@ -141,6 +141,39 @@ void Course::loadDataOfTheCourse(Static* a)
     fIn.close();
 }
 
+
+
+int Course::loadClassesInCourse(Static* a)
+{
+    std::ifstream fin;
+    fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + "Classes.txt");
+   
+    Course* cur = pHeadClasses;
+    int nClass = 0;
+    std::string ClassData = "";
+    while (getline(fin, ClassData))
+    {
+        if (!pHeadClasses)
+        {
+            pHeadClasses = new Course;
+            cur = pHeadClasses;
+            cur->className = ClassData;
+        }
+        else {
+            cur->pNext = new Course;
+            cur = cur->pNext;
+            cur->className = ClassData;
+        }
+        nClass++;
+    }
+    if (cur)
+    {
+        cur->pNext = nullptr;
+    }
+    return nClass;
+
+}
+
 // Load the student list in the course
 int Course::loadStudentInTheCourse()
 {
@@ -270,6 +303,7 @@ bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::stri
 }
 
 
-bool Course::deleteStudent(std::string ID)
-{
-}
+//bool Course::deleteStudent(std::string ID)
+//{
+//    //for (int i = 0)
+//}
