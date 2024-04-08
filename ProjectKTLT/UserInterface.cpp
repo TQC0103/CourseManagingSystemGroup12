@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "UserInterface.h"
 #include "config.h"
+#include "windows.h"
+
 #define POINTS 20.0f
 
 void setOriginTextToMiddle(sf::Text& text) {
@@ -189,4 +191,27 @@ void createCornerRoundedButton(sf::ConvexShape& button, sf::Text& buttonText, co
     // Set button position
     button.setPosition(position);
     buttonText.setPosition(position);
+}
+
+std::wstring openFileDialog(HWND hwndOwner) {
+    OPENFILENAMEW ofn; // Note the 'W' suffix indicating Unicode version
+    wchar_t szFile[260] = { 0 };
+
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = hwndOwner;
+    ofn.lpstrFile = szFile;
+    ofn.lpstrFile[0] = L'\0'; // Use wide character
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = L"CSV Files (*.csv)\0*.csv\0"; // Only allow CSV files
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFileTitle = NULL;
+    ofn.nMaxFileTitle = 0;
+    ofn.lpstrInitialDir = NULL;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+    if (GetOpenFileNameW(&ofn) == TRUE)
+        return std::wstring(ofn.lpstrFile);
+    else
+        return std::wstring();
 }

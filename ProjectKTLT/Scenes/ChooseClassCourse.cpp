@@ -41,7 +41,7 @@ ChooseClassCourseScene::ChooseClassCourseScene(Static* a)
 		times = numClass / 2 + 1;
 	}
 	sizedisplay = a->height - 300.0f;
-	fullsize = (times * 200 + (times - 1) * 100);
+	fullsize = (float)(times * 200 + (times - 1) * 100);
 
 	createAScrollbar(scrollbar, scrollbarArea, sf::Vector2f(20.0f, 50.0f), a->backGroundWhiteDarkerStill, a->backGroundWhiteDarker, sf::Vector2f(1700.0f, 625.0f), 15);
 }

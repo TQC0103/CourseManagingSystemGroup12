@@ -1,4 +1,3 @@
-
 #include<iostream>
 #include "Student.h"
 #include "Class.h"
@@ -27,24 +26,35 @@ void Class::input_Student_from_file(student*& pHeads, std::string new_name_Class
 		return;
 	}
 	pHeads = nullptr;
-	int x;
+	std::string x;
 	student* cur = pHeads;
-	while (fIn >> x) {
+	std::string tmp = "";
+	//delete title
+	std::getline(fIn, tmp, ',');
+	std::getline(fIn, tmp, ',');
+	std::getline(fIn, tmp, ',');
+	std::getline(fIn, tmp, ',');
+	std::getline(fIn, tmp, ',');
+	while (std::getline(fIn, x, '\n')) {
 		// Allocate memory for a new node
 		student* newNode = new student;
-		newNode->No = x;
+		newNode->No = stoi(x);
 
 		// Read student information
 		std::getline(fIn, newNode->socialID, ',');
 		std::getline(fIn, newNode->firstName, ',');
+		std::getline(fIn, newNode->lastName, ',');
 		std::getline(fIn, newNode->gender, ',');
-		fIn >> newNode->dateOfBirth.d;
-		fIn.ignore(1);
-		fIn >> newNode->dateOfBirth.m;
-		fIn.ignore(1);
-		fIn >> newNode->dateOfBirth.y;
-		fIn.ignore(1); // Consume the delimiter
-		std::getline(fIn, newNode->socialID, ',');
+		std::string tmpDay = "";
+		std::string tmpMonth = "";
+		std::string tmpYear = "";
+		std::getline(fIn, tmpDay, '/');
+		newNode->dateOfBirth.d = stoi(tmpDay);
+		std::getline(fIn, tmpMonth, '/');
+		newNode->dateOfBirth.m = stoi(tmpMonth);
+		std::getline(fIn,tmpYear , ',');
+		newNode->dateOfBirth.y = std::stoi(tmpYear);
+		std::getline(fIn, newNode->socialID,'\n');
 		newNode->pNext = nullptr;
 
 		// Update the linked list
@@ -101,34 +111,70 @@ bool Class::find_Class_of_Student(Static* a) // find class of student
 	}
 	return false;
 }
-
-//Not data to update pHeadListCLass
-bool Class::isInvalid(std::string nameClass) {
-	Class* tmp = pHeadListClasses;
-	while (tmp) {
-		if (tmp->name == nameClass) {
-			return true;
-		}
+bool Class::isExist(Static* a, Class *&cur) {
+	cur = pHeadListClasses;
+	while (cur) {
+		if (cur->name == a->curClass->name) return true;
+		cur = cur->pNext;
 	}
 	return false;
 }
+int Class::loadStudents(Static* a) {
+	load_classes();
+	Class* cur = NULL;
+	if (!isExist(a, cur)) return 0;
+	input_Student_from_file(cur->pHeadListStudents, cur->name);
+	return 1;
+}
+
+//Not data to update pHeadListCLass
+bool Class::isInvalid(std::string nameClass) {
+	Class* tmpHead = new Class();
+	int num = tmpHead->load_classes();
+	Class* tmp = tmpHead->pHeadListClasses;
+	while (tmp) {
+		if (tmp->name == nameClass) {
+			delete tmpHead;
+			return true;
+		}
+	}
+	delete tmpHead;
+	return false;
+}
 //create new Class Not to update data.
-void Class::creat_new_Class(std::string nameClass) {
-	if (!isInvalid(nameClass)) std::cout << "Error! The name Class is exist!\n";
+
+bool Class::creat_new_Class(std::string nameClass) {
+	load_classes();
+	if (isInvalid(nameClass) == true)
+	{
+		std::cout << "Error! The name Class is exist!\n";
+		return false;
+	}
 	int result = _mkdir(("../Database/Class/" + nameClass).c_str());
-	std::string name = "Student";
+	std::string name = "Students";
 	
 	if (result != 0) {
-		std::cout << "Error: Unable to create directory" << std::endl;
+
+		//std::cout << "Error: Unable to create directory" << std::endl;
+		return false;
 	}
-	int result_student = _mkdir(("../Database/Class/nameClass/" + name).c_str());
+	int result_student = _mkdir(("../Database/Class/" + nameClass + "/" + name).c_str());
 	if (result_student != 0) {
 		std::cout << "Error: Unable to create directory" << std::endl;
+		return false;
 	}
+
 	Class* new_Class = new Class;
 	new_Class->name = nameClass;
-	Sort_Class(new_Class);	
+	Sort_Class(new_Class);
+	std::ofstream fOut;
+	fOut.open(("../Database/Class/" + nameClass +"/" + name + "/" + nameClass + ".csv"));
+	if (!fOut.is_open()) {
+		//std::cout << "Error: Unable to create directory" << std::endl;
+		return false;
+	}
 	print_txt();
+	return true;
 }
 
 void Class::print_txt() {
@@ -147,72 +193,278 @@ void Class::print_txt() {
 }
 //Insert file new class by csv (4) 
 
-void Class::insert_new_Class(std::string name_Class) {
+// Insert data from keyboard !
+//bool isInputValid(std::string a, std::string b, std::string c, std::string d, std::string e, std::string f) {
+//
+//}
+int Class::check_No(student * listStudent, std::string No) {
+	int tmp = stoi(No);
+	while(listStudent){
+		if (listStudent->No == tmp) return 0;
+		listStudent = listStudent->pNext;
+	}
+	return 1;
+}
+int Class::check_ID(student* listStudent, std::string ID) {
+	while (listStudent) {
+		if (listStudent->studentID == ID) return 0;
+		listStudent = listStudent->pNext;
+	}
+	return 1;
+}
+bool Class::check_Gender(std::string gender) {
+	return (gender == "nam" || gender == "Nam" || gender == "Nu" || gender == "nu");
+}
+int Class::insert_new_Class_keyboard(Static *a, std::string no, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string BirthDay, std::string SocialID){
 	Class* new_Class = new Class;
+
 	new_Class->pNext = NULL;
-	input_Student_from_file(new_Class->pHeadListStudents, name_Class);
-	//insert class into linked list;
-	//update file into data
-	if (!pHeadListClasses) {
-		pHeadListClasses = new_Class;
-		print_txt();
-		return;
+
+	input_Student_from_file(new_Class->pHeadListStudents, a->curClass->name);
+	//check input;
+	
+	student* cur =  new_Class->pHeadListStudents;
+	student* tmp = new student;
+	if (!check_No(new_Class->pHeadListStudents, no)) {
+		return 1;
 	}
-	Class* cur = pHeadListClasses;
-	while (cur->pNext && cur->pNext->name < name_Class) {
+	if (!check_ID(new_Class->pHeadListStudents, ID)) return 2;
+	tmp->No = stoi(no);
+	tmp->studentID = ID;
+	tmp->lastName = LastName;
+	if (!check_Gender(Gender)) return 5;
+	tmp->gender = Gender;
+
+	int i = 0;
+	std::string Day = "";
+	std::string month = "";
+	std::string year = "";
+	if (!checkInputDate(BirthDay)) return 6;
+	while (BirthDay[i] != '/') {
+		Day += BirthDay[i];
+		i++;
+	}
+	while (BirthDay[i] != '/') {
+		month += BirthDay[i];
+		i++;
+	}
+	while ( i < BirthDay.length()) {
+		year += BirthDay[i];
+		i++;
+	}
+	tmp->dateOfBirth.d = std::stoi(Day);
+	tmp->dateOfBirth.m = std::stoi(month);
+	tmp->dateOfBirth.y = std::stoi(year);
+	tmp->socialID = SocialID;
+	tmp->firstName = FirstName;
+	while (cur && cur->pNext) {
 		cur = cur->pNext;
 	}
-	Class* tmp = cur->pNext;
-	cur->pNext = new_Class;
-	new_Class->pNext = tmp;
-	print_txt();	//update all.txt
-}
-//don't file in where?
-//input from keyboard dont do.
-void Class :: insert_data_Class(Static* a) {
-
-	student* newStudent;
-	input_Student_from_file(newStudent, a->curClass->name);
-	Class* cur = pHeadListClasses;
-	while (cur) {
-		if (cur->name == a->curClass->name) {
-			pHeadListClasses->pHeadListStudents = newStudent;
-			break;
-		}
-		cur = cur->pNext;
+	if (cur) cur = tmp;
+	else {
+		cur->pNext = new student;
+		cur->pNext = tmp;
 	}
-
+	print_csv(new_Class->pHeadListStudents, new_Class->name);
+	return 8;
 }
-
-void Class::print_Student_profile_in_class_files(student* pHeads, std::ofstream& fOut) { // can replace by frame
-	//to print student outside files
-	while (pHeads) {
-		fOut << pHeads->No << ";" << pHeads->studentID << ";" << pHeads->firstName << ";" << pHeads->lastName << ";";
-
-		fOut << pHeads->gender << ";" << pHeads->dateOfBirth.d << "/" << pHeads->dateOfBirth.m << "/" << pHeads->dateOfBirth.y << pHeads->socialID << "\n";
-		pHeads = pHeads->pNext;
-	}
-}
-//Not finished!
-void Class::export_File(std::string name_Class, std::string path)
-{
+int Class::print_csv(student* a, std::string name_Class) {
 	std::ofstream fOut;
-	fOut.open("../Database/Class/" + path + ".csv"); //can insert link folder
+	fOut.open("../Database/Class/" + name_Class + "/Students/" + name_Class + ".csv");
 	if (!fOut.is_open()) {
-		std::cout << "Error! Open file isn't successfull!";
-		return;
+		std::cout << "Error!\n";
+		return 0;
 	}
-	Class* cur = pHeadListClasses;
-	if (!cur) return;
-	while (cur) {
-		if (cur->name == name_Class) {
-			print_Student_profile_in_class_files(cur->pHeadListStudents, fOut);
-			break;
-		}
-		cur = cur->pNext;
+	fOut << "No" << "," << "Student-ID" << "," << "First Name" << "," << "Last Name" << "," << "Gender"<<"," << "Date Of Birth" << "," << "" << "Social ID" << "\n";
+	while (a) {
+		std::string tmpBirthday = "";
+		tmpBirthday = tmpBirthday + std::to_string(a->dateOfBirth.d) + "/" + std::to_string(a->dateOfBirth.m) + "/" + std::to_string(a->dateOfBirth.y);
+		fOut << std::to_string(a->No) << "," << a->studentID << "," << a->firstName << "," << a->lastName << "," << a->gender << "," << tmpBirthday <<"," << a->socialID << "\n";
+		a = a->pNext;
 	}
-	fOut.close();
+	return 1;
 }
+//Year !???
+bool Class::checkInputDate(std::string& data)
+{
+	// Norming the input data
+	int pos = 0;
+	int n = (int)data.length();
+	std::string testDay = "";
+	std::string monthDay = "";
+	std::string yearDay = "";
+	for (int i = 0; i < n; i++)
+	{
+		if (data[i] != ' ')
+		{
+			data[pos++] = data[i];
+		}
+	}//delete space
+	n = pos;
+	pos = 0;
+	//read /
+	while (pos < n && isdigit(data[pos]))
+	{
+		testDay += data[pos++];
+	}
+	pos++;
+	while (pos < n && isdigit(data[pos]))
+	{
+		monthDay += data[pos++];
+	}
+	while (pos < n) {
+		yearDay += data[pos++];
+	}
+	if (testDay.length() == 1)
+	{
+		testDay = "0" + testDay;
+	}
+	if (monthDay.length() == 1)
+	{
+		monthDay = "0" + monthDay;
+	}
+	data = testDay + "/" + monthDay + "/" + yearDay;
+	int len = data.length();
+	if (len != 10)
+	{
+		return false;
+	}
+	std::string stringDate = data.substr(0, 2);
+	std::string stringMonth = data.substr(3, 2);
+	std::string stringYear = data.substr(6, 4);
+	int day = std::stoi(stringDate);
+	int month = std::stoi(stringMonth);
+	int year = std::stoi(stringYear);
+
+	if (month != 2)
+	{
+		if (month >= 8)
+		{
+			if (month % 2 == 0)
+			{
+				return day >= 1 && day <= 31;
+			}
+			else {
+				return day >= 1 && day <= 30;
+			}
+		}
+		else {
+			if (month % 2 == 0)
+			{
+				return day >= 1 && day <= 30;
+			}
+			else {
+				return day >= 1 && day <= 31;
+			}
+		}
+	}
+	else {
+		if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0))
+		{
+			return day >= 1 && day <= 29;
+		}
+		else {
+			return day >= 1 && day <= 28;
+		}
+	}
+}
+
+//Insert data from path!
+int Class :: insert_data_Class_from_path(Static* a, std::string path_keyboard) {
+	student* newStudent = NULL;
+	std::ifstream fIn;
+	fIn.open(path_keyboard);
+	if (!fIn.is_open()) {
+		std::cout << "Error! Enter file again!";
+		return 0;
+	}
+	std::string x;
+	student* cur = newStudent;
+	std::string tmp = "";
+	//delete title
+	std::getline(fIn, tmp, ',');
+	std::getline(fIn, tmp, ',');
+	std::getline(fIn, tmp, ',');
+	std::getline(fIn, tmp, ',');
+	std::getline(fIn, tmp, ',');
+	while (std::getline(fIn, x, ',')) {
+		// Allocate memory for a new node
+		student* newNode = new student;
+		newNode->No = std::stoi(x);
+
+		// Read student information
+		std::getline(fIn, newNode->socialID, ',');
+		std::getline(fIn, newNode->firstName, ',');
+		std::getline(fIn, newNode->lastName, ',');
+		std::getline(fIn, newNode->gender, ',');
+		std::string tmpDay = "";
+		std::string tmpMonth = "";
+		std::string tmpYear = "";
+		std::getline(fIn, tmpDay, '/');
+		newNode->dateOfBirth.d = stoi(tmpDay);
+		std::getline(fIn, tmpMonth, '/');
+		newNode->dateOfBirth.m = stoi(tmpMonth);
+		std::getline(fIn, tmpYear, ',');
+		newNode->dateOfBirth.y = std::stoi(tmpYear);
+		std::getline(fIn, newNode->socialID, '\n');
+		newNode->pNext = nullptr;
+
+		// Update the linked list
+		if (!cur) {
+			newStudent = new student;
+			cur = newStudent;
+		}
+		else {
+			cur->pNext = new student;
+			cur = cur->pNext;
+		}
+		cur = newNode;
+	}
+	fIn.close();
+
+	loadStudents(a);
+	student * tmpStudent = a->curClass->pHeadListStudents;
+	if (tmpStudent == NULL) {
+		a->curClass->pHeadListStudents = newStudent;
+		return 1;
+	}
+	while (tmpStudent->pNext) {
+		tmpStudent = tmpStudent->pNext;
+	}
+	tmpStudent->pNext = newStudent;
+	print_csv(a->curClass->pHeadListStudents, a->curClass->name);
+	return 1;
+}
+
+//void Class::print_Student_profile_in_class_files(student* pHeads, std::ofstream& fOut) { // can replace by frame
+//	//to print student outside files
+//	while (pHeads) {
+//		fOut << pHeads->No << ";" << pHeads->studentID << ";" << pHeads->firstName << ";" << pHeads->lastName << ";";
+//
+//		fOut << pHeads->gender << ";" << pHeads->dateOfBirth.d << "/" << pHeads->dateOfBirth.m << "/" << pHeads->dateOfBirth.y << pHeads->socialID << "\n";
+//		pHeads = pHeads->pNext;
+//	}
+//}
+//Not finished!
+//void Class::export_File(std::string name_Class, std::string path)
+//{
+//	std::ofstream fOut;
+//	fOut.open("../Database/Class/" + path + ".csv"); //can insert link folder
+//	if (!fOut.is_open()) {
+//		std::cout << "Error! Open file isn't successfull!";
+//		return;
+//	}
+//	Class* cur = pHeadListClasses;
+//	if (!cur) return;
+//	while (cur) {
+//		if (cur->name == name_Class) {
+//			print_Student_profile_in_class_files(cur->pHeadListStudents, fOut);
+//			break;
+//		}
+//		cur = cur->pNext;
+//	}
+//	fOut.close();
+//}
 // sort file name follow name in data, all.txt;
 void Class::Sort_Class(Class* new_Class) {
 	if (!pHeadListClasses) {

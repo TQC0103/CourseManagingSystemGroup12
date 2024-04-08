@@ -38,7 +38,17 @@ struct Course
 
 	//construstor
 	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session);
-	Course();
+	Course()
+	{
+		ID = "";
+		Name = "";
+		className = "";
+		Lecturer = "";
+		Credit = 0;
+		maxStudent = 0;
+		weekDay = "";
+		Session = "";
+	}
 
 	//ponter to student score 
 	studentScore* pHeadScore = nullptr;
