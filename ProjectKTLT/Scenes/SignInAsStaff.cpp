@@ -201,9 +201,11 @@ bool SignInAsStaffScene::checkAccount()
 	{
 		return false;
 	}
+	std::string username = "";
 	std::string password = "";
+	std::getline(fIn, username);
 	std::getline(fIn, password);
-	if (password == passwordStaffInput)
+	if (username == usernameStaffInput && password == passwordStaffInput)
 		return true;
 	return false;
 }

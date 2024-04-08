@@ -9,6 +9,7 @@
 
 // Functions
 int main() {
+	
     Scene *scene = new Scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)scene->a->width, (unsigned int)scene->a->height), "CourseManagingSystem");
 
@@ -120,6 +121,11 @@ int main() {
                 scene->createsemester->renderCreateSemester(event, scene, window);
                 break;
             }
+            case programState::AddStudentClassManually:
+            {
+                scene->addstudentclassmanually->renderAddManually(event, scene, window);
+                break;
+            }
             default:
                 break;
             }
@@ -228,6 +234,11 @@ int main() {
             case programState::CreateSemester:
             {
                 scene->createsemester->drawCreateSemester(window, scene->a);
+                break;
+            }
+            case programState::AddStudentClassManually:
+            {
+                scene->addstudentclassmanually->drawAddMunually(window, scene->a);
                 break;
             }
             default:

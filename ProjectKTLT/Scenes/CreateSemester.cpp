@@ -16,8 +16,8 @@ CreateSemesterScene::CreateSemesterScene(Static* a)
 	createABox(startDay, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 475.0f));
 	createText(startDayText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, startDay.getPosition().y);
 	createABox(endDay, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 800.0f));
-	createText(enterEndDayHere, a->fontI, sf::Color::White, "ENTER START DAY HERE", 40, a->width / 2.0f, 800.0f);
-	createText(enterStartDayHere, a->fontI, sf::Color::White, "ENTER END DAY HERE", 40, a->width / 2.0f, 475.0f);
+	createText(enterEndDayHere, a->fontI, sf::Color::White, "ENTER START DAY HERE", 40, a->width / 2.0f, 475.0f);
+	createText(enterStartDayHere, a->fontI, sf::Color::White, "ENTER END DAY HERE", 40, a->width / 2.0f, 800.0f);
 	createText(endDayText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, endDay.getPosition().y);
 	
 }
@@ -65,7 +65,9 @@ void CreateSemesterScene::drawCreateSemester(sf::RenderWindow& win, Static* a)
 	}
 	if (isWrong == 2)
 	{
-		createText(successful, a->fontB, sf::Color::Green, "Create " + semesterData + " successfully", 50, a->width / 2.0f, 1000.0f);
+		std::string data = semesterData + semesterData[semesterData.size() - 1];
+		data[data.size() - 2] = ' ';
+		createText(successful, a->fontB, sf::Color::Green, "Create " + data + " successfully", 50, a->width / 2.0f, 1000.0f);
 		win.draw(successful);
 	}
 	if (isWrong == 3)
@@ -128,11 +130,12 @@ void CreateSemesterScene::renderCreateSemester(sf::Event event, Scene* scene, sf
 			}
 			else if (create.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 0)
+				int check = year->addSemester(semesterData, startDayInput, endDayInput, scene->a);
+				if (check == 0)
 				{
 					isWrong = 1;
 				}
-				else if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 2)
+				else if (check == 2)
 				{
 					isWrong = 3;
 				}
@@ -157,11 +160,12 @@ void CreateSemesterScene::renderCreateSemester(sf::Event event, Scene* scene, sf
 		}
 		else if ((endDayInputEnable == true && event.text.unicode == 13) || (endDayInputEnable == false && startDayInputEnable == false))
 		{
-			if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 0)
+			int check = year->addSemester(semesterData, startDayInput, endDayInput, scene->a);
+			if (check == 0)
 			{
 				isWrong = 1;
 			}
-			else if (year->addSemester(semesterData, startDayInput, endDayInput, scene->a) == 2)
+			else if (check == 2)
 			{
 				isWrong = 3;
 			}

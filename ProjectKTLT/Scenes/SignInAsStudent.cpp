@@ -203,10 +203,11 @@ bool SignInAsStudentScene::checkAccount()
 	{
 		return false;
 	}
+	std::string username = "";
 	std::string password = "";
+	std::getline(fIn, username);
 	std::getline(fIn, password);
-	if (password == passwordStudentInput)
+	if (username == usernameStudentInput && password == passwordStudentInput)
 		return true;
 	return false;
-
 }

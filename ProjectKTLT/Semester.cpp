@@ -35,14 +35,14 @@ int semester::loadCourse(Static* a)
 		getline(fin, tmpCourseName);
 		if (!pHeadCourse)
 		{
-			//pHeadCourse = new Course; // fix this after having constructor Course
+			pHeadCourse = new Course; // fix this after having constructor Course
 			cur = pHeadCourse;
 			cur->ID = tmpCourseID;
 			cur->Name = tmpCourseName;
 			n++;
 		}
 		else {
-			//cur->pNext = new Course; // fix this after havving constructor Course
+			cur->pNext = new Course; // fix this after havving constructor Course
 			cur = cur->pNext;
 			cur->ID = tmpCourseID;
 			cur->Name = tmpCourseName;

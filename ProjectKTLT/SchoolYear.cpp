@@ -255,33 +255,35 @@ bool schoolYear::addSchoolYear() {
 //}
 
 void schoolYear::loadSemester(std::string& year) {
+
 	std::ifstream fin("../Database/SchoolYear/" + year + "/AllSemester.txt");
 	if (!fin.is_open()) {
-		std::cerr << "Error: File not found" << std::endl;
+		std::cout << "Error: File not found" << std::endl;
 		return;
 	}
-
-	if (!pHeadSemester) {
-		pHeadSemester = new semester();
-	}
+	std::string data;
+	std::string startDate;
+	std::string endDate;
 
 	semester* cur = pHeadSemester;
-	std::string data = "";
-	while (getline(fin, data)) {
-		cur->semesterData = data;
-		getline(fin, cur->startDate, ';');
-		getline(fin, cur->endDate);
 
-		if (!fin.eof()) {
-			cur->pNext = new semester;
+	while (getline(fin, data)) {
+		getline(fin, startDate, ';');
+		getline(fin, endDate);
+		if (!pHeadSemester) {
+			pHeadSemester = new semester(data, startDate, endDate);
+			cur = pHeadSemester;
+		}
+		else {
+			cur->pNext = new semester(data, startDate, endDate);
 			cur = cur->pNext;
 		}
 	}
-	if (data == "")
-	{
-		delete pHeadSemester;
-		pHeadSemester = nullptr;
-	}
+	if (cur == nullptr)
+		return;
+	cur->pNext = nullptr;
+
+
 	fin.close();
 }
 
@@ -313,27 +315,35 @@ int schoolYear::addSemester(std::string& data, std::string start, std::string en
 	std::string checkSemester = "";
 	std::string date = "";
 	while (getline(fin, checkSemester)) {
+		
 		getline(fin, date);
+		if (checkSemester.length() != 0)
+		{
+			std::string checkNumber = checkSemester.substr(8, 1);
+			int number = std::stoi(checkNumber);
+			number++;
+			if (number > 3)
+			{
+				fin.close();
+				return 2;
+
+			}
+			data = "Semester" + std::to_string(number);
+		}
+		
 	}
-	if (checkSemester == "")
+	fin.close();
+	std::ofstream fout;
+	if (data.length() == 0)
 	{
 		data = "Semester1";
+		fout.open("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt");
 	}
 	else {
-		std::string checkNumber = checkSemester.substr(8, 1);
-		int number = std::stoi(checkNumber);
-		number++;
-		if (number > 3)
-		{
-			return 2;
-
-		}
-		data = "Semester" + std::to_string(number);
+		fout.open("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt", std::ios::app);
 	}
-
-
-	fin.close();
-	std::ofstream fout("../Database/SchoolYear/" + (std::string)a->curSchoolYear->year + "/AllSemester.txt", std::ios::app);
+	
+	
 	fout << data << std::endl;
 	fout << start << ";" << end << std::endl;
 	fout.close();
