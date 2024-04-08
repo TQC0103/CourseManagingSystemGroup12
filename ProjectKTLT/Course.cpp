@@ -5,6 +5,7 @@
 #include "date.h"
 #include <string>
 #include <fstream>
+#include <sstream>
 
 
 // check if it is valid day (not sunday)
@@ -145,34 +146,35 @@ int Course::loadStudentInTheCourse()
 {
     int n = 0;
     std::ifstream fIn;
-    std::string path = "../Database/Class/" + className + "/Students/" + className + ".csv";
+    std::string path = "../Database/SchoolYear/" + className + "/Students/" + className + ".csv";
     fIn.open(path);
 
     if (fIn.is_open())
     {
-        std::string redundant;
-        getline(fIn, redundant);
+        std::string line;
+        getline(fIn, line); // Skip the headline
 
-        while (!fIn.eof())
+        while (getline(fIn, line))
         {
-            int No;
-            std::string studentID, firstName, lastName, gender, socialID;
-            fIn >> No;
-            getline(fIn, studentID, ',');
-            getline(fIn, firstName, ',');
-            getline(fIn, lastName, ',');
-            getline(fIn, gender, ',');
-            getline(fIn, socialID);
+            std::string No, studentID, firstName, lastName, gender, socialID;
+            std::stringstream s(line);
+            getline(s, No, ',');
+            getline(s, studentID, ',');
+            getline(s, firstName, ',');
+            getline(s, lastName, ',');
+            getline(s, gender, ',');
+            getline(s, socialID);
 
+            int StudentNo = std::stoi(No);
             if (!pHeadStudent)
             {
-                pHeadStudent = new student(No, studentID, firstName, lastName, gender, socialID);
+                pHeadStudent = new student(StudentNo, studentID, firstName, lastName, gender, socialID);
                 pTailStudent = pHeadStudent;
                 n++;
             }
             else
             {
-                pTailStudent->pNext = new student(No, studentID, firstName, lastName, gender, socialID);
+                pTailStudent->pNext = new student(StudentNo, studentID, firstName, lastName, gender, socialID);
                 pTailStudent = pTailStudent->pNext;
                 n++;
             }
@@ -187,6 +189,7 @@ int Course::loadStudentInTheCourse()
     fIn.close();
     return n;
 }
+
 
 // Option to add student
 int Course::addStudentOptions()
@@ -236,8 +239,8 @@ bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::stri
         {
             std::stringstream s(line);
             std::string checkID;
-            getline(s, checkID, '\t');
-            getline(s, checkID, '\t');
+            getline(s, checkID, ',');
+            getline(s, checkID, ',');
 
             if (checkID == ID)
             {
@@ -269,5 +272,4 @@ bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::stri
 
 bool Course::deleteStudent(std::string ID)
 {
-    for (int i = 0)
 }

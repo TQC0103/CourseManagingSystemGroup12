@@ -38,9 +38,8 @@ struct Course
 
 	//construstor
 	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session);
-	Course()
-	{
-	}
+	Course();
+
 	//ponter to student score 
 	studentScore* pHeadScore = nullptr;
 
@@ -56,7 +55,7 @@ struct Course
 	int addStudentOptions();
 	//done 1/2 
 	bool addStudent(Static* a, int choice, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID);
-	bool deleteStudent(); 
+	bool deleteStudent(std::string ID); 
 	void showStudent();
 	void showInfo();
 	void deleteStudentCourseList();
