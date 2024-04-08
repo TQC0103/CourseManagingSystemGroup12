@@ -266,3 +266,8 @@ bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::stri
     }
 }
 
+
+bool Course::deleteStudent(std::string ID)
+{
+    for (int i = 0)
+}
