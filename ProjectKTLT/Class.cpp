@@ -104,26 +104,37 @@ bool Class::find_Class_of_Student(Static* a) // find class of student
 
 //Not data to update pHeadListCLass
 bool Class::isInvalid(std::string nameClass) {
-	Class* tmp = pHeadListClasses;
+	Class* tmpHead = new Class();
+	int num = tmpHead->load_classes();
+	Class* tmp = tmpHead->pHeadListClasses;
 	while (tmp) {
 		if (tmp->name == nameClass) {
+			delete tmpHead;
 			return true;
 		}
 	}
+	delete tmpHead;
 	return false;
 }
 //create new Class Not to update data.
-void Class::creat_new_Class(std::string nameClass) {
-	if (!isInvalid(nameClass)) std::cout << "Error! The name Class is exist!\n";
+bool Class::creat_new_Class(std::string nameClass) {
+	if (isInvalid(nameClass) == true)
+	{
+		std::cout << "Error! The name Class is exist!\n";
+		return false;
+	}
 	int result = _mkdir(("../Database/Class/" + nameClass).c_str());
-	std::string name = "Student";
+	std::string name = "Students";
 	
 	if (result != 0) {
 		std::cout << "Error: Unable to create directory" << std::endl;
+		return false;
 	}
+
 	int result_student = _mkdir(("../Database/Class/nameClass/" + name).c_str());
 	if (result_student != 0) {
 		std::cout << "Error: Unable to create directory" << std::endl;
+		return false;
 	}
 	Class* new_Class = new Class;
 	new_Class->name = nameClass;

@@ -29,7 +29,7 @@ struct Class {
 
 	bool find_Class_of_Student(Static* a);
 
-	void creat_new_Class(std::string nameClass);
+	bool creat_new_Class(std::string nameClass);
 
 	void print_txt();
 
