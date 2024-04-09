@@ -219,6 +219,8 @@ int Course::loadStudentInTheCourse()
         return -1;
     }
 
+
+
     fIn.close();
     return n;
 }
@@ -351,15 +353,16 @@ bool Course::exportStudentListToFile(Static* a)
 }
 
 // Add student manually
-bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID)
+bool Course::addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID)
 {
     if (!pHeadStudent)
        loadStudentInTheCourse();
 
-    if (choice == 1)
+    student* tmp = new student(No, ID, FirstName, LastName, Gender, SocialID);
+    if (pHeadStudent)
     {
         std::ifstream fIn;
-        fIn.open("../Database/Class/" + a -> curClass -> name + "/Students/" + a->curClass->name + "csv");
+        fIn.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "classList.csv");
         if (!fIn.is_open())
         {
             std::cerr << "Can't open file" << std::endl;
@@ -384,23 +387,69 @@ bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::stri
             }
         }
         fIn.close();
-       
+
         // Update the linked list
-        student* tmp = new student(No, ID, FirstName, LastName, Gender, SocialID);
         sortStudentList(tmp);
         normingNumberInStudentList();
 
         // Update the csv file
-        exportStudentListToFile(Static * a);
+        exportStudentListToFile(a);
         return true;
+    }
+    else 
+        {
+        //Update the linked list
+        pHeadStudent = tmp;
+        pTailStudent = pHeadStudent;
+
+        // Update the csv file
+        normingNumberInStudentList();
+        exportStudentListToFile(a);
+        return true;
+        }
     }
 
 
-//bool Course::deleteStudent(std::string ID)
-//{
 
-//    
-//    //for (int i = 0;)
-//    //for (int i = 0)
+bool Course::deleteStudent(Static* a, std::string ID)
+{
+    if (!pHeadStudent)
+        loadStudentInTheCourse();
+    if (pHeadStudent)
+    {
+        student* tmp = pHeadStudent;
+        student* prev = nullptr;
 
-//}
+        if (tmp->studentID == ID)
+        {
+            tmp = tmp->pNext;
+            pHeadStudent = tmp;
+            delete prev;
+            return true;
+        }
+
+        while (tmp)
+        {
+            if (tmp->studentID == ID)
+            {
+                prev->pNext = tmp->pNext;
+                delete tmp;
+
+                //Update the database;
+                normingNumberInStudentList();
+                exportStudentListToFile();
+                return true;
+            }
+            prev = tmp;
+            tmp = tmp->pNext;
+        }
+
+        delete tmp;
+        return false;
+    }
+    else
+    {
+        std::cerr << "There is no student to delete" << std::endl;
+        return false;
+    }
+}

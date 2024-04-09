@@ -65,8 +65,8 @@ struct Course
 	void updateCourse(); //done
 	int addStudentOptions();
 	//done
-	bool addStudent(Static* a, int choice, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID); 
-	bool deleteStudent(std::string ID); 
+	bool addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID); 
+	bool deleteStudent(Static* a, std::string ID); 
 	void showStudent();
 	void showInfo();
 	void deleteStudentCourseList();
