@@ -81,7 +81,7 @@ int Class::load_classes() // load data from files
 	}
 	Class* cur = pHeadListClasses;
 	std::string name_class;
-	while (getline(fIn, name_class)) {
+	while (std::getline(fIn, name_class)) {
 		if (pHeadListClasses == nullptr) {
 			pHeadListClasses = new Class;
 			cur = pHeadListClasses;
@@ -129,16 +129,14 @@ int Class::loadStudents(Static* a) {
 
 //Not data to update pHeadListCLass
 bool Class::isInvalid(std::string nameClass) {
-	Class* tmpHead = new Class();
-	int num = tmpHead->load_classes();
-	Class* tmp = tmpHead->pHeadListClasses;
+	Class* tmp = pHeadListClasses;
 	while (tmp) {
 		if (tmp->name == nameClass) {
-			delete tmpHead;
 			return true;
 		}
+		tmp = tmp->pNext;
 	}
-	delete tmpHead;
+	delete tmp;
 	return false;
 }
 //create new Class Not to update data.
@@ -324,7 +322,7 @@ bool Class::checkInputDate(std::string& data)
 		monthDay = "0" + monthDay;
 	}
 	data = testDay + "/" + monthDay + "/" + yearDay;
-	int len = data.length();
+	int len  = data.length();
 	if (len != 10)
 	{
 		return false;
