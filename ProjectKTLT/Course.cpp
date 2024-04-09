@@ -407,10 +407,6 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
 
 
 
-
-
-
-
 bool Course::deleteStudent(Static* a, std::string ID)
 {
     if (!pHeadStudent)
@@ -422,9 +418,8 @@ bool Course::deleteStudent(Static* a, std::string ID)
 
         if (tmp->studentID == ID)
         {
-            tmp = tmp->pNext;
-            pHeadStudent = tmp;
-            delete prev;
+            pHeadStudent = tmp->pNext;
+            delete tmp;
             return true;
         }
 
@@ -434,6 +429,7 @@ bool Course::deleteStudent(Static* a, std::string ID)
             {
                 prev->pNext = tmp->pNext;
                 delete tmp;
+                tmp = nullptr;
 
                 //Update the database;
                 normingNumberInStudentList();
@@ -443,8 +439,6 @@ bool Course::deleteStudent(Static* a, std::string ID)
             prev = tmp;
             tmp = tmp->pNext;
         }
-
-        delete tmp;
         return false;
     }
     else
