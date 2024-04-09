@@ -26,6 +26,7 @@
 #include "ChooseClassCourse.h"
 #include "AddStudentClassFile.h"
 #include "CreateClass.h"
+#include "MenuClassCourse.h"
 struct Scene
 {
 	Static* a = new Static();
@@ -55,6 +56,7 @@ struct Scene
 	ChooseClassCourseScene* chooseclasscourse = nullptr;	
 	AddStudentClassFileScene* addstudentclassfile = nullptr;
 	CreateClassScene* createclass = nullptr;
+	MenuClassCourseScene* menuclasscourse = nullptr;
 	Scene() {
 		a->currentState = programState::Welcome;
 		welcome = new WelcomeScene(a);
@@ -112,6 +114,8 @@ struct Scene
 			delete addstudentclassfile;
 		if (createclass != nullptr)
 			delete createclass;
+		if (menuclasscourse != nullptr)
+			delete menuclasscourse;
 		delete a;
 
 	}

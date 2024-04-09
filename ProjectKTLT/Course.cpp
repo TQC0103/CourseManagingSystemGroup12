@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include "config.h"
 
 
 // check if it is valid day (not sunday)
@@ -291,38 +292,31 @@ void Course::normingNumberInStudentList()
 //   delete tmp;
 //}
 
-//Add a student to a list and sort the list accroding to studentID
 void Course::sortStudentList(student* tmp)
 {
-    student* cur = pHeadStudent;
-    student* prev = nullptr;
-
-    if (tmp->studentID < cur->studentID)
+    // If the list is empty or the new student's ID is less than the head student's ID
+    if (!pHeadStudent || tmp->studentID < pHeadStudent->studentID)
     {
-        tmp->pNext = cur;
+        tmp->pNext = pHeadStudent;
         pHeadStudent = tmp;
-        delete prev;
-        return;
     }
-
-    while (cur)
+    else
     {
-        if (tmp->studentID < cur->studentID)
+        // Locate the node before the point of insertion
+        student* cur = pHeadStudent;
+        while (cur->pNext != nullptr && cur->pNext->studentID < tmp->studentID)
         {
-            tmp->pNext = cur;
-            prev->pNext = tmp;
-            delete cur;
-            delete prev;
-            return;
+            cur = cur->pNext;
         }
-        prev = cur;
-        cur = cur->pNext;
+        tmp->pNext = cur->pNext;
+        cur->pNext = tmp;
+
+        // If the new node is inserted at the end of the list, update the tail pointer
+        if (tmp->pNext == nullptr)
+        {
+            pTailStudent = tmp;
+        }
     }
-
-    pTailStudent->pNext = tmp;
-    pTailStudent = pTailStudent->pNext;
-
-    delete cur;
 }
 
 
@@ -356,7 +350,7 @@ bool Course::exportStudentListToFile(Static* a)
 bool Course::addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID)
 {
     if (!pHeadStudent)
-       loadStudentInTheCourse();
+        loadStudentInTheCourse();
 
     student* tmp = new student(No, ID, FirstName, LastName, Gender, SocialID);
     if (pHeadStudent)
@@ -389,6 +383,7 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
         fIn.close();
 
         // Update the linked list
+
         sortStudentList(tmp);
         normingNumberInStudentList();
 
@@ -396,8 +391,8 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
         exportStudentListToFile(a);
         return true;
     }
-    else 
-        {
+    else
+    {
         //Update the linked list
         pHeadStudent = tmp;
         pTailStudent = pHeadStudent;
@@ -406,8 +401,13 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
         normingNumberInStudentList();
         exportStudentListToFile(a);
         return true;
-        }
     }
+}
+
+
+
+
+
 
 
 
@@ -437,7 +437,7 @@ bool Course::deleteStudent(Static* a, std::string ID)
 
                 //Update the database;
                 normingNumberInStudentList();
-                exportStudentListToFile();
+                exportStudentListToFile(a);
                 return true;
             }
             prev = tmp;

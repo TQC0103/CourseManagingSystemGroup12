@@ -56,6 +56,7 @@ struct Course
 	//pointer to student in course
 	Course* pNext = nullptr;
 	Course* pHeadClasses = nullptr;
+
 	student* pHeadStudent = nullptr;
 	student* pTailStudent = nullptr;
 
