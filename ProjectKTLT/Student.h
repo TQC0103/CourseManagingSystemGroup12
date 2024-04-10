@@ -41,6 +41,7 @@ struct student
         lastName = lastname;
         gender = Gender;
         socialID = socialId;
+        dateOfBirth = {1,1,0};
     }
     //functions 
     void loadStudentProfile(std::string username);

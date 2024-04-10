@@ -5,6 +5,7 @@
 #include "../SchoolYear.h"
 #include "../Semester.h"
 
+
 struct Scene;
 struct CreateSemesterScene
 {
