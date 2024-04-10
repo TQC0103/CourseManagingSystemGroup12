@@ -61,8 +61,8 @@ std::string student::viewStudentProfile()
     return studentProfile;
 }
 
-
-std::string student::getCoursesInformations(Static *a)
+// Hàm này trả về 1 cái string chứ không phải mảng các string tui comment nó để backup thôi 
+/*std::string student::getCoursesInformations(Static* a)
 {   
     std::string listCourse;
     listCourse += "Your Courses In This Semester : \n";
@@ -91,8 +91,7 @@ std::string student::getCoursesInformations(Static *a)
     file.close();
    
     return listCourse;
-}
-
+}*/
 
 
 std::string* student::loadNumberOfCourses(Static* a)
@@ -177,4 +176,62 @@ std::string** student::getAllCoursesInformations(Static* a)
     delete[] listOfCourses;
 
     return res;
+}
+
+
+std::string** getStudentScoreBoard(Static* a, std::string username)
+{
+    semester* tmp = new semester;
+    int n = tmp->specifyCourseForStudent(a);
+    // Cấp phát bộ nhớ cho mảng hai chiều
+    std::string** res = new std::string * [n];
+    for (int i = 0; i < n; i++)
+    {
+        res[i] = new std::string[9];
+    }
+
+    // Nhận danh sách các khóa học mà sinh viên đã đăng ký
+    student* myStudent = new student;
+    std::string* listOfCourses = myStudent->loadNumberOfCourses(a);
+    if (listOfCourses == nullptr) {
+        // Nếu danh sách khóa học rỗng, giải phóng bộ nhớ và trả về nullptr
+        for (int i = 0; i < n; ++i) {
+            delete[] res[i];
+        }
+        delete[] res;
+        return nullptr;
+    }
+    // Đọc điểm của mỗi môn
+    for (int i = 0; i < n; i++)
+    {
+        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSchoolYear->pHeadSemester->semesterData + "/" + listOfCourses[i] + "/" + curClass + "/scoreboard.csv");
+        std::string line;
+        //Bỏ qua dòng header
+        std::getline(fIn, line);
+        for (int j = 0; j < 9; j++)
+        while (std::getline(fIn, line))
+        {
+            std::istringstream iss(line);
+            std::string ignore, studentID;
+            std::getline(iss, ignore, ',');
+            std::getline(iss, studentID, ',');
+            if (studentID != username) continue;
+            res[i][0] = listOfCourses[i];
+            for (int j = 1; j < 9; i++)
+            {
+                std::getline(iss, res[i][j], ',');
+            }
+            fIn.close();
+        }
+        fIn.close();
+
+
+        // Giải phóng bộ nhớ của danh sách khóa học
+        delete[] listOfCourses;
+
+        return res;
+    }
+
+
+
 }
