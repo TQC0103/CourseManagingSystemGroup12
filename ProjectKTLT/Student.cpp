@@ -232,6 +232,22 @@ std::string** getStudentScoreBoard(Static* a, std::string username)
         return res;
     }
 
-
-
 }
+
+
+void deallocateListOfCourses(std::string* listOfCourses) 
+{
+    delete[] listOfCourses;
+}
+
+
+void deallocateCourseInformation(std::string** coursesInfo, int n) {
+    // Giải phóng từng hàng của mảng hai chiều
+    for (int i = 0; i < n; ++i) {
+        delete[] coursesInfo[i];
+    }
+    // Giải phóng mảng chứa con trỏ đến hàng
+    delete[] coursesInfo;
+}
+
+
