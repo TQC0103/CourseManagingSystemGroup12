@@ -103,6 +103,7 @@ std::string* student::loadNumberOfCourses(Static* a)
     if (!file.is_open())
     {
         std::cout << "Unable to open file! \n";
+        delete tmp;
         return nullptr;
     }
     int index = 0;
@@ -110,6 +111,12 @@ std::string* student::loadNumberOfCourses(Static* a)
     while (std::getline(file, courseName))
     {
         std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSchoolYear->pHeadSemester->semesterData + "/" + courseName + "Classes.txt");
+        if (!fIn.is_open())
+        {
+            std::cout << "Unable to open file! \n";
+            delete tmp;
+            return nullptr;
+        }
         std::string className;
         while (std::getline(fIn, className))
         {
@@ -132,10 +139,13 @@ std::string* student::loadNumberOfCourses(Static* a)
     file.close(); // Đóng tệp
     if (index == 0) {
         delete[] listOfCourses; // Xóa mảng nếu không có phần tử nào được gán giá trị
+        delete tmp;
         return nullptr;
     }
+    delete tmp;
     return listOfCourses;
 }
+
 
 std::string** student::getAllCoursesInformations(Static* a)
 {
@@ -164,7 +174,7 @@ std::string** student::getAllCoursesInformations(Static* a)
     // Đọc thông tin từ tệp cho mỗi khóa học
     for (int i = 0; i < n; i++)
     {
-        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSchoolYear->pHeadSemester->semesterData + "/" + listOfCourses[i] + "/" + curClass + "/information.txt");
+        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + listOfCourses[i] + "/" + curClass + "/information.txt");
         for (int j = 0; j < 8; j++)
         {
             std::getline(fIn, res[i][j], '\n');

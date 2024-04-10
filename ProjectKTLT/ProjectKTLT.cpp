@@ -156,6 +156,21 @@ int main() {
                 scene->menuclasscourse->renderMenuClassCourse(event, scene, window);
                 break;
             }
+            case programState::CourseManageScoreBoard:
+            {
+				scene->coursemanagescoreboard->renderCourseManageScoreBoard(event, scene, window);
+				break;
+			}
+            case programState::CourseManageStudent:
+            {
+                scene->coursemanagestudent->renderCourseManageStudent(event, scene, window);
+                break;
+            }
+            case programState::AddStudentCourse:
+            {
+				scene->addstudenttocourse->renderAddStudentToCourse(event, scene, window);
+				break;
+			}
             default:
                 break;
             }
@@ -299,6 +314,21 @@ int main() {
             case programState::MenuClassCourse:
             {
 				scene->menuclasscourse->drawMenuClassCourse(window, scene->a);
+				break;
+			}
+            case programState::CourseManageScoreBoard:
+            {
+				scene->coursemanagescoreboard->drawCourseManageScoreBoard(window, scene->a);
+				break;
+			}
+            case programState::CourseManageStudent:
+            {
+				scene->coursemanagestudent->drawCourseManageStudent(window, scene->a);
+				break;
+			}
+            case programState::AddStudentCourse:
+            {
+				scene->addstudenttocourse->drawAddStudentToCourse(window, scene->a);
 				break;
 			}
             default:

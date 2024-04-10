@@ -4,7 +4,7 @@
 MenuCourseScene::MenuCourseScene(Static* a)
 {
 	createABox(menuCourseBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-	createText(title, a->fontB, a->textColorBlue, "Menu Class Course", 80, (float)a->width / 2.0f, 75.0f);
+	createText(title, a->fontB, a->textColorBlue, "Menu Course", 80, (float)a->width / 2.0f, 75.0f);
 	createText(menuCourseText, a->fontB, a->textColorBlue,a->curCourse->Name, 80, (float)a->width / 2.0f, 200.0f);
 	createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Re-select", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createCornerRoundedButton(addC, addCText, sf::Vector2f(600.0f, 200.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "Add a class course", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f - 150.0f)), 2.0f, sf::Color::Black);

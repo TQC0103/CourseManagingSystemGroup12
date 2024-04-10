@@ -1,0 +1,115 @@
+#include "CourseManageScoreBoard.h"
+#include "Scene.h"
+#include "SFML/Graphics.hpp"
+
+CourseManageScoreBoardScene::CourseManageScoreBoardScene(Static* a)
+{
+	createText(title, a->fontB, a->textColorBlue, a->curCourse->Name + " - " + a->curCourse->className, 80, a->width / 2.0f, 200.0f);
+	createABox(courseManageScoreBoardBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
+	createText(courseManageScoreBoardText, a->fontB, a->textColorBlue, "Manage Scoreboard", 80, (float)a->width / 2.0f, 75.0f);
+	createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(exportListStudent, exportListStudentText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Export file list of students", sf::Vector2f(a->width / 2.0f - 400.0f, 750.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(importScoreBoard, importScoreBoardText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Import scoreboard file", sf::Vector2f(a->width / 2.0f - 400.0f, 450.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(viewCourseScoreBoard, viewCourseScoreBoardText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "View course scoreboard", sf::Vector2f(a->width / 2.0f + 400.0f, 450.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(update1StuRes, update1StuResText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Update a student result", sf::Vector2f(a->width / 2.0f + 400.0f, 750.0f), 2.0f, sf::Color::Black);
+}
+
+void CourseManageScoreBoardScene::drawCourseManageScoreBoard(sf::RenderWindow& window, Static* a)
+{
+	window.draw(courseManageScoreBoardBackground);
+	window.draw(courseManageScoreBoardText);
+	window.draw(preButton);
+	window.draw(preText);
+	window.draw(exportListStudent);
+	window.draw(exportListStudentText);
+	window.draw(importScoreBoard);
+	window.draw(importScoreBoardText);
+	window.draw(viewCourseScoreBoard);
+	window.draw(viewCourseScoreBoardText);
+	window.draw(update1StuRes);
+	window.draw(update1StuResText);
+	window.draw(title);
+}
+
+void CourseManageScoreBoardScene::renderCourseManageScoreBoard(sf::Event event, Scene* scene, sf::RenderWindow& win)
+{
+	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
+	if (scene->a->currentState == programState::CourseManageScoreBoard)
+	{
+		if (preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			preButton.setFillColor(scene->a->pastelTitleCyan);
+			preText.setFillColor(scene->a->titleGreyColor);
+		}
+		else if (exportListStudent.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			exportListStudent.setFillColor(scene->a->pastelTitleCyan);
+			exportListStudentText.setFillColor(scene->a->titleGreyColor);
+		}
+		else if (importScoreBoard.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			importScoreBoard.setFillColor(scene->a->pastelTitleCyan);
+			importScoreBoardText.setFillColor(scene->a->titleGreyColor);
+		}
+		else if (viewCourseScoreBoard.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			viewCourseScoreBoard.setFillColor(scene->a->pastelTitleCyan);
+			viewCourseScoreBoardText.setFillColor(scene->a->titleGreyColor);
+		}
+		else if (update1StuRes.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+		{
+			update1StuRes.setFillColor(scene->a->pastelTitleCyan);
+			update1StuResText.setFillColor(scene->a->titleGreyColor);
+		}
+		else {
+			preButton.setFillColor(scene->a->highlightCyan);
+			preText.setFillColor(sf::Color::White);
+			exportListStudent.setFillColor(scene->a->highlightCyan);
+			exportListStudentText.setFillColor(sf::Color::White);
+			importScoreBoard.setFillColor(scene->a->highlightCyan);
+			importScoreBoardText.setFillColor(sf::Color::White);
+			viewCourseScoreBoard.setFillColor(scene->a->highlightCyan);
+			viewCourseScoreBoardText.setFillColor(sf::Color::White);
+			update1StuRes.setFillColor(scene->a->highlightCyan);
+			update1StuResText.setFillColor(sf::Color::White);
+		}
+	}
+
+	
+	if (event.type == sf::Event::MouseButtonPressed)
+	{
+		if (event.mouseButton.button == sf::Mouse::Left)
+		{
+			if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				delete scene->coursemanagescoreboard;
+				scene->coursemanagescoreboard = nullptr;
+				if (scene->menuclasscourse == nullptr)
+					scene->menuclasscourse = new MenuClassCourseScene(scene->a);
+				scene->a->currentState = programState::MenuClassCourse;
+			}
+			else if (exportListStudent.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				//export file list of students
+			}
+			else if (importScoreBoard.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				//import scoreboard file
+			}
+			else if (viewCourseScoreBoard.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				//view course scoreboard
+			}
+			else if (update1StuRes.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				//update a student result
+			}
+			
+
+
+		}
+	}
+
+
+
+}

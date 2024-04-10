@@ -109,6 +109,15 @@
     <ClCompile Include="Scenes\MenuClassCourse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\CourseManageScoreBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\CourseManageStudent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\AddStudentToCourse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenes\ChangePassStaff.h">
@@ -217,6 +226,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\MenuClassCourse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\CourseManageScoreBoard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\CourseManageStudent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\AddStudentToCourse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
