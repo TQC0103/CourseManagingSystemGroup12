@@ -189,7 +189,7 @@ std::string** student::getAllCoursesInformations(Static* a)
 }
 
 
-std::string** getStudentScoreBoard(Static* a, std::string username)
+std::string** student::getStudentScoreBoard(Static* a, std::string username)
 {
     semester* tmp = new semester;
     int n = tmp->specifyCourseForStudent(a);
@@ -227,7 +227,7 @@ std::string** getStudentScoreBoard(Static* a, std::string username)
             std::getline(iss, studentID, ',');
             if (studentID != username) continue;
             res[i][0] = listOfCourses[i];
-            for (int j = 1; j < 9; i++)
+            for (int j = 1; j < 9; j++)
             {
                 std::getline(iss, res[i][j], ',');
             }
@@ -242,6 +242,22 @@ std::string** getStudentScoreBoard(Static* a, std::string username)
         return res;
     }
 
-
-
 }
+
+
+void student::deallocateListOfCourses(std::string* listOfCourses) 
+{
+    delete[] listOfCourses;
+}
+
+
+void student::deallocateCourseInformation(std::string** coursesInfo, int n) {
+    // Giải phóng từng hàng của mảng hai chiều
+    for (int i = 0; i < n; ++i) {
+        delete[] coursesInfo[i];
+    }
+    // Giải phóng mảng chứa con trỏ đến hàng
+    delete[] coursesInfo;
+}
+
+
