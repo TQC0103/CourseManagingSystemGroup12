@@ -74,7 +74,7 @@ std::string student::getCoursesInformations(Static *a)
     std::string courseName;
     while(std::getline(file, courseName))
     {
-        std::ifstream fIn("../Database/SchoolYear/"+ a->curSchoolYear->year +"/"+ a->curSchoolYear->pHeadSemester->semesterData +"/" + courseName + "/Informations.txt");
+        std::ifstream fIn("../Database/SchoolYear/"+ a->curSchoolYear->year +"/"+ a->curSemester->semesterData +"/" + courseName + "/Informations.txt");
         std::string courseInformations;
         if(std::getline(fIn, courseInformations))
         {

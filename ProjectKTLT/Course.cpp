@@ -300,7 +300,30 @@ bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::stri
 }
 
 
-bool Course::deleteStudent(std::string ID)
+Course::~Course()
 {
-    for (int i = 0)
+    studentScore* curScore = pHeadScore;
+    while (curScore)
+    {
+		studentScore* tmp = curScore;
+		curScore = curScore->pNext;
+		delete tmp;
+	}
+    student* cur = pHeadStudent;
+    while (cur)
+    {
+		student* tmp = cur;
+		cur = cur->pNext;
+		delete tmp;
+	}
+	pHeadStudent = nullptr;
+
+	Course* curCourse = pHeadClasses;
+    while (curCourse)
+    {
+		Course* tmp = curCourse;
+		curCourse = curCourse->pNext;
+		delete tmp;
+	}
+	pHeadClasses = nullptr;
 }

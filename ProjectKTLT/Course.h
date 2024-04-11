@@ -78,7 +78,7 @@ struct Course
 	int loadClassesInCourse(Static* a);
 	int loadStudentInTheCourse();
 	int getAllStudent();
-
+	~Course();
 };
 
 
