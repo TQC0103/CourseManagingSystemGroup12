@@ -5,6 +5,8 @@
 #include "date.h"
 #include <string>
 #include <fstream>
+#include <sstream>
+#include "config.h"
 
 
 // check if it is valid day (not sunday)
@@ -178,34 +180,35 @@ int Course::loadStudentInTheCourse()
 {
     int n = 0;
     std::ifstream fIn;
-    std::string path = "../Database/Class/" + className + "/Students/" + className + ".csv";
+    std::string path = "../Database/SchoolYear/" + className + "/Students/" + className + ".csv";
     fIn.open(path);
 
     if (fIn.is_open())
     {
-        std::string redundant;
-        getline(fIn, redundant);
+        std::string line;
+        getline(fIn, line); // Skip the headline
 
-        while (!fIn.eof())
+        while (getline(fIn, line))
         {
-            int No;
-            std::string studentID, firstName, lastName, gender, socialID;
-            fIn >> No;
-            getline(fIn, studentID, ',');
-            getline(fIn, firstName, ',');
-            getline(fIn, lastName, ',');
-            getline(fIn, gender, ',');
-            getline(fIn, socialID);
+            std::string No, studentID, firstName, lastName, gender, socialID;
+            std::stringstream s(line);
+            getline(s, No, ',');
+            getline(s, studentID, ',');
+            getline(s, firstName, ',');
+            getline(s, lastName, ',');
+            getline(s, gender, ',');
+            getline(s, socialID);
 
+            int StudentNo = std::stoi(No);
             if (!pHeadStudent)
             {
-                pHeadStudent = new student(No, studentID, firstName, lastName, gender, socialID);
+                pHeadStudent = new student(StudentNo, studentID, firstName, lastName, gender, socialID);
                 pTailStudent = pHeadStudent;
                 n++;
             }
             else
             {
-                pTailStudent->pNext = new student(No, studentID, firstName, lastName, gender, socialID);
+                pTailStudent->pNext = new student(StudentNo, studentID, firstName, lastName, gender, socialID);
                 pTailStudent = pTailStudent->pNext;
                 n++;
             }
@@ -217,9 +220,12 @@ int Course::loadStudentInTheCourse()
         return -1;
     }
 
+
+
     fIn.close();
     return n;
 }
+
 
 // Option to add student
 int Course::addStudentOptions()
@@ -248,82 +254,196 @@ int Course::addStudentOptions()
     return stoi(choice);
 }
 
-// Add student manually
-bool Course::addStudent(Static* a, int choice, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID)
+void Course::normingNumberInStudentList()
 {
-    if (choice == 1)
+    student* tmp = pHeadStudent;
+
+    int i = 1;
+    while(tmp)
+    {
+        tmp->No = i;
+        tmp = tmp->pNext;
+        i++;
+    }
+
+    delete tmp;
+
+}
+// Delete the last student in the linked list
+//void Course::deleteStudentAfterSort(student* prev)
+//{
+//    student* cur = prev->pNext;
+//   while (cur && cur->pNext)
+//   {
+//        prev = cur;
+//        cur = cur->pNext;
+//   }
+//    prev->pNext = nullptr;
+//    pTailStudent = prev;
+//    student* tmp = pHeadStudent;
+//
+//    for (int i = 1; tmp; i++)
+//   {
+//        tmp->No = i;
+//       tmp = tmp->pNext;
+//    }
+//
+//    delete cur;
+//   delete tmp;
+//}
+
+void Course::sortStudentList(student* tmp)
+{
+    // If the list is empty or the new student's ID is less than the head student's ID
+    if (!pHeadStudent || tmp->studentID < pHeadStudent->studentID)
+    {
+        tmp->pNext = pHeadStudent;
+        pHeadStudent = tmp;
+    }
+    else
+    {
+        // Locate the node before the point of insertion
+        student* cur = pHeadStudent;
+        while (cur->pNext != nullptr && cur->pNext->studentID < tmp->studentID)
+        {
+            cur = cur->pNext;
+        }
+        tmp->pNext = cur->pNext;
+        cur->pNext = tmp;
+
+        // If the new node is inserted at the end of the list, update the tail pointer
+        if (tmp->pNext == nullptr)
+        {
+            pTailStudent = tmp;
+        }
+    }
+}
+
+
+bool Course::exportStudentListToFile(Static* a)
+{
+    std::ofstream fOut;
+    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "classList.csv");
+    if (!fOut.is_open())
+    {
+        std::cerr << "Can't open file" << std::endl;
+        return false;
+    }
+    else
+    { 
+        fOut << "No,Student - ID,First Name,Last Name,Gender,Social ID" << std::endl;
+        student* cur = pHeadStudent;
+        while (cur)
+        {
+            std::string tmp = std::to_string(cur->No) + "," + cur->studentID + "," + cur->firstName + "," + cur->lastName + "," + cur->gender + "," + cur->socialID;
+            fOut << tmp << std::endl;
+            cur = cur->pNext;
+        }
+        delete cur;
+    }
+
+    fOut.close();
+    return true;
+}
+
+// Add student manually
+bool Course::addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID)
+{
+    if (!pHeadStudent)
+        loadStudentInTheCourse();
+
+    student* tmp = new student(No, ID, FirstName, LastName, Gender, SocialID);
+    if (pHeadStudent)
     {
         std::ifstream fIn;
-        fIn.open("../Database/Class/" + a -> curClass -> name + "/Students/" + a->curClass->name + "csv");
+        fIn.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "classList.csv");
         if (!fIn.is_open())
         {
             std::cerr << "Can't open file" << std::endl;
             return false;
         }
         std::string line;
-        std::string redundant;
 
-        getline(fIn, redundant);
+        getline(fIn, line);
 
         while (getline(fIn, line))
         {
             std::stringstream s(line);
             std::string checkID;
-            getline(s, checkID, '\t');
-            getline(s, checkID, '\t');
+            getline(s, checkID, ',');
+            getline(s, checkID, ',');
 
             if (checkID == ID)
             {
                 std::cerr << "This ID is already exist" << std::endl;
+                fIn.close();
                 return false;
             }
         }
         fIn.close();
 
+        // Update the linked list
+
+        sortStudentList(tmp);
+        normingNumberInStudentList();
+
         // Update the csv file
-        std::fstream fOut;
-        fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "classList.csv", std::ios::app);
-        if (!fOut.is_open())
-        {
-            std::cerr << "Can't open file" << std::endl;
-            return false;
-        }
-        else
-        {
-            std::string tmp = std::to_string(No) + "," + ID + "," + FirstName + "," + LastName + "," + Gender + "," + SocialID;
-            fOut << tmp << std::endl;
-        }
-      
-        fOut.close();
+        exportStudentListToFile(a);
+        return true;
+    }
+    else
+    {
+        //Update the linked list
+        pHeadStudent = tmp;
+        pTailStudent = pHeadStudent;
+
+        // Update the csv file
+        normingNumberInStudentList();
+        exportStudentListToFile(a);
         return true;
     }
 }
 
 
-Course::~Course()
-{
-    studentScore* curScore = pHeadScore;
-    while (curScore)
-    {
-		studentScore* tmp = curScore;
-		curScore = curScore->pNext;
-		delete tmp;
-	}
-    student* cur = pHeadStudent;
-    while (cur)
-    {
-		student* tmp = cur;
-		cur = cur->pNext;
-		delete tmp;
-	}
-	pHeadStudent = nullptr;
 
-	Course* curCourse = pHeadClasses;
-    while (curCourse)
+
+bool Course::deleteStudent(Static* a, std::string ID)
+{
+    if (!pHeadStudent)
+        loadStudentInTheCourse();
+    if (pHeadStudent)
     {
-		Course* tmp = curCourse;
-		curCourse = curCourse->pNext;
-		delete tmp;
-	}
-	pHeadClasses = nullptr;
+        student* tmp = pHeadStudent;
+        student* prev = nullptr;
+
+        if (tmp->studentID == ID)
+        {
+            pHeadStudent = tmp->pNext;
+            delete tmp;
+            return true;
+        }
+
+        while (tmp)
+        {
+            if (tmp->studentID == ID)
+            {
+                prev->pNext = tmp->pNext;
+                delete tmp;
+                tmp = nullptr;
+
+                //Update the database;
+                normingNumberInStudentList();
+                exportStudentListToFile(a);
+                return true;
+            }
+            prev = tmp;
+            tmp = tmp->pNext;
+        }
+        return false;
+    }
+    else
+    {
+        std::cerr << "There is no student to delete" << std::endl;
+        return false;
+    }
 }

@@ -40,13 +40,23 @@ struct Course
 	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session);
 	Course()
 	{
+		ID = "";
+		Name = "";
+		className = "";
+		Lecturer = "";
+		Credit = 0;
+		maxStudent = 0;
+		weekDay = "";
+		Session = "";
 	}
+
 	//ponter to student score 
 	studentScore* pHeadScore = nullptr;
 
 	//pointer to student in course
 	Course* pNext = nullptr;
 	Course* pHeadClasses = nullptr;
+
 	student* pHeadStudent = nullptr;
 	student* pTailStudent = nullptr;
 
@@ -55,9 +65,9 @@ struct Course
 	// Function
 	void updateCourse(); //done
 	int addStudentOptions();
-	//done 1/2 
-	bool addStudent(Static* a, int choice, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID);
-	bool deleteStudent(); 
+	//done
+	bool addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID); 
+	bool deleteStudent(Static* a, std::string ID); 
 	void showStudent();
 	void showInfo();
 	void deleteStudentCourseList();
@@ -75,8 +85,12 @@ struct Course
 	// Supportive function
 	void showingStudentList();
 	void loadDataOfTheCourse(Static *a); //done
-	int loadClassesInCourse(Static* a);
-	int loadStudentInTheCourse();
+	int loadClassesInCourse(Static* a); //done
+	int loadStudentInTheCourse(); //done
+	void sortStudentList(student* a);// done
+	//void deleteStudentAfterSort(student* a); //done
+	void normingNumberInStudentList(); //done
+	bool exportStudentListToFile(Static* a);
 	int getAllStudent();
 	~Course();
 };

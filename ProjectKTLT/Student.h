@@ -41,11 +41,15 @@ struct student
         lastName = lastname;
         gender = Gender;
         socialID = socialId;
+        dateOfBirth = {1,1,0};
     }
     //functions 
     void loadStudentProfile(std::string username);
     std::string viewStudentProfile();
-    //void readStudentScore();
-    std::string getCoursesInformations(Static *a);
+    //std::string getCoursesInformations(Static *a);
     std::string* loadNumberOfCourses(Static* a);
+    std::string** getAllCoursesInformations(Static* a);
+    std::string** getStudentScoreBoard(Static* a, std::string username);
+    void deallocateListOfCourses(std::string* listOfCourses);
+    void deallocateCourseInformation(std::string** coursesInfo, int n);
 };

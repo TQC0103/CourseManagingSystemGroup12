@@ -73,6 +73,14 @@ void AddStudentClassScene::renderAddStudentClass(sf::Event event, Scene* scene, 
                     scene->addstudentclassmanually = new AddStudentClassManuallyScene(scene->a);
                 scene->a->currentState = programState::AddStudentClassManually;
             }
+            else if (addFile.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				delete scene->addstudentclass;
+				scene->addstudentclass = nullptr;
+				if (scene->addstudentclassfile == nullptr)
+					scene->addstudentclassfile = new AddStudentClassFileScene(scene->a);
+				scene->a->currentState = programState::AddStudentClassFile;
+			}
 
 
 
