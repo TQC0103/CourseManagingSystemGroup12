@@ -142,6 +142,7 @@
     <ClCompile Include="Scenes\AddStudentClass.cpp" />
     <ClCompile Include="Scenes\AddStudentClassFile.cpp" />
     <ClCompile Include="Scenes\AddStudentClassManually.cpp" />
+    <ClCompile Include="Scenes\AddStudentCourseFile.cpp" />
     <ClCompile Include="Scenes\AddStudentToCourse.cpp" />
     <ClCompile Include="Scenes\ChangePassStaff.cpp" />
     <ClCompile Include="Scenes\ChangePassStudent.cpp" />
@@ -152,10 +153,12 @@
     <ClCompile Include="Scenes\ChooseSchoolYearStudent.cpp" />
     <ClCompile Include="Scenes\ChooseSemester.cpp" />
     <ClCompile Include="Scenes\ChooseSemesterStudent.cpp" />
+    <ClCompile Include="Scenes\AddStudentCourseManually.cpp" />
     <ClCompile Include="Scenes\CourseManageScoreBoard.cpp" />
     <ClCompile Include="Scenes\CourseManageStudent.cpp" />
     <ClCompile Include="Scenes\CreateClass.cpp" />
     <ClCompile Include="Scenes\CreateSemester.cpp" />
+    <ClCompile Include="Scenes\ImportScoreboard.cpp" />
     <ClCompile Include="Scenes\MenuClassCourse.cpp" />
     <ClCompile Include="Scenes\MenuCourse.cpp" />
     <ClCompile Include="Scenes\MenuSchoolYear.cpp" />
@@ -183,6 +186,7 @@
     <ClInclude Include="Scenes\AddStudentClass.h" />
     <ClInclude Include="Scenes\AddStudentClassFile.h" />
     <ClInclude Include="Scenes\AddStudentClassManually.h" />
+    <ClInclude Include="Scenes\AddStudentCourseFile.h" />
     <ClInclude Include="Scenes\AddStudentToCourse.h" />
     <ClInclude Include="Scenes\ChangePassStaff.h" />
     <ClInclude Include="Scenes\ChangePassStudent.h" />
@@ -193,10 +197,12 @@
     <ClInclude Include="Scenes\ChooseSchoolYearStudent.h" />
     <ClInclude Include="Scenes\ChooseSemester.h" />
     <ClInclude Include="Scenes\ChooseSemesterStudent.h" />
+    <ClInclude Include="Scenes\AddStudentCourseManually.h" />
     <ClInclude Include="Scenes\CourseManageScoreBoard.h" />
     <ClInclude Include="Scenes\CourseManageStudent.h" />
     <ClInclude Include="Scenes\CreateClass.h" />
     <ClInclude Include="Scenes\CreateSemester.h" />
+    <ClInclude Include="Scenes\ImportScoreBoard.h" />
     <ClInclude Include="Scenes\MenuClass.h" />
     <ClInclude Include="Scenes\MenuClassCourse.h" />
     <ClInclude Include="Scenes\MenuCourse.h" />

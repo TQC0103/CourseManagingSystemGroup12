@@ -66,19 +66,19 @@ void AddStudentToCourseScene::renderAddStudentToCourse(sf::Event event, Scene* s
 			}
 			else if (addManually.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				//delete scene->coursemanagestudent;
-				//scene->coursemanagestudent = nullptr;
-				//if (scene->addmanually == nullptr)
-				//	scene->addmanually = new AddManuallyScene(scene->a);
-				//scene->a->currentState = programState::AddManually;
+				delete scene->addstudenttocourse;
+				scene->addstudenttocourse = nullptr;
+				if (scene->addstudenttocoursemanually == nullptr)
+					scene->addstudenttocoursemanually = new CourseAddStudentManuallyScene(scene->a);
+				scene->a->currentState = programState::CourseAddStudentManually;
 			}
 			else if (addFile.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				//delete scene->coursemanagestudent;
-				//scene->coursemanagestudent = nullptr;
-				//if (scene->addfile == nullptr)
-				//	scene->addfile = new AddFileScene(scene->a);
-				//scene->a->currentState = programState::AddFile;
+				delete scene->addstudenttocourse;
+				scene->addstudenttocourse = nullptr;
+				if (scene->addstudenttocoursefile == nullptr)
+					scene->addstudenttocoursefile = new AddStudentCourseFileScene(scene->a);
+				scene->a->currentState = programState::CourseAddStudentFIle;
 			}
 			
 

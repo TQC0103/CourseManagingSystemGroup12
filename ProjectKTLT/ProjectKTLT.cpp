@@ -171,6 +171,21 @@ int main() {
 				scene->addstudenttocourse->renderAddStudentToCourse(event, scene, window);
 				break;
 			}
+            case programState::ImportScoreboard:
+            {
+                scene->importscoreboard->renderImportScoreboard(event, scene, window);
+                break;
+            }
+            case programState::CourseAddStudentManually:
+            {
+				scene->addstudenttocoursemanually->renderAddManually(event, scene, window);
+				break;
+			}
+            case programState::CourseAddStudentFIle:
+            {
+				scene->addstudenttocoursefile->renderAddFile(event, scene, window);
+				break;
+			}
             default:
                 break;
             }
@@ -329,6 +344,21 @@ int main() {
             case programState::AddStudentCourse:
             {
 				scene->addstudenttocourse->drawAddStudentToCourse(window, scene->a);
+				break;
+			}
+            case programState::ImportScoreboard:
+            {
+				scene->importscoreboard->drawImportScoreboard(window, scene->a);
+				break;
+            }
+            case programState::CourseAddStudentManually:
+            {
+                scene->addstudenttocoursemanually->drawAddMunually(window, scene->a);
+                break;
+            }
+            case programState::CourseAddStudentFIle:
+            {
+				scene->addstudenttocoursefile->drawAddFile(window, scene->a);
 				break;
 			}
             default:

@@ -94,7 +94,11 @@ void CourseManageScoreBoardScene::renderCourseManageScoreBoard(sf::Event event, 
 			}
 			else if (importScoreBoard.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				//import scoreboard file
+				delete scene->coursemanagescoreboard;
+				scene->coursemanagescoreboard = nullptr;	
+				if (scene->importscoreboard == nullptr)
+					scene->importscoreboard = new ImportScoreboardScene(scene->a);
+				scene->a->currentState = programState::ImportScoreboard;
 			}
 			else if (viewCourseScoreBoard.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{

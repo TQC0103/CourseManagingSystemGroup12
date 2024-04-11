@@ -322,7 +322,7 @@ bool Class::checkInputDate(std::string& data)
 		monthDay = "0" + monthDay;
 	}
 	data = testDay + "/" + monthDay + "/" + yearDay;
-	int len  = data.length();
+	int len  = (int)data.length();
 	if (len != 10)
 	{
 		return false;

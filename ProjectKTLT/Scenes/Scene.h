@@ -30,6 +30,9 @@
 #include "CourseManageScoreBoard.h"
 #include "CourseManageStudent.h"
 #include "AddStudentToCourse.h"
+#include "ImportScoreBoard.h"
+#include "AddStudentCourseManually.h"
+#include "AddStudentCourseFile.h"
 struct Scene
 {
 	Static* a = new Static();
@@ -63,6 +66,9 @@ struct Scene
 	CourseManageScoreBoardScene* coursemanagescoreboard = nullptr;
 	CourseManageStudentScene* coursemanagestudent = nullptr;
 	AddStudentToCourseScene* addstudenttocourse = nullptr;
+	ImportScoreboardScene* importscoreboard = nullptr;
+	CourseAddStudentManuallyScene* addstudenttocoursemanually = nullptr;
+	AddStudentCourseFileScene* addstudenttocoursefile = nullptr;
 	Scene() {
 		a->currentState = programState::Welcome;
 		welcome = new WelcomeScene(a);
@@ -128,6 +134,12 @@ struct Scene
 			delete coursemanagestudent;
 		if (addstudenttocourse != nullptr)
 			delete addstudenttocourse;
+		if (importscoreboard != nullptr)
+			delete importscoreboard;
+		if (addstudenttocoursemanually != nullptr)
+			delete addstudenttocoursemanually;
+		if (addstudenttocoursefile != nullptr)
+			delete addstudenttocoursefile;
 		delete a;
 
 	}
