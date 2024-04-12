@@ -17,13 +17,13 @@ Class::Class() {
 }
 
 //Read data from files
-void Class::input_Student_from_file(student*& pHeads, std::string new_name_Class) {
-	pHeads->firstName = new_name_Class;
+bool Class::input_Student_from_file(student*& pHeads, std::string new_name_Class) {
+	//pHeads->firstName = new_name_Class;
 	std::ifstream fIn;
 	fIn.open("../Database/Class/" + new_name_Class + "/Students/" + new_name_Class + ".csv");
 	if (!fIn.is_open()) {
-		std::cout << "Error! Enter file again!";
-		return;
+		//std::cout << "Error! Enter file again!";
+		return false;
 	}
 	pHeads = nullptr;
 	std::string x;
@@ -68,6 +68,7 @@ void Class::input_Student_from_file(student*& pHeads, std::string new_name_Class
 		}
 	}
 	fIn.close();
+	return true;
 }
 //Load data
 int Class::load_classes() // load data from files
@@ -98,19 +99,19 @@ int Class::load_classes() // load data from files
 	return num;
 }
 //update curClass if class of user exist
-bool Class::find_Class_of_Student(Static* a) // find class of student
-{
-	Class* cur = pHeadListClasses;
-	while (cur) {
-		if (cur->pHeadListStudents->studentID == a->username) {
-			a->curClass = new Class;
-			a->curClass = pHeadListClasses;
-			return true;
-		}
-		cur = cur->pNext;
-	}
-	return false;
-}
+//bool Class::find_Class_of_Student(Static* a) // find class of student
+//{
+//	Class* cur = pHeadListClasses;
+//	while (cur) {
+//		if (cur->pHeadListStudents->studentID == a->username) {
+//			a->curClass = new Class;
+//			a->curClass = pHeadListClasses;
+//			return true;
+//		}
+//		cur = cur->pNext;
+//	}
+//	return false;
+//}
 bool Class::isExist(Static* a, Class *&cur) {
 	cur = pHeadListClasses;
 	while (cur) {
@@ -123,7 +124,7 @@ int Class::loadStudents(Static* a) {
 	load_classes();
 	Class* cur = NULL;
 	if (!isExist(a, cur)) return 0;
-	input_Student_from_file(cur->pHeadListStudents, cur->name);
+	if (!input_Student_from_file(cur->pHeadListStudents, cur->name)) return 0;
 	return 1;
 }
 
@@ -322,7 +323,7 @@ bool Class::checkInputDate(std::string& data)
 		monthDay = "0" + monthDay;
 	}
 	data = testDay + "/" + monthDay + "/" + yearDay;
-	int len  = data.length();
+	int len  = (int)data.length();
 	if (len != 10)
 	{
 		return false;
@@ -434,35 +435,7 @@ int Class :: insert_data_Class_from_path(Static* a, std::string path_keyboard) {
 	return 1;
 }
 
-//void Class::print_Student_profile_in_class_files(student* pHeads, std::ofstream& fOut) { // can replace by frame
-//	//to print student outside files
-//	while (pHeads) {
-//		fOut << pHeads->No << ";" << pHeads->studentID << ";" << pHeads->firstName << ";" << pHeads->lastName << ";";
-//
-//		fOut << pHeads->gender << ";" << pHeads->dateOfBirth.d << "/" << pHeads->dateOfBirth.m << "/" << pHeads->dateOfBirth.y << pHeads->socialID << "\n";
-//		pHeads = pHeads->pNext;
-//	}
-//}
-//Not finished!
-//void Class::export_File(std::string name_Class, std::string path)
-//{
-//	std::ofstream fOut;
-//	fOut.open("../Database/Class/" + path + ".csv"); //can insert link folder
-//	if (!fOut.is_open()) {
-//		std::cout << "Error! Open file isn't successfull!";
-//		return;
-//	}
-//	Class* cur = pHeadListClasses;
-//	if (!cur) return;
-//	while (cur) {
-//		if (cur->name == name_Class) {
-//			print_Student_profile_in_class_files(cur->pHeadListStudents, fOut);
-//			break;
-//		}
-//		cur = cur->pNext;
-//	}
-//	fOut.close();
-//}
+
 // sort file name follow name in data, all.txt;
 void Class::Sort_Class(Class* new_Class) {
 	if (!pHeadListClasses) {
@@ -643,3 +616,32 @@ void Class::show_List_Class(Class* pHead)
 		pHead = pHead -> pNext;
 	}
 }*/
+//void Class::print_Student_profile_in_class_files(student* pHeads, std::ofstream& fOut) { // can replace by frame
+//	//to print student outside files
+//	while (pHeads) {
+//		fOut << pHeads->No << ";" << pHeads->studentID << ";" << pHeads->firstName << ";" << pHeads->lastName << ";";
+//
+//		fOut << pHeads->gender << ";" << pHeads->dateOfBirth.d << "/" << pHeads->dateOfBirth.m << "/" << pHeads->dateOfBirth.y << pHeads->socialID << "\n";
+//		pHeads = pHeads->pNext;
+//	}
+//}
+//Not finished!
+//void Class::export_File(std::string name_Class, std::string path)
+//{
+//	std::ofstream fOut;
+//	fOut.open("../Database/Class/" + path + ".csv"); //can insert link folder
+//	if (!fOut.is_open()) {
+//		std::cout << "Error! Open file isn't successfull!";
+//		return;
+//	}
+//	Class* cur = pHeadListClasses;
+//	if (!cur) return;
+//	while (cur) {
+//		if (cur->name == name_Class) {
+//			print_Student_profile_in_class_files(cur->pHeadListStudents, fOut);
+//			break;
+//		}
+//		cur = cur->pNext;
+//	}
+//	fOut.close();
+//}

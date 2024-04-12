@@ -109,13 +109,14 @@ void ChooseClassCourseScene::renderChooseClassCourses(sf::Event event, Scene* sc
 			else for (int i = 0; i < numClass; i++)
 			{
 				if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
-					//scene->a->curCourse->className = tmpHead->className;
-					//if (scene->menuclass == nullptr)
-					//	scene->menuclass = new MenuClassScene(scene->a);
-					//scene->a->currentState = programState::MenuClass;
-					//delete scene->chooseclasscourse;
-					//scene->chooseclasscourse = nullptr;
-					//break;
+					
+					scene->a->curCourse->className = tmpHead->className;
+					if (scene->menuclasscourse == nullptr)
+						scene->menuclasscourse = new MenuClassCourseScene(scene->a);
+					scene->a->currentState = programState::MenuClassCourse;
+					delete scene->chooseclasscourse;
+					scene->chooseclasscourse = nullptr;
+					break;
 				}
 				tmpHead = tmpHead->pNext;
 			}
@@ -124,9 +125,6 @@ void ChooseClassCourseScene::renderChooseClassCourses(sf::Event event, Scene* sc
 
 	if (numClass >= 6)
 		renderScrollbar(scrollbar, scrollbarArea, window, scrollOffset, event, isDragging, scene->a, sf::Vector2f(1700.0f, 275.0f), sizedisplay, fullsize);
-
-
-
 }
 
 ChooseClassCourseScene::~ChooseClassCourseScene()

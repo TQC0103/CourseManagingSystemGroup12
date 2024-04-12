@@ -26,6 +26,13 @@
 #include "ChooseClassCourse.h"
 #include "AddStudentClassFile.h"
 #include "CreateClass.h"
+#include "MenuClassCourse.h"
+#include "CourseManageScoreBoard.h"
+#include "CourseManageStudent.h"
+#include "AddStudentToCourse.h"
+#include "ImportScoreBoard.h"
+#include "AddStudentCourseManually.h"
+#include "AddStudentCourseFile.h"
 struct Scene
 {
 	Static* a = new Static();
@@ -55,6 +62,13 @@ struct Scene
 	ChooseClassCourseScene* chooseclasscourse = nullptr;	
 	AddStudentClassFileScene* addstudentclassfile = nullptr;
 	CreateClassScene* createclass = nullptr;
+	MenuClassCourseScene* menuclasscourse = nullptr;
+	CourseManageScoreBoardScene* coursemanagescoreboard = nullptr;
+	CourseManageStudentScene* coursemanagestudent = nullptr;
+	AddStudentToCourseScene* addstudenttocourse = nullptr;
+	ImportScoreboardScene* importscoreboard = nullptr;
+	CourseAddStudentManuallyScene* addstudenttocoursemanually = nullptr;
+	AddStudentCourseFileScene* addstudenttocoursefile = nullptr;
 	Scene() {
 		a->currentState = programState::Welcome;
 		welcome = new WelcomeScene(a);
@@ -112,6 +126,20 @@ struct Scene
 			delete addstudentclassfile;
 		if (createclass != nullptr)
 			delete createclass;
+		if (menuclasscourse != nullptr)
+			delete menuclasscourse;
+		if (coursemanagescoreboard != nullptr)
+			delete coursemanagescoreboard;
+		if (coursemanagestudent != nullptr)
+			delete coursemanagestudent;
+		if (addstudenttocourse != nullptr)
+			delete addstudenttocourse;
+		if (importscoreboard != nullptr)
+			delete importscoreboard;
+		if (addstudenttocoursemanually != nullptr)
+			delete addstudenttocoursemanually;
+		if (addstudenttocoursefile != nullptr)
+			delete addstudenttocoursefile;
 		delete a;
 
 	}

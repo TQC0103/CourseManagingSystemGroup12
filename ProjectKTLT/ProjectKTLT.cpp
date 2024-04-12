@@ -151,6 +151,41 @@ int main() {
 				scene->createclass->renderCreateClass(event, scene, window);
 				break;
 			}
+            case programState::MenuClassCourse:
+            {
+                scene->menuclasscourse->renderMenuClassCourse(event, scene, window);
+                break;
+            }
+            case programState::CourseManageScoreBoard:
+            {
+				scene->coursemanagescoreboard->renderCourseManageScoreBoard(event, scene, window);
+				break;
+			}
+            case programState::CourseManageStudent:
+            {
+                scene->coursemanagestudent->renderCourseManageStudent(event, scene, window);
+                break;
+            }
+            case programState::AddStudentCourse:
+            {
+				scene->addstudenttocourse->renderAddStudentToCourse(event, scene, window);
+				break;
+			}
+            case programState::ImportScoreboard:
+            {
+                scene->importscoreboard->renderImportScoreboard(event, scene, window);
+                break;
+            }
+            case programState::CourseAddStudentManually:
+            {
+				scene->addstudenttocoursemanually->renderAddManually(event, scene, window);
+				break;
+			}
+            case programState::CourseAddStudentFIle:
+            {
+				scene->addstudenttocoursefile->renderAddFile(event, scene, window);
+				break;
+			}
             default:
                 break;
             }
@@ -291,6 +326,41 @@ int main() {
                 scene->createclass->drawCreateClass(window, scene->a);
                 break;
             }
+            case programState::MenuClassCourse:
+            {
+				scene->menuclasscourse->drawMenuClassCourse(window, scene->a);
+				break;
+			}
+            case programState::CourseManageScoreBoard:
+            {
+				scene->coursemanagescoreboard->drawCourseManageScoreBoard(window, scene->a);
+				break;
+			}
+            case programState::CourseManageStudent:
+            {
+				scene->coursemanagestudent->drawCourseManageStudent(window, scene->a);
+				break;
+			}
+            case programState::AddStudentCourse:
+            {
+				scene->addstudenttocourse->drawAddStudentToCourse(window, scene->a);
+				break;
+			}
+            case programState::ImportScoreboard:
+            {
+				scene->importscoreboard->drawImportScoreboard(window, scene->a);
+				break;
+            }
+            case programState::CourseAddStudentManually:
+            {
+                scene->addstudenttocoursemanually->drawAddMunually(window, scene->a);
+                break;
+            }
+            case programState::CourseAddStudentFIle:
+            {
+				scene->addstudenttocoursefile->drawAddFile(window, scene->a);
+				break;
+			}
             default:
                 break;
             }
@@ -298,8 +368,39 @@ int main() {
             // Display the content
             window.display();
         }
-
     }
     delete scene;
     return 0;
 }
+//#include"Class.h"
+//#include<iostream>
+//#include"config.h"
+//#include"student.h"
+//int main() {
+//	Class* a = new Class;
+//	Static* b = new Static;
+//	b->curClass = new Class;
+//
+//	b->curClass->name = "23CLC03";
+//	a->loadStudents(b);
+//	Class* cur = new Class;
+//	cur = a->pHeadListClasses;
+//	while (cur && cur->name != "23CLC03") {
+//		cur = cur->pNext;
+//	}
+//	if (cur == NULL) {
+//		std::cout << "Error!\n";
+//		return 0;
+//	}
+//	student* tmp = new student;
+//	tmp = cur->pHeadListStudents;
+//	while (tmp) {
+//		std::cout << tmp->studentID <<" ";
+//		tmp = tmp->pNext;
+//	}
+//	delete a;
+//	delete b->curClass;
+//	delete b;
+//	delete tmp;
+//	return 0;
+//}

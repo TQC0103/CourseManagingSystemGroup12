@@ -1,22 +1,22 @@
-#include "AddStudentClassFile.h"
+#include "AddStudentCourseFile.h"
 #include "Scene.h"
 #include "../UserInterface.h"
 #include <fstream>
 #include <string>
 
-AddStudentClassFileScene::AddStudentClassFileScene(Static *a)
+AddStudentCourseFileScene::AddStudentCourseFileScene(Static* a)
 {
-	
+
 	createABox(addFromFileBackgr, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(addFromFileText, a->fontB, a->textColorBlue, "Select Your Input File", 120, a->width / 2.0f, 150.0f);
 	createCornerRoundedButton(preButton, preButtonText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createCornerRoundedButton(submitButton, submitButtonText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Enter", sf::Vector2f(a->width - 150.0f, 1000.0f), 2.0f, sf::Color::Black);
-	
+
 	createABox(chooseFileButton, sf::Vector2f(1200.0f, 250.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, a->height / 2.0f));
 	createText(chooseFileButtonText, a->fontI, sf::Color::White, "CLICK HERE TO SELECT FILE", 50, chooseFileButton.getPosition().x, chooseFileButton.getPosition().y);
 }
 
-void AddStudentClassFileScene::drawAddFromFile(sf::RenderWindow& win, Static* a)
+void AddStudentCourseFileScene::drawAddFile(sf::RenderWindow& win, Static* a)
 {
 	win.draw(addFromFileBackgr);
 	win.draw(addFromFileText);
@@ -34,20 +34,20 @@ void AddStudentClassFileScene::drawAddFromFile(sf::RenderWindow& win, Static* a)
 
 }
 
-void AddStudentClassFileScene::renderAddFromFile(sf::Event event, Scene* scene, sf::RenderWindow& win)
+void AddStudentCourseFileScene::renderAddFile(sf::Event event, Scene* scene, sf::RenderWindow& win)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
-	if (scene->a->currentState == programState::AddStudentClassFile && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	if (scene->a->currentState == programState::CourseAddStudentFIle && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
 		preButton.setFillColor(scene->a->pastelTitleCyan);
 		preButtonText.setFillColor(scene->a->titleGreyColor);
 	}
-	else if (scene->a->currentState == programState::AddStudentClassFile && submitButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	else if (scene->a->currentState == programState::CourseAddStudentFIle && submitButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
 		submitButton.setFillColor(scene->a->pastelTitleCyan);
 		submitButtonText.setFillColor(scene->a->titleGreyColor);
 	}
-	else if (scene->a->currentState == programState::AddStudentClassFile) {
+	else if (scene->a->currentState == programState::CourseAddStudentFIle) {
 		preButton.setFillColor(scene->a->highlightCyan);
 		preButtonText.setFillColor(sf::Color::White);
 		submitButton.setFillColor(scene->a->highlightCyan);
@@ -60,11 +60,11 @@ void AddStudentClassFileScene::renderAddFromFile(sf::Event event, Scene* scene, 
 		{
 			if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				if(scene->addstudentclass == nullptr)
-					scene->addstudentclass = new AddStudentClassScene(scene->a);
-				delete scene->addstudentclassfile;
-				scene->addstudentclassfile = nullptr;
-				scene->a->currentState = programState::AddStudentCLass;
+				if (scene->addstudenttocourse == nullptr)
+					scene->addstudenttocourse = new AddStudentToCourseScene(scene->a);
+				delete scene->addstudenttocoursefile;
+				scene->addstudenttocoursefile = nullptr;
+				scene->a->currentState = programState::AddStudentCourse;
 			}
 			else if (chooseFileButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
@@ -85,7 +85,7 @@ void AddStudentClassFileScene::renderAddFromFile(sf::Event event, Scene* scene, 
 			{
 
 			}
-			
+
 		}
 	}
 }
