@@ -188,11 +188,8 @@ std::string** student::getAllCoursesInformations(Static* a)
     return res;
 }
 
-std::string* getCourseInformations(Static* a)
-{
 
-}
-std::string** student::getStudentScoreBoard(Static* a, std::string username)
+std::string** student::getStudentScoreBoard(Static* a)
 {
     semester* tmp = new semester;
     int n = tmp->specifyCourseForStudent(a);
@@ -202,10 +199,9 @@ std::string** student::getStudentScoreBoard(Static* a, std::string username)
     {
         res[i] = new std::string[9];
     }
-    int i = 0;
     for(int i = 0; i < n; i++)
     {
-        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSchoolYear->pHeadSemester->semesterData + "/" + cur->ID + "/" + curClass + "/scoreboard.csv");
+        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "/scoreboard.csv");
         std::string line;
         std::getline(fIn, line);
         for (int j = 0; j < 9; j++)
@@ -215,15 +211,15 @@ std::string** student::getStudentScoreBoard(Static* a, std::string username)
                 std::string ignore, studentID;
                 std::getline(iss, ignore, ',');
                 std::getline(iss, studentID, ',');
-                if (studentID != username) continue;
+                if (studentID != a->username) continue;
                 res[i][0] = cur->ID;
                 for (int j = 1; j < 9; j++)
                 {
                     std::getline(iss, res[i][j], ',');
                 }
         fIn.close();
+        cur = cur->pNext;
     }
-    fIn.close();
     delete tmp;
     delete cur;
     return res;
