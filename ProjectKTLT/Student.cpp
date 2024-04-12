@@ -188,7 +188,10 @@ std::string** student::getAllCoursesInformations(Static* a)
     return res;
 }
 
+std::string* getCourseInformations(Static* a)
+{
 
+}
 std::string** student::getStudentScoreBoard(Static* a, std::string username)
 {
     semester* tmp = new semester;
@@ -204,7 +207,6 @@ std::string** student::getStudentScoreBoard(Static* a, std::string username)
     {
         std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSchoolYear->pHeadSemester->semesterData + "/" + cur->ID + "/" + curClass + "/scoreboard.csv");
         std::string line;
-        //Bỏ qua dòng header
         std::getline(fIn, line);
         for (int j = 0; j < 9; j++)
             while (std::getline(fIn, line))
@@ -222,6 +224,8 @@ std::string** student::getStudentScoreBoard(Static* a, std::string username)
         fIn.close();
     }
     fIn.close();
+    delete tmp;
+    delete cur;
     return res;
     }
 }
