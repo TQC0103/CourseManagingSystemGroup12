@@ -67,6 +67,11 @@ int semester::specifyCourseForStudent(Static* a)
 	{
 		std::ifstream fin;
 		fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + "Classes.txt");
+		if (fin.is_open() == false)
+		{
+			std::cerr << "Can't open file " << cur->ID << " Classes" << std::endl;
+			return -1;
+		}
 		std::string className;
 	
 		while (getline(fin, className))
@@ -84,9 +89,23 @@ int semester::specifyCourseForStudent(Static* a)
 					curStudent = curStudent->pNext;
 				}
 				std::ifstream fin2;
-				fin2.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "information.txt");
+				fin2.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "/information.txt");
+				if (fin2.is_open() == false)
+				{
+					std::cerr << "Can't open file " << cur->ID << " information" << std::endl;
+					return -1;
+				}
 				getline(fin2, curStudent->ID);
 				getline(fin2, curStudent->Name);
+				getline(fin2, curStudent->className);
+				getline(fin2, curStudent->Lecturer);
+				fin2 >> curStudent->Credit;
+				fin2.ignore();
+				fin2 >> curStudent->maxStudent;
+				fin2.ignore();
+				getline(fin2, curStudent->weekDay);
+				getline(fin2, curStudent->Session);
+
 				fin2.close();
 				nStudent++;
 			}

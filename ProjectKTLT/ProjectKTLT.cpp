@@ -6,33 +6,11 @@
 #include "Scenes/Scene.h"
 #include "SchoolYear.h"
 #include "Student.h"
-
+#include "Semester.h"
 // Functions
 int main() {
-	/*Static* a = new Static;
-	student* curStudent = new student;
-	semester* tmp = new semester;
-	int n = tmp->specifyCourseForStudent(a);
 	
-	std::string **check = new std::string*[n];
-	check = curStudent->getAllCoursesInformations(a);
 
-	for (int i = 0; i < n; i++)
-	{
-		
-		for (int j = 0; j < 8; j++)
-		{
-			std::cout << check[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
-	delete tmp;
-	delete a;
-	delete curStudent;
-	delete[] check;
-	return 0;*/
-
-	
     Scene* scene = new Scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)scene->a->width, (unsigned int)scene->a->height), "CourseManagingSystem");
 
