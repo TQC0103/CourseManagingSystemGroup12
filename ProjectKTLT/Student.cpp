@@ -3,6 +3,7 @@
 #include "config.h" 
 #include "SchoolYear.h"
 #include "Semester.h"
+#include "Course.h"
 
 std::string curClass;
 void student::loadStudentProfile(std::string username)
@@ -92,100 +93,46 @@ std::string student::viewStudentProfile()
    
     return listCourse;
 }*/
-
-
-std::string* student::loadNumberOfCourses(Static* a)
+float calculateOverall(float final, float midterm, float other)
 {
-    semester* tmp = new semester;
-    int n = tmp->specifyCourseForStudent(a);
-    std::string* listOfCourses = new std::string[n];
-    std::ifstream file("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/courses.txt");
-    if (!file.is_open())
-    {
-        std::cout << "Unable to open file! \n";
-        delete tmp;
-        return nullptr;
-    }
-    int index = 0;
-    std::string courseName;
-    while (std::getline(file, courseName))
-    {
-        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSchoolYear->pHeadSemester->semesterData + "/" + courseName + "Classes.txt");
-        if (!fIn.is_open())
-        {
-            std::cout << "Unable to open file! \n";
-            delete tmp;
-            return nullptr;
-        }
-        std::string className;
-        while (std::getline(fIn, className))
-        {
-            if (curClass == className)
-            {
-                if (index < n) // Kiểm tra chỉ số index
-                {
-                    listOfCourses[index] = courseName;
-                    index++;
-                }
-                else
-                {
-                    std::cout << "Error: Array index out of bounds!";
-                    break;
-                }
-            }
-        }
-        fIn.close();
-    }
-    file.close(); // Đóng tệp
-    if (index == 0) {
-        delete[] listOfCourses; // Xóa mảng nếu không có phần tử nào được gán giá trị
-        delete tmp;
-        return nullptr;
-    }
-    delete tmp;
-    return listOfCourses;
+    int res = final * 0.5 + midterm * 0.2 + other * 0.3;
+    return res;
 }
 
-
-std::string** student::getAllCoursesInformations(Static* a)
+std::string student::getAllCoursesInformations(Static* a)
 {
-    semester* tmp = new semester;
-    int n = tmp->specifyCourseForStudent(a);
-
-    // Cấp phát bộ nhớ cho mảng hai chiều
-    std::string** res = new std::string * [n];
-    for (int i = 0; i < n; i++)
+    std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + curClass + "/information.txt");
+    Course* tmp = new Course;
+  
+    while(std::getline(fIn, tmp->ID, '\n'))
     {
-        res[i] = new std::string[8];
-    }
+        std::getline(fIn, tmp->Name,'\n');
+        std::getline(fIn, tmp->className, '\n');
+        std::getline(fIn, tmp->Lecturer, '\n');
+        std::string credit = "";
+        std::getline(fIn, credit, '\n');
+        tmp->Credit = stoi(credit);
+        std::string maxStudent = "";
+        tmp->maxStudent = stoi(maxStudent);
+        std::getline(fIn, tmp->weekDay, '\n');
+        std::getline(fIn, tmp->Session, '\n');
 
-    // Nhận danh sách các khóa học mà sinh viên đã đăng ký
-    student* myStudent = new student;
-    std::string* listOfCourses = myStudent->loadNumberOfCourses(a);
-    if (listOfCourses == nullptr) {
-        // Nếu danh sách khóa học rỗng, giải phóng bộ nhớ và trả về nullptr
-        for (int i = 0; i < n; ++i) {
-            delete[] res[i];
-        }
-        delete[] res;
-        return nullptr;
     }
-
-    // Đọc thông tin từ tệp cho mỗi khóa học
-    for (int i = 0; i < n; i++)
+    fIn.close();
+    std::string courseInformations = "";
+    if (tmp->ID.empty())
     {
-        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + listOfCourses[i] + "/" + curClass + "/information.txt");
-        for (int j = 0; j < 8; j++)
-        {
-            std::getline(fIn, res[i][j], '\n');
-        }
-        fIn.close();
+        return "Failed to read informations";
     }
-
-    // Giải phóng bộ nhớ của danh sách khóa học
-    delete[] listOfCourses;
-
-    return res;
+    courseInformations += "Course ID: " + tmp->ID + "\n";
+    courseInformations += "Course Name: " + tmp->Name + "\n";
+    courseInformations += "Class name: " + tmp->className + "\n";
+    courseInformations += "Lecturer: " + tmp->Lecturer + "\n";
+    courseInformations += "Credit: " + std::to_string(tmp->Credit) + "\n";
+    courseInformations += "Max Student: " + std::to_string(tmp->maxStudent) + "\n";
+    courseInformations += "Weekly Class Schedule: " + tmp->weekDay + "\n";
+    courseInformations += "Start time: " + tmp->Session + "\n";
+    return courseInformations;
 }
 
 
@@ -202,6 +149,17 @@ std::string** student::getStudentScoreBoard(Static* a)
     for(int i = 0; i < n; i++)
     {
         std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "/scoreboard.csv");
+        if (!fIn.is_open())
+        {
+            std::cout << "Can not open file scoreboard.csv of course: " << cur->ID << std::endl;
+            for (int j = 0; j < i; ++j) 
+            {
+                delete[] res[j];
+            }
+            delete[] res;
+            delete tmp;
+            return nullptr;
+        }
         std::string line;
         std::getline(fIn, line);
         for (int j = 0; j < 9; j++)
@@ -213,10 +171,12 @@ std::string** student::getStudentScoreBoard(Static* a)
                 std::getline(iss, studentID, ',');
                 if (studentID != a->username) continue;
                 res[i][0] = cur->ID;
-                for (int j = 1; j < 9; j++)
+                for (int j = 1; j < 8; j++)
                 {
                     std::getline(iss, res[i][j], ',');
                 }
+                float overall = calculateOverall(stof(res[i][5]), stof(res[i][6]), stof(res[i][7]));
+                res[i][8] = std::to_string(overall);
         fIn.close();
         cur = cur->pNext;
     }

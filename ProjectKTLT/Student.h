@@ -48,7 +48,7 @@ struct student
     std::string viewStudentProfile();
     //std::string getCoursesInformations(Static *a);
     std::string* loadNumberOfCourses(Static* a);
-    std::string** getAllCoursesInformations(Static* a);
+    std::string getAllCoursesInformations(Static* a);
     std::string** getStudentScoreBoard(Static* a);
     void deallocateListOfCourses(std::string* listOfCourses);
     void deallocateCourseInformation(std::string** coursesInfo, int n);
