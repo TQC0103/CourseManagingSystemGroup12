@@ -63,13 +63,15 @@ std::string student::viewStudentProfile()
 }
 
 
+
+
 float student::calculateOverall(float final, float midterm, float other)
 {
     int res = final * 0.5 + midterm * 0.2 + other * 0.3;
     return res;
 }
 
-std::string** student::getAllCoursesInformations(Static* a)
+std::string** student::viewAllCoursesInformations(Static* a)
 {
     semester* tmp = new semester;
     int n = tmp->specifyCourseForStudent(a);
