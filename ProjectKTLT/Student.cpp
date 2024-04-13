@@ -62,77 +62,40 @@ std::string student::viewStudentProfile()
     return studentProfile;
 }
 
-// Hàm này trả về 1 cái string chứ không phải mảng các string tui comment nó để backup thôi 
-/*std::string student::getCoursesInformations(Static* a)
-{   
-    std::string listCourse;
-    listCourse += "Your Courses In This Semester : \n";
-    std::ifstream file("../Database/SchoolYear/"+a->curSchoolYear->year+"/"+a->curSemester->semesterData+"/courses.txt");
-    if(!file.is_open())
-    {  
-        return "Unable to open file! \n";
-    }
-    std::string courseName;
-    while(std::getline(file, courseName))
-    {
-        std::ifstream fIn("../Database/SchoolYear/"+ a->curSchoolYear->year +"/"+ a->curSchoolYear->pHeadSemester->semesterData +"/" + courseName + "/Informations.txt");
-        std::string courseInformations;
-        if(std::getline(fIn, courseInformations))
-        {
-                std::istringstream iss(courseInformations);
-                listCourse += courseInformations + "\n";
-        }
-        else
-        {
-            return "File is empty! \n";
 
-        }
-        fIn.close();
-    }
-    file.close();
-   
-    return listCourse;
-}*/
-float calculateOverall(float final, float midterm, float other)
+float student::calculateOverall(float final, float midterm, float other)
 {
     int res = final * 0.5 + midterm * 0.2 + other * 0.3;
     return res;
 }
 
-std::string student::getAllCoursesInformations(Static* a)
+std::string** student::getAllCoursesInformations(Static* a)
 {
-    std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + curClass + "/information.txt");
-    Course* tmp = new Course;
-  
-    while(std::getline(fIn, tmp->ID, '\n'))
+    semester* tmp = new semester;
+    int n = tmp->specifyCourseForStudent(a);
+    Course* cur = tmp->pHeadCourseForStudent;
+    std::string** allCourseInformations = new std::string * [n];
+    for (int i = 0; i < n; i++)
     {
-        std::getline(fIn, tmp->Name,'\n');
-        std::getline(fIn, tmp->className, '\n');
-        std::getline(fIn, tmp->Lecturer, '\n');
-        std::string credit = "";
-        std::getline(fIn, credit, '\n');
-        tmp->Credit = stoi(credit);
-        std::string maxStudent = "";
-        tmp->maxStudent = stoi(maxStudent);
-        std::getline(fIn, tmp->weekDay, '\n');
-        std::getline(fIn, tmp->Session, '\n');
+        allCourseInformations[i] = new std::string[8];
+    }
 
-    }
-    fIn.close();
-    std::string courseInformations = "";
-    if (tmp->ID.empty())
+    for (int i = 0; i < n; i++)
     {
-        return "Failed to read informations";
+        allCourseInformations[i][0] = cur->ID;
+        allCourseInformations[i][1] = cur->Name;
+        allCourseInformations[i][2] = cur->className;
+        allCourseInformations[i][3] = cur->Lecturer;
+        allCourseInformations[i][4] = std::to_string(cur->Credit);
+        allCourseInformations[i][5] = std::to_string(cur->maxStudent);
+        allCourseInformations[i][6] = cur->weekDay;
+        allCourseInformations[i][7] = cur->Session;
+        cur = cur->pNext;
     }
-    courseInformations += "Course ID: " + tmp->ID + "\n";
-    courseInformations += "Course Name: " + tmp->Name + "\n";
-    courseInformations += "Class name: " + tmp->className + "\n";
-    courseInformations += "Lecturer: " + tmp->Lecturer + "\n";
-    courseInformations += "Credit: " + std::to_string(tmp->Credit) + "\n";
-    courseInformations += "Max Student: " + std::to_string(tmp->maxStudent) + "\n";
-    courseInformations += "Weekly Class Schedule: " + tmp->weekDay + "\n";
-    courseInformations += "Start time: " + tmp->Session + "\n";
-    return courseInformations;
+
+    delete tmp;
+    delete cur;
+    return allCourseInformations;
 }
 
 
@@ -187,19 +150,16 @@ std::string** student::getStudentScoreBoard(Static* a)
 }
 
 
-void student::deallocateListOfCourses(std::string* listOfCourses) 
+
+void student:: dellocate2DArray(std::string** arr, int n)
 {
-    delete[] listOfCourses;
-}
-
-
-void student::deallocateCourseInformation(std::string** coursesInfo, int n) {
-    // Giải phóng từng hàng của mảng hai chiều
+    // Deallocate inner arrays
     for (int i = 0; i < n; ++i) {
-        delete[] coursesInfo[i];
+        delete[] arr[i];
     }
-    // Giải phóng mảng chứa con trỏ đến hàng
-    delete[] coursesInfo;
+
+    // Deallocate outer array
+    delete[] arr;
 }
 
 
