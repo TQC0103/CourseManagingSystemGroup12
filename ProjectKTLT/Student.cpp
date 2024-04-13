@@ -209,10 +209,12 @@ std::string** student::getStudentScoreBoard(Static* a)
                 std::getline(iss, studentID, ',');
                 if (studentID != a->username) continue;
                 res[i][0] = cur->ID;
-                for (int j = 1; j < 9; j++)
+                for (int j = 1; j < 8; j++)
                 {
                     std::getline(iss, res[i][j], ',');
                 }
+                float overall = stof(res[i][5]) * 0.5 + stof(res[i][6]) * 0.2 + stof(res[i][7]) * 0.3;
+                res[i][8] = std::to_string(overall);
         fIn.close();
         cur = cur->pNext;
     }
