@@ -93,60 +93,11 @@ std::string student::viewStudentProfile()
    
     return listCourse;
 }*/
-
-
-std::string* student::loadNumberOfCourses(Static* a)
+float calculateOverall(float final, float midterm, float other)
 {
-    semester* tmp = new semester;
-    int n = tmp->specifyCourseForStudent(a);
-    std::string* listOfCourses = new std::string[n];
-    std::ifstream file("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/courses.txt");
-    if (!file.is_open())
-    {
-        std::cout << "Unable to open file! \n";
-        delete tmp;
-        return nullptr;
-    }
-    int index = 0;
-    std::string courseName;
-    while (std::getline(file, courseName))
-    {
-        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSchoolYear->pHeadSemester->semesterData + "/" + courseName + "Classes.txt");
-        if (!fIn.is_open())
-        {
-            std::cout << "Unable to open file! \n";
-            delete tmp;
-            return nullptr;
-        }
-        std::string className;
-        while (std::getline(fIn, className))
-        {
-            if (curClass == className)
-            {
-                if (index < n) // Kiểm tra chỉ số index
-                {
-                    listOfCourses[index] = courseName;
-                    index++;
-                }
-                else
-                {
-                    std::cout << "Error: Array index out of bounds!";
-                    break;
-                }
-            }
-        }
-        fIn.close();
-    }
-    file.close(); // Đóng tệp
-    if (index == 0) {
-        delete[] listOfCourses; // Xóa mảng nếu không có phần tử nào được gán giá trị
-        delete tmp;
-        return nullptr;
-    }
-    delete tmp;
-    return listOfCourses;
+    int res = final * 0.5 + midterm * 0.2 + other * 0.3;
+    return res;
 }
-
 
 std::string student::getAllCoursesInformations(Static* a)
 {
@@ -213,7 +164,7 @@ std::string** student::getStudentScoreBoard(Static* a)
                 {
                     std::getline(iss, res[i][j], ',');
                 }
-                float overall = stof(res[i][5]) * 0.5 + stof(res[i][6]) * 0.2 + stof(res[i][7]) * 0.3;
+                float overall = calculateOverall(stof(res[i][5]), stof(res[i][6]), stof(res[i][7]));
                 res[i][8] = std::to_string(overall);
         fIn.close();
         cur = cur->pNext;
