@@ -62,6 +62,35 @@ std::string student::viewStudentProfile()
     return studentProfile;
 }
 
+std::string** student::viewAllStudentsInACourse(Static* a)
+{
+    Course* tmp = new Course;
+    int n = tmp->loadStudentInTheCourse(a);
+    student* cur = tmp->pHeadStudent;
+
+    std::string** allStudents = new std::string * [n];
+
+    for (int i = 0; i < n; i++)
+    {
+        allStudents[i] = new std::string[7];
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        allStudents[i][0] = cur->No;
+        allStudents[i][1] = cur->studentID;
+        allStudents[i][2] = cur->firstName;
+        allStudents[i][3] = cur->lastName;
+        allStudents[i][4] = cur->gender;
+        allStudents[i][5] = cur->socialID;
+        cur = cur->pNext;
+    }
+
+    delete tmp;
+    delete cur;
+    return allStudents;
+}
+
 
 
 
