@@ -92,7 +92,7 @@ struct Course
 	void normingNumberInStudentList(); //done
 	bool exportStudentListToFile(Static* a);
 	int getAllStudent();
-	~Course();
+
 };
 
 

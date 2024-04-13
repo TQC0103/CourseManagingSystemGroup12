@@ -87,13 +87,6 @@ int semester::specifyCourseForStudent(Static* a)
 				fin2.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "information.txt");
 				getline(fin2, curStudent->ID);
 				getline(fin2, curStudent->Name);
-				getline(fin2, curStudent->className);
-				getline(fin2, curStudent->Lecturer);
-				fin2 >> curStudent->Credit;
-				fin2 >> curStudent->maxStudent;
-				fin2.ignore();
-				getline(fin2, curStudent->weekDay);
-				getline(fin2, curStudent->Session);
 				fin2.close();
 				nStudent++;
 			}
