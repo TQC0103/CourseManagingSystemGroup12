@@ -50,7 +50,6 @@ struct student
     std::string** getAllCoursesInformations(Static* a);
     float calculateOverall(float final, float midterm, float other);//support function
     std::string** getStudentScoreBoard(Static* a);
-    void deallocateListOfCourses(std::string* listOfCourses);
-    void student::dellocate2DArray(std::string** name, int n);
+    void dellocate2DArray(std::string** arr, int n);
 
 };

@@ -151,7 +151,7 @@ std::string** student::getStudentScoreBoard(Static* a)
 
 
 
-void student:: dellocate2DArray(std::string** arr, int n)
+void student::dellocate2DArray(std::string** arr, int n)
 {
     // Deallocate inner arrays
     for (int i = 0; i < n; ++i) {
