@@ -149,6 +149,17 @@ std::string** student::getStudentScoreBoard(Static* a)
     for(int i = 0; i < n; i++)
     {
         std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "/scoreboard.csv");
+        if (!fIn.is_open())
+        {
+            std::cout << "Can not open file scoreboard.csv of course: " << cur->ID << std::endl;
+            for (int j = 0; j < i; ++j) 
+            {
+                delete[] res[j];
+            }
+            delete[] res;
+            delete tmp;
+            return nullptr;
+        }
         std::string line;
         std::getline(fIn, line);
         for (int j = 0; j < 9; j++)
