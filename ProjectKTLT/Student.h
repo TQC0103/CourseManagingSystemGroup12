@@ -47,9 +47,9 @@ struct student
     void loadStudentProfile(std::string username);
     std::string viewStudentProfile();
     //std::string getCoursesInformations(Static *a);
-    std::string* loadNumberOfCourses(Static* a);
-    std::string** getAllCoursesInformations(Static* a);
+    std::string** viewAllCoursesInformations(Static* a);
+    float calculateOverall(float final, float midterm, float other);//support function
     std::string** getStudentScoreBoard(Static* a);
-    void deallocateListOfCourses(std::string* listOfCourses);
-    void deallocateCourseInformation(std::string** coursesInfo, int n);
+    void dellocate2DArray(std::string** arr, int n);
+
 };

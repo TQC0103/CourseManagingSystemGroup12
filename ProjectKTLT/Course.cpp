@@ -176,11 +176,11 @@ int Course::loadClassesInCourse(Static* a)
 }
 
 // Load the student list in the course
-int Course::loadStudentInTheCourse()
+int Course::loadStudentInTheCourse(Static* a)
 {
     int n = 0;
     std::ifstream fIn;
-    std::string path = "../Database/SchoolYear/" + className + "/Students/" + className + ".csv";
+    std::string path = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name +"/classlist.csv";
     fIn.open(path);
 
     if (fIn.is_open())
@@ -350,7 +350,7 @@ bool Course::exportStudentListToFile(Static* a)
 bool Course::addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID)
 {
     if (!pHeadStudent)
-        loadStudentInTheCourse();
+        loadStudentInTheCourse(a);
 
     student* tmp = new student(No, ID, FirstName, LastName, Gender, SocialID);
     if (pHeadStudent)
@@ -410,7 +410,7 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
 bool Course::deleteStudent(Static* a, std::string ID)
 {
     if (!pHeadStudent)
-        loadStudentInTheCourse();
+        loadStudentInTheCourse(a);
     if (pHeadStudent)
     {
         student* tmp = pHeadStudent;

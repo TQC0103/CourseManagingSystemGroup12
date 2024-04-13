@@ -86,7 +86,7 @@ struct Course
 	void showingStudentList();
 	void loadDataOfTheCourse(Static *a); //done
 	int loadClassesInCourse(Static* a); //done
-	int loadStudentInTheCourse(); //done
+	int loadStudentInTheCourse(Static* a); //done
 	void sortStudentList(student* a);// done
 	//void deleteStudentAfterSort(student* a); //done
 	void normingNumberInStudentList(); //done
