@@ -23,7 +23,7 @@ struct Class {
 	//Fuction
 	// data start
 	//Read data from files
-	void input_Student_from_file(student*& pHeads, std::string new_name_Class);
+	bool input_Student_from_file(student*& pHeads, std::string new_name_Class);
 
 	int load_classes(); // load data from files
 

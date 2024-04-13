@@ -142,15 +142,15 @@ int main() {
                 break;
             }
             case programState::AddStudentClassFile:
-                {
-				scene->addstudentclassfile->renderAddFromFile(event, scene, window);
-				break;
-			}
+            {
+                scene->addstudentclassfile->renderAddFromFile(event, scene, window);
+                break;
+            }
             case programState::CreateClass:
-			{
-				scene->createclass->renderCreateClass(event, scene, window);
-				break;
-			}
+            {
+                scene->createclass->renderCreateClass(event, scene, window);
+                break;
+            }
             case programState::MenuClassCourse:
             {
                 scene->menuclasscourse->renderMenuClassCourse(event, scene, window);
@@ -158,9 +158,9 @@ int main() {
             }
             case programState::CourseManageScoreBoard:
             {
-				scene->coursemanagescoreboard->renderCourseManageScoreBoard(event, scene, window);
-				break;
-			}
+                scene->coursemanagescoreboard->renderCourseManageScoreBoard(event, scene, window);
+                break;
+            }
             case programState::CourseManageStudent:
             {
                 scene->coursemanagestudent->renderCourseManageStudent(event, scene, window);
@@ -168,9 +168,9 @@ int main() {
             }
             case programState::AddStudentCourse:
             {
-				scene->addstudenttocourse->renderAddStudentToCourse(event, scene, window);
-				break;
-			}
+                scene->addstudenttocourse->renderAddStudentToCourse(event, scene, window);
+                break;
+            }
             case programState::ImportScoreboard:
             {
                 scene->importscoreboard->renderImportScoreboard(event, scene, window);
@@ -178,14 +178,14 @@ int main() {
             }
             case programState::CourseAddStudentManually:
             {
-				scene->addstudenttocoursemanually->renderAddManually(event, scene, window);
-				break;
-			}
+                scene->addstudenttocoursemanually->renderAddManually(event, scene, window);
+                break;
+            }
             case programState::CourseAddStudentFIle:
             {
-				scene->addstudenttocoursefile->renderAddFile(event, scene, window);
-				break;
-			}
+                scene->addstudenttocoursefile->renderAddFile(event, scene, window);
+                break;
+            }
             default:
                 break;
             }
@@ -328,28 +328,28 @@ int main() {
             }
             case programState::MenuClassCourse:
             {
-				scene->menuclasscourse->drawMenuClassCourse(window, scene->a);
-				break;
-			}
+                scene->menuclasscourse->drawMenuClassCourse(window, scene->a);
+                break;
+            }
             case programState::CourseManageScoreBoard:
             {
-				scene->coursemanagescoreboard->drawCourseManageScoreBoard(window, scene->a);
-				break;
-			}
+                scene->coursemanagescoreboard->drawCourseManageScoreBoard(window, scene->a);
+                break;
+            }
             case programState::CourseManageStudent:
             {
-				scene->coursemanagestudent->drawCourseManageStudent(window, scene->a);
-				break;
-			}
+                scene->coursemanagestudent->drawCourseManageStudent(window, scene->a);
+                break;
+            }
             case programState::AddStudentCourse:
             {
-				scene->addstudenttocourse->drawAddStudentToCourse(window, scene->a);
-				break;
-			}
+                scene->addstudenttocourse->drawAddStudentToCourse(window, scene->a);
+                break;
+            }
             case programState::ImportScoreboard:
             {
-				scene->importscoreboard->drawImportScoreboard(window, scene->a);
-				break;
+                scene->importscoreboard->drawImportScoreboard(window, scene->a);
+                break;
             }
             case programState::CourseAddStudentManually:
             {
@@ -358,9 +358,9 @@ int main() {
             }
             case programState::CourseAddStudentFIle:
             {
-				scene->addstudenttocoursefile->drawAddFile(window, scene->a);
-				break;
-			}
+                scene->addstudenttocoursefile->drawAddFile(window, scene->a);
+                break;
+            }
             default:
                 break;
             }
