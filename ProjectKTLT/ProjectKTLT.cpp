@@ -11,6 +11,8 @@
 int main() {
 	
 
+
+
     Scene* scene = new Scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)scene->a->width, (unsigned int)scene->a->height), "CourseManagingSystem");
 
@@ -373,3 +375,52 @@ int main() {
     delete scene;
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Static* a = new Static;
+//student* curStudent = new student;
+//semester* tmpSem = new semester;
+//a->curClass = new Class;
+//a->curSemester = new semester;
+//a->curSchoolYear = new schoolYear;
+//
+//a->curSchoolYear->year = "2023-2024";
+//a->curSemester->semesterData = "Semester1";
+//a->curClass->name = "23CLC03";
+//
+//std::string testCourse;
+//std::cout << "Input Course: ";
+//getline(std::cin, testCourse);
+//bool check = tmpSem->deleteCourse(testCourse, a);
+//if (check)
+//{
+//    std::cout << "Successfull ";
+//}
+//else {
+//    std::cout << "Try again";
+//}
+//
+//
+//
+//delete a;
+//delete curStudent;
+//delete tmpSem;
+//
+//
+//return 0;
