@@ -22,7 +22,8 @@ struct Class {
 
 	//Fuction
 
-	
+	//DONE 100%
+
 	int load_classes(); // load data from files
 
 	int loadStudents(Static* a);//load student from file
