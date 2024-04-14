@@ -44,13 +44,20 @@ struct student
         dateOfBirth = {1,1,0};
     }
     //functions 
+
     void loadStudentProfile(std::string username);
     std::string viewStudentProfile();
     //std::string getCoursesInformations(Static *a);
     std::string** viewAllCoursesInformations(Static* a);
     //std::string** viewAllCoursesInformations(Static* a, int n, semester* tmp);
+
+    void loadStudentProfile(std::string username); // done
+    std::string viewStudentProfile(); // done
+    std::string** viewAllCoursesInformations(Static* a); // done
+    std::string** viewAllStudentsInACourse(Static* a); // done
+
     float calculateOverall(float final, float midterm, float other);//support function
-    std::string** getStudentScoreBoard(Static* a);
+    std::string** getStudentScoreBoard(Static* a); // done
     void dellocate2DArray(std::string** arr, int n);
 
 };
