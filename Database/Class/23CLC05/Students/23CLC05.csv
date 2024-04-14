@@ -1,6 +1,6 @@
-"No	",Student-ID,First Name,Last Name,"	Gender","Social ID"
-"1  ",21127041,Le Hoai,Duc,Nam,12/12/2005,21475
-"2	",21127042,Truong Nam,Duc,Nam,24/09/2005,23883
-"3	",21127043,Dinh My,Duong,Nu,02/12/2005,364463
-"4	",21127044,Truong Hoai,Duong,Nu,05/02/2005,77839
-"5	",21127045,Tran Hoai,Dat,Nam,21/08/2005,214251
+"No	",Student-ID,First Name,Last Name,"	Gender","Date of Birthday","Social ID"
+1,21127041,Le Hoai,Duc,Nam,12/12/2005,21475
+2,21127042,Truong Nam,Duc,Nam,24/09/2005,23883
+3,21127043,Dinh My,Duong,Nu,02/12/2005,364463
+4,21127044,Truong Hoai,Duong,Nu,05/02/2005,77839
+5,21127045,Tran Hoai,Dat,Nam,21/08/2005,214251
