@@ -351,10 +351,7 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
 {
     if (!pHeadStudent)
         loadStudentInTheCourse();
-
-    student* tmp = new student(No, ID, FirstName, LastName, Gender, SocialID);
-    if (pHeadStudent)
-    {
+   
         std::ifstream fIn;
         fIn.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "classList.csv");
         if (!fIn.is_open())
@@ -382,6 +379,8 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
         }
         fIn.close();
 
+        student* tmp = new student(No, ID, FirstName, LastName, Gender, SocialID);
+
         // Update the linked list
 
         sortStudentList(tmp);
@@ -391,22 +390,7 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
         exportStudentListToFile(a);
         return true;
     }
-    else
-    {
-        //Update the linked list
-        pHeadStudent = tmp;
-        pTailStudent = pHeadStudent;
-
-        // Update the csv file
-        normingNumberInStudentList();
-        exportStudentListToFile(a);
-        return true;
-    }
-}
-
-
-
-
+    
 bool Course::deleteStudent(Static* a, std::string ID)
 {
     if (!pHeadStudent)
