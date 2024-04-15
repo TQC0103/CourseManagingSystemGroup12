@@ -31,7 +31,7 @@ struct semester {
 	// This function is to load list of Course for Staff to see, it load include ID and Name, we should display Name only
 	int loadCourse(Static* a); // done 90%
 	// This function is to load list of Course for Student to see 
-	int specifyCourseForStudent(Static* a); // done 98%
+	int specifyCourseForStudent(Static* a); // done 100%
 
 	//These functions are for input data ---> add a course to list of courses of a semester
 
@@ -39,12 +39,13 @@ struct semester {
 
 	void normingOneSpace(std::string& data); // for Name and Teacher // done 100%
 
-	bool addCourse(Static* a, std::string& id, std::string& name, std::string& className, std::string& lecturer, int credit, int maxStudent, std::string& weekDay, std::string& session); // done 90%
+	bool addCourse(Static* a, std::string& id, std::string& name, std::string& className, std::string& lecturer, int credit, int maxStudent, std::string& weekDay, std::string& session); // done 100%
 
 	// Delete Operation
-	bool deleteCourse(std::string& courseID, Static* a); // , this is remove a course in DATABASE
+	// Name is easier to remember than ID
+	 bool deleteCourse(std::string& courseName, Static* a); // , this is remove a course in DATABASE // done 100%
 
-
+	 
 	~semester();// Done 100%
 	
 

@@ -5,10 +5,13 @@
 #include "config.h"
 #include "Scenes/Scene.h"
 #include "SchoolYear.h"
-
-
+#include "Student.h"
+#include "Semester.h"
 // Functions
 int main() {
+	
+
+
 
     Scene* scene = new Scene;
     sf::RenderWindow window(sf::VideoMode((unsigned int)scene->a->width, (unsigned int)scene->a->height), "CourseManagingSystem");
@@ -142,18 +145,48 @@ int main() {
                 break;
             }
             case programState::AddStudentClassFile:
-                {
-				scene->addstudentclassfile->renderAddFromFile(event, scene, window);
-				break;
-			}
+            {
+                scene->addstudentclassfile->renderAddFromFile(event, scene, window);
+                break;
+            }
             case programState::CreateClass:
-			{
-				scene->createclass->renderCreateClass(event, scene, window);
-				break;
-			}
+            {
+                scene->createclass->renderCreateClass(event, scene, window);
+                break;
+            }
             case programState::MenuClassCourse:
             {
                 scene->menuclasscourse->renderMenuClassCourse(event, scene, window);
+                break;
+            }
+            case programState::CourseManageScoreBoard:
+            {
+                scene->coursemanagescoreboard->renderCourseManageScoreBoard(event, scene, window);
+                break;
+            }
+            case programState::CourseManageStudent:
+            {
+                scene->coursemanagestudent->renderCourseManageStudent(event, scene, window);
+                break;
+            }
+            case programState::AddStudentCourse:
+            {
+                scene->addstudenttocourse->renderAddStudentToCourse(event, scene, window);
+                break;
+            }
+            case programState::ImportScoreboard:
+            {
+                scene->importscoreboard->renderImportScoreboard(event, scene, window);
+                break;
+            }
+            case programState::CourseAddStudentManually:
+            {
+                scene->addstudenttocoursemanually->renderAddManually(event, scene, window);
+                break;
+            }
+            case programState::CourseAddStudentFIle:
+            {
+                scene->addstudenttocoursefile->renderAddFile(event, scene, window);
                 break;
             }
             default:
@@ -298,9 +331,39 @@ int main() {
             }
             case programState::MenuClassCourse:
             {
-				scene->menuclasscourse->drawMenuClassCourse(window, scene->a);
-				break;
-			}
+                scene->menuclasscourse->drawMenuClassCourse(window, scene->a);
+                break;
+            }
+            case programState::CourseManageScoreBoard:
+            {
+                scene->coursemanagescoreboard->drawCourseManageScoreBoard(window, scene->a);
+                break;
+            }
+            case programState::CourseManageStudent:
+            {
+                scene->coursemanagestudent->drawCourseManageStudent(window, scene->a);
+                break;
+            }
+            case programState::AddStudentCourse:
+            {
+                scene->addstudenttocourse->drawAddStudentToCourse(window, scene->a);
+                break;
+            }
+            case programState::ImportScoreboard:
+            {
+                scene->importscoreboard->drawImportScoreboard(window, scene->a);
+                break;
+            }
+            case programState::CourseAddStudentManually:
+            {
+                scene->addstudenttocoursemanually->drawAddMunually(window, scene->a);
+                break;
+            }
+            case programState::CourseAddStudentFIle:
+            {
+                scene->addstudenttocoursefile->drawAddFile(window, scene->a);
+                break;
+            }
             default:
                 break;
             }
@@ -312,3 +375,53 @@ int main() {
     delete scene;
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Static* a = new Static;
+//student* curStudent = new student;
+//semester* tmpSem = new semester;
+//a->curClass = new Class;
+//a->curSemester = new semester;
+//a->curSchoolYear = new schoolYear;
+//
+//a->curSchoolYear->year = "2023-2024";
+//a->curSemester->semesterData = "Semester1";
+//a->curClass->name = "23CLC03";
+//
+//std::string testCourse;
+//std::cout << "Input Course: ";
+//getline(std::cin, testCourse);
+//bool check = tmpSem->deleteCourse(testCourse, a);
+//if (check)
+//{
+//    std::cout << "Successfull ";
+//}
+//else {
+//    std::cout << "Try again";
+//}
+//
+//
+//
+//delete a;
+//delete curStudent;
+//delete tmpSem;
+//
+//
+//return 0;

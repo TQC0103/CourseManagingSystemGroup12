@@ -6,6 +6,7 @@
 #include<iostream>
 #include<direct.h>
 #include "SchoolYear.h"
+#include <cstdio>
 
 
 
@@ -67,6 +68,11 @@ int semester::specifyCourseForStudent(Static* a)
 	{
 		std::ifstream fin;
 		fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + "Classes.txt");
+		if (fin.is_open() == false)
+		{
+			std::cerr << "Can't open file " << cur->ID << " Classes" << std::endl;
+			return -1;
+		}
 		std::string className;
 	
 		while (getline(fin, className))
@@ -84,16 +90,23 @@ int semester::specifyCourseForStudent(Static* a)
 					curStudent = curStudent->pNext;
 				}
 				std::ifstream fin2;
-				fin2.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "information.txt");
+				fin2.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "/information.txt");
+				if (fin2.is_open() == false)
+				{
+					std::cerr << "Can't open file " << cur->ID << " information" << std::endl;
+					return -1;
+				}
 				getline(fin2, curStudent->ID);
 				getline(fin2, curStudent->Name);
 				getline(fin2, curStudent->className);
 				getline(fin2, curStudent->Lecturer);
 				fin2 >> curStudent->Credit;
+				fin2.ignore();
 				fin2 >> curStudent->maxStudent;
 				fin2.ignore();
 				getline(fin2, curStudent->weekDay);
 				getline(fin2, curStudent->Session);
+
 				fin2.close();
 				nStudent++;
 			}
@@ -230,7 +243,86 @@ bool semester::addCourse(Static* a, std::string& id, std::string& name, std::str
 
 
 
+bool semester::deleteCourse(std::string& courseName, Static* a)
+{
+	normingOneSpace(courseName);
+	std::ifstream fin("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
+	// ID is not exist
+	if (!fin.is_open())
+	{
+		std::cerr << "Can't open file" << std::endl;
+		return false;
+	
+	}
+	Course* cur = pHeadCourse;
+	std::string courseID;
+	std::string tmpCourseID;
+	std::string tmpCourseName;
+	bool Flag = false;
+	while (getline(fin, tmpCourseID, ';'))
+	{
+		getline(fin, tmpCourseName);
+		if (tmpCourseName == courseName)
+		{
+			courseID = tmpCourseID;
+			Flag = true;
+			continue;
+		}
+		if (!pHeadCourse)
+		{
+			pHeadCourse = new Course;
+			cur = pHeadCourse;
+		}
+		else {
+			cur->pNext = new Course;
+			cur = cur->pNext;
+		}
+		cur->ID = tmpCourseID;
+		cur->Name = tmpCourseName;
+	}
+	if (cur)
+	{
+		cur->pNext = nullptr;
+	}
+	fin.close();
+	// Course is not exist !
+	if (Flag == false)
+	{
+		std::cerr << "This ID is not exist" << std::endl;
+		return false;
+	}
+	std::ofstream fout;
+	fout.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
+	if (!fout.is_open())
+	{
+		std::cerr << "Can't open file" << std::endl;
+		fout.close();
+		return false;
+	}
+	cur = pHeadCourse;
+	while (cur)
+	{
+		fout << cur->ID << ";" << cur->Name << std::endl;
+		cur = cur->pNext;
+	}
+	fout.close();
+	// Move the Course File to the Deleted Folder
+	int makeFile = _mkdir("../Rubbish");
+	std::string source = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + courseID;
+	std::string destination = "../Rubbish/" + courseID;
+	int moveFile = rename(source.c_str(), destination.c_str());
+	if (moveFile != 0)
+	{
+		std::cerr << "Can't move file" << std::endl;
+		return false;
+	}
 
+
+
+	
+	return true;
+
+}
 
 
 
@@ -238,6 +330,13 @@ bool semester::addCourse(Static* a, std::string& id, std::string& name, std::str
 semester::~semester()
 {
 	Course* cur = pHeadCourse;
+	while (cur)
+	{
+		Course* tmp = cur;
+		cur = cur->pNext;
+		delete tmp;
+	}
+	cur = pHeadCourseForStudent;
 	while (cur)
 	{
 		Course* tmp = cur;

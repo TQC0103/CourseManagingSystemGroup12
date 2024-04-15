@@ -1,16 +1,15 @@
-#include "AddStudentClassManually.h"
+#include "AddStudentCourseManually.h"
 #include "Scene.h"
 #include "../UserInterface.h"
 #include <fstream>
 #include <string>
 
 
-AddStudentClassManuallyScene::AddStudentClassManuallyScene(Static* a)
+CourseAddStudentManuallyScene::CourseAddStudentManuallyScene(Static* a)
 {
 	isCursorVisible = false;
 	createABox(addManuallyBackgr, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(addManuallyText, a->fontB, a->textColorBlue, "Enter student's information", 100, a->width / 2.0f, 125.0f);
-	createText(classText, a->fontB, a->textColorBlue, a->curClass->name, 80, a->width / 2.0f, 225.0f);
 	createCornerRoundedButton(preButt, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createCornerRoundedButton(create, creatingText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Enter", sf::Vector2f(a->width - 150.0f, 1000.0f), 2.0f, sf::Color::Black);
 
@@ -33,14 +32,14 @@ AddStudentClassManuallyScene::AddStudentClassManuallyScene(Static* a)
 	createABox(birthday, sf::Vector2f(400.0f, 150.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 700.0f));
 	createText(birthdayText, a->fontN, sf::Color::White, "", 40, birthday.getPosition().x, birthday.getPosition().y);
 	createText(enterbirthdayHere, a->fontI, sf::Color::White, "ENTER BIRTHDAY HERE", 30, birthday.getPosition().x, birthday.getPosition().y);
-	
+
 	createABox(sID, sf::Vector2f(400.0f, 150.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f + 600.0f, 700.0f));
 	createText(sIDText, a->fontN, sf::Color::White, "", 40, sID.getPosition().x, sID.getPosition().y);
 	createText(entersIDHere, a->fontI, sf::Color::White, "ENTER SOCIAL ID HERE", 30, sID.getPosition().x, sID.getPosition().y);
 
 }
 
-void AddStudentClassManuallyScene::drawAddMunually(sf::RenderWindow& win, Static* a)
+void CourseAddStudentManuallyScene::drawAddMunually(sf::RenderWindow& win, Static* a)
 {
 	win.draw(addManuallyBackgr);
 	win.draw(addManuallyText);
@@ -56,7 +55,6 @@ void AddStudentClassManuallyScene::drawAddMunually(sf::RenderWindow& win, Static
 	win.draw(preText);
 	win.draw(create);
 	win.draw(creatingText);
-
 
 	idText.setString(idInput);
 	setOriginTextToMiddle(idText);
@@ -113,7 +111,7 @@ void AddStudentClassManuallyScene::drawAddMunually(sf::RenderWindow& win, Static
 		setBlinkingCursorInTypingBox(sIDText, cursor, win, cursorClock, isCursorVisible);
 	}
 
-	
+
 	if (inputEnable != 2 && idInput == "")
 	{
 		win.draw(enterIdHere);
@@ -138,7 +136,7 @@ void AddStudentClassManuallyScene::drawAddMunually(sf::RenderWindow& win, Static
 	{
 		win.draw(entersIDHere);
 	}
-	
+
 
 	//if (isWrong == 1)
 	//{
@@ -160,20 +158,20 @@ void AddStudentClassManuallyScene::drawAddMunually(sf::RenderWindow& win, Static
 
 }
 
-void AddStudentClassManuallyScene::renderAddManually(sf::Event event, Scene* scene, sf::RenderWindow& win)
+void CourseAddStudentManuallyScene::renderAddManually(sf::Event event, Scene* scene, sf::RenderWindow& win)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(win);
-	if (scene->a->currentState == programState::AddStudentClassManually && preButt.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	if (scene->a->currentState == programState::CourseAddStudentManually && preButt.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
 		preButt.setFillColor(scene->a->pastelTitleCyan);
 		preText.setFillColor(scene->a->titleGreyColor);
 	}
-	else if (scene->a->currentState == programState::AddStudentClassManually && create.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	else if (scene->a->currentState == programState::CourseAddStudentManually && create.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
 		create.setFillColor(scene->a->pastelTitleCyan);
 		creatingText.setFillColor(scene->a->titleGreyColor);
 	}
-	else if (scene->a->currentState == programState::AddStudentClassManually) {
+	else if (scene->a->currentState == programState::CourseAddStudentManually) {
 		preButt.setFillColor(scene->a->highlightCyan);
 		preText.setFillColor(sf::Color::White);
 		create.setFillColor(scene->a->highlightCyan);
@@ -197,10 +195,11 @@ void AddStudentClassManuallyScene::renderAddManually(sf::Event event, Scene* sce
 		{
 			if (preButt.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				scene->addstudentclass = new AddStudentClassScene(scene->a);
-				delete scene->addstudentclassmanually;
-				scene->addstudentclassmanually = nullptr;
-				scene->a->currentState = programState::AddStudentCLass;
+				delete scene->addstudenttocoursemanually;
+				scene->addstudenttocoursemanually = nullptr;
+				if (scene->addstudenttocourse == nullptr)
+					scene->addstudenttocourse = new AddStudentToCourseScene(scene->a);
+				scene->a->currentState = programState::AddStudentCourse;
 			}
 			else if (id.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
@@ -229,7 +228,7 @@ void AddStudentClassManuallyScene::renderAddManually(sf::Event event, Scene* sce
 			else if (create.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
 				/*int check = year->addSemester(semesterData, startDayInput, endDayInput, scene->a);*/
-				
+
 			}
 			else {
 				inputEnable = -1;
@@ -282,11 +281,7 @@ void AddStudentClassManuallyScene::renderAddManually(sf::Event event, Scene* sce
 			else if (event.text.unicode == 8) // Handle backspace
 			{
 				// Erase the last character from the appropriate input string
-				if (inputEnable == 1 && !noInput.empty())
-				{
-					noInput.pop_back();
-				}
-				else if (inputEnable == 2 && !idInput.empty())
+				if (inputEnable == 2 && !idInput.empty())
 				{
 					idInput.pop_back();
 				}
