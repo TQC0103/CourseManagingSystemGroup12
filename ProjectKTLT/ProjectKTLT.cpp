@@ -189,6 +189,11 @@ int main() {
                 scene->addstudenttocoursefile->renderAddFile(event, scene, window);
                 break;
             }
+            case programState::ViewCoursesStudent:
+            {
+				scene->viewcoursesstudent->renderViewCourseStudent(event, scene, window);
+				break;
+			}
             default:
                 break;
             }
@@ -364,6 +369,11 @@ int main() {
                 scene->addstudenttocoursefile->drawAddFile(window, scene->a);
                 break;
             }
+            case programState::ViewCoursesStudent:
+            {
+				scene->viewcoursesstudent->drawViewCourseStudent(window, scene->a);
+				break;
+			}
             default:
                 break;
             }

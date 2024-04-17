@@ -94,16 +94,21 @@ std::string** student::viewAllStudentsInACourse(Static* a)
 
 
 
-double student::calculateOverall(double final, double  midterm, double  other)
+float student::calculateOverall(float final, float midterm, float other)
 {
-    double res = final * 0.5 + midterm * 0.2 + other * 0.3;
+    float res = final * 0.5f + midterm * 0.2f + other * 0.3f;
     return res;
 }
 
-std::string** student::viewAllCoursesInformations(Static* a)
+std::string** student::viewAllCoursesInformations(Static* a, int &n)
 {
     semester* tmp = new semester;
-    int n = tmp->specifyCourseForStudent(a);
+    n = tmp->specifyCourseForStudentUser(a);
+    if (n == 0)
+    {
+		delete tmp;
+		return nullptr;
+	}
     Course* cur = tmp->pHeadCourseForStudent;
     std::string** allCourseInformations = new std::string * [n];
     for (int i = 0; i < n; i++)
@@ -125,7 +130,6 @@ std::string** student::viewAllCoursesInformations(Static* a)
     }
 
     delete tmp;
-    delete cur;
     return allCourseInformations;
 }
 

@@ -9,7 +9,12 @@ struct date {
 	int m;
 	int y;
 
-	//date();
+	date()
+	{
+		d = 1;
+		m = 1;
+		y = 0;
+	}
 
 	//Functions
 	bool isValid();

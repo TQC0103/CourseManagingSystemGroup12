@@ -37,9 +37,10 @@ struct student
     //functions 
     void loadStudentProfile(std::string username); // done
     std::string viewStudentProfile(); // done
-    std::string** viewAllCoursesInformations(Static* a); // done
+    std::string** viewAllCoursesInformations(Static* a, int &n); // done
     std::string** viewAllStudentsInACourse(Static* a); // done
-    double calculateOverall(double final, double  midterm, double  other);//support function
+
+    float calculateOverall(float final, float midterm, float other);//support function
     std::string** getStudentScoreBoard(Static* a); // done
     void dellocate2DArray(std::string** arr, int n);
 

@@ -215,3 +215,19 @@ std::wstring openFileDialog(HWND hwndOwner) {
     else
         return std::wstring();
 }
+
+void drawTable(sf::RenderWindow& window, sf::RectangleShape** recA, sf::Text** textA, std::string** data, int rows, int cols, sf::Vector2f& sizeEach, sf::Color& textColor, const float charSize, Static* a, const sf::Vector2f pos) {
+    float cellWidth = sizeEach.x;
+    float cellHeight = sizeEach.y;
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            // Draw cell
+            createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->backGroundWhite, sf::Vector2f(pos.x + j * cellWidth, pos.y + i * cellHeight));
+
+            // Draw text
+            createText(textA[i][j], a->fontN, textColor, data[i][j], charSize, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+           
+        }
+    }
+}

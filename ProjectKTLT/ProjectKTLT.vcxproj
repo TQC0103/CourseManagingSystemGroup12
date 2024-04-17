@@ -117,6 +117,7 @@
       <AdditionalIncludeDirectories>SFML\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MinimalRebuild>true</MinimalRebuild>
+      <AdditionalOptions>/Gm- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,6 +136,7 @@
       <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>SFML\include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/Gm- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -182,6 +184,7 @@
     <ClCompile Include="Scenes\SignInAsStaff.cpp" />
     <ClCompile Include="Scenes\SignInAsStudent.cpp" />
     <ClCompile Include="Scenes\MenuClass.cpp" />
+    <ClCompile Include="Scenes\ViewCoursesStudent.cpp" />
     <ClCompile Include="Scenes\ViewStudentProfile.cpp" />
     <ClCompile Include="Scenes\Welcome.cpp" />
     <ClCompile Include="SchoolYear.cpp" />
@@ -226,6 +229,7 @@
     <ClInclude Include="Scenes\SignIn.h" />
     <ClInclude Include="Scenes\SignInAsStaff.h" />
     <ClInclude Include="Scenes\SignInAsStudent.h" />
+    <ClInclude Include="Scenes\ViewCoursesStudent.h" />
     <ClInclude Include="Scenes\ViewStudentProfile.h" />
     <ClInclude Include="Scenes\Welcome.h" />
     <ClInclude Include="SchoolYear.h" />
