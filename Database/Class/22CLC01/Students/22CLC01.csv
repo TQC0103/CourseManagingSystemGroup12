@@ -1,6 +1,6 @@
-"No	",Student-ID,First Name,Last Name,"	Gender","Social ID"
-"1  ",21127011,Tran Quach,Ngoc,Nu,09/11/2004,712341
-"2	",21127012,Nguye Lan,Ngoc,Nu,05/09/2004,541243883
-"3	",21127013,Tran Hoang,Tuan,Nam,04/12/2004,65446363
-"4	",21127014,Dao Ngoc,Huynh,Nu,03/10/2004,2443839
-"5	",21127015,Nguyen Hao,Thanh,Nam,08/12/2004,328728249
+"No	",Student-ID,First Name,Last Name,"	Gender","Date of Birthday","Social ID"
+1,21127011,Tran Quach,Ngoc,Nu,09/11/2004,712341
+2,21127012,Nguye Lan,Ngoc,Nu,05/09/2004,541243883
+3,21127013,Tran Hoang,Tuan,Nam,04/12/2004,65446363
+4,21127014,Dao Ngoc,Huynh,Nu,03/10/2004,2443839
+5,21127015,Nguyen Hao,Thanh,Nam,08/12/2004,328728249

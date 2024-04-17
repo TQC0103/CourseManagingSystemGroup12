@@ -1,6 +1,6 @@
-"No	",Student-ID,First Name,Last Name,"	Gender","Social ID"
-"1  ",21127061,Nguyen Kim,Lan,Nu,05/12/2005,36575
-"2	",21127062,Chang Ninh,Kim,Nam,02/02/2005,36583
-"3	",21127063,Nguyen My,Ngoc,Nu,05/09/2005,36263
-"4	",21127064,Trinh Hoai,Hoang,Nam,03/08/2005,98839
-"5	",21127065,Nguyen Minh,Hoang,Nam,07/12/2005,225251
+"No	",Student-ID,First Name,Last Name,"	Gender","Date of Birthday","Social ID"
+1,21127061,Nguyen Kim,Lan,Nu,05/12/2005,36575
+2,21127062,Chang Ninh,Kim,Nam,02/02/2005,36583
+3,21127063,Nguyen My,Ngoc,Nu,05/09/2005,36263
+4,21127064,Trinh Hoai,Hoang,Nam,03/08/2005,98839
+5,21127065,Nguyen Minh,Hoang,Nam,07/12/2005,225251

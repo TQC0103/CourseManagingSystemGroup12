@@ -94,9 +94,9 @@ std::string** student::viewAllStudentsInACourse(Static* a)
 
 
 
-float student::calculateOverall(float final, float midterm, float other)
+double student::calculateOverall(double final, double  midterm, double  other)
 {
-    float res = final * 0.5 + midterm * 0.2 + other * 0.3;
+    double res = final * 0.5 + midterm * 0.2 + other * 0.3;
     return res;
 }
 
@@ -134,6 +134,11 @@ std::string** student::getStudentScoreBoard(Static* a)
 {
     semester* tmp = new semester;
     int n = tmp->specifyCourseForStudent(a);
+    if (n == 0)
+    {
+        delete tmp;
+        return nullptr;
+    }
     Course* cur = tmp->pHeadCourseForStudent;
     std::string** res = new std::string * [n];
     for (int i = 0; i < n; i++)
@@ -157,6 +162,7 @@ std::string** student::getStudentScoreBoard(Static* a)
         std::string line;
         std::getline(fIn, line);
         for (int j = 0; j < 9; j++)
+        {
             while (std::getline(fIn, line))
             {
                 std::istringstream iss(line);
@@ -169,16 +175,17 @@ std::string** student::getStudentScoreBoard(Static* a)
                 {
                     std::getline(iss, res[i][j], ',');
                 }
-                float overall = calculateOverall(stof(res[i][5]), stof(res[i][6]), stof(res[i][7]));
+                double overall = calculateOverall(std::stod(res[i][5]), std::stod(res[i][6]), std::stod(res[i][7]));
                 res[i][8] = std::to_string(overall);
+            }
+        }
         fIn.close();
         cur = cur->pNext;
     }
     delete tmp;
-    delete cur;
     return res;
-    }
 }
+
 
 
 

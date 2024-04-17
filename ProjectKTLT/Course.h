@@ -66,7 +66,8 @@ struct Course
 	void updateCourse(); //done
 	int addStudentOptions();
 	//done
-	bool addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID); 
+	bool addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string DOB, std::string SocialID);
+	bool addStudentbyFile(Static* a, std::string path);
 	bool deleteStudent(Static* a, std::string ID); 
 	bool getGPAStudents(Static* a);
 	void showStudent();
