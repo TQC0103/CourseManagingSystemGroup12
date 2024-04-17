@@ -41,3 +41,21 @@ bool date::isValid()
     }
     return true;
 }
+
+date parseDate(std::string dateString)
+{
+    date BirthDay;
+    char discard; // To discard the '/'
+    std::istringstream ss(dateString);
+    ss >> BirthDay.d >> discard >> BirthDay.m >> discard >> BirthDay.y;
+    return BirthDay;
+};
+
+std::string formatDate(date Date)
+{
+    std::ostringstream oss;
+    oss << std::setw(2) << std::setfill('0') << Date.d << '/'
+        << std::setw(2) << std::setfill('0') << Date.m << '/'
+        << Date.y;
+    return oss.str();
+}
