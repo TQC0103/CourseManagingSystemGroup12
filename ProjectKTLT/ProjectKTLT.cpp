@@ -377,10 +377,32 @@ int main() {
 }
 
 
-
-
-
-
+//int main() {
+//	Static* a = new Static;
+//	a->curClass = new Class;
+//	a->curSchoolYear = new schoolYear;
+//
+//
+//	a->curCourse = new Course;
+//
+//
+//	a->curSemester = new semester;
+//	a->curClass->name = "23CLC03";
+//	Class* b = new Class;
+//	b->load_classes();
+//	Class* cur = b->pHeadListClasses;
+//	while (cur) {
+//		std::cout << cur->name << " ";
+//		cur = cur->pNext;
+//	}
+//	delete a->curClass;
+//	delete a->curSchoolYear;
+//	delete a->curCourse;
+//	delete a->curSemester;
+//	delete a;
+//	delete b;
+//	return 0;
+//}
 
 
 

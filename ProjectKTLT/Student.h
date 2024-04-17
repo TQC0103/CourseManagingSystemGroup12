@@ -21,7 +21,7 @@ struct student
         scoreBoard* pNext;
     };
     student* pNext = nullptr;
-
+    std::string curClass;
   
     //constructor
     student() {
@@ -51,9 +51,8 @@ struct student
     std::string** viewAllCoursesInformations(Static* a);
     //std::string** viewAllCoursesInformations(Static* a, int n, semester* tmp);
 
-    void loadStudentProfile(std::string username); // done
-    std::string viewStudentProfile(); // done
-    std::string** viewAllCoursesInformations(Static* a); // done
+
+
     std::string** viewAllStudentsInACourse(Static* a); // done
 
     float calculateOverall(float final, float midterm, float other);//support function

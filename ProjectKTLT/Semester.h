@@ -14,6 +14,7 @@ struct semester {
 	std::string semesterData;
 	std::string startDate;
 	std::string endDate;
+	double GPA = 0;
 	semester* pNext = nullptr;
 
 	// SEMESTER
@@ -28,11 +29,13 @@ struct semester {
 
 	Course* pHeadCourseForStudent = nullptr;
 
+	semester * GPASemester = nullptr;
 	// This function is to load list of Course for Staff to see, it load include ID and Name, we should display Name only
 	int loadCourse(Static* a); // done 90%
 	// This function is to load list of Course for Student to see 
 	int specifyCourseForStudent(Static* a); // done 100%
 
+	int specifyCourseForStudentUser(Static* a);
 	//These functions are for input data ---> add a course to list of courses of a semester
 
 	void normingNonSpace(std::string& data); // for ID, Class, Day and Time // done 100%
@@ -43,13 +46,14 @@ struct semester {
 
 	// Delete Operation
 	// Name is easier to remember than ID
-	 bool deleteCourse(std::string& courseName, Static* a); // , this is remove a course in DATABASE // done 100%
+	bool deleteCourse(std::string& courseName, Static* a); // , this is remove a course in DATABASE // done 100%
 
 	 
+
+	bool getGPASemester(Static* a);
+
 	~semester();// Done 100%
 	
-
-
 
 
 };

@@ -68,6 +68,7 @@ struct Course
 	//done
 	bool addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string SocialID); 
 	bool deleteStudent(Static* a, std::string ID); 
+	bool getGPAStudents(Static* a);
 	void showStudent();
 	void showInfo();
 	void deleteStudentCourseList();

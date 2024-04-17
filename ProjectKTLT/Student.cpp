@@ -5,7 +5,7 @@
 #include "Semester.h"
 #include "Course.h"
 
-std::string curClass;
+
 void student::loadStudentProfile(std::string username)
 {
     std::ifstream file("../Database/Profile/StudentProfile/" + username +".csv");
@@ -96,7 +96,7 @@ std::string** student::viewAllStudentsInACourse(Static* a)
 
 float student::calculateOverall(float final, float midterm, float other)
 {
-    int res = final * 0.5 + midterm * 0.2 + other * 0.3;
+    float res = final * 0.5 + midterm * 0.2 + other * 0.3;
     return res;
 }
 

@@ -62,6 +62,11 @@ int semester::specifyCourseForStudent(Static* a)
 	int nStudent = 0;
 	semester* listAllCourse = new semester;
 	int n = listAllCourse->loadCourse(a);
+	if (n == 0)
+	{
+		std::cerr << "There is no course in this semester" << std::endl;
+		return 0;
+	}
 	Course *cur = listAllCourse->pHeadCourse;
 	Course* curStudent = pHeadCourseForStudent;
 	for (int i = 0; i < n; i++)
@@ -124,6 +129,83 @@ int semester::specifyCourseForStudent(Static* a)
 	return nStudent;
 }
 
+
+
+
+int semester::specifyCourseForStudentUser(Static* a)
+{
+	int nStudent = 0;
+	semester* listAllCourse = new semester;
+	int n = listAllCourse->loadCourse(a);
+	Course* cur = listAllCourse->pHeadCourse;
+	if (n == 0)
+	{
+		std::cerr << "There is no course in this semester" << std::endl;
+		return 0;
+	}
+	Course* curStudent = pHeadCourseForStudent;
+	student* curStudentUser = new student;
+	curStudentUser->loadStudentProfile(a->username);
+	std::string curClass = curStudentUser->curClass;
+	for (int i = 0; i < n; i++)
+	{
+		std::ifstream fin;
+		fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + "Classes.txt");
+		if (fin.is_open() == false)
+		{
+			std::cerr << "Can't open file " << cur->ID << " Classes" << std::endl;
+			return -1;
+		}
+		std::string className;
+
+		while (getline(fin, className))
+		{
+
+			if (className == curClass)
+			{
+				if (!pHeadCourseForStudent)
+				{
+					pHeadCourseForStudent = new Course;
+					curStudent = pHeadCourseForStudent;
+				}
+				else {
+					curStudent->pNext = new Course;
+					curStudent = curStudent->pNext;
+				}
+				std::ifstream fin2;
+				fin2.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + curClass + "/information.txt");
+				if (fin2.is_open() == false)
+				{
+					std::cerr << "Can't open file " << cur->ID << " information" << std::endl;
+					return -1;
+				}
+				getline(fin2, curStudent->ID);
+				getline(fin2, curStudent->Name);
+				getline(fin2, curStudent->className);
+				getline(fin2, curStudent->Lecturer);
+				fin2 >> curStudent->Credit;
+				fin2.ignore();
+				fin2 >> curStudent->maxStudent;
+				fin2.ignore();
+				getline(fin2, curStudent->weekDay);
+				getline(fin2, curStudent->Session);
+
+				fin2.close();
+				nStudent++;
+			}
+		}
+		if (curStudent)
+		{
+			curStudent->pNext = nullptr;
+		}
+		fin.close();
+		cur = cur->pNext;
+
+	}
+
+
+	return nStudent;
+}
 
 
 
@@ -327,6 +409,109 @@ bool semester::deleteCourse(std::string& courseName, Static* a)
 
 
 
+
+
+
+
+
+
+
+
+bool semester::getGPASemester(Static* a)
+{
+	
+
+	semester* GPAstudent = GPASemester;
+	std::ifstream fin;
+	fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
+	if (!fin.is_open())
+	{
+		std::cerr << "Can't open file" << std::endl;
+		return false;
+	}
+	std::string count;
+	int numCourse = 0;
+	while (getline(fin, count))
+	{
+		numCourse++;
+	}
+	fin.close();
+
+	Course ** listScore = new Course *[numCourse];
+
+	Course* listStudent = new Course;
+	int nStudents = listStudent->loadStudentInTheCourse(a);
+
+	fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
+
+	std::string courseID;
+	std::string courseName;
+	
+	int i = 0;
+	while (getline(fin, courseID, ';'))
+	{
+		getline(fin, courseName);
+		
+		a->curCourse->ID = courseID;
+
+		//listScore[i] = new Course;
+		
+		// ScoreBoards of Courses are not full
+		/*if (listScore[i]->getGPAStudents(a) == false)
+		{
+			break;
+		}*/
+		i++;
+	}
+	fin.close();
+	if (i < numCourse)
+	{
+		std::cerr << "ScoreBoards of Courses are not full" << std::endl;
+		for (int j = 0; j < i; j++)
+		{
+			delete listScore[j];
+		}
+		delete[] listScore;
+		return false;
+	}
+
+	i = 0;
+
+	for (i = 0; i < nStudents; i++)
+	{
+		double GPA = 0;
+		for (int j = 0; j < numCourse; j++)
+		{
+			GPA += listScore[j]->pHeadScore->totalMark;
+			listScore[j]->pHeadScore = listScore[j]->pHeadScore->pNext;
+		}
+		if (GPASemester == nullptr)
+		{
+			GPASemester = new semester;
+			GPAstudent = GPASemester;
+		}
+		else {
+			GPAstudent->pNext = new semester;
+			GPAstudent = GPAstudent->pNext;
+		}
+		GPAstudent->GPA = GPA / numCourse;
+
+	}
+	if (GPAstudent)
+	{
+		GPAstudent->pNext = nullptr;
+	}
+	for (int j = 0; j < numCourse; j++)
+	{
+		delete listScore[j];
+	}
+	delete[] listScore;
+
+
+	return true;
+	
+}
+
 semester::~semester()
 {
 	Course* cur = pHeadCourse;
@@ -341,6 +526,12 @@ semester::~semester()
 	{
 		Course* tmp = cur;
 		cur = cur->pNext;
+		delete tmp;
+	}
+	while (GPASemester)
+	{
+		semester* tmp = GPASemester;
+		GPASemester++;
 		delete tmp;
 	}
 	//delete this;
