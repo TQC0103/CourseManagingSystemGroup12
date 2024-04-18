@@ -257,12 +257,10 @@ void semester::normingOneSpace(std::string& data)
 		}
 	}
 }
-bool semester::addCourse(Static* a, std::string& id, std::string& name, int credit, int maxStudent, std::string& weekDay, std::string& session)
+bool semester::addCourse(Static* a, std::string& id, std::string& name, int credit, int maxStudent)
 {
 	normingNonSpace(id);
 	normingOneSpace(name);
-	normingNonSpace(weekDay);
-	normingNonSpace(session);
 
 	std::ifstream fin;
 	fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
@@ -302,8 +300,6 @@ bool semester::addCourse(Static* a, std::string& id, std::string& name, int cred
 	fout << name << std::endl;
 	fout << credit << std::endl;
 	fout << maxStudent << std::endl;
-	fout << weekDay << std::endl;
-	fout << session << std::endl;
 	fout.close();
 	return true;
 }
