@@ -166,6 +166,7 @@ bool Class::creat_new_Class(std::string nameClass) {
 
 	Class* new_Class = new Class;
 	new_Class->name = nameClass;
+	new_Class->pNext = NULL;
 	Sort_Class(new_Class);
 	std::ofstream fOut;
 	fOut.open(("../Database/Class/" + nameClass +"/" + name + "/" + nameClass + ".csv"));
@@ -173,6 +174,7 @@ bool Class::creat_new_Class(std::string nameClass) {
 		//std::cout << "Error: Unable to create directory" << std::endl;
 		return false;
 	}
+	fOut.close();
 	print_txt();
 	return true;
 }
@@ -465,11 +467,12 @@ void Class::Sort_Class(Class* new_Class) {
 		if (cur->name > new_Class->name) {
 			new_Class->pNext = cur;
 			pre->pNext = new_Class;
+			return;
 		}
 		pre = cur;
 		cur = cur->pNext;
 	}
-	if (!cur) pre->pNext = new_Class;
+	pre->pNext = new_Class;
 	//print_txt();
 }
 Class::~Class() {
