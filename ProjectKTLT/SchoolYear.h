@@ -44,6 +44,9 @@ struct schoolYear {
 	bool checkInputDate(std::string &data, Static *a); // done
 
 
+	// This function is to calculate GPA for all students in a class in a school year
+	float GPASchoolYear(Static* a); 
+
 	// Deallocate
 	
 	

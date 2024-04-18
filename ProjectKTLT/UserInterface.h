@@ -16,3 +16,4 @@ void drawScrollBar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarA
 sf::ConvexShape RoundedRectangle(float x, float y, float rectWidth, float rectHeight, float radius, const sf::Color& Col, float Outline, const sf::Color& OutlineCol);
 void createCornerRoundedButton(sf::ConvexShape& button, sf::Text& buttonText, const sf::Vector2f& size, float textSize, const sf::Color& fillColor, const sf::Font& font, const sf::Color& textColor, const std::string& text, const sf::Vector2f& position, float outlineSize, const sf::Color &outlineColor);
 std::wstring openFileDialog(HWND hwndOwner);
+void drawTable(sf::RenderWindow& window, sf::RectangleShape** recA, sf::Text** textA, std::string** data, int rows, int cols, sf::Vector2f& sizeEach, sf::Color& textColor, const float charSize, Static* a, const sf::Vector2f pos);

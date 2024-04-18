@@ -7,8 +7,8 @@ MenuSemesterStudentScene::MenuSemesterStudentScene(Static* a)
 {
     createABox(menuSemesterStudentBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
     createText(menuSemesterStudentText, a->fontB, a->textColorBlue, a->curSchoolYear->year + " - " + a->curSemester->semesterData, 100, (float)a->width / 2.0f, 150.0f);
-    createCornerRoundedButton(viewCourses, viewCoursesText, sf::Vector2f(1000.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View scoreboard", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f - 150.0f)), 2.0f, sf::Color::Black);
-    createCornerRoundedButton(viewScoreboard, viewScoreboardText, sf::Vector2f(1000.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View courses", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f + 150.0f)), 2.0f, sf::Color::Black);
+    createCornerRoundedButton(viewCourses, viewCoursesText, sf::Vector2f(600.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View courses", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f - 150.0f)), 2.0f, sf::Color::Black);
+    createCornerRoundedButton(viewScoreboard, viewScoreboardText, sf::Vector2f(600.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View scoreboard", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f + 150.0f)), 2.0f, sf::Color::Black);
     createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Re-select", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 
 }
@@ -67,6 +67,18 @@ void MenuSemesterStudentScene::renderMenuSemester(sf::Event event, Scene* scene,
                 delete scene->a->curSemester;
                 scene->a->curSemester = nullptr;
             }
+            else if (viewCourses.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+            {
+				delete scene->menusemesterstudent;
+				scene->menusemesterstudent = nullptr;
+				if (scene->viewcoursesstudent == nullptr)
+					scene->viewcoursesstudent = new ViewCoursesStudentScene(scene->a);
+                scene->a->currentState = programState::ViewCoursesStudent;
+			}
+            else if (viewScoreboard.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+            {
+				
+			}
         }
     }
 }

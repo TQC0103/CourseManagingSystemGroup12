@@ -189,6 +189,11 @@ int main() {
                 scene->addstudenttocoursefile->renderAddFile(event, scene, window);
                 break;
             }
+            case programState::ViewCoursesStudent:
+            {
+				scene->viewcoursesstudent->renderViewCourseStudent(event, scene, window);
+				break;
+			}
             default:
                 break;
             }
@@ -364,6 +369,11 @@ int main() {
                 scene->addstudenttocoursefile->drawAddFile(window, scene->a);
                 break;
             }
+            case programState::ViewCoursesStudent:
+            {
+				scene->viewcoursesstudent->drawViewCourseStudent(window, scene->a);
+				break;
+			}
             default:
                 break;
             }
@@ -377,10 +387,32 @@ int main() {
 }
 
 
-
-
-
-
+//int main() {
+//	Static* a = new Static;
+//	a->curClass = new Class;
+//	a->curSchoolYear = new schoolYear;
+//
+//
+//	a->curCourse = new Course;
+//
+//
+//	a->curSemester = new semester;
+//	a->curClass->name = "23CLC03";
+//	Class* b = new Class;
+//	b->load_classes();
+//	Class* cur = b->pHeadListClasses;
+//	while (cur) {
+//		std::cout << cur->name << " ";
+//		cur = cur->pNext;
+//	}
+//	delete a->curClass;
+//	delete a->curSchoolYear;
+//	delete a->curCourse;
+//	delete a->curSemester;
+//	delete a;
+//	delete b;
+//	return 0;
+//}
 
 
 

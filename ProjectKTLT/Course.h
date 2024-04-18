@@ -67,15 +67,14 @@ struct Course
 	int addStudentOptions();
 	//done
 	bool addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string DOB, std::string SocialID);
-	bool addStudentbyFile(Static* a, std::string path);
-	bool deleteStudent(Static* a, std::string ID); 
-	void showStudent();
-	void showInfo();
-	void deleteStudentCourseList();
-	void deleteCourseList();
+	bool addStudentbyFile(Static* a, std::string path); //done
+	bool deleteStudent(Static* a, std::string ID); //done 
+	bool getGPAStudents(Static* a);
+	void deleteStudentCourseList(Static* a);
+	void deleteCourseList(Static* a);
 
 	// Scoreboard functions
-	void ExportClass();
+	bool ExportClass(Static* a);
 	void ImportScoreboard();
 	void updateStudentResult();
 	void ViewScoreboard();

@@ -364,6 +364,7 @@ int schoolYear::addSemester(std::string& data, std::string start, std::string en
 
 schoolYear::~schoolYear()
 {
+	std::cout << "Destructor called" << std::endl;
 	while (pHeadSemester)
 	{
 		semester* tmpSemester = pHeadSemester;
@@ -378,6 +379,6 @@ schoolYear::~schoolYear()
 		cur = cur->pNext;
 		delete tmpYear;
 	}
-	//delete this;
+
 }
 
