@@ -43,8 +43,8 @@ Course::Course(std::string id, std::string name, std::string classname, std::str
 // Update the information of the Course
 bool Course::updateCourse(Static* a, std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session)
 {
-    // can't check these information below
-    Course* tmp;
+    // Can't check these information below
+    Course* tmp = new Course;
     tmp->ID = id;
     tmp->Name = name;
     tmp->Lecturer = lecturer;
@@ -72,7 +72,7 @@ bool Course::updateCourse(Static* a, std::string id, std::string name, std::stri
             found = true;
         }    
     }
-    if (!found)
+    if (found == false)
     {
         std::cerr << "The class you input is not exist" << std::endl;
         fIn.close();
@@ -517,12 +517,11 @@ bool Course::ExportClass(Static* a)
     }
     else
     {
-        fOut << "No,Student - ID,First Name,Last Name,Gender,Date of Birthday,Social ID,Midterm Mark,Final Mark,Total Mark,Other Mark" << std::endl;
+        fOut << "No,Student - ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark" << std::endl;
         student* cur = pHeadStudent;
         while (cur)
         {
-            std::string dob = formatDate(cur->dateOfBirth);
-            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->firstName + ',' + cur->lastName + ',' + cur->gender + ',' + dob + ',' + cur->socialID;
+            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->firstName + ',' + cur->lastName;
             fOut << tmp << std::endl;
             cur = cur->pNext;
         }
@@ -533,4 +532,52 @@ bool Course::ExportClass(Static* a)
     return true;
 }
 
-bool ImportScoreboard(std::string path);
+bool Course::ImportScoreboard(std::string path)
+{
+    std::ifstream fIn;
+    fIn.open(path);
+
+    if (!fIn.is_open())
+    {
+        std::cerr << "Can't open the file" << std::endl;
+        return false;
+    }
+
+    //Check these information in the file
+    std::string check;
+    getline(fIn, check);
+
+
+    if (check != "No,Student - ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark")
+    {
+        std::cout << "The header of the file is not correct. Please check the file again" << std::endl;
+        fIn.close();
+        return false;
+    }
+
+    studentScore* cur = new studentScore;
+
+    while (getline(fIn, check))
+    {
+        std::string no, MidtermMark, FinalMark, OtherMark, TotalMark;
+        std::stringstream s(check);
+        getline(s, no, ',');
+        getline(s, cur->studentID, ',');
+        getline(s, cur->firstName, ',');
+        getline(s, cur->lastName, ',');
+        getline(s, MidtermMark, ',');
+        getline(s, FinalMark, ',');
+        getline(s, TotalMark, ',');
+        getline(s, OtherMark);
+
+        cur->No = std::stoi(no);
+        cur->midtermMark = std::stod(MidtermMark);
+        cur->finalMark = std::stod(FinalMark);
+        cur->totalMark = std::stod(TotalMark);
+        cur->otherMark = std::stod(OtherMark);
+
+        cur->pNext = nullptr;
+
+    }
+
+}

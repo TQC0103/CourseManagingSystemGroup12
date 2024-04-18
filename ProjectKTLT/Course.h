@@ -17,6 +17,7 @@ struct Course
 	//Student score in the course
 	struct studentScore
 	{
+		int No;
 		std::string studentID;
 		std::string firstName;
 		std::string lastName;
@@ -90,7 +91,7 @@ struct Course
 	void sortStudentList(student* a);// done
 	//void deleteStudentAfterSort(student* a); //done
 	void normingNumberInStudentList(); //done
-	bool exportStudentListToFile(Static* a);
+	bool exportStudentListToFile(Static* a);//done
 	int getAllStudent();
 
 };
