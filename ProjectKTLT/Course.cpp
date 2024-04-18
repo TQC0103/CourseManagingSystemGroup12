@@ -488,3 +488,35 @@ bool Course::addStudentbyFile(Static* a, std::string path)
     return true;
     fIn.close();
 }
+
+// Export a student list to a "scoreBoard.csv" that don't have mark
+bool Course::ExportClass(Static* a)
+{
+    if (!pHeadStudent)
+        loadStudentInTheCourse(a);
+
+    std::ofstream fOut;
+    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "scoreboard.csv");
+    if (!fOut.is_open())
+    {
+        std::cerr << "Can't open file" << std::endl;
+        return false;
+    }
+    else
+    {
+        fOut << "No,Student - ID,First Name,Last Name,Gender,Date of Birthday,Social ID,Total Mark,Final Mark,Midterm Mark,Other Mark" << std::endl;
+        student* cur = pHeadStudent;
+        while (cur)
+        {
+            std::string dob = formatDate(cur->dateOfBirth);
+            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->firstName + ',' + cur->lastName + ',' + cur->gender + ',' + dob + ',' + cur->socialID;
+            fOut << tmp << std::endl;
+            cur = cur->pNext;
+        }
+        delete cur;
+    }
+
+    fOut.close();
+    return true;
+}
+

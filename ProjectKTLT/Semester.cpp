@@ -32,7 +32,7 @@ int semester::loadCourse(Static* a)
 	std::string tmpCourseID;
 	std::string tmpCourseName;
 	Course* cur = pHeadCourse;
-	while (getline(fin, tmpCourseID, ';'))
+	while (getline(fin, tmpCourseID, ';') && fin.eof() == false)
 	{ 
 		getline(fin, tmpCourseName);
 		if (!pHeadCourse)
@@ -52,7 +52,8 @@ int semester::loadCourse(Static* a)
 		}
 	}
 	fin.close();
-	cur->pNext = nullptr;
+	if(cur != nullptr)
+		cur->pNext = nullptr;
 	return n;
 }
 
@@ -64,7 +65,7 @@ int semester::specifyCourseForStudent(Static* a)
 	int n = listAllCourse->loadCourse(a);
 	if (n == 0)
 	{
-		std::cerr << "There is no course in this semester" << std::endl;
+		delete listAllCourse;
 		return 0;
 	}
 	Course *cur = listAllCourse->pHeadCourse;
@@ -125,7 +126,7 @@ int semester::specifyCourseForStudent(Static* a)
 
 	}
 
-	
+	delete listAllCourse;
 	return nStudent;
 }
 
