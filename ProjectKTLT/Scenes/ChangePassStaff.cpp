@@ -17,7 +17,7 @@ ChangePassStaffScene::ChangePassStaffScene(Static* a)
 	createText(enterOldPass, a->fontI, sf::Color::White, "ENTER CURRENT PASSWORD", 40, a->width / 2.0f, 475.0f);
 	createText(enterNewPass, a->fontI, sf::Color::White, "ENTER NEW PASSWORD", 40, a->width / 2.0f, 800.0f);
 	createCornerRoundedButton(submit, submitText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Confirm", sf::Vector2f(a->width - 150.0f, 1000.0f), 2.0f, sf::Color::Black);
-	createText(successful, a->fontB, sf::Color::Green, "Password changed successfully", 50, a->width / 2.0f, 1000.0f);
+	createText(successful, a->fontB, a->textColorGreen, "Password changed successfully", 50, a->width / 2.0f, 1000.0f);
 }
 
 void ChangePassStaffScene::drawChangePass(sf::RenderWindow& win, Static *a)

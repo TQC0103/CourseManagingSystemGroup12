@@ -36,7 +36,6 @@ struct AddStudentClassManuallyScene
 	std::string lastnameInput = "";
 	sf::Text enterLastnameHere;
 
-
 	sf::RectangleShape gender;
 	sf::Text genderText;
 	std::string genderInput = "";
@@ -76,4 +75,5 @@ struct AddStudentClassManuallyScene
 	// Functions
 	void drawAddMunually(sf::RenderWindow& win, Static* a);
 	void renderAddManually(sf::Event event, Scene* scene, sf::RenderWindow& win);
+
 };

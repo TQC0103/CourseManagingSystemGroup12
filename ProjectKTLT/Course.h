@@ -66,7 +66,7 @@ struct Course
 
 
 	// Function
-	bool updateCourse(Static* a, std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session); //done
+	int updateCourse(Static* a, std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session); //done
 	int addStudentOptions();
 	//done
 	bool addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string DOB, std::string SocialID);
