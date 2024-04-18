@@ -28,6 +28,7 @@ struct ChooseCoursesScene
     float fullsize = 0;
     float displaysize = 0;
 
+    bool* isRightClicked = nullptr;
     sf::ConvexShape preButton;
     sf::Text preText;
 

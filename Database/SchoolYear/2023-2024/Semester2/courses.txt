@@ -1,7 +1,4 @@
-CSC10002;Ky Thuat Lap Trinh
-PHY00001;Vat Ly Dai Cuong I
 MTH00003;Vi Tich Phan 1B
-BAA00004;Phap Luat Dai Cuong
-BAA00004;Phap Luat Dai Cuong
-BAA00004;Phap Luat Dai Cuong
-BAA00004;Phap Luat Dai Cuong
+CSC10002;Ky Thuat Lap Trinh
+PHY00001;Vat Ly Dai Cuong
+MTH00003;Phap Luat Dai Cuong
