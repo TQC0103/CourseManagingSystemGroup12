@@ -125,7 +125,6 @@ std::string** student::viewAllCoursesInformations(Static* a)
     }
 
     delete tmp;
-    delete cur;
     return allCourseInformations;
 }
 
