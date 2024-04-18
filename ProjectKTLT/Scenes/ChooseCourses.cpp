@@ -23,6 +23,9 @@ ChooseCoursesScene::ChooseCoursesScene(Static* a)
         buttons = new sf::ConvexShape[numCourses];
         labels = new sf::Text[numCourses];
         labels2 = new sf::Text[numCourses];
+        isRightClicked = new bool[numCourses];
+        for (int i = 0; i < numCourses; i++)
+			isRightClicked[i] = false;
     }
     // Create buttons and labels
 
@@ -76,11 +79,20 @@ void ChooseCoursesScene::drawChooseCourses(sf::RenderWindow& window, Static* a)
     {
         for (int i = 0; i < numCourses; i++) {
             buttons[i].setPosition(buttons[i].getPosition().x, 350.0f + (float)(i / 2) * 300.0f - scrollOffset);
-            labels[i].setPosition(labels[i].getPosition().x, 350.0f + (float)(i / 2) * 300.0f - 30 - scrollOffset);
-            labels2[i].setPosition(labels[i].getPosition().x, 350.0f + (float)(i / 2) * 300.0f + 30 - scrollOffset);
             window.draw(buttons[i]);
-            window.draw(labels[i]);
-            window.draw(labels2[i]);
+            if (isRightClicked[i] == true)
+            {
+                buttons[i].setFillColor(sf::Color::Red);
+                sf::Text de;
+                createText(de, a->fontB, sf::Color::White, "Delete", 60, buttons[i].getPosition().x, buttons[i].getPosition().y);
+                window.draw(de);
+            }
+            else {
+                labels[i].setPosition(labels[i].getPosition().x, 350.0f + (float)(i / 2) * 300.0f - 30 - scrollOffset);
+                labels2[i].setPosition(labels[i].getPosition().x, 350.0f + (float)(i / 2) * 300.0f + 30 - scrollOffset);
+                window.draw(labels[i]);
+                window.draw(labels2[i]);
+            }
         }
     }
     window.draw(hidden);
@@ -103,12 +115,12 @@ void ChooseCoursesScene::renderChooseCourses(sf::Event event, Scene* scene, sf::
         preText.setFillColor(sf::Color::White);
     }
     for (int i = 0; i < numCourses; i++) {
-        if (scene->a->currentState == programState::ChooseCourses && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+        if ((isRightClicked[i] == false && scene->a->currentState == programState::ChooseCourses) && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
             buttons[i].setFillColor(scene->a->pastelTitleCyan);
             labels[i].setFillColor(scene->a->titleGreyColor);
             labels2[i].setFillColor(scene->a->titleGreyColor);
         }
-        else {
+        else if (isRightClicked[i] == false) {
             buttons[i].setFillColor(scene->a->highlightCyan);
             labels[i].setFillColor(sf::Color::White);
             labels2[i].setFillColor(sf::Color::White);
@@ -117,6 +129,7 @@ void ChooseCoursesScene::renderChooseCourses(sf::Event event, Scene* scene, sf::
     if(numCourses >= 6)
         renderScrollbar(scrollbar, scrollArea, window, scrollOffset, event, isDragging, scene->a, sf::Vector2f(1700.0f, 275.0f), displaysize, fullsize);
     tmpHead = curSemester->pHeadCourse;
+
     if (event.type == sf::Event::MouseButtonPressed)
     {
         if (event.mouseButton.button == sf::Mouse::Left)
@@ -130,7 +143,7 @@ void ChooseCoursesScene::renderChooseCourses(sf::Event event, Scene* scene, sf::
                 scene->a->currentState = programState::MenuSemester;
             }
             else for (int i = 0; i < numCourses; i++) {
-                if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
+                if (isRightClicked[i] == false && buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
                     scene->a->curCourse = new Course();
                     *(scene->a->curCourse) = *tmpHead;
                     delete scene->choosecoursescene;
@@ -138,6 +151,43 @@ void ChooseCoursesScene::renderChooseCourses(sf::Event event, Scene* scene, sf::
                     if (scene->menucourse == nullptr)
                         scene->menucourse = new MenuCourseScene(scene->a);
                     scene->a->currentState = programState::MenuCourse;
+                    break;
+                }
+                else if (isRightClicked[i] == true && buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                {
+                    semester* tmp = new semester;
+                    bool check = tmp->deleteCourse(tmpHead->Name, scene->a);
+                    delete tmp;
+                    if (check == true)
+                    {
+                        delete scene->choosecoursescene;
+                        scene->choosecoursescene = nullptr;
+                        if (scene->choosecoursescene == nullptr)
+                            scene->choosecoursescene = new ChooseCoursesScene(scene->a); 
+                        break;
+                    }
+                    
+                }
+                tmpHead = tmpHead->pNext;
+            }
+        }
+        else if (event.mouseButton.button == sf::Mouse::Right)
+        {
+            for (int i = 0; i < numCourses; i++) {
+                if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
+                    
+                    if (isRightClicked[i] == false)
+                    {
+                        isRightClicked[i] = true;
+                        for (int j = 0; j < numCourses; j++)
+                        {
+							if (j != i)
+								isRightClicked[j] = false;
+						}
+                    }
+                    else {
+                        isRightClicked[i] = false;
+                    }
                     break;
                 }
                 tmpHead = tmpHead->pNext;
@@ -153,6 +203,8 @@ ChooseCoursesScene::~ChooseCoursesScene()
     {
         delete[] buttons;
         delete[] labels;
+        delete[] labels2;
+        delete[] isRightClicked;
     }
     delete curSemester;
 }
