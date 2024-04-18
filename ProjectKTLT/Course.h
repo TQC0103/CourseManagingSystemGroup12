@@ -72,7 +72,7 @@ struct Course
 	bool addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string DOB, std::string SocialID);
 	bool addStudentbyFile(Static* a, std::string path); //done
 	bool deleteStudent(Static* a, std::string ID); //done 
-	
+	std::string** viewAllStudentsInACourse(Static* a); // done
 
 	// Scoreboard functions
 	bool ExportClass(Static* a); //done
