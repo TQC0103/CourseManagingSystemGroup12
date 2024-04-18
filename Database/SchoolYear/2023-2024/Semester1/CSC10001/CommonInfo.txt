@@ -1,0 +1,4 @@
+CSC10001
+Nhap Mon Lap Trinh
+4
+50

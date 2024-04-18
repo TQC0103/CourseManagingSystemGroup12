@@ -1,0 +1,4 @@
+CSC00004
+Nhap Mon Cong Nghe Thong Tin
+4
+50

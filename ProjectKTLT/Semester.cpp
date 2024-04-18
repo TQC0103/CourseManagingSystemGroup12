@@ -257,14 +257,10 @@ void semester::normingOneSpace(std::string& data)
 		}
 	}
 }
-bool semester::addCourse(Static* a, std::string& id, std::string& name, std::string& className, std::string& lecturer, int credit, int maxStudent, std::string& weekDay, std::string& session)
+bool semester::addCourse(Static* a, std::string& id, std::string& name, int credit, int maxStudent)
 {
 	normingNonSpace(id);
 	normingOneSpace(name);
-	normingNonSpace(className);
-	normingOneSpace(lecturer);
-	normingNonSpace(weekDay);
-	normingNonSpace(session);
 
 	std::ifstream fin;
 	fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
@@ -297,29 +293,13 @@ bool semester::addCourse(Static* a, std::string& id, std::string& name, std::str
 
 	// Make Folder and file .txt
 	int makeFile = _mkdir(("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + id).c_str());
-	fout.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + id + "/" + "Classes.txt", std::ios::app);
-	if (!fout.is_open())
-	{
-		std::cerr << "Can't open file" << std::endl;
-		return false;
-	}
-	fout << className << std::endl;
+	fout.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + id + "/" + "Classes.txt");
 	fout.close();
-	int makeFile2 = _mkdir(("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + id + "/" + className).c_str());
-	fout.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + id + "/" + className + "/" + "information.txt");
-	if (!fout.is_open())
-	{
-		std::cerr << "Can't open file" << std::endl;
-		return false;
-	}
+	fout.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + id + "/CommonInfo.txt");
 	fout << id << std::endl;
 	fout << name << std::endl;
-	fout << className << std::endl;
-	fout << lecturer << std::endl;
 	fout << credit << std::endl;
 	fout << maxStudent << std::endl;
-	fout << weekDay << std::endl;
-	fout << session << std::endl;
 	fout.close();
 	return true;
 }

@@ -137,7 +137,7 @@ std::string** student::viewAllCoursesInformations(Static* a, int &n)
 std::string** student::getStudentScoreBoard(Static* a)
 {
     semester* tmp = new semester;
-    int n = tmp->specifyCourseForStudent(a);
+    int n = tmp->specifyCourseForStudentUser(a);
     if (n == 0)
     {
         delete tmp;
