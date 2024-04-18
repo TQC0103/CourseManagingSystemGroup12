@@ -94,7 +94,7 @@ void MenuStaffScene::renderMenuStaff(sf::Event event, Scene *scene, sf::RenderWi
 	{
 		schoolYear* cur = new schoolYear();
 		cur->loadSchoolYear();
-		createText(createYearSuccessfulText, scene->a->fontB, sf::Color::Green, "Successfully create year: " + cur->pHead->year, 40, scene->a->width / 2.0f, 1050.0f);
+		createText(createYearSuccessfulText, scene->a->fontB, scene->a->textColorGreen, "Successfully create year: " + cur->pHead->year, 40, scene->a->width / 2.0f, 1050.0f);
 		delete cur;
 		createYearSuccessful = false;
 	}

@@ -41,10 +41,10 @@ Course::Course(std::string id, std::string name, std::string classname, std::str
 }
 
 // Update the information of the Course
-bool Course::updateCourse(Static* a, std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session)
+int Course::updateCourse(Static* a, std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session)
 {
     // can't check these information below
-    Course* tmp;
+    Course* tmp = new Course;
     tmp->ID = id;
     tmp->Name = name;
     tmp->Lecturer = lecturer;
@@ -59,7 +59,7 @@ bool Course::updateCourse(Static* a, std::string id, std::string name, std::stri
     {
         std::cerr << "Can't open file. Can't check the className to update" << std::endl;
         delete tmp;
-        return false;
+        return -1;
     }
 
     std::string check;
@@ -69,7 +69,7 @@ bool Course::updateCourse(Static* a, std::string id, std::string name, std::stri
         if (check == classname)
         {
             tmp->className = classname;
-            found = true;
+            found = 1;
         }    
     }
     if (!found)
@@ -77,7 +77,7 @@ bool Course::updateCourse(Static* a, std::string id, std::string name, std::stri
         std::cerr << "The class you input is not exist" << std::endl;
         fIn.close();
         delete tmp;
-        return false;
+        return 3;
     }
     fIn.close();
 
@@ -92,7 +92,7 @@ bool Course::updateCourse(Static* a, std::string id, std::string name, std::stri
     {
         std::cerr << "Your input is not legal";
         delete tmp;
-        return false;
+        return 7;
     }
 
     tmp->weekDay = weekday;
@@ -102,14 +102,14 @@ bool Course::updateCourse(Static* a, std::string id, std::string name, std::stri
     {
         std::cerr << "Your input is not legal";
         delete tmp;
-        return false;
+        return 8;
     }
 
     tmp->Session = session;
 
     //Update the database
     std::fstream fOut;
-    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "information.txt");
+    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "information.txt");
 
     if (fOut.is_open())
     {
@@ -120,19 +120,18 @@ bool Course::updateCourse(Static* a, std::string id, std::string name, std::stri
         fOut << tmp->Credit << std::endl;
         fOut << tmp->maxStudent << std::endl;
         fOut << tmp->weekDay << std::endl;
-        fOut << tmp->Session;
+        fOut << tmp->Session << std::endl;
     }
     else
     {
         std::cerr << "Can't open the information.txt file" << std::endl;
         delete tmp;
-        return false;
+        return -1;
     }
     fOut.close();
-
+    delete a->curCourse;
     a->curCourse = tmp;
-    delete tmp;
-    return true;
+    return 0;
 }
 
 // Load data of the Course (Like Course ID, Course Name....)
@@ -533,4 +532,4 @@ bool Course::ExportClass(Static* a)
     return true;
 }
 
-bool ImportScoreboard(std::string path);
+//bool ImportScoreboard(std::string path);

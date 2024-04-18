@@ -10,7 +10,7 @@ ChooseCoursesScene::ChooseCoursesScene(Static* a)
     scrollOffset = 0.0f;
     createABox(chooseCoursesBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
     createText(chooseCoursesText, a->fontB, a->textColorBlue, "Choose Course", 80, (float)a->width / 2.0f, 75.0f);
-    createText(pleaseAddCourse, a->fontB, a->blurGrey, "     There are no\ncourse currently", 100, a->width / 2.0f, a->height / 2.0f);
+    createText(pleaseAddCourse, a->fontB, a->blurGrey, "   There are no\ncourse currently", 100, a->width / 2.0f, a->height / 2.0f);
     createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
     createABox(hidden, sf::Vector2f((float)a->width, 250.0f), a->backGroundWhite, sf::Vector2f(a->width / 2.0f, 100.0f));
 

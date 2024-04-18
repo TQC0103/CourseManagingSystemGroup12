@@ -70,7 +70,11 @@ void MenuSemesterScene::renderMenuSemester(sf::Event event, Scene* scene, sf::Re
 			}
 			else if (addC.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				
+				delete scene->menusemester;
+				scene->menusemester = nullptr;
+				if (scene->addcoursetosemester == nullptr)
+					scene->addcoursetosemester = new AddCourseToSemesterScene(scene->a);
+				scene->a->currentState = programState::AddCourseToSemester;
 			}
 			else if (manageC.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{

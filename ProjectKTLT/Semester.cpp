@@ -245,6 +245,7 @@ void semester::normingOneSpace(std::string& data)
 			data[pos++] = data[i];
 		}
 	}
+	data.resize(pos);  // Update the size of the string
 	len = pos;
 	for (int i = 0; i < len; i++)
 	{

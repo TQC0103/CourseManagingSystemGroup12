@@ -60,11 +60,10 @@ bool Class::input_Student_from_file(student*& pHeads, std::string path) {
 			pHeads = newNode;
 		}
 		else {
-			cur->pNext = new student;
 			cur->pNext = newNode;
 		}
 		cur = newNode;
-		\
+		
 	}
 	fIn.close();
 	//std::cout << "SUCCESS!\n";
@@ -131,6 +130,10 @@ int Class::loadStudents(Static* a) {
 
 //Not data to update pHeadListCLass
 bool Class::isInvalid(std::string nameClass) {
+	if(nameClass.size() < 5)	
+		return true;
+	if(nameClass.size() >= 10)	
+		return true;
 	Class* tmp = pHeadListClasses;
 	while (tmp) {
 		if (tmp->name == nameClass) {
@@ -215,7 +218,7 @@ int Class::check_ID(student* listStudent, std::string ID) {
 	return 1;
 }
 bool Class::check_Gender(std::string gender) {
-	return (gender == "nam" || gender == "Nam" || gender == "Nu" || gender == "nu");
+	return (gender == "nam" || gender == "Nam" || gender == "Nu" || gender == "nu" || gender == "Male" || gender == "male" || gender == "female" || gender == "Female");
 }
 int Class::insert_new_Class_keyboard(Static *a, std::string no, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string BirthDay, std::string SocialID){
 	Class* new_Class = new Class;
