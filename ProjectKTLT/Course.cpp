@@ -3,16 +3,13 @@
 #include "semester.h"
 #include "schoolyear.h"
 #include "date.h"
-#include <string>
-#include <fstream>
-#include <sstream>
-#include "config.h"
+
 
 
 // check if it is valid day (not sunday)
 bool isvalidweekday(const std::string& weekday)
 {
-    std::string validweekdays[] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY" };
+    std::string validweekdays[] = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"};
     for (int i = 0; i < 6; i++)
     {
         if (weekday == validweekdays[i])
@@ -44,76 +41,98 @@ Course::Course(std::string id, std::string name, std::string classname, std::str
 }
 
 // Update the information of the Course
-void Course::updateCourse()
+bool Course::updateCourse(Static* a, std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session)
 {
+    // can't check these information below
+    Course* tmp;
+    tmp->ID = id;
+    tmp->Name = name;
+    tmp->Lecturer = lecturer;
+    tmp->Credit = credit;
+    tmp->maxStudent = maxstudent;
+
+    // Check the className
+    std::ifstream fIn;
+    fIn.open("../Database/Class/AllClasses.txt");
+
+    if (!fIn.is_open())
     {
-        while (true)
-        {
-            std::cout << "Here is the information: " << std::endl;
-            std::cout << "1. ID:" << ID << std::endl;
-            std::cout << "2. Name:" << Name << std::endl;
-            std::cout << "3. Class Name:" << className << std::endl;
-            std::cout << "4. Lecturer:" << Lecturer << std::endl;
-            std::cout << "5. Credit:" << Credit << std::endl;
-            std::cout << "6. Max Student:" << maxStudent << std::endl;
-            std::cout << "7. Day performed per week:" << weekDay << std::endl;
-            std::cout << "8. Session: " << Session << std::endl;
-
-
-            std::cout << "Choose the information (input a number) you want to edit (press enter to stop): ";
-            std::string choice;
-            getline(std::cin, choice);
-            if (choice == "") break;
-
-            while (choice <= "1" || choice > "8" || choice.length() > 1)
-            {
-                if (choice == "") break;
-                std::cerr << "Please input correctly: ";
-                getline(std::cin, choice);
-            }
-
-            int ch = stoi(choice);
-            std::string newData;
-            int newNumber;
-            std::cout << "Input the new one: ";
-
-            switch (ch)
-            {
-            case 1:
-                getline(std::cin, newData);
-                ID = newData;
-                break;
-            case 2:
-                getline(std::cin, newData);
-                Name = newData;
-                break;
-            case 3:
-                getline(std::cin, newData);
-                className = newData;
-                break;
-            case 4:
-                getline(std::cin, newData);
-                Lecturer = newData;
-                break;
-            case 5:
-                std::cin >> newNumber;
-                Credit = newNumber;
-                break;
-            case 6:
-                std::cin >> newNumber;
-                maxStudent = newNumber;
-                break;
-            case 7:
-                getline(std::cin, newData);
-                weekDay = newData;
-                break;
-            case 8:
-                std::cin >> newData;
-                Session = newData;
-                break;
-            }
-        }
+        std::cerr << "Can't open file. Can't check the className to update" << std::endl;
+        delete tmp;
+        return false;
     }
+
+    std::string check;
+    bool found = false;
+    while (getline(fIn, check))
+    {
+        if (check == classname)
+        {
+            tmp->className = classname;
+            found = true;
+        }    
+    }
+    if (!found)
+    {
+        std::cerr << "The class you input is not exist" << std::endl;
+        fIn.close();
+        delete tmp;
+        return false;
+    }
+    fIn.close();
+
+    //Capitalise and check the weekDay
+    int size = weekday.size();
+    for (int i = 0; i < size; i++)
+    {
+        weekday[i] = std::toupper(weekday[i]);
+    }
+
+    if (!isvalidweekday(weekday))
+    {
+        std::cerr << "Your input is not legal";
+        delete tmp;
+        return false;
+    }
+
+    tmp->weekDay = weekday;
+
+    // Check Session
+    if (session != "7:30" && session != "9:30" && session != "15:30" && session != "13:30")
+    {
+        std::cerr << "Your input is not legal";
+        delete tmp;
+        return false;
+    }
+
+    tmp->Session = session;
+
+    //Update the database
+    std::fstream fOut;
+    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "information.txt");
+
+    if (fOut.is_open())
+    {
+        fOut << tmp->ID << std::endl;
+        fOut << tmp->Name << std::endl;
+        fOut << tmp->className << std::endl;
+        fOut << tmp->Lecturer << std::endl;
+        fOut << tmp->Credit << std::endl;
+        fOut << tmp->maxStudent << std::endl;
+        fOut << tmp->weekDay << std::endl;
+        fOut << tmp->Session;
+    }
+    else
+    {
+        std::cerr << "Can't open the information.txt file" << std::endl;
+        delete tmp;
+        return false;
+    }
+    fOut.close();
+
+    a->curCourse = tmp;
+    delete tmp;
+    return true;
 }
 
 // Load data of the Course (Like Course ID, Course Name....)
@@ -385,7 +404,6 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
     fIn.close();
 
     // Update the linked list
-
     sortStudentList(tmp);
     normingNumberInStudentList();
 
@@ -403,28 +421,20 @@ bool Course::deleteStudent(Static* a, std::string ID)
         student* tmp = pHeadStudent;
         student* prev = nullptr;
 
-        // If the node to be deleted is the head node
-        if (tmp->studentID == ID)
-        {
-            pHeadStudent = tmp->pNext;
-            delete tmp;
-            // Update the tail pointer if the head was the only node
-            if (!pHeadStudent)
-                pTailStudent = nullptr;
-            normingNumberInStudentList();
-            exportStudentListToFile(a);
-            return true;
-        }
-
         while (tmp)
         {
             // If the current node matches the ID to be deleted
             if (tmp->studentID == ID)
             {
-                prev->pNext = tmp->pNext;
+                if (prev)
+                    prev->pNext = tmp->pNext;
+                else
+                    pHeadStudent = tmp->pNext;
+
                 // If the node to be deleted is the tail node
                 if (!tmp->pNext)
                     pTailStudent = prev;
+
                 delete tmp;
                 // Update the list and file
                 normingNumberInStudentList();
@@ -463,6 +473,7 @@ bool Course::addStudentbyFile(Static* a, std::string path)
     if (check != "No,Student - ID,First Name,Last Name,Gender,Date of Birthday,Social ID")
     {
         std::cout << "The header of the file is not correct. Please check the file again" << std::endl;
+        fIn.close();
         return false;
     }
 
@@ -495,7 +506,9 @@ bool Course::ExportClass(Static* a)
     if (!pHeadStudent)
         loadStudentInTheCourse(a);
 
+    normingNumberInStudentList();
     std::ofstream fOut;
+
     fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "scoreboard.csv");
     if (!fOut.is_open())
     {
@@ -504,7 +517,7 @@ bool Course::ExportClass(Static* a)
     }
     else
     {
-        fOut << "No,Student - ID,First Name,Last Name,Gender,Date of Birthday,Social ID,Total Mark,Final Mark,Midterm Mark,Other Mark" << std::endl;
+        fOut << "No,Student - ID,First Name,Last Name,Gender,Date of Birthday,Social ID,Midterm Mark,Final Mark,Total Mark,Other Mark" << std::endl;
         student* cur = pHeadStudent;
         while (cur)
         {
@@ -520,3 +533,4 @@ bool Course::ExportClass(Static* a)
     return true;
 }
 
+bool ImportScoreboard(std::string path);

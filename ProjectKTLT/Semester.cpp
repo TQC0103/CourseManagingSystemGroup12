@@ -399,29 +399,13 @@ bool semester::deleteCourse(std::string& courseName, Static* a)
 		std::cerr << "Can't move file" << std::endl;
 		return false;
 	}
-
-
-
-	
 	return true;
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 bool semester::getGPASemester(Static* a)
 {
 	
-
 	semester* GPAstudent = GPASemester;
 	std::ifstream fin;
 	fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
@@ -438,7 +422,7 @@ bool semester::getGPASemester(Static* a)
 	}
 	fin.close();
 
-	Course ** listScore = new Course *[numCourse];
+	Course** listScore = new Course *[numCourse];
 
 	Course* listStudent = new Course;
 	int nStudents = listStudent->loadStudentInTheCourse(a);

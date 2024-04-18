@@ -4,6 +4,8 @@
 #include "Class.h"
 #include <string>
 #include <fstream>
+#include <sstream>
+#include <cctype>
 #include "config.h"
 
 struct Course
@@ -63,19 +65,17 @@ struct Course
 
 
 	// Function
-	void updateCourse(); //done
+	bool updateCourse(Static* a, std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session); //done
 	int addStudentOptions();
 	//done
 	bool addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string DOB, std::string SocialID);
 	bool addStudentbyFile(Static* a, std::string path); //done
 	bool deleteStudent(Static* a, std::string ID); //done 
-	bool getGPAStudents(Static* a);
-	void deleteStudentCourseList(Static* a);
-	void deleteCourseList(Static* a);
+	
 
 	// Scoreboard functions
-	bool ExportClass(Static* a);
-	void ImportScoreboard();
+	bool ExportClass(Static* a); //done
+	bool ImportScoreboard(std::string path);
 	void updateStudentResult();
 	void ViewScoreboard();
 	void saveIndividualScore(Course* curCourse);

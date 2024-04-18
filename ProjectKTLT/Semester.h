@@ -46,10 +46,8 @@ struct semester {
 
 	// Delete Operation
 	// Name is easier to remember than ID
+	
 	bool deleteCourse(std::string& courseName, Static* a); // , this is remove a course in DATABASE // done 100%
-
-	 
-
 	bool getGPASemester(Static* a);
 
 	~semester();// Done 100%
