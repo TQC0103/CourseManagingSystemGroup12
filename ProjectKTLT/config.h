@@ -10,7 +10,7 @@ struct Course;
 enum programState { Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear
 , ChooseClass, MenuClass, ChooseSemester, MenuSemester, ChooseSchoolYearStudent, ChooseSemesterStudent, MenuSemesterStudent, AddStudentCLass, CreateSemester, AddStudentClassManually, AddStudentClassFile,
 ChooseCourses, ChooseClassCourse, MenuCourse, CreateClass, MenuClassCourse, CourseManageScoreBoard, CourseManageStudent, AddStudentCourse, ImportScoreboard, CourseAddStudentManually, CourseAddStudentFIle,
-ViewCoursesStudent, ViewScoreboardStudent
+ViewCoursesStudent, ViewScoreboardStudent, AddCourseToSemester
 };
 struct Static
 {
@@ -36,6 +36,9 @@ struct Static
     sf::Font fontI;
     sf::Color lightCyan = sf::Color(208, 227, 255);
     sf::Color backGroundWhite = sf::Color(255, 249, 240);
+    //with the color of the background is white, what color should the text to announce succesful be, i tried green but it's not good because it is kinda too bright?
+    sf::Color textColorGreen = sf::Color(0, 128, 0);
+
     sf::Color backGroundWhiteDarker = sf::Color(235, 229, 220); // Darker
     sf::Color backGroundWhiteLighter = sf::Color(255, 252, 240); // Creamier
     sf::Color backGroundWhiteDarkerStill = sf::Color(215, 209, 200); // Even darker

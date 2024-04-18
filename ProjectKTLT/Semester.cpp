@@ -245,6 +245,7 @@ void semester::normingOneSpace(std::string& data)
 			data[pos++] = data[i];
 		}
 	}
+	data.resize(pos);  // Update the size of the string
 	len = pos;
 	for (int i = 0; i < len; i++)
 	{
@@ -257,12 +258,10 @@ void semester::normingOneSpace(std::string& data)
 		}
 	}
 }
-bool semester::addCourse(Static* a, std::string& id, std::string& name, int credit, int maxStudent, std::string& weekDay, std::string& session)
+bool semester::addCourse(Static* a, std::string& id, std::string& name, int credit, int maxStudent)
 {
 	normingNonSpace(id);
 	normingOneSpace(name);
-	normingNonSpace(weekDay);
-	normingNonSpace(session);
 
 	std::ifstream fin;
 	fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
@@ -302,8 +301,6 @@ bool semester::addCourse(Static* a, std::string& id, std::string& name, int cred
 	fout << name << std::endl;
 	fout << credit << std::endl;
 	fout << maxStudent << std::endl;
-	fout << weekDay << std::endl;
-	fout << session << std::endl;
 	fout.close();
 	return true;
 }
@@ -383,29 +380,13 @@ bool semester::deleteCourse(std::string& courseName, Static* a)
 		std::cerr << "Can't move file" << std::endl;
 		return false;
 	}
-
-
-
-	
 	return true;
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
 bool semester::getGPASemester(Static* a)
 {
 	
-
 	semester* GPAstudent = GPASemester;
 	std::ifstream fin;
 	fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
@@ -422,7 +403,7 @@ bool semester::getGPASemester(Static* a)
 	}
 	fin.close();
 
-	Course ** listScore = new Course *[numCourse];
+	Course** listScore = new Course *[numCourse];
 
 	Course* listStudent = new Course;
 	int nStudents = listStudent->loadStudentInTheCourse(a);

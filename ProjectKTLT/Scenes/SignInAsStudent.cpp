@@ -18,7 +18,7 @@ SignInAsStudentScene::SignInAsStudentScene(Static *a)
 	createText(enterPasswordHere, a->fontI, sf::Color::White, "ENTER PASSWORD HERE", 40, a->width / 2.0f, 800.0f);
 	createText(enterUsernameHere, a->fontI, sf::Color::White, "ENTER USERNAME HERE", 40, a->width / 2.0f, 475.0f);
 	createText(passwordStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, passwordStudentBox.getPosition().y);
-	createText(successful, a->fontB, sf::Color::Green, "Sign in successfully", 50, a->width / 2.0f, 1000.0f);
+	createText(successful, a->fontB, a->textColorGreen, "Sign in successfully", 50, a->width / 2.0f, 1000.0f);
 }
 
 void SignInAsStudentScene::drawSignInAsStudent(sf::RenderWindow& win, Static *a)

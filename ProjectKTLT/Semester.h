@@ -42,14 +42,12 @@ struct semester {
 
 	void normingOneSpace(std::string& data); // for Name and Teacher // done 100%
 
-	bool addCourse(Static* a, std::string& id, std::string& name, int credit, int maxStudent, std::string& weekDay, std::string& session); // done 100%
+	bool addCourse(Static* a, std::string& id, std::string& name, int credit, int maxStudent); // done 100%
 
 	// Delete Operation
 	// Name is easier to remember than ID
+	
 	bool deleteCourse(std::string& courseName, Static* a); // , this is remove a course in DATABASE // done 100%
-
-	 
-
 	bool getGPASemester(Static* a);
 
 	~semester();// Done 100%

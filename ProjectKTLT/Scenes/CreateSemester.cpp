@@ -67,7 +67,7 @@ void CreateSemesterScene::drawCreateSemester(sf::RenderWindow& win, Static* a)
 	{
 		std::string data = semesterData + semesterData[semesterData.size() - 1];
 		data[data.size() - 2] = ' ';
-		createText(successful, a->fontB, sf::Color::Green, "Create " + data + " successfully", 50, a->width / 2.0f, 1000.0f);
+		createText(successful, a->fontB, a->textColorGreen, "Create " + data + " successfully", 50, a->width / 2.0f, 1000.0f);
 		win.draw(successful);
 	}
 	if (isWrong == 3)
@@ -207,7 +207,10 @@ void CreateSemesterScene::renderCreateSemester(sf::Event event, Scene* scene, sf
 
 CreateSemesterScene::~CreateSemesterScene()
 {
-	delete year;
+	if (year != nullptr)
+	{
+		delete year;
+	}
 }
 
 
