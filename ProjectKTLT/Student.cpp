@@ -107,11 +107,7 @@ std::string** student::viewAllCoursesInformations(Static* a, int& n)
 }
 
 
-<<<<<<< HEAD
-std::string** student::getStudentScoreBoard(Static* a, int &n)
-=======
 std::string** student::getStudentScoreBoard(Static* a, int& n)
->>>>>>> d0c9241918d984beacc6a6a46d7817f25cc0b984
 {
     semester* tmp = new semester;
     n = tmp->specifyCourseForStudentUser(a);
