@@ -41,7 +41,7 @@ struct student
     std::string** viewAllStudentsInACourse(Static* a); // done
 
     float calculateOverall(float final, float midterm, float other);//support function
-    std::string** getStudentScoreBoard(Static* a); // done
+    std::string** getStudentScoreBoard(Static* a, int &n); // done
     void dellocate2DArray(std::string** arr, int n);
 
 };

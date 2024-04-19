@@ -199,6 +199,11 @@ int main() {
                 scene->addcoursetosemester->renderAddCourseToSemesterScene(event, scene, window);
                 break;
             }
+            case programState::ViewScoreboardStudent:
+            {
+				scene->viewscoreboardstudent->renderViewScoreboardScene(event, scene, window);
+				break;
+			}
             default:
                 break;
             }
@@ -384,6 +389,11 @@ int main() {
 				scene->addcoursetosemester->drawAddCourseToSemesterScene(window, scene->a);
 				break;
 			}
+            case programState::ViewScoreboardStudent:
+            {
+                scene->viewscoreboardstudent->drawViewScoreboardScene(window, scene->a);
+                break;
+            }
             default:
                 break;
             }
