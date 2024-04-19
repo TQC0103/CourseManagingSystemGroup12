@@ -40,105 +40,11 @@ Course::Course(std::string id, std::string name, std::string classname, std::str
     Session = session;
 }
 
-// Update the information of the Course
-int Course::updateCourse(Static* a, std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session)
-{
-    // can't check these information below
-    Course* tmp = new Course;
-    tmp->ID = id;
-    tmp->Name = name;
-    tmp->Lecturer = lecturer;
-    tmp->Credit = credit;
-    tmp->maxStudent = maxstudent;
-
-    // Check the className
-    std::ifstream fIn;
-    fIn.open("../Database/Class/AllClasses.txt");
-
-    if (!fIn.is_open())
-    {
-        std::cerr << "Can't open file. Can't check the className to update" << std::endl;
-        delete tmp;
-        return -1;
-    }
-
-    std::string check;
-    bool found = false;
-    while (getline(fIn, check))
-    {
-        if (check == classname)
-        {
-            tmp->className = classname;
-            found = 1;
-        }    
-    }
-    if (found == false)
-    {
-        std::cerr << "The class you input is not exist" << std::endl;
-        fIn.close();
-        delete tmp;
-        return 3;
-    }
-    fIn.close();
-
-    //Capitalise and check the weekDay
-    int size = weekday.size();
-    for (int i = 0; i < size; i++)
-    {
-        weekday[i] = std::toupper(weekday[i]);
-    }
-
-    if (!isvalidweekday(weekday))
-    {
-        std::cerr << "Your input is not legal";
-        delete tmp;
-        return 7;
-    }
-
-    tmp->weekDay = weekday;
-
-    // Check Session
-    if (session != "7:30" && session != "9:30" && session != "15:30" && session != "13:30")
-    {
-        std::cerr << "Your input is not legal";
-        delete tmp;
-        return 8;
-    }
-
-    tmp->Session = session;
-
-    //Update the database
-    std::fstream fOut;
-    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "information.txt");
-
-    if (fOut.is_open())
-    {
-        fOut << tmp->ID << std::endl;
-        fOut << tmp->Name << std::endl;
-        fOut << tmp->className << std::endl;
-        fOut << tmp->Lecturer << std::endl;
-        fOut << tmp->Credit << std::endl;
-        fOut << tmp->maxStudent << std::endl;
-        fOut << tmp->weekDay << std::endl;
-        fOut << tmp->Session << std::endl;
-    }
-    else
-    {
-        std::cerr << "Can't open the information.txt file" << std::endl;
-        delete tmp;
-        return -1;
-    }
-    fOut.close();
-    delete a->curCourse;
-    a->curCourse = tmp;
-    return 0;
-}
-
 // Load data of the Course (Like Course ID, Course Name....)
 void Course::loadDataOfTheCourse(Static* a)
 {
     std::ifstream fIn;
-    fIn.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "information.txt");
+    fIn.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "information.txt");
 
     if (fIn.is_open())
     {
@@ -160,7 +66,59 @@ void Course::loadDataOfTheCourse(Static* a)
     fIn.close();
 }
 
+// Update the information of the Course
+int Course::updateCourse(Static* a, std::string lecturer, std::string weekday, std::string session)
+{
+    loadDataOfTheCourse(a);
 
+    // Can't check these information below
+    a->curCourse->Lecturer = lecturer;
+
+    //Capitalise and check the weekDay
+    int size = weekday.size();
+    for (int i = 0; i < size; i++)
+    {
+        weekday[i] = std::toupper(weekday[i]);
+    }
+
+    if (!isvalidweekday(weekday))
+    {
+        std::cerr << "Your input is not legal" << std::endl;
+        return 7;
+    }
+    a->curCourse->weekDay = weekday;
+
+    // Check Session
+    if (session != "7:30" && session != "9:30" && session != "15:30" && session != "13:30")
+    {
+        std::cerr << "Your input is not legal" << std::endl;
+        return 8;
+    }
+    a->curCourse->Session = session;
+
+    //Update the database
+    std::fstream fOut;
+    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "information.txt");
+
+    if (fOut.is_open())
+    {
+        fOut << a->curCourse->ID << std::endl;
+        fOut << a->curCourse->Name << std::endl;
+        fOut << a->curCourse->className << std::endl;
+        fOut << a->curCourse->Lecturer << std::endl;
+        fOut << a->curCourse->Credit << std::endl;
+        fOut << a->curCourse->maxStudent << std::endl;
+        fOut << a->curCourse->weekDay << std::endl;
+        fOut << a->curCourse->Session << std::endl;
+    }
+    else
+    {
+        std::cerr << "Can't open the information.txt file" << std::endl;
+        return -1;
+    }
+    fOut.close();
+    return 0;
+}
 
 int Course::loadClassesInCourse(Static* a)
 {
@@ -198,7 +156,7 @@ int Course::loadStudentInTheCourse(Static* a)
 {
     int n = 0;
     std::ifstream fIn;
-    std::string path = "../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "classList.csv";
+    std::string path = "../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv";
     fIn.open(path);
 
     if (fIn.is_open())
@@ -342,7 +300,7 @@ void Course::sortStudentList(student* tmp)
 bool Course::exportStudentListToFile(Static* a)
 {
     std::ofstream fOut;
-    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "classList.csv");
+    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv");
     if (!fOut.is_open())
     {
         std::cerr << "Can't open file" << std::endl;
@@ -376,7 +334,7 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
 
     student* tmp = new student(No, ID, FirstName, LastName, Gender, SocialID, DOB);
     std::ifstream fIn;
-    fIn.open("../Database/ SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "classList.csv");
+    fIn.open("../Database/ SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv");
     if (!fIn.is_open())
     {
         std::cerr << "Can't open file" << std::endl;
@@ -508,7 +466,7 @@ bool Course::ExportClass(Static* a)
     normingNumberInStudentList();
     std::ofstream fOut;
 
-    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curClass->name + "/" + "scoreboard.csv");
+    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "scoreboard.csv");
     if (!fOut.is_open())
     {
         std::cerr << "Can't open file" << std::endl;
@@ -524,14 +482,14 @@ bool Course::ExportClass(Static* a)
             fOut << tmp << std::endl;
             cur = cur->pNext;
         }
-        delete cur;
     }
 
     fOut.close();
     return true;
 }
 
-bool Course::ImportScoreboard(std::string path)
+//Import a scoreboard file and save it in the database
+bool Course::ImportScoreboard(Static* a, std::string path)
 {
     std::ifstream fIn;
     fIn.open(path);
@@ -554,12 +512,11 @@ bool Course::ImportScoreboard(std::string path)
         return false;
     }
 
-    studentScore* cur = new studentScore;
-
     while (getline(fIn, check))
     {
         std::string no, MidtermMark, FinalMark, OtherMark, TotalMark;
         std::stringstream s(check);
+        studentScore* cur = new studentScore;
         getline(s, no, ',');
         getline(s, cur->studentID, ',');
         getline(s, cur->firstName, ',');
@@ -570,13 +527,149 @@ bool Course::ImportScoreboard(std::string path)
         getline(s, OtherMark);
 
         cur->No = std::stoi(no);
-        cur->midtermMark = std::stod(MidtermMark);
-        cur->finalMark = std::stod(FinalMark);
-        cur->totalMark = std::stod(TotalMark);
-        cur->otherMark = std::stod(OtherMark);
+        
+        //If the point in the import file is empty, it will display at -1 in the scoreboard.csv
+        cur->midtermMark = MidtermMark.empty() ? -1 : std::stod(MidtermMark);
+        cur->finalMark = FinalMark.empty() ? -1 : std::stod(FinalMark);
+        cur->totalMark = TotalMark.empty() ? -1 : std::stod(TotalMark);
+        cur->otherMark = OtherMark.empty() ? -1 : std::stod(OtherMark);
 
-        cur->pNext = nullptr;
+        if (!pHeadScore)
+        {
+            pHeadScore = cur;
+            pTailScore = pHeadScore;
+        }
+        else
+        {
+            pTailScore->pNext = cur;
+            pTailScore = pTailScore->pNext;
+        }
+    }
+    fIn.close();
 
+    //Update database
+    std::ofstream fOut;
+    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "scoreboard.csv");
+    if (!fOut.is_open())
+    {
+        std::cerr << "Can't open file" << std::endl;
+        return false;
+    }
+    else
+    {
+        fOut << "No,Student - ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark" << std::endl;
+        studentScore* cur = pHeadScore;
+        while (cur)
+        {
+            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->firstName + ',' + cur->lastName + ',' + std::to_string(cur->midtermMark) + ',' + std::to_string(cur->finalMark) + ',' +  std::to_string(cur->totalMark) + ',' + std::to_string(cur->otherMark);
+            fOut << tmp << std::endl;
+            cur = cur->pNext;
+        }
+    }
+        
+    fOut.close();
+    return true;
+}
+
+
+int Course::addClasstoCourse(Static* a, std::string classname, std::string lecturer, std::string weekday, std::string session)
+{
+    //Check the className
+    std::ifstream fIn;
+    fIn.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes.txt");
+
+    if (!fIn.is_open())
+    {
+        std::cerr << "Can't open file" << std::endl;
+        return -1;
+    }
+    std::string checkName;
+    while (getline(fIn, checkName))
+    {
+        if (checkName == classname)
+        {
+            std::cerr << "This class is already exist" << std::endl;
+            fIn.close();
+            return 3;
+        }
+    }
+    fIn.close();
+
+    //Check weekday;
+    int size = weekday.size();
+    for (int i = 0; i < size; i++)
+    {
+        weekday[i] = std::toupper(weekday[i]);
     }
 
+    if (!isvalidweekday(weekday))
+    {
+        std::cerr << "Your input is illegal" << std::endl;
+        return 7;
+    }
+
+    // Check Session
+    if (session != "7:30" && session != "9:30" && session != "15:30" && session != "13:30")
+    {
+        std::cerr << "Your input is illegal" << std::endl;
+        return 8;
+    }
+
+    //Update the database
+    fIn.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a -> curCourse -> ID + "/CommonInfo.txt");
+ 
+    std::string ID, Name;
+    int Credit, maxStudent;
+
+    if (fIn.is_open())
+    {
+        getline(fIn, ID);
+        getline(fIn, Name);
+        fIn >> Credit;
+        fIn >> maxStudent;
+    }
+    else
+    {
+        std::cerr << "Can't open file" << std::endl;
+        return -1;
+    }
+    fIn.close();
+
+    std::ofstream fOut;
+    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes.txt", std::ios::app);
+    if (!fOut.is_open())
+    {
+        std::cerr << "Can't open file" << std::endl;
+        return -1;
+    }
+    fOut << classname << std::endl;
+    fOut.close();
+
+
+    // Make Folder and file
+    std::string path = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + classname;
+    int makeFile = _mkdir(path.c_str());
+
+    fOut.open(path + "/classList.csv");
+    fOut.close();
+
+    fOut.open(path + "/scoreboard.csv");
+    fOut.close();
+
+    fOut.open(path + "/information.txt");
+    {
+        fOut << ID << std::endl;
+        fOut << Name << std::endl;
+        fOut << classname << std::endl;
+        fOut << lecturer << std::endl;
+        fOut << Credit << std::endl;
+        fOut << maxStudent << std::endl;
+        fOut << weekday << std::endl;
+        fOut << session << std::endl;
+    }
+    fOut.close();
+
+    return 0;
 }
+
+

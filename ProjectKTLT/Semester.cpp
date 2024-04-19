@@ -349,12 +349,14 @@ bool semester::deleteCourse(std::string& courseName, Static* a)
 		cur->pNext = nullptr;
 	}
 	fin.close();
+
 	// Course is not exist !
 	if (Flag == false)
 	{
 		std::cerr << "This ID is not exist" << std::endl;
 		return false;
 	}
+
 	std::ofstream fout;
 	fout.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
 	if (!fout.is_open())
