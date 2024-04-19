@@ -65,9 +65,9 @@ std::string student::viewStudentProfile()
 
 
 
-float student::calculateOverall(float final, float midterm, float other)
+double student::calculateOverall(double final, double midterm, double other)
 {
-    float res = final * 0.5f + midterm * 0.2f + other * 0.3f;
+    double res = final * (double)0.5 + midterm * (double)0.2 + other * (double)0.3;
     return res;
 }
 
