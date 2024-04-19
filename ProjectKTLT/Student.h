@@ -39,7 +39,11 @@ struct student
     std::string viewStudentProfile(); // done
     std::string** viewAllCoursesInformations(Static* a, int &n); // done
     float calculateOverall(float final, float midterm, float other);//support function
+<<<<<<< HEAD
     std::string** getStudentScoreBoard(Static* a, int& n); // done
+=======
+    std::string** getStudentScoreBoard(Static* a, int &n); // done
+>>>>>>> d0c9241918d984beacc6a6a46d7817f25cc0b984
     void dellocate2DArray(std::string** arr, int n);
 
 };

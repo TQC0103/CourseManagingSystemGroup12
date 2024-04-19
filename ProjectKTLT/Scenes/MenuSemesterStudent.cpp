@@ -77,7 +77,11 @@ void MenuSemesterStudentScene::renderMenuSemester(sf::Event event, Scene* scene,
 			}
             else if (viewScoreboard.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
             {
-				
+				delete scene->menusemesterstudent;
+                scene->menusemesterstudent = nullptr;
+                if (scene->viewscoreboardstudent == nullptr)
+					scene->viewscoreboardstudent = new ViewScoreboardScene(scene->a);
+                scene->a->currentState = programState::ViewScoreboardStudent;
 			}
         }
     }

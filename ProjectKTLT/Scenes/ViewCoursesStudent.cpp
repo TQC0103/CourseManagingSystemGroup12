@@ -42,43 +42,43 @@ ViewCoursesStudentScene::ViewCoursesStudentScene(Static* a)
 					{
 						cellWidth = 200.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(pos.x, pos.y));
-						createText(textA[i][j], a->fontN, a->backGroundWhite, "Course ID", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Course ID", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
 					}
 					case 1:
 						cellWidth = 300.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontN, a->backGroundWhite, "Course Name", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Course Name", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
 					case 2:
 						cellWidth = 200.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontN, a->backGroundWhite, "Class", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Class", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
 					case 3:
 						cellWidth = 300.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontN, a->backGroundWhite, "Lecturer", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Lecturer", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
 					case 4:
 						cellWidth = 200.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontN, a->backGroundWhite, "Credit", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Credit", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
 					case 5:
 						cellWidth = 200.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontN, a->backGroundWhite, "Max Student", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Max Student", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
 					case 6:
 						cellWidth = 200.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontN, a->backGroundWhite, "Week Day", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Week Day", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
 					case 7:
 						cellWidth = 200.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontN, a->backGroundWhite, "Session", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Session", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
 					default:
 						break;
@@ -87,17 +87,17 @@ ViewCoursesStudentScene::ViewCoursesStudentScene(Static* a)
 				else
 				{
 					float h = (float)recA[i - 1][j].getSize().y;
-					createABox(recA[i][j], sf::Vector2f(recA[i - 1][j].getSize().x, h), a->highlightCyan, sf::Vector2f(recA[i - 1][j].getPosition().x, recA[i - 1][j].getPosition().y + h));
+					createABox(recA[i][j], sf::Vector2f(recA[i - 1][j].getSize().x, h), a->pastelTitleCyan, sf::Vector2f(recA[i - 1][j].getPosition().x, recA[i - 1][j].getPosition().y + h));
 					// Draw text
 					if (table[i - 1][j].size() > 25)
 					{
-						createText(textA[i][j], a->fontN, a->backGroundWhite, table[i - 1][j], 18, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontN, a->titleGreyColor, table[i - 1][j], 18, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 
 					}
-					else if (table[i - 1][j].size() > 18)
-						createText(textA[i][j], a->fontN, a->backGroundWhite, table[i - 1][j], 20, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+					else if (table[i - 1][j].size() > 20)
+						createText(textA[i][j], a->fontN, a->titleGreyColor, table[i - 1][j], 20, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 					else {
-						createText(textA[i][j], a->fontN, a->backGroundWhite, table[i - 1][j], 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontN, a->titleGreyColor, table[i - 1][j], 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 					}
 				}
 			}

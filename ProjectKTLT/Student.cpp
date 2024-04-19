@@ -4,7 +4,7 @@
 #include "SchoolYear.h"
 #include "Semester.h"
 #include "Course.h"
-
+#include <iomanip>
 
 void student::loadStudentProfile(std::string username)
 {
@@ -107,10 +107,14 @@ std::string** student::viewAllCoursesInformations(Static* a, int& n)
 }
 
 
+<<<<<<< HEAD
 std::string** student::getStudentScoreBoard(Static* a, int &n)
+=======
+std::string** student::getStudentScoreBoard(Static* a, int& n)
+>>>>>>> d0c9241918d984beacc6a6a46d7817f25cc0b984
 {
     semester* tmp = new semester;
-    int n = tmp->specifyCourseForStudentUser(a);
+    n = tmp->specifyCourseForStudentUser(a);
     if (n == 0)
     {
         delete tmp;
@@ -122,13 +126,20 @@ std::string** student::getStudentScoreBoard(Static* a, int &n)
     {
         res[i] = new std::string[9];
     }
-    for(int i = 0; i < n; i++)
+
+    student* curStudentUser = new student;
+    curStudentUser->loadStudentProfile(a->username);
+    std::string curClass = curStudentUser->curClass;
+    delete curStudentUser;
+    
+    for (int i = 0; i < n; i++)
     {
-        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "/scoreboard.csv");
+
+        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + curClass + "/StudentScoreBoard.csv");
         if (!fIn.is_open())
         {
             std::cout << "Can not open file scoreboard.csv of course: " << cur->ID << std::endl;
-            for (int j = 0; j < i; ++j) 
+            for (int j = 0; j < i; ++j)
             {
                 delete[] res[j];
             }
