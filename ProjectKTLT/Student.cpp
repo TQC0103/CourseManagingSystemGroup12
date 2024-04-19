@@ -4,7 +4,7 @@
 #include "SchoolYear.h"
 #include "Semester.h"
 #include "Course.h"
-
+#include <iomanip>
 
 void student::loadStudentProfile(std::string username)
 {
@@ -105,10 +105,10 @@ std::string** student::viewAllCoursesInformations(Static* a, int &n)
 }
 
 
-std::string** student::getStudentScoreBoard(Static* a)
+std::string** student::getStudentScoreBoard(Static* a, int& n)
 {
     semester* tmp = new semester;
-    int n = tmp->specifyCourseForStudentUser(a);
+    n = tmp->specifyCourseForStudentUser(a);
     if (n == 0)
     {
         delete tmp;
@@ -120,13 +120,20 @@ std::string** student::getStudentScoreBoard(Static* a)
     {
         res[i] = new std::string[9];
     }
-    for(int i = 0; i < n; i++)
+
+    student* curStudentUser = new student;
+    curStudentUser->loadStudentProfile(a->username);
+    std::string curClass = curStudentUser->curClass;
+    delete curStudentUser;
+    
+    for (int i = 0; i < n; i++)
     {
-        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "/scoreboard.csv");
+
+        std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + curClass + "/StudentScoreBoard.csv");
         if (!fIn.is_open())
         {
             std::cout << "Can not open file scoreboard.csv of course: " << cur->ID << std::endl;
-            for (int j = 0; j < i; ++j) 
+            for (int j = 0; j < i; ++j)
             {
                 delete[] res[j];
             }
@@ -136,23 +143,26 @@ std::string** student::getStudentScoreBoard(Static* a)
         }
         std::string line;
         std::getline(fIn, line);
-        for (int j = 0; j < 9; j++)
+        while (std::getline(fIn, line))
         {
-            while (std::getline(fIn, line))
+            std::istringstream iss(line);
+            std::string ignore, studentID;
+            std::getline(iss, ignore, ',');
+            std::getline(iss, studentID, ',');
+            if (studentID != a->username) continue;
+            res[i][0] = cur->ID;
+            res[i][1] = cur->Name;
+            res[i][2] = a->username;
+            for (int j = 3; j < 7; j++)
             {
-                std::istringstream iss(line);
-                std::string ignore, studentID;
-                std::getline(iss, ignore, ',');
-                std::getline(iss, studentID, ',');
-                if (studentID != a->username) continue;
-                res[i][0] = cur->ID;
-                for (int j = 1; j < 8; j++)
-                {
-                    std::getline(iss, res[i][j], ',');
-                }
-                double overall = calculateOverall(std::stod(res[i][5]), std::stod(res[i][6]), std::stod(res[i][7]));
-                res[i][8] = std::to_string(overall);
+                std::getline(iss, res[i][j], ',');
             }
+            std::getline(iss, res[i][7], '\n');
+            double overall = calculateOverall(std::stod(res[i][5]), std::stod(res[i][6]), std::stod(res[i][7]));
+            std::ostringstream streamObj;
+            streamObj << std::fixed << std::setprecision(2) << overall;
+            res[i][8] = streamObj.str();
+            break;
         }
         fIn.close();
         cur = cur->pNext;

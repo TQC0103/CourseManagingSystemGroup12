@@ -45,7 +45,7 @@ struct Static
     sf::Color backGroundWhiteMuchDarker = sf::Color(175, 169, 160); // Much darker
     sf::Color textColorBlue = sf::Color(8, 31, 92);
     sf::Color highlightCyan = sf::Color(93, 117, 153);
-    
+    sf::Color darkCyan = sf::Color(0, 76, 87);
     sf::Color pastelGrey = sf::Color(192, 192, 192);
     sf::Color pastelCyan = sf::Color(156, 217, 207);
     sf::Color pastelPink1 = sf::Color(255, 230, 230);
