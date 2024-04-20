@@ -20,12 +20,15 @@ struct SignInAsStudentScene
 	sf::RectangleShape passwordStudentBox;
 	sf::Text passwordStudentText;
 	std::string passwordStudentInput = "";
+	std::string passwordStudentInputHidden = "";
 
 	sf::ConvexShape submit;
 	sf::Text submitText;
 
 	sf::Clock cursorClock;
 	bool isCursorVisible;
+
+	sf::Sprite hidePassword;
 
 	sf::Text incorrect;
 	sf::Text successful;
@@ -36,6 +39,8 @@ struct SignInAsStudentScene
 	int maxUsernameLength = 15;
 	bool passwordInputEnable = false;
 	int maxPassWordLength = 15;
+	bool passwordHiden = true;
+	
 	// Constructors
 	SignInAsStudentScene(Static *a);
 

@@ -14,10 +14,12 @@ struct ChangePassStaffScene
 	sf::RectangleShape oldPassBox;
 	sf::Text oldPassText;
 	std::string oldPassInput = "";
+	std::string oldPassInputHiden = "";
 
 	sf::RectangleShape newPassBox;
 	sf::Text newPassText;
 	std::string newPassInput = "";
+	std::string newPassInputHiden = "";
 
 	sf::ConvexShape submit;
 	sf::Text submitText;
@@ -26,8 +28,13 @@ struct ChangePassStaffScene
 
 	sf::Text enterOldPass;
 	sf::Text enterNewPass;
+
+	sf::Sprite hideOldPass;
+	sf::Sprite hideNewPass;
 	bool oldPassInputEnable = false;
 	bool newPassInputEnable = false;
+	bool oldPassHiden = true;
+	bool newPassHiden = true;
 	int incorrect = 0;
 	int maxPassLength = 15;
 
