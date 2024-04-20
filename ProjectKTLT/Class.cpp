@@ -148,7 +148,6 @@ bool Class::creat_new_Class(std::string nameClass) {
 	load_classes();
 	if (isInvalid(nameClass) == true)
 	{
-		std::cout << "Error! The name Class is exist!\n";
 		return false;
 	}
 	int result = _mkdir(("../Database/Class/" + nameClass).c_str());
@@ -178,7 +177,6 @@ bool Class::creat_new_Class(std::string nameClass) {
 	fOut << "No,Student - ID,First Name,Last Name,Gender,Date of Birthday,Social ID\n";
 	fOut.close();
 	print_txt();
-	delete new_Class;
 	return true;
 }
 
@@ -463,27 +461,22 @@ int Class::count_Element(student* a) {
 	}
 	return cnt;
 }
-std::string **Class::view_information_Class(Static *a) {
-	if(loadStudents(a) == 0) return NULL;
+
+std::string** Class::view_information_Class(Static* a, int &n) {
+	n = 0;
+	if (loadStudents(a) == 0) return NULL;
 	Class* pHeads = isExist(a);
 	student* cur = pHeads->pHeadListStudents;
 
-	int n = count_Element(cur);
+	n = count_Element(cur);
 
-	std::string** res = new std::string * [n+1];
-	for (int i = 0; i < n+1; i++)
+	std::string** res = new std::string * [n];
+	for (int i = 0; i < n; i++)
 	{
 		res[i] = new std::string[7];
 	}
-	res[0][0] = "No";
-	res[0][1] = "Student-ID";
-	res[0][2] = "First Name";
-	res[0][3] = "Last Name";
-	res[0][4] = "Gender";
-	res[0][5] = "Date of Birthday";
-	res[0][6] = "Social ID";
 
-	for (int i = 1; i < n+1; i++) {
+	for (int i = 0; i < n; i++) {
 		res[i][0] = std::to_string(cur->No);
 		res[i][1] = cur->studentID;
 		res[i][2] = cur->firstName;

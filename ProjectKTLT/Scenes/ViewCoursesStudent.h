@@ -23,7 +23,10 @@ struct ViewCoursesStudentScene
 	float tableHeight = 0;
 	sf::RectangleShape** recA;
 	sf::Text** textA;
+
 	int numCourse = 0;
+	
+
 	ViewCoursesStudentScene(Static* a);
 	void drawViewCourseStudent(sf::RenderWindow& window, Static *a);
 	void renderViewCourseStudent(sf::Event event, Scene* scene, sf::RenderWindow& window);
