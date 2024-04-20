@@ -3,10 +3,10 @@
 #include <fstream>
 #include <string>
 #include "Scene.h"
+#include "../Class.h"
 
 CreateClassScene::CreateClassScene(Static* a)
 {
-	//year = new schoolYear();
 	isCursorVisible = false;
 	createABox(createClassBackgr, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(createClassText, a->fontB, a->textColorBlue, "         Create Class\nFor First Year Students", 80, a->width / 2.0f, 200.0f);
@@ -17,7 +17,7 @@ CreateClassScene::CreateClassScene(Static* a)
 	createABox(className, sf::Vector2f(800.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, a->height / 2.0f));
 	createText(classNameText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, className.getPosition().y);
 	createText(enterClassnameHere, a->fontI, sf::Color::White, "ENTER CLASS NAME HERE", 40, a->width / 2.0f, className.getPosition().y);
-	
+	createText(fail, a->fontB, sf::Color::Red, "Classname is invalid (already existing or too long/short)", 50, a->width / 2.0f, 1000.0f);
 
 }
 
@@ -46,23 +46,15 @@ void CreateClassScene::drawCreateClass(sf::RenderWindow& win, Static* a)
 		win.draw(enterClassnameHere);
 	}
 	
-	//if (isWrong == 1)
-	//{
-	//	createText(fail, a->fontB, sf::Color::Red, "Input dates invalid. Example date: 01/01", 50, a->width / 2.0f, 1000.0f);
-	//	win.draw(fail);
-	//}
-	//if (isWrong == 2)
-	//{
-	//	std::string data = semesterData + semesterData[semesterData.size() - 1];
-	//	data[data.size() - 2] = ' ';
-	//	createText(successful, a->fontB, sf::Color::Green, "Create " + data + " successfully", 50, a->width / 2.0f, 1000.0f);
-	//	win.draw(successful);
-	//}
-	//if (isWrong == 3)
-	//{
-	//	createText(fail, a->fontB, sf::Color::Red, a->curSchoolYear->year + " already have 3 semesters", 50, a->width / 2.0f, 1000.0f);
-	//	win.draw(fail);
-	//}
+	if (isWrong == 1)
+	{
+		win.draw(fail);
+	}
+	if (isWrong == 2)
+	{
+		createText(successful, a->fontB, a->textColorGreen, "Create class " + classNameInput + " successfully", 50, a->width / 2.0f, 1000.0f);
+		win.draw(successful);
+	}
 
 }
 
@@ -85,15 +77,15 @@ void CreateClassScene::renderCreateClass(sf::Event event, Scene* scene, sf::Rend
 		create.setFillColor(scene->a->highlightCyan);
 		creatingText.setFillColor(sf::Color::White);
 	}
-	//if (isWrong == 2)
-	//{
-	//	sf::sleep(sf::seconds(1.0f));
-	//	if (scene->menuschoolyear == nullptr)
-	//		scene->menuschoolyear = new MenuSchoolYearScene(scene->a);
-	//	delete scene->createsemester;
-	//	scene->createsemester = nullptr;
-	//	scene->a->currentState = programState::MenuSchoolYear;
-	//}
+	if (isWrong == 2)
+	{
+		sf::sleep(sf::seconds(1.0f));
+		if (scene->menustaff == nullptr)
+			scene->menustaff = new MenuStaffScene(scene->a);
+		delete scene->createclass;
+		scene->createclass = nullptr;
+		scene->a->currentState = programState::MenuStaff;
+	}
 	
 	// Handle mouse events
 	if (event.type == sf::Event::MouseButtonPressed)
@@ -114,18 +106,17 @@ void CreateClassScene::renderCreateClass(sf::Event event, Scene* scene, sf::Rend
 			}
 			else if (create.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				//int check = year->addSemester(semesterData, startDayInput, endDayInput, scene->a);
-				//if (check == 0)
-				//{
-				//	isWrong = 1;
-				//}
-				//else if (check == 2)
-				//{
-				//	isWrong = 3;
-				//}
-				//else {
-				//	isWrong = 2;
-				//}
+				Class *cl = new Class();
+				bool check = cl->creat_new_Class(classNameInput);
+				delete cl;
+				if (check == false)
+				{
+					isWrong = 1;
+				}
+				else
+				{
+					isWrong = 2;
+				}
 			}
 			else {
 				inputEnable = false;
@@ -138,18 +129,17 @@ void CreateClassScene::renderCreateClass(sf::Event event, Scene* scene, sf::Rend
 	{
 		if (event.text.unicode == 13)
 		{
-			//int check = year->addSemester(semesterData, startDayInput, endDayInput, scene->a);
-			//if (check == 0)
-			//{
-			//	isWrong = 1;
-			//}
-			//else if (check == 2)
-			//{
-			//	isWrong = 3;
-			//}
-			//else {
-			//	isWrong = 2;
-			//}
+			Class* cl = new Class();
+			bool check = cl->creat_new_Class(classNameInput);
+			delete cl;
+			if (check == false)
+			{
+				isWrong = 1;
+			}
+			else
+			{
+				isWrong = 2;
+			}
 		}
 		if (inputEnable == true)
 		{

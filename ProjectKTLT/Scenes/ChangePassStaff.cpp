@@ -17,7 +17,17 @@ ChangePassStaffScene::ChangePassStaffScene(Static* a)
 	createText(enterOldPass, a->fontI, sf::Color::White, "ENTER CURRENT PASSWORD", 40, a->width / 2.0f, 475.0f);
 	createText(enterNewPass, a->fontI, sf::Color::White, "ENTER NEW PASSWORD", 40, a->width / 2.0f, 800.0f);
 	createCornerRoundedButton(submit, submitText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Confirm", sf::Vector2f(a->width - 150.0f, 1000.0f), 2.0f, sf::Color::Black);
-	createText(successful, a->fontB, sf::Color::Green, "Password changed successfully", 50, a->width / 2.0f, 1000.0f);
+	createText(successful, a->fontB, a->textColorGreen, "Password changed successfully", 50, a->width / 2.0f, 1000.0f);
+
+	hideOldPass.setTexture(a->hidePassTexture);
+	hideOldPass.setScale(oldPassBox.getSize().y / hideOldPass.getLocalBounds().height / 2.0f, oldPassBox.getSize().y / hideOldPass.getLocalBounds().height / 2.0f);
+	hideOldPass.setOrigin(hideOldPass.getLocalBounds().width / 2.0f, hideOldPass.getLocalBounds().height / 2.0f);
+	hideOldPass.setPosition(oldPassBox.getPosition().x + oldPassBox.getSize().x / 2.0f - hideOldPass.getGlobalBounds().width / 2.0f - 30.0f, oldPassBox.getPosition().y);
+
+	hideNewPass.setTexture(a->hidePassTexture);
+	hideNewPass.setScale(newPassBox.getSize().y / hideNewPass.getLocalBounds().height / 2.0f, newPassBox.getSize().y / hideNewPass.getLocalBounds().height / 2.0f);
+	hideNewPass.setOrigin(hideNewPass.getLocalBounds().width / 2.0f, hideNewPass.getLocalBounds().height / 2.0f);
+	hideNewPass.setPosition(newPassBox.getPosition().x + newPassBox.getSize().x / 2.0f - hideNewPass.getGlobalBounds().width / 2.0f - 30.0f, newPassBox.getPosition().y);
 }
 
 void ChangePassStaffScene::drawChangePass(sf::RenderWindow& win, Static *a)
@@ -28,12 +38,26 @@ void ChangePassStaffScene::drawChangePass(sf::RenderWindow& win, Static *a)
 	win.draw(preText);
 
 	win.draw(oldPassBox);
-	oldPassText.setString(oldPassInput);
-	setOriginTextToMiddle(oldPassText);
+	if (oldPassHiden == true)
+	{
+		oldPassText.setString(oldPassInputHiden);
+	}
+	else
+	{
+		oldPassText.setString(oldPassInput);
+	}
+	setOriginTextToMiddle(oldPassText);	setOriginTextToMiddle(oldPassText);
 	win.draw(oldPassText);
 
 	win.draw(newPassBox);
-	newPassText.setString(newPassInput);
+	if (newPassHiden == true)
+	{
+		newPassText.setString(newPassInputHiden);
+	}
+	else
+	{
+		newPassText.setString(newPassInput);
+	}
 	setOriginTextToMiddle(newPassText);
 	win.draw(newPassText);
 	win.draw(submit);
@@ -51,16 +75,24 @@ void ChangePassStaffScene::drawChangePass(sf::RenderWindow& win, Static *a)
 	if (incorrect == 1)
 	{
 		sf::Text incorrectText;
-		createText(incorrectText, a->fontB, sf::Color::Red, "         Password is incorrect\n please enter the correct password", 50, a->width / 2.0f, 1000.0f);
+		createText(incorrectText, a->fontB, sf::Color::Red, "           Password is incorrect\n please enter the correct password", 50, a->width / 2.0f, 1000.0f);
 		win.draw(incorrectText);
 	}
 	if (oldPassInputEnable == false && oldPassInput == "")
 	{
 		win.draw(enterOldPass);
 	}
+	else
+	{
+		win.draw(hideOldPass);
+	}
 	if (newPassInputEnable == false && newPassInput == "")
 	{
 		win.draw(enterNewPass);
+	}
+	else
+	{
+		win.draw(hideNewPass);
 	}
 	if (incorrect == 2)
 	{
@@ -107,16 +139,20 @@ void ChangePassStaffScene::renderChangePass(sf::Event event, Scene *scene, sf::R
 		{
 			if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				oldPassInputEnable = false;
-				newPassInputEnable = false;
-				oldPassInput = "";
-				newPassInput = "";
 				delete scene->changepasssta;
 				scene->changepasssta = nullptr;
 				if (scene->menustaff == nullptr)
 					scene->menustaff = new MenuStaffScene(scene->a);
 				scene->a->currentState = programState::MenuStaff;
-				scene->a->currentState = programState::MenuStaff;
+			}
+			else if (hideOldPass.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				oldPassHiden = !oldPassHiden;
+			}
+			else if (hideNewPass.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				newPassHiden = !newPassHiden;
+
 			}
 			else if (oldPassBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
@@ -139,7 +175,8 @@ void ChangePassStaffScene::renderChangePass(sf::Event event, Scene *scene, sf::R
 					if (fOut.is_open() == true)
 					{
 						scene->a->password = newPassInput;
-						fOut << scene->a->password;
+						fOut << scene->a->username << "\n";
+						fOut << scene->a->password << "\n";
 						fOut.close();
 
 					}
@@ -173,7 +210,8 @@ void ChangePassStaffScene::renderChangePass(sf::Event event, Scene *scene, sf::R
 				if (fOut.is_open() == true)
 				{
 					scene->a->password = newPassInput;
-					fOut << scene->a->password;
+					fOut << scene->a->username << "\n";
+					fOut << scene->a->password << "\n";
 					fOut.close();
 
 				}
@@ -190,10 +228,12 @@ void ChangePassStaffScene::renderChangePass(sf::Event event, Scene *scene, sf::R
 				if (oldPassInputEnable && oldPassInput.length() < maxPassLength)
 				{
 					oldPassInput += static_cast<char>(event.text.unicode);
+					oldPassInputHiden += "*";
 				}
 				else if (newPassInputEnable && newPassInput.length() < maxPassLength)
 				{
 					newPassInput += static_cast<char>(event.text.unicode);
+					newPassInputHiden += "*";
 				}
 			}
 			else if (event.text.unicode == 8) // Handle backspace
@@ -202,10 +242,12 @@ void ChangePassStaffScene::renderChangePass(sf::Event event, Scene *scene, sf::R
 				if (oldPassInputEnable && !oldPassInput.empty())
 				{
 					oldPassInput.pop_back();
+					oldPassInputHiden.pop_back();
 				}
 				else if (newPassInputEnable && !newPassInput.empty())
 				{
 					newPassInput.pop_back();
+					newPassInputHiden.pop_back();
 				}
 			}
 		}

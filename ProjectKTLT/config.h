@@ -10,7 +10,7 @@ struct Course;
 enum programState { Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear
 , ChooseClass, MenuClass, ChooseSemester, MenuSemester, ChooseSchoolYearStudent, ChooseSemesterStudent, MenuSemesterStudent, AddStudentCLass, CreateSemester, AddStudentClassManually, AddStudentClassFile,
 ChooseCourses, ChooseClassCourse, MenuCourse, CreateClass, MenuClassCourse, CourseManageScoreBoard, CourseManageStudent, AddStudentCourse, ImportScoreboard, CourseAddStudentManually, CourseAddStudentFIle,
-ViewCoursesStudent, ViewScoreboardStudent
+ViewCoursesStudent, ViewScoreboardStudent, AddCourseToSemester
 };
 struct Static
 {
@@ -36,13 +36,16 @@ struct Static
     sf::Font fontI;
     sf::Color lightCyan = sf::Color(208, 227, 255);
     sf::Color backGroundWhite = sf::Color(255, 249, 240);
+    //with the color of the background is white, what color should the text to announce succesful be, i tried green but it's not good because it is kinda too bright?
+    sf::Color textColorGreen = sf::Color(0, 128, 0);
+
     sf::Color backGroundWhiteDarker = sf::Color(235, 229, 220); // Darker
     sf::Color backGroundWhiteLighter = sf::Color(255, 252, 240); // Creamier
     sf::Color backGroundWhiteDarkerStill = sf::Color(215, 209, 200); // Even darker
     sf::Color backGroundWhiteMuchDarker = sf::Color(175, 169, 160); // Much darker
     sf::Color textColorBlue = sf::Color(8, 31, 92);
     sf::Color highlightCyan = sf::Color(93, 117, 153);
-    
+    sf::Color darkCyan = sf::Color(0, 76, 87);
     sf::Color pastelGrey = sf::Color(192, 192, 192);
     sf::Color pastelCyan = sf::Color(156, 217, 207);
     sf::Color pastelPink1 = sf::Color(255, 230, 230);
@@ -53,21 +56,28 @@ struct Static
     sf::Color lightGrey = sf::Color(200, 200, 200);
     sf::Color fcc689 = sf::Color(48, 58,  60);
     sf::Color blurGrey = sf::Color(64, 64, 64, 150);
-    sf::Texture texture;
-    
-    sf::Sprite sprite;
-    
+    sf::Texture backgrTextture;
+    sf::Sprite backgrSprite;
+    sf::Texture hidePassTexture;
+    sf::Sprite hidePassSprite;
     Static()
     {
-        if (!texture.loadFromFile("Background.jpg")) // Replace with your image file
+        if (!backgrTextture.loadFromFile("Background.jpg"))
         {
             // Handle error
+            std::cerr << "Failed to load background texture!" << std::endl;
         }
-        sprite.setTexture(texture);
-        sprite.setScale(
-            static_cast<float>(width) / sprite.getLocalBounds().width, // Scale X
-            static_cast<float>(height) / sprite.getLocalBounds().height // Scale Y
+        backgrSprite.setTexture(backgrTextture);
+        backgrSprite.setScale(
+            static_cast<float>(width) / backgrSprite.getLocalBounds().width, // Scale X
+            static_cast<float>(height) / backgrSprite.getLocalBounds().height // Scale Y
         );
+        if (!hidePassTexture.loadFromFile("HidePass.png"))
+        {
+            // Handle error
+            std::cerr << "Failed to load hide pass texture!" << std::endl;
+        }
+        hidePassSprite.setTexture(hidePassTexture);
         try {
 
             if (!fontB.loadFromFile("Palatino Linotype Bold.ttf")) {

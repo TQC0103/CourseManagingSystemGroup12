@@ -18,7 +18,12 @@ SignInAsStaffScene::SignInAsStaffScene(Static *a)
 	createText(enterPasswordHere, a->fontI, sf::Color::White, "ENTER PASSWORD HERE", 40, a->width / 2.0f, 800.0f);
 	createText(enterUsernameHere, a->fontI, sf::Color::White, "ENTER USERNAME HERE", 40, a->width / 2.0f, 475.0f);
 	createText(passwordStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, passwordStudentBox.getPosition().y);
-	createText(successful, a->fontB, sf::Color::Green, "Sign in successfully", 50, a->width / 2.0f, 1000.0f);
+	createText(successful, a->fontB, a->textColorGreen, "Sign in successfully", 50, a->width / 2.0f, 1000.0f);
+
+	hidePassword.setTexture(a->hidePassTexture);
+	hidePassword.setScale(passwordStudentBox.getSize().y / hidePassword.getLocalBounds().height / 2.0f, passwordStudentBox.getSize().y / hidePassword.getLocalBounds().height / 2.0f);
+	hidePassword.setOrigin(hidePassword.getLocalBounds().width / 2.0f, hidePassword.getLocalBounds().height / 2.0f);
+	hidePassword.setPosition(passwordStudentBox.getPosition().x + passwordStudentBox.getSize().x / 2.0f - hidePassword.getGlobalBounds().width / 2.0f - 30.0f, passwordStudentBox.getPosition().y);
 }
 
 void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win, Static *a)
@@ -35,7 +40,14 @@ void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win, Static *a)
 	win.draw(usernameStudentText);
 
 	win.draw(passwordStudentBox);
-	passwordStudentText.setString(passwordStaffInput);
+	if (passwordHiden == true)
+	{
+		passwordStudentText.setString(passwordStaffInputHidden);
+	}
+	else
+	{ 
+		passwordStudentText.setString(passwordStaffInput);
+	}
 	setOriginTextToMiddle(passwordStudentText);
 	win.draw(passwordStudentText);
 	if (usernameInputEnable)
@@ -60,6 +72,10 @@ void SignInAsStaffScene::drawSignInAsStaff(sf::RenderWindow& win, Static *a)
 	if (passwordInputEnable == false && passwordStaffInput == "")
 	{
 		win.draw(enterPasswordHere);
+	}
+	else
+	{
+		win.draw(hidePassword);
 	}
 	if (isWrong == 2)
 	{
@@ -104,12 +120,15 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Scene *scene, sf::
 		{
 			if (signInStudentPreviousButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				isWrong = 0;
 				delete scene->signinasstaff;
 				scene->signinasstaff = nullptr;
 				if(scene->signin == nullptr)
 					scene->signin = new SignInScene(scene->a);
 				scene->a->currentState = programState::SignIn;
+			}
+			else if (hidePassword.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				passwordHiden = !passwordHiden;
 			}
 			else if (usernameStudentBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
@@ -172,6 +191,7 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Scene *scene, sf::
 				else if (passwordInputEnable && passwordStaffInput.length() < maxPassWordLength)
 				{
 					passwordStaffInput += static_cast<char>(event.text.unicode);
+					passwordStaffInputHidden += "*";
 				}
 			}
 			else if (event.text.unicode == 8) // Handle backspace
@@ -184,6 +204,7 @@ void SignInAsStaffScene::renderSignInAsStaff(sf::Event event, Scene *scene, sf::
 				else if (passwordInputEnable && !passwordStaffInput.empty())
 				{
 					passwordStaffInput.pop_back();
+					passwordStaffInputHidden.pop_back();
 				}
 			}
 		}

@@ -47,7 +47,7 @@ void WelcomeScene::renderWelcome(sf::Event event, Scene *scene, sf::RenderWindow
 void WelcomeScene::drawWelcome(sf::RenderWindow& win, Static *a) {
 
     win.draw(welcomeRect);
-    win.draw(a->sprite);
+    win.draw(a->backgrSprite);
     win.draw(course);
     win.draw(welcomeTextBlur);
     win.draw(welcomeText);

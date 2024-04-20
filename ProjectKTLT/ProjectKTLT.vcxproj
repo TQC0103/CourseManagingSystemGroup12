@@ -152,6 +152,7 @@
     <ClCompile Include="Course.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="ProjectKTLT.cpp" />
+    <ClCompile Include="Scenes\AddCourseToSemester.cpp" />
     <ClCompile Include="Scenes\AddStudentClass.cpp" />
     <ClCompile Include="Scenes\AddStudentClassFile.cpp" />
     <ClCompile Include="Scenes\AddStudentClassManually.cpp" />
@@ -185,6 +186,7 @@
     <ClCompile Include="Scenes\SignInAsStudent.cpp" />
     <ClCompile Include="Scenes\MenuClass.cpp" />
     <ClCompile Include="Scenes\ViewCoursesStudent.cpp" />
+    <ClCompile Include="Scenes\ViewScoreboardStudent.cpp" />
     <ClCompile Include="Scenes\ViewStudentProfile.cpp" />
     <ClCompile Include="Scenes\Welcome.cpp" />
     <ClCompile Include="SchoolYear.cpp" />
@@ -197,6 +199,7 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="Course.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="Scenes\AddCourseToSemester.h" />
     <ClInclude Include="Scenes\AddStudentClass.h" />
     <ClInclude Include="Scenes\AddStudentClassFile.h" />
     <ClInclude Include="Scenes\AddStudentClassManually.h" />
@@ -230,6 +233,7 @@
     <ClInclude Include="Scenes\SignInAsStaff.h" />
     <ClInclude Include="Scenes\SignInAsStudent.h" />
     <ClInclude Include="Scenes\ViewCoursesStudent.h" />
+    <ClInclude Include="Scenes\ViewScoreboardStudent.h" />
     <ClInclude Include="Scenes\ViewStudentProfile.h" />
     <ClInclude Include="Scenes\Welcome.h" />
     <ClInclude Include="SchoolYear.h" />

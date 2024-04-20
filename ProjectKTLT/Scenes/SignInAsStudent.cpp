@@ -18,7 +18,12 @@ SignInAsStudentScene::SignInAsStudentScene(Static *a)
 	createText(enterPasswordHere, a->fontI, sf::Color::White, "ENTER PASSWORD HERE", 40, a->width / 2.0f, 800.0f);
 	createText(enterUsernameHere, a->fontI, sf::Color::White, "ENTER USERNAME HERE", 40, a->width / 2.0f, 475.0f);
 	createText(passwordStudentText, a->fontN, sf::Color::White, "", 60, a->width / 2.0f, passwordStudentBox.getPosition().y);
-	createText(successful, a->fontB, sf::Color::Green, "Sign in successfully", 50, a->width / 2.0f, 1000.0f);
+	createText(successful, a->fontB, a->textColorGreen, "Sign in successfully", 50, a->width / 2.0f, 1000.0f);
+
+	hidePassword.setTexture(a->hidePassTexture);
+	hidePassword.setScale(passwordStudentBox.getSize().y / hidePassword.getLocalBounds().height / 2.0f, passwordStudentBox.getSize().y / hidePassword.getLocalBounds().height / 2.0f);
+	hidePassword.setOrigin(hidePassword.getLocalBounds().width / 2.0f, hidePassword.getLocalBounds().height / 2.0f);
+	hidePassword.setPosition(passwordStudentBox.getPosition().x + passwordStudentBox.getSize().x / 2.0f - hidePassword.getGlobalBounds().width / 2.0f - 30.0f, passwordStudentBox.getPosition().y);
 }
 
 void SignInAsStudentScene::drawSignInAsStudent(sf::RenderWindow& win, Static *a)
@@ -35,7 +40,14 @@ void SignInAsStudentScene::drawSignInAsStudent(sf::RenderWindow& win, Static *a)
 	win.draw(usernameStudentText);
 
 	win.draw(passwordStudentBox);
-	passwordStudentText.setString(passwordStudentInput);
+	if (passwordHiden == true)
+	{
+		passwordStudentText.setString(passwordStudentInputHidden);
+	}
+	else
+	{
+		passwordStudentText.setString(passwordStudentInput);
+	}
 	setOriginTextToMiddle(passwordStudentText);
 	win.draw(passwordStudentText);
 	if (usernameInputEnable)
@@ -60,6 +72,11 @@ void SignInAsStudentScene::drawSignInAsStudent(sf::RenderWindow& win, Static *a)
 	if (passwordInputEnable == false && passwordStudentInput == "")
 	{
 		win.draw(enterPasswordHere);
+	}
+	else
+	{
+		win.draw(hidePassword);
+	
 	}
 	if (isWrong == 2)
 	{
@@ -104,14 +121,15 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, Scene *scene, 
 		{
 			if (signInStudentPreviousButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				usernameStudentInput = "";
-				passwordStudentInput = "";
-				usernameInputEnable = false;
-				passwordInputEnable = false;
-				scene->signin = new SignInScene(scene->a);
+				if(scene->signin == nullptr)
+					scene->signin = new SignInScene(scene->a);
 				delete scene->signinasstudent;
 				scene->signinasstudent = nullptr;
 				scene->a->currentState = programState::SignIn;
+			}
+			else if (hidePassword.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+			{
+				passwordHiden = !passwordHiden;
 			}
 			else if (usernameStudentBox.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
@@ -174,6 +192,7 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, Scene *scene, 
 				else if (passwordInputEnable && passwordStudentInput.length() < maxPassWordLength)
 				{
 					passwordStudentInput += static_cast<char>(event.text.unicode);
+					passwordStudentInputHidden += "*";
 				}
 			}
 			else if (event.text.unicode == 8) // Handle backspace
@@ -186,6 +205,7 @@ void SignInAsStudentScene::renderSignInAsStudent(sf::Event event, Scene *scene, 
 				else if (passwordInputEnable && !passwordStudentInput.empty())
 				{
 					passwordStudentInput.pop_back();
+					passwordStudentInputHidden.pop_back();
 				}
 			}
 		}
