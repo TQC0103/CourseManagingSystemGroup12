@@ -34,8 +34,10 @@ struct Class {
 	
 	int insert_data_Class_from_path(Static* a, std::string path_keyboard);
 
-	
+	std::string** view_information_Class(Static* a, int &n);
 
+
+	int count_Element(student* a);
 	//Read data from files
 	bool input_Student_from_file(student*& pHeads, std::string path);
 	bool input_for_path(student*& pHeads, std::string path, student* pHeadListStudent);

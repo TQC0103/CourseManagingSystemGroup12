@@ -203,6 +203,11 @@ int main() {
 				scene->viewscoreboardstudent->renderViewScoreboardScene(event, scene, window);
 				break;
 			}
+            case programState::ViewStudentInClass:
+            {
+                scene->viewstudentinclass->renderViewStudentInClassScene(event, scene, window);
+                break;
+            }
             default:
                 break;
             }
@@ -393,6 +398,11 @@ int main() {
                 scene->viewscoreboardstudent->drawViewScoreboardScene(window, scene->a);
                 break;
             }
+            case programState::ViewStudentInClass:
+            {
+				scene->viewstudentinclass->drawViewStudentInClassScene(window, scene->a);
+				break;
+			}
             default:
                 break;
             }
@@ -406,73 +416,3 @@ int main() {
 }
 
 
-//int main() {
-//	Static* a = new Static;
-//	a->curClass = new Class;
-//	a->curSchoolYear = new schoolYear;
-//
-//
-//	a->curCourse = new Course;
-//
-//
-//	a->curSemester = new semester;
-//	a->curClass->name = "23CLC03";
-//	Class* b = new Class;
-//	b->load_classes();
-//	Class* cur = b->pHeadListClasses;
-//	while (cur) {
-//		std::cout << cur->name << " ";
-//		cur = cur->pNext;
-//	}
-//	delete a->curClass;
-//	delete a->curSchoolYear;
-//	delete a->curCourse;
-//	delete a->curSemester;
-//	delete a;
-//	delete b;
-//	return 0;
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Static* a = new Static;
-//student* curStudent = new student;
-//semester* tmpSem = new semester;
-//a->curClass = new Class;
-//a->curSemester = new semester;
-//a->curSchoolYear = new schoolYear;
-//
-//a->curSchoolYear->year = "2023-2024";
-//a->curSemester->semesterData = "Semester1";
-//a->curClass->name = "23CLC03";
-//
-//std::string testCourse;
-//std::cout << "Input Course: ";
-//getline(std::cin, testCourse);
-//bool check = tmpSem->deleteCourse(testCourse, a);
-//if (check)
-//{
-//    std::cout << "Successfull ";
-//}
-//else {
-//    std::cout << "Try again";
-//}
-//
-//
-//
-//delete a;
-//delete curStudent;
-//delete tmpSem;
-//
-//
-//return 0;
