@@ -10,7 +10,7 @@ struct Course;
 enum programState { Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear
 , ChooseClass, MenuClass, ChooseSemester, MenuSemester, ChooseSchoolYearStudent, ChooseSemesterStudent, MenuSemesterStudent, AddStudentCLass, CreateSemester, AddStudentClassManually, AddStudentClassFile,
 ChooseCourses, ChooseClassCourse, MenuCourse, CreateClass, MenuClassCourse, CourseManageScoreBoard, CourseManageStudent, AddStudentCourse, ImportScoreboard, CourseAddStudentManually, CourseAddStudentFIle,
-ViewCoursesStudent, ViewScoreboardStudent, AddCourseToSemester
+ViewCoursesStudent, ViewScoreboardStudent, AddCourseToSemester, ViewStudentInClass
 };
 struct Static
 {
@@ -56,21 +56,28 @@ struct Static
     sf::Color lightGrey = sf::Color(200, 200, 200);
     sf::Color fcc689 = sf::Color(48, 58,  60);
     sf::Color blurGrey = sf::Color(64, 64, 64, 150);
-    sf::Texture texture;
-    
-    sf::Sprite sprite;
-    
+    sf::Texture backgrTextture;
+    sf::Sprite backgrSprite;
+    sf::Texture hidePassTexture;
+    sf::Sprite hidePassSprite;
     Static()
     {
-        if (!texture.loadFromFile("Background.jpg")) // Replace with your image file
+        if (!backgrTextture.loadFromFile("Background.jpg"))
         {
             // Handle error
+            std::cerr << "Failed to load background texture!" << std::endl;
         }
-        sprite.setTexture(texture);
-        sprite.setScale(
-            static_cast<float>(width) / sprite.getLocalBounds().width, // Scale X
-            static_cast<float>(height) / sprite.getLocalBounds().height // Scale Y
+        backgrSprite.setTexture(backgrTextture);
+        backgrSprite.setScale(
+            static_cast<float>(width) / backgrSprite.getLocalBounds().width, // Scale X
+            static_cast<float>(height) / backgrSprite.getLocalBounds().height // Scale Y
         );
+        if (!hidePassTexture.loadFromFile("HidePass.png"))
+        {
+            // Handle error
+            std::cerr << "Failed to load hide pass texture!" << std::endl;
+        }
+        hidePassSprite.setTexture(hidePassTexture);
         try {
 
             if (!fontB.loadFromFile("Palatino Linotype Bold.ttf")) {

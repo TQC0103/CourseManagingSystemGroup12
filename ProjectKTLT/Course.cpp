@@ -75,7 +75,7 @@ int Course::updateCourse(Static* a, std::string lecturer, std::string weekday, s
     a->curCourse->Lecturer = lecturer;
 
     //Capitalise and check the weekDay
-    int size = weekday.size();
+    int size = (int)weekday.size();
     for (int i = 0; i < size; i++)
     {
         weekday[i] = std::toupper(weekday[i]);
@@ -596,7 +596,7 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     fIn.close();
 
     //Check weekday;
-    int size = weekday.size();
+    int size = (int)weekday.size();
     for (int i = 0; i < size; i++)
     {
         weekday[i] = std::toupper(weekday[i]);

@@ -65,21 +65,23 @@ std::string student::viewStudentProfile()
 
 
 
-float student::calculateOverall(float final, float midterm, float other)
+double student::calculateOverall(double final, double midterm, double other)
 {
-    float res = final * 0.5f + midterm * 0.2f + other * 0.3f;
+    double res = final * (double)0.5 + midterm * (double)0.2 + other * (double)0.3;
     return res;
 }
 
-std::string** student::viewAllCoursesInformations(Static* a, int &n)
+
+
+std::string** student::viewAllCoursesInformations(Static* a, int& n)
 {
     semester* tmp = new semester;
     n = tmp->specifyCourseForStudentUser(a);
     if (n == 0)
     {
-		delete tmp;
-		return nullptr;
-	}
+        delete tmp;
+        return nullptr;
+    }
     Course* cur = tmp->pHeadCourseForStudent;
     std::string** allCourseInformations = new std::string * [n];
     for (int i = 0; i < n; i++)

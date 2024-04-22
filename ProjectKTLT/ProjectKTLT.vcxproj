@@ -188,6 +188,7 @@
     <ClCompile Include="Scenes\ViewCoursesStudent.cpp" />
     <ClCompile Include="Scenes\ViewScoreboardStudent.cpp" />
     <ClCompile Include="Scenes\ViewStudentProfile.cpp" />
+    <ClCompile Include="Scenes\ViewStudentsInClass.cpp" />
     <ClCompile Include="Scenes\Welcome.cpp" />
     <ClCompile Include="SchoolYear.cpp" />
     <ClCompile Include="Semester.cpp" />
@@ -234,6 +235,7 @@
     <ClInclude Include="Scenes\SignInAsStudent.h" />
     <ClInclude Include="Scenes\ViewCoursesStudent.h" />
     <ClInclude Include="Scenes\ViewScoreboardStudent.h" />
+    <ClInclude Include="Scenes\ViewStudentInClass.h" />
     <ClInclude Include="Scenes\ViewStudentProfile.h" />
     <ClInclude Include="Scenes\Welcome.h" />
     <ClInclude Include="SchoolYear.h" />

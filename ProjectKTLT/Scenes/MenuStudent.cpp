@@ -7,8 +7,8 @@ MenuStudentScene::MenuStudentScene(Static* a)
 	createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createABox(menuStudentPage, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(menu, a->fontB, a->textColorBlue, "Menu", 120, (float)a->width / 2.0f, 150.0f);
-	createCornerRoundedButton(viewScoreBoard, viewScoreBoardText, sf::Vector2f(1000.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View scoreboard and courses", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f - 150.0f)), 2.0f, sf::Color::Black);
-	createCornerRoundedButton(viewStudentInfo, viewStudentInfoText, sf::Vector2f(1000.0f, 200.0f), 60.0f, a->highlightCyan, a->fontB, sf::Color::White, "View student information", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f + 150.0f)), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(viewScoreBoard, viewScoreBoardText, sf::Vector2f(1000.0f, 200.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "View scoreboard and courses", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f - 150.0f)), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(viewStudentInfo, viewStudentInfoText, sf::Vector2f(1000.0f, 200.0f), 50.0f, a->highlightCyan, a->fontB, sf::Color::White, "View student information", sf::Vector2f((float)(a->width / 2.0f), (float)(a->height / 2.0f + 150.0f)), 2.0f, sf::Color::Black);
 	createCornerRoundedButton(changePass, changePassText, sf::Vector2f(400.0f, 150.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "  Change\npassword", sf::Vector2f(a->width - 200.0f, a->height - 1000.0f), 2.0f, sf::Color::Black);
 }
 

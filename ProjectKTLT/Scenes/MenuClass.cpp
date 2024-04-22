@@ -96,7 +96,11 @@ void MenuClassScene::renderMenuClass(sf::Event event, Scene *scene, sf::RenderWi
 			}
 			else if (viewMembers.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-
+				delete scene->menuclass;
+				scene->menuclass = nullptr;
+				if (scene->viewstudentinclass == nullptr)
+					scene->viewstudentinclass = new ViewStudentInClassScene(scene->a);
+				scene->a->currentState = programState::ViewStudentInClass;
 			}
 		}
 	}

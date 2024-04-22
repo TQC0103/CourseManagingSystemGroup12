@@ -136,6 +136,9 @@
     <ClCompile Include="Scenes\ViewScoreboardStudent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\ViewStudentsInClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenes\ChangePassStaff.h">
@@ -271,6 +274,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\ViewScoreboardStudent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\ViewStudentInClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
