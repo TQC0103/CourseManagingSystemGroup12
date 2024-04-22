@@ -66,6 +66,7 @@ void Course::loadDataOfTheCourse(Static* a)
     fIn.close();
 }
 
+
 // Update the information of the Course
 int Course::updateCourse(Static* a, std::string lecturer, std::string weekday, std::string session)
 {
@@ -462,7 +463,7 @@ bool Course::ExportClass(Static* a)
 {
     if (!pHeadStudent)
         loadStudentInTheCourse(a);
-
+    
     normingNumberInStudentList();
     std::ofstream fOut;
 
@@ -570,6 +571,7 @@ bool Course::ImportScoreboard(Static* a, std::string path)
     fOut.close();
     return true;
 }
+
 
 
 int Course::addClasstoCourse(Static* a, std::string classname, std::string lecturer, std::string weekday, std::string session)
