@@ -15,11 +15,11 @@ struct Course
 	struct studentScore
 	{
 		int No;
-		std::string studentID;
-		std::string firstName;
-		std::string lastName;
+		std::string studentID = "";
+		std::string firstName = "";
+		std::string lastName = "";
 		double totalMark, finalMark, midtermMark, otherMark;
-		studentScore* pNext;
+		studentScore* pNext = nullptr;
 	};
 
 	// Student basic infomation

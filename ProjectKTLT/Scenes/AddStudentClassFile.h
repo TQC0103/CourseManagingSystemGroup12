@@ -23,7 +23,10 @@ struct AddStudentClassFileScene
 	std::string filePath;
 	std::string filePathDisplay;
 
+	sf::Text fail;
+
 	bool fileChosen = false;
+	int isWrong = -1;
 
 	AddStudentClassFileScene(Static *a);
 
