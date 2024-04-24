@@ -209,6 +209,11 @@ int main() {
                 scene->viewstudentinclass->renderViewStudentInClassScene(event, scene, window);
                 break;
             }
+            case programState::UpdateCourseInformation:
+            {
+				scene->updatecourseinformation->renderUpdateInfo(event, scene, window);
+				break;
+			}
             default:
                 break;
             }
@@ -404,6 +409,11 @@ int main() {
 				scene->viewstudentinclass->drawViewStudentInClassScene(window, scene->a);
 				break;
 			}
+            case programState::UpdateCourseInformation:
+            {
+                scene->updatecourseinformation->drawUpdateInfo(window, scene->a);
+                break;
+            }
             default:
                 break;
             }

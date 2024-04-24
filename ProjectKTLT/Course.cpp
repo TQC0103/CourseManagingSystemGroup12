@@ -69,10 +69,9 @@ void Course::loadDataOfTheCourse(Static* a)
 // Update the information of the Course
 int Course::updateCourse(Static* a, std::string lecturer, std::string weekday, std::string session)
 {
-    loadDataOfTheCourse(a);
 
     // Can't check these information below
-    a->curCourse->Lecturer = lecturer;
+   
 
     //Capitalise and check the weekDay
     int size = (int)weekday.size();
@@ -86,7 +85,7 @@ int Course::updateCourse(Static* a, std::string lecturer, std::string weekday, s
         std::cerr << "Your input is not legal" << std::endl;
         return 7;
     }
-    a->curCourse->weekDay = weekday;
+    
 
     // Check Session
     if (session != "7:30" && session != "9:30" && session != "15:30" && session != "13:30")
@@ -94,6 +93,8 @@ int Course::updateCourse(Static* a, std::string lecturer, std::string weekday, s
         std::cerr << "Your input is not legal" << std::endl;
         return 8;
     }
+    a->curCourse->weekDay = weekday;
+    a->curCourse->Lecturer = lecturer;
     a->curCourse->Session = session;
 
     //Update the database
