@@ -152,6 +152,7 @@
     <ClCompile Include="Course.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="ProjectKTLT.cpp" />
+    <ClCompile Include="Scenes\AddClassCourse.cpp" />
     <ClCompile Include="Scenes\AddCourseToSemester.cpp" />
     <ClCompile Include="Scenes\AddStudentClass.cpp" />
     <ClCompile Include="Scenes\AddStudentClassFile.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="Course.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="Scenes\AddClassCourse.h" />
     <ClInclude Include="Scenes\AddCourseToSemester.h" />
     <ClInclude Include="Scenes\AddStudentClass.h" />
     <ClInclude Include="Scenes\AddStudentClassFile.h" />

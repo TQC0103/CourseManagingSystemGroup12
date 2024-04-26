@@ -47,6 +47,8 @@ struct Course
 		weekDay = "";
 		Session = "";
 	}
+	//destructors
+	~Course();
 
 	//ponter to student score 
 	studentScore* pHeadScore = nullptr;
@@ -80,7 +82,7 @@ struct Course
 	bool ExportClass(Static* a); 
 
 	//Import a scoreboard file and save it in the database (done)
-	bool ImportScoreboard(Static* a, std::string path);
+	int ImportScoreboard(Static* a, std::string path);
 
 	//Add a class to a course (done)
 	int addClasstoCourse(Static* a, std::string classname, std::string lecturer, std::string weekday, std::string session);
