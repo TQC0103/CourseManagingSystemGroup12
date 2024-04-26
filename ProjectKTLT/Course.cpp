@@ -506,7 +506,7 @@ int Course::ImportScoreboard(Static* a, std::string path)
     getline(fIn, check);
 
 
-    if (check != "No,Student ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark")
+    if (check != "No,Student ID,Last Name,First Name,Midterm Mark,Final Mark,Total Mark,Other Mark")
     {
         std::cout << "The header of the file is not correct. Please check the file again" << std::endl;
         fIn.close();
