@@ -3,7 +3,7 @@
 #include "semester.h"
 #include "schoolyear.h"
 #include "date.h"
-
+#include <iomanip>
 
 
 // check if it is valid day (not sunday)
@@ -190,6 +190,57 @@ int Course::loadStudentInTheCourse(Static* a)
             else
             {
                 pTailStudent->pNext = new student(StudentNo, studentID, firstName, lastName, gender, socialID, dob);
+                pTailStudent = pTailStudent->pNext;
+                n++;
+            }
+        }
+    }
+    else
+    {
+        std::cerr << "Can't open file" << std::endl;
+        return -1;
+    }
+
+    fIn.close();
+    return n;
+}
+
+
+int Course::loadStudentScoreInTheCourse(Static* a)
+{
+    int n = 0;
+    std::ifstream fIn;
+    std::string path = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "StudentScoreBoard.csv";
+    fIn.open(path);
+
+    if (fIn.is_open())
+    {
+        std::string line;
+        getline(fIn, line); // Skip the headline
+
+        while (getline(fIn, line))
+        {
+            std::string No, studentID, firstName, lastName, finalMark, midtermMark, otherMark;
+            std::stringstream s(line);
+            getline(s, No, ',');
+            getline(s, studentID, ',');
+            getline(s, firstName, ',');
+            getline(s, lastName, ',');
+            getline(s, finalMark, ',');
+            getline(s, midtermMark, ',');
+            getline(s, otherMark, '\n');
+
+            int StudentNo = std::stoi(No);
+            double overall = stod(finalMark) * (double)0.5 + stod(midtermMark) * (double)0.2 + stod(otherMark) * (double)0.3;
+            if (!pHeadScore)
+            {
+                pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, stod(finalMark), stod(midtermMark), stod(otherMark), overall);
+                pTailStudent = pHeadStudent;
+                n++;
+            }
+            else
+            {
+                pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, stod(finalMark), stod(midtermMark), stod(otherMark), overall);
                 pTailStudent = pTailStudent->pNext;
                 n++;
             }

@@ -233,7 +233,6 @@ int Class::insert_new_Class_keyboard(Static* a, std::string no, std::string ID, 
 	student* tmp = new student;
 	if (!check_No(new_Class->pHeadListStudents, no)) {
 		delete new_Class;
-<<<<<<< HEAD
 		delete tmp;
 		return 1;
 	}
