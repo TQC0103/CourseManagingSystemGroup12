@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 7c241f082d0e346ab7ea77cbc68f0fc39e59b749
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -441,7 +437,6 @@ int main() {
 }
 
 
-<<<<<<< HEAD
 //int main() {
 //	
 //
@@ -830,35 +825,35 @@ int main() {
 //    return 0;
 //}
 //
-//
+//////
 ////int main() {
-////	Static* a = new Static;
-////	a->curClass = new Class;
-////	a->curSchoolYear = new schoolYear;
+////	static* a = new static;
+////	a->curclass = new class;
+////	a->curschoolyear = new schoolyear;
 ////
 ////
-////	a->curCourse = new Course;
+////	a->curcourse = new course;
 ////
 ////
-////	a->curSemester = new semester;
-////	a->curClass->name = "23CLC03";
-////	Class* b = new Class;
+////	a->cursemester = new semester;
+////	a->curclass->name = "23clc03";
+////	class* b = new class;
 ////	b->load_classes();
-////	Class* cur = b->pHeadListClasses;
+////	class* cur = b->pheadlistclasses;
 ////	while (cur) {
 ////		std::cout << cur->name << " ";
-////		cur = cur->pNext;
+////		cur = cur->pnext;
 ////	}
-////	delete a->curClass;
-////	delete a->curSchoolYear;
-////	delete a->curCourse;
-////	delete a->curSemester;
+////	delete a->curclass;
+////	delete a->curschoolyear;
+////	delete a->curcourse;
+////	delete a->cursemester;
 ////	delete a;
 ////	delete b;
 ////	return 0;
 ////}
-//
-//
+//////
+//////
 //
 //
 //
@@ -901,5 +896,4 @@ int main() {
 ////
 ////
 ////return 0;
-=======
->>>>>>> 7c241f082d0e346ab7ea77cbc68f0fc39e59b749
+

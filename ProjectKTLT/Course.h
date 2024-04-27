@@ -35,7 +35,7 @@ struct Course
 		{
 		}
 	};
-
+		
 
 	// Student basic infomation
 	std::string ID, Name, className, Lecturer;
