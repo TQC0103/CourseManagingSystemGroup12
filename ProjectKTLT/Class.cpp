@@ -399,8 +399,8 @@ bool Class::input_for_path(student*& pHeads, std::string path, student *pHeadLis
 
 		// Read student information
 		std::getline(fIn, newNode->studentID, ',');
-		std::getline(fIn, newNode->firstName, ',');
 		std::getline(fIn, newNode->lastName, ',');
+		std::getline(fIn, newNode->firstName, ',');
 		std::getline(fIn, newNode->gender, ',');
 		std::string tmpDay = "";
 		std::string tmpMonth = "";

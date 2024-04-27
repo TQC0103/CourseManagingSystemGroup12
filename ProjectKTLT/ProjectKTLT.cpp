@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-//#pragma once
-//#include <iostream>
-//#include <SFML/Graphics.hpp>
-//#include "UserInterface.h"
-//#include "config.h"
-//#include "Scenes/Scene.h"
-//#include "SchoolYear.h"
-//#include "Student.h"
-//#include "Semester.h"
-//// Functions
-=======
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -419,7 +407,6 @@ int main() {
 }
 
 
->>>>>>> a95aebd8571dfa72628aec437439769bd8facad8
 //int main() {
 //	
 //
@@ -879,42 +866,3 @@ int main() {
 ////
 ////
 ////return 0;
-
-
-#include<iostream>
-#include"Class.h"
-#include"config.h"
-#include"Student.h"
-#include"SchoolYear.h"
-#include"semester.h"
-#include"Course.h"
-int main() {
-	Static* a = new Static;
-	a->curClass = new Class;
-	a->curClass->name = "20APCS02";
-	Class* b = new Class;
-	//b->creat_new_Class("23CLC11");
-	//std::cout << b->insert_new_Class_keyboard(a, "6", "23127181", "Nguyen", "Lam", "Nam", "26/03/2005", "123");
-	//if(b->loadStudents(a) == 0) std::cout << "Not\n";
-	////std::cout << b->pHeadListClasses->name;
-	//Class* cur = b->pHeadListClasses;
-	std::string** tmp = b->view_information_Class(a);
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 7; j++) {
-			std::cout << tmp[i][j] << " ";
-		}
-		std::cout << "\n";
-	}
-	//while (cur->name  != "20APCS02") {
-	//	cur = cur->pNext;
-	//}
-	//student* tmp = a->curClass->pHeadListStudents;
-	//while (tmp) {
-	//	std::cout <<tmp ->studentID << " ";
-	//	tmp = tmp->pNext;
-	//}
-	delete a->curClass;
-	delete a;
-	delete b;
-	return 0;
-}
