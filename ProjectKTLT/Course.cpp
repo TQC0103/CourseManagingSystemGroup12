@@ -646,7 +646,7 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     fOut.close();
 
 
-    // Make Folder and file
+    // Create Folder and file
     std::string path = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + classname;
     int makeFile = _mkdir(path.c_str());
 
