@@ -66,13 +66,10 @@ void Course::loadDataOfTheCourse(Static* a)
     fIn.close();
 }
 
+
 // Update the information of the Course
 int Course::updateCourse(Static* a, std::string lecturer, std::string weekday, std::string session)
 {
-
-    // Can't check these information below
-   
-
     //Capitalise and check the weekDay
     int size = (int)weekday.size();
     for (int i = 0; i < size; i++)
@@ -171,8 +168,8 @@ int Course::loadStudentInTheCourse(Static* a)
             std::stringstream s(line);
             getline(s, No, ',');
             getline(s, studentID, ',');
-            getline(s, firstName, ',');
             getline(s, lastName, ',');
+            getline(s, firstName, ',');
             getline(s, gender, ',');
             getline(s, birthday, ',');
             getline(s, socialID);
@@ -206,6 +203,7 @@ int Course::loadStudentInTheCourse(Static* a)
 }
 
 
+
 int Course::loadStudentScoreInTheCourse(Static* a)
 {
     int n = 0;
@@ -220,7 +218,7 @@ int Course::loadStudentScoreInTheCourse(Static* a)
 
         while (getline(fIn, line))
         {
-            std::string No, studentID, firstName, lastName, finalMark, midtermMark, otherMark;
+            std::string No, studentID, firstName, lastName, finalMark, midtermMark, otherMark, totalMark;
             std::stringstream s(line);
             getline(s, No, ',');
             getline(s, studentID, ',');
@@ -228,23 +226,30 @@ int Course::loadStudentScoreInTheCourse(Static* a)
             getline(s, lastName, ',');
             getline(s, finalMark, ',');
             getline(s, midtermMark, ',');
-            getline(s, otherMark, '\n');
+            getline(s, otherMark, ',');
+            getline(s, totalMark, ',');
 
             int StudentNo = std::stoi(No);
-            double overall = stod(finalMark) * (double)0.5 + stod(midtermMark) * (double)0.2 + stod(otherMark) * (double)0.3;
+            //double overall = std::stod(finalMark) * (double)0.5 + std::stod(midtermMark) * (double)0.2 + std::stod(otherMark) * (double)0.3;
             if (!pHeadScore)
             {
-                pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, stod(finalMark), stod(midtermMark), stod(otherMark), overall);
-                pTailStudent = pHeadStudent;
+                pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, std::stod(totalMark), std::stod(finalMark), std::stod(midtermMark), std::stod(otherMark), nullptr);
+                pTailScore = pHeadScore;
                 n++;
             }
             else
             {
-                pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, stod(finalMark), stod(midtermMark), stod(otherMark), overall);
-                pTailStudent = pTailStudent->pNext;
+                studentScore* tmpScore = new studentScore(StudentNo, studentID, firstName, lastName, std::stod(totalMark), std::stod(finalMark), std::stod(midtermMark), std::stod(otherMark), nullptr);
+                pTailScore->pNext = tmpScore;
+                pTailScore = tmpScore;
                 n++;
             }
         }
+        if (pTailScore)
+        {
+			pTailScore->pNext = nullptr;
+		}
+
     }
     else
     {
@@ -360,12 +365,12 @@ bool Course::exportStudentListToFile(Static* a)
     }
     else
     {
-        fOut << "No,Student ID,First Name,Last Name,Gender,Date of Birthday,Social ID" << std::endl;
+        fOut << "No,Student ID,Last Name,First Name,Gender,Date of Birthday,Social ID" << std::endl;
         student* cur = pHeadStudent;
         while (cur)
         {
             std::string dob = formatDate(cur->dateOfBirth);
-            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->firstName + ',' + cur->lastName + ',' + cur->gender + ',' + dob + ',' + cur->socialID;
+            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->lastName + ',' + cur->firstName + ',' + cur->gender + ',' + dob + ',' + cur->socialID;
             fOut << tmp << std::endl;
             cur = cur->pNext;
         }
@@ -405,7 +410,7 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
 
         if (checkID == ID)
         {
-            std::cout << FirstName << " " << LastName << " is already exist" << std::endl;
+            std::cout << LastName << " " << FirstName << " is already exist" << std::endl;
             fIn.close();
             return false;
         }
@@ -479,7 +484,7 @@ bool Course::addStudentbyFile(Static* a, std::string path)
     std::string check;
     getline(fIn, check);
 
-    if (check != "No,Student ID,First Name,Last Name,Gender,Date of Birthday,Social ID")
+    if (check != "No,Student ID,Last Name,First Name,Gender,Date of Birthday,Social ID")
     {
         std::cout << "The header of the file is not correct. Please check the file again" << std::endl;
         fIn.close();
@@ -493,8 +498,8 @@ bool Course::addStudentbyFile(Static* a, std::string path)
         std::stringstream s(check);
         getline(s, No, ',');
         getline(s, studentID, ',');
-        getline(s, firstName, ',');
         getline(s, lastName, ',');
+        getline(s, firstName, ',');
         getline(s, gender, ',');
         getline(s, birthDay, ',');
         getline(s, socialID);
@@ -502,23 +507,23 @@ bool Course::addStudentbyFile(Static* a, std::string path)
         int StudentNo = std::stoi(No);
 
         if (addStudentManually(a, StudentNo, studentID, firstName, lastName, gender, birthDay, socialID))
-            std::cout << firstName << " " << lastName << " has been add to the list" << std::endl;
+            std::cout << lastName << " " << firstName << " " << " has been add to the list" << std::endl;
 
     }
     return true;
     fIn.close();
 }
 
-// Export a student list to a "scoreBoard.csv" that don't have mark
+// Export a student list to a "StudentScoreBoard.csv" that don't have mark
 bool Course::ExportClass(Static* a)
 {
     if (!pHeadStudent)
         loadStudentInTheCourse(a);
-
+    
     normingNumberInStudentList();
     std::ofstream fOut;
 
-    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "scoreboard.csv");
+    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "StudentScoreBoard.csv");
     if (!fOut.is_open())
     {
         std::cerr << "Can't open file" << std::endl;
@@ -526,11 +531,11 @@ bool Course::ExportClass(Static* a)
     }
     else
     {
-        fOut << "No,Student ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark" << std::endl;
+        fOut << "No,Student ID,Last Name,First Name,Final,Midterm,Others,Total" << std::endl;
         student* cur = pHeadStudent;
         while (cur)
         {
-            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->firstName + ',' + cur->lastName;
+            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->lastName + ',' + cur->firstName;
             fOut << tmp << std::endl;
             cur = cur->pNext;
         }
@@ -557,7 +562,7 @@ int Course::ImportScoreboard(Static* a, std::string path)
     getline(fIn, check);
 
 
-    if (check != "No,Student ID,Last Name,First Name,Midterm Mark,Final Mark,Total Mark,Other Mark")
+    if (check != "No,Student ID,Last Name,First Name,Final,Midterm,Others,Total")
     {
         std::cout << "The header of the file is not correct. Please check the file again" << std::endl;
         fIn.close();
@@ -573,18 +578,19 @@ int Course::ImportScoreboard(Static* a, std::string path)
         getline(s, cur->studentID, ',');
         getline(s, cur->firstName, ',');
         getline(s, cur->lastName, ',');
-        getline(s, MidtermMark, ',');
         getline(s, FinalMark, ',');
-        getline(s, TotalMark, ',');
-        getline(s, OtherMark);
+        getline(s, MidtermMark, ',');
+        getline(s, OtherMark, ',');
+        getline(s, TotalMark);
 
         cur->No = std::stoi(no);
 
         //If the point in the import file is empty, it will display at -1 in the scoreboard.csv
         cur->midtermMark = MidtermMark.empty() ? -1 : std::stod(MidtermMark);
         cur->finalMark = FinalMark.empty() ? -1 : std::stod(FinalMark);
-        cur->totalMark = TotalMark.empty() ? -1 : std::stod(TotalMark);
         cur->otherMark = OtherMark.empty() ? -1 : std::stod(OtherMark);
+        cur->totalMark = TotalMark.empty() ? -1 : std::stoi(TotalMark);
+
 
         if (!pHeadScore)
         {
@@ -613,11 +619,11 @@ int Course::ImportScoreboard(Static* a, std::string path)
     }
     else
     {
-        fOut << "No,Student ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark" << std::endl;
+        fOut << "No,Student ID,Last Name,First Name,Final,Midterm,Others,Total" << std::endl;
         studentScore* cur = pHeadScore;
         while (cur)
         {
-            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->firstName + ',' + cur->lastName + ',' + std::to_string(cur->midtermMark) + ',' + std::to_string(cur->finalMark) + ',' + std::to_string(cur->totalMark) + ',' + std::to_string(cur->otherMark);
+            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->lastName + ',' + cur->firstName + ',' + std::to_string(cur->finalMark) + std::to_string(cur->midtermMark) + ',' + std::to_string(cur->otherMark) + ',' + std::to_string(cur->totalMark);
             fOut << tmp << std::endl;
             cur = cur->pNext;
         }
@@ -626,6 +632,7 @@ int Course::ImportScoreboard(Static* a, std::string path)
     fOut.close();
     return 0;
 }
+
 
 
 int Course::addClasstoCourse(Static* a, std::string classname, std::string lecturer, std::string weekday, std::string session)
@@ -702,7 +709,7 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     fOut.close();
 
 
-    // Make Folder and file
+    // Create Folder and file
     std::string path = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + classname;
     int makeFile = _mkdir(path.c_str());
 
@@ -710,7 +717,7 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     fOut.close();
 
     fOut.open(path + "/StudentScoreBoard.csv");
-    fOut << "No,StudentID,Last Name,First Name,Final,Midterm,Others\n";
+    fOut << "No,StudentID,Last Name,First Name,Final,Midterm,Others,Total\n";
     fOut.close();   
 
     fOut.open(path + "/information.txt");
@@ -730,10 +737,10 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
 }
 
 
-std::string** Course::viewAllStudentsInACourse(Static* a)
+std::string** Course::viewAllStudentsInACourse(Static* a, int &n)
 {
     Course* tmp = new Course;
-    int n = tmp->loadStudentInTheCourse(a);
+    n = tmp->loadStudentInTheCourse(a);
     if (n == 0)
     {
         delete tmp;
@@ -761,6 +768,46 @@ std::string** Course::viewAllStudentsInACourse(Static* a)
     delete tmp;
     return allStudents;
 }
+
+
+std::string** Course::viewAllStudentsScoreInACourse(Static* a, int &n)
+{
+    Course* tmp = new Course;
+    n = tmp->loadStudentScoreInTheCourse(a);
+    if (n == 0)
+    {
+        delete tmp;
+        return nullptr;
+    }
+    studentScore* cur = tmp->pHeadScore;
+    std::string** allStudentsScore = new std::string * [n];
+
+    for (int i = 0; i < n; i++)
+    {
+        allStudentsScore[i] = new std::string[8];
+    }
+
+
+    for (int i = 0; i < n; i++)
+    {
+        allStudentsScore[i][0] = cur->No;
+        allStudentsScore[i][1] = cur->studentID;
+        allStudentsScore[i][2] = cur->firstName;
+        allStudentsScore[i][3] = cur->lastName;
+        allStudentsScore[i][4] = std::to_string(cur->finalMark);
+        allStudentsScore[i][5] = std::to_string(cur->midtermMark);
+        allStudentsScore[i][6] = std::to_string(cur->otherMark);
+        std::ostringstream streamObj;
+        streamObj << std::fixed << std::setprecision(2) << cur->totalMark;
+        allStudentsScore[i][7] = streamObj.str();
+        cur = cur->pNext;
+    }
+
+    delete tmp;
+    return allStudentsScore;
+}
+
+
 
 Course::~Course()
 {
