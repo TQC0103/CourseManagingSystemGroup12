@@ -207,6 +207,7 @@ int Course::loadStudentInTheCourse(Static* a)
 }
 
 
+
 int Course::loadStudentScoreInTheCourse(Static* a)
 {
     int n = 0;
@@ -227,25 +228,33 @@ int Course::loadStudentScoreInTheCourse(Static* a)
             getline(s, studentID, ',');
             getline(s, firstName, ',');
             getline(s, lastName, ',');
-            getline(s, finalMark, ',');
             getline(s, midtermMark, ',');
-            getline(s, otherMark, '\n');
+            getline(s, finalMark, ',');
+            std::string ignore;
+            getline(s, ignore, ',');
+            getline(s, otherMark);
 
             int StudentNo = std::stoi(No);
-            double overall = stod(finalMark) * (double)0.5 + stod(midtermMark) * (double)0.2 + stod(otherMark) * (double)0.3;
+            double overall = std::stod(finalMark) * (double)0.5 + std::stod(midtermMark) * (double)0.2 + std::stod(otherMark) * (double)0.3;
             if (!pHeadScore)
             {
-                pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, stod(finalMark), stod(midtermMark), stod(otherMark), overall);
+                pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, overall, std::stod(finalMark), std::stod(midtermMark), std::stod(otherMark), nullptr);
                 pTailScore = pHeadScore;
                 n++;
             }
             else
             {
-                pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, stod(finalMark), stod(midtermMark), stod(otherMark), overall);
-                pTailScore = pTailScore->pNext;
+                studentScore* tmpScore = new studentScore(StudentNo, studentID, firstName, lastName, overall, std::stod(finalMark), std::stod(midtermMark), std::stod(otherMark), nullptr);
+                pTailScore->pNext = tmpScore;
+                pTailScore = tmpScore;
                 n++;
             }
         }
+        if (pTailScore)
+        {
+			pTailScore->pNext = nullptr;
+		}
+
     }
     else
     {

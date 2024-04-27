@@ -36,7 +36,7 @@ struct Class {
 
 	std::string** view_information_Class(Static* a, int &n);
 
-	std::string** view_scoreboard_Student(Static* a);
+	std::string** view_scoreboard_Student_CLass(Static* a);
 	int count_Counrse(Static *a);
 
 	std::string** getaStudentScoreBoard(Static* a, std::string ID_Student, int& n, std::string** res);
