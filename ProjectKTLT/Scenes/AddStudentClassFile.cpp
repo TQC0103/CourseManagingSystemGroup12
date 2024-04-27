@@ -38,7 +38,7 @@ void AddStudentClassFileScene::drawAddFromFile(sf::RenderWindow& win, Static* a)
 	}
 	else if (isWrong == 2)
 	{
-		createText(fail, a->fontB, sf::Color::Red, "Fail to access the give file", 50, a->width / 2.0f, 1000.0f);
+		createText(fail, a->fontB, sf::Color::Red, "Fail to access the given file", 50, a->width / 2.0f, 1000.0f);
 		win.draw(fail);
 	}
 	else if (isWrong == 3)

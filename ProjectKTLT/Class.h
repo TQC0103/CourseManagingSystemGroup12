@@ -36,7 +36,10 @@ struct Class {
 
 	std::string** view_information_Class(Static* a, int &n);
 
+	std::string** view_scoreboard_Student(Static* a);
+	int count_Counrse(Static *a);
 
+	std::string** getaStudentScoreBoard(Static* a, std::string ID_Student, int& n, std::string** res);
 	int count_Element(student* a);
 	//Read data from files
 	bool input_Student_from_file(student*& pHeads, std::string path);

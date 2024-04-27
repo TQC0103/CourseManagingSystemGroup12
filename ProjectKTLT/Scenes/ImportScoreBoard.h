@@ -2,6 +2,7 @@
 #include "../UserInterface.h"
 #include "../config.h"
 #include "windows.h"
+#include "../Course.h"
 
 struct Scene;
 struct ImportScoreboardScene
@@ -22,7 +23,11 @@ struct ImportScoreboardScene
 	std::string filePath;
 	std::string filePathDisplay;
 
+	sf::Text successful;
+	sf::Text fail;
+
 	bool fileChosen = false;
+	int isWrong = 0;
 
 	ImportScoreboardScene(Static* a);
 

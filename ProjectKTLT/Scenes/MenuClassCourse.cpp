@@ -98,7 +98,11 @@ void MenuClassCourseScene::renderMenuClassCourse(sf::Event event, Scene* scene, 
 			}
 			else if (updateInfo.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				
+				delete scene->menuclasscourse;
+				scene->menuclasscourse = nullptr;
+				if (scene->updatecourseinformation == nullptr)
+					scene->updatecourseinformation = new UpdateCourseInformationScene(scene->a);
+				scene->a->currentState = programState::UpdateCourseInformation;
 			}
 		}
 	}
