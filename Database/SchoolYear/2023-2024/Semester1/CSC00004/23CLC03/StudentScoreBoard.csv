@@ -1,6 +1,6 @@
-No,Student - ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark
-1,21127031,Lan,Nguyen Ngoc,7.2,8.5,,0.5
-2,21127032,Loc,Truong My,8.4,8.7,,0.2
-3,21127033,Duong,Dinh Ngoc,10,1,,-0.5
-4,21127034,Duong,Truong,9.3,4.2,,-0.2
-5,21127035,Tuan,Tran Cong,9.2,3.1,,0.2
+No,Student ID,First Name,Last Name,Final,Midterm,Total,Other
+1,21127031,Lan,Nguyen Ngoc,8.5,7.2,,0.5
+2,21127032,Loc,Truong My,8.7,8.4,,0.2
+3,21127033,Duong,Dinh Ngoc,1,10,,-0.5
+4,21127034,Duong,Truong,4.2,9.3,,-0.2
+5,21127035,Tuan,Tran Cong,3.1,9.2,,0.2
