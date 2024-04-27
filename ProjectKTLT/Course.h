@@ -15,11 +15,11 @@ struct Course
 	struct studentScore
 	{
 		int No;
-		std::string studentID;
-		std::string firstName;
-		std::string lastName;
+		std::string studentID = "";
+		std::string firstName = "";
+		std::string lastName = "";
 		double totalMark, finalMark, midtermMark, otherMark;
-		studentScore* pNext;
+		studentScore* pNext = nullptr;
 	};
 
 	// Student basic infomation
@@ -47,6 +47,8 @@ struct Course
 		weekDay = "";
 		Session = "";
 	}
+	//destructors
+	~Course();
 
 	//ponter to student score 
 	studentScore* pHeadScore = nullptr;
@@ -80,7 +82,7 @@ struct Course
 	bool ExportClass(Static* a); 
 
 	//Import a scoreboard file and save it in the database (done)
-	bool ImportScoreboard(Static* a, std::string path);
+	int ImportScoreboard(Static* a, std::string path);
 
 	//Add a class to a course (done)
 	int addClasstoCourse(Static* a, std::string classname, std::string lecturer, std::string weekday, std::string session);
@@ -97,6 +99,8 @@ struct Course
 	//void deleteStudentAfterSort(student* a); //done
 	void normingNumberInStudentList(); //done
 	bool exportStudentListToFile(Static* a);//done
+
+	std::string** viewAllStudentsInACourse(Static* a); // done
 	int getAllStudent();
 
 };

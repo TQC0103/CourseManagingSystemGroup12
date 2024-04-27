@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7c241f082d0e346ab7ea77cbc68f0fc39e59b749
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -205,6 +208,21 @@ int main() {
 				scene->viewscoreboardstudent->renderViewScoreboardScene(event, scene, window);
 				break;
 			}
+            case programState::ViewStudentInClass:
+            {
+                scene->viewstudentinclass->renderViewStudentInClassScene(event, scene, window);
+                break;
+            }
+            case programState::UpdateCourseInformation:
+            {
+				scene->updatecourseinformation->renderUpdateInfo(event, scene, window);
+				break;
+			}
+            case programState::AddClassCourse:
+            {
+                scene->addclasscourse->renderAddClassCourseScene(event, scene, window);
+                break;
+            }
             default:
                 break;
             }
@@ -395,6 +413,21 @@ int main() {
                 scene->viewscoreboardstudent->drawViewScoreboardScene(window, scene->a);
                 break;
             }
+            case programState::ViewStudentInClass:
+            {
+				scene->viewstudentinclass->drawViewStudentInClassScene(window, scene->a);
+				break;
+			}
+            case programState::UpdateCourseInformation:
+            {
+                scene->updatecourseinformation->drawUpdateInfo(window, scene->a);
+                break;
+            }
+            case programState::AddClassCourse:
+            {
+				scene->addclasscourse->drawAddClassCourseScene(window, scene->a);
+				break;
+			}
             default:
                 break;
             }
@@ -408,6 +441,7 @@ int main() {
 }
 
 
+<<<<<<< HEAD
 //int main() {
 //	
 //
@@ -867,3 +901,5 @@ int main() {
 ////
 ////
 ////return 0;
+=======
+>>>>>>> 7c241f082d0e346ab7ea77cbc68f0fc39e59b749

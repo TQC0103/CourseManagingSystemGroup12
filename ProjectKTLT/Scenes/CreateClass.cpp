@@ -9,7 +9,7 @@ CreateClassScene::CreateClassScene(Static* a)
 {
 	isCursorVisible = false;
 	createABox(createClassBackgr, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-	createText(createClassText, a->fontB, a->textColorBlue, "         Create Class\nFor First Year Students", 80, a->width / 2.0f, 200.0f);
+	createText(createClassText, a->fontB, a->textColorBlue, "          Create Class\nFor First Year Students", 80, a->width / 2.0f, 200.0f);
 	
 	createCornerRoundedButton(preButt, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createCornerRoundedButton(create, creatingText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Enter", sf::Vector2f(a->width - 150.0f, 1000.0f), 2.0f, sf::Color::Black);
@@ -131,7 +131,8 @@ void CreateClassScene::renderCreateClass(sf::Event event, Scene* scene, sf::Rend
 		{
 			Class* cl = new Class();
 			bool check = cl->creat_new_Class(classNameInput);
-			delete cl;
+			if(cl != nullptr)
+				delete cl;
 			if (check == false)
 			{
 				isWrong = 1;

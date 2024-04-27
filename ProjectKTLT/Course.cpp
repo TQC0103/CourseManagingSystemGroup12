@@ -69,10 +69,9 @@ void Course::loadDataOfTheCourse(Static* a)
 // Update the information of the Course
 int Course::updateCourse(Static* a, std::string lecturer, std::string weekday, std::string session)
 {
-    loadDataOfTheCourse(a);
 
     // Can't check these information below
-    a->curCourse->Lecturer = lecturer;
+   
 
     //Capitalise and check the weekDay
     int size = (int)weekday.size();
@@ -86,7 +85,7 @@ int Course::updateCourse(Static* a, std::string lecturer, std::string weekday, s
         std::cerr << "Your input is not legal" << std::endl;
         return 7;
     }
-    a->curCourse->weekDay = weekday;
+    
 
     // Check Session
     if (session != "7:30" && session != "9:30" && session != "15:30" && session != "13:30")
@@ -94,6 +93,8 @@ int Course::updateCourse(Static* a, std::string lecturer, std::string weekday, s
         std::cerr << "Your input is not legal" << std::endl;
         return 8;
     }
+    a->curCourse->weekDay = weekday;
+    a->curCourse->Lecturer = lecturer;
     a->curCourse->Session = session;
 
     //Update the database
@@ -156,7 +157,7 @@ int Course::loadStudentInTheCourse(Static* a)
 {
     int n = 0;
     std::ifstream fIn;
-    std::string path = "../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv";
+    std::string path = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv";
     fIn.open(path);
 
     if (fIn.is_open())
@@ -300,7 +301,7 @@ void Course::sortStudentList(student* tmp)
 bool Course::exportStudentListToFile(Static* a)
 {
     std::ofstream fOut;
-    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv");
+    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv");
     if (!fOut.is_open())
     {
         std::cerr << "Can't open file" << std::endl;
@@ -308,7 +309,7 @@ bool Course::exportStudentListToFile(Static* a)
     }
     else
     {
-        fOut << "No,Student - ID,First Name,Last Name,Gender,Date of Birthday,Social ID" << std::endl;
+        fOut << "No,Student ID,First Name,Last Name,Gender,Date of Birthday,Social ID" << std::endl;
         student* cur = pHeadStudent;
         while (cur)
         {
@@ -334,7 +335,7 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
 
     student* tmp = new student(No, ID, FirstName, LastName, Gender, SocialID, DOB);
     std::ifstream fIn;
-    fIn.open("../Database/ SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv");
+    fIn.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv");
     if (!fIn.is_open())
     {
         std::cerr << "Can't open file" << std::endl;
@@ -427,7 +428,7 @@ bool Course::addStudentbyFile(Static* a, std::string path)
     std::string check;
     getline(fIn, check);
 
-    if (check != "No,Student - ID,First Name,Last Name,Gender,Date of Birthday,Social ID")
+    if (check != "No,Student ID,First Name,Last Name,Gender,Date of Birthday,Social ID")
     {
         std::cout << "The header of the file is not correct. Please check the file again" << std::endl;
         fIn.close();
@@ -466,7 +467,7 @@ bool Course::ExportClass(Static* a)
     normingNumberInStudentList();
     std::ofstream fOut;
 
-    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "scoreboard.csv");
+    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "scoreboard.csv");
     if (!fOut.is_open())
     {
         std::cerr << "Can't open file" << std::endl;
@@ -474,7 +475,7 @@ bool Course::ExportClass(Static* a)
     }
     else
     {
-        fOut << "No,Student - ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark" << std::endl;
+        fOut << "No,Student ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark" << std::endl;
         student* cur = pHeadStudent;
         while (cur)
         {
@@ -489,7 +490,7 @@ bool Course::ExportClass(Static* a)
 }
 
 //Import a scoreboard file and save it in the database
-bool Course::ImportScoreboard(Static* a, std::string path)
+int Course::ImportScoreboard(Static* a, std::string path)
 {
     std::ifstream fIn;
     fIn.open(path);
@@ -497,7 +498,7 @@ bool Course::ImportScoreboard(Static* a, std::string path)
     if (!fIn.is_open())
     {
         std::cerr << "Can't open the file" << std::endl;
-        return false;
+        return 1;
     }
 
     //Check these information in the file
@@ -505,11 +506,11 @@ bool Course::ImportScoreboard(Static* a, std::string path)
     getline(fIn, check);
 
 
-    if (check != "No,Student - ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark")
+    if (check != "No,Student ID,Last Name,First Name,Midterm Mark,Final Mark,Total Mark,Other Mark")
     {
         std::cout << "The header of the file is not correct. Please check the file again" << std::endl;
         fIn.close();
-        return false;
+        return 2;
     }
 
     while (getline(fIn, check))
@@ -527,7 +528,7 @@ bool Course::ImportScoreboard(Static* a, std::string path)
         getline(s, OtherMark);
 
         cur->No = std::stoi(no);
-        
+
         //If the point in the import file is empty, it will display at -1 in the scoreboard.csv
         cur->midtermMark = MidtermMark.empty() ? -1 : std::stod(MidtermMark);
         cur->finalMark = FinalMark.empty() ? -1 : std::stod(FinalMark);
@@ -545,30 +546,34 @@ bool Course::ImportScoreboard(Static* a, std::string path)
             pTailScore = pTailScore->pNext;
         }
     }
+    if (pTailScore)
+    {
+        pTailScore->pNext = NULL; // Set the pNext pointer of the last studentScore object to NULL
+    }
     fIn.close();
 
     //Update database
     std::ofstream fOut;
-    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "scoreboard.csv");
+    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "StudentScoreBoard.csv");
     if (!fOut.is_open())
     {
         std::cerr << "Can't open file" << std::endl;
-        return false;
+        return 1;
     }
     else
     {
-        fOut << "No,Student - ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark" << std::endl;
+        fOut << "No,Student ID,First Name,Last Name,Midterm Mark,Final Mark,Total Mark,Other Mark" << std::endl;
         studentScore* cur = pHeadScore;
         while (cur)
         {
-            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->firstName + ',' + cur->lastName + ',' + std::to_string(cur->midtermMark) + ',' + std::to_string(cur->finalMark) + ',' +  std::to_string(cur->totalMark) + ',' + std::to_string(cur->otherMark);
+            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->firstName + ',' + cur->lastName + ',' + std::to_string(cur->midtermMark) + ',' + std::to_string(cur->finalMark) + ',' + std::to_string(cur->totalMark) + ',' + std::to_string(cur->otherMark);
             fOut << tmp << std::endl;
             cur = cur->pNext;
         }
     }
-        
+
     fOut.close();
-    return true;
+    return 0;
 }
 
 
@@ -576,7 +581,7 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
 {
     //Check the className
     std::ifstream fIn;
-    fIn.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes.txt");
+    fIn.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes.txt");
 
     if (!fIn.is_open())
     {
@@ -590,7 +595,7 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
         {
             std::cerr << "This class is already exist" << std::endl;
             fIn.close();
-            return 3;
+            return 1;
         }
     }
     fIn.close();
@@ -605,14 +610,14 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     if (!isvalidweekday(weekday))
     {
         std::cerr << "Your input is illegal" << std::endl;
-        return 7;
+        return 3;
     }
 
     // Check Session
     if (session != "7:30" && session != "9:30" && session != "15:30" && session != "13:30")
     {
         std::cerr << "Your input is illegal" << std::endl;
-        return 8;
+        return 4;
     }
 
     //Update the database
@@ -636,7 +641,7 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     fIn.close();
 
     std::ofstream fOut;
-    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes.txt", std::ios::app);
+    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes.txt", std::ios::app);
     if (!fOut.is_open())
     {
         std::cerr << "Can't open file" << std::endl;
@@ -653,8 +658,9 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     fOut.open(path + "/classList.csv");
     fOut.close();
 
-    fOut.open(path + "/scoreboard.csv");
-    fOut.close();
+    fOut.open(path + "/StudentScoreBoard.csv");
+    fOut << "No,StudentID,Last Name,First Name,Final,Midterm,Others\n";
+    fOut.close();   
 
     fOut.open(path + "/information.txt");
     {
@@ -672,4 +678,63 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     return 0;
 }
 
+
+std::string** Course::viewAllStudentsInACourse(Static* a)
+{
+    Course* tmp = new Course;
+    int n = tmp->loadStudentInTheCourse(a);
+    if (n == 0)
+    {
+        delete tmp;
+        return nullptr;
+    }
+    student* cur = tmp->pHeadStudent;
+    std::string** allStudents = new std::string * [n];
+
+    for (int i = 0; i < n; i++)
+    {
+        allStudents[i] = new std::string[7];
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        allStudents[i][0] = cur->No;
+        allStudents[i][1] = cur->studentID;
+        allStudents[i][2] = cur->firstName;
+        allStudents[i][3] = cur->lastName;
+        allStudents[i][4] = cur->gender;
+        allStudents[i][5] = cur->socialID;
+        cur = cur->pNext;
+    }
+
+    delete tmp;
+    return allStudents;
+}
+
+Course::~Course()
+{
+    student* curS = pHeadStudent;
+    while (curS)
+    {
+		student* next = curS->pNext;
+		delete curS;
+		curS = next;
+	}
+
+    studentScore* cur = pHeadScore;
+    while (cur)
+    {
+        studentScore* next = cur->pNext;
+        delete cur;
+        cur = next;
+    }
+
+    Course* curC = pHeadClasses;
+    while (curC)
+    {
+		Course* next = curC->pNext;
+		delete curC;
+		curC = next;
+	}
+}
 

@@ -10,7 +10,6 @@ struct AddStudentClassManuallyScene
 	sf::Text addManuallyText;
 	sf::Text classText;
 
-	schoolYear* year = nullptr;
 	std::string semesterData = "";
 
 	sf::ConvexShape preButt;

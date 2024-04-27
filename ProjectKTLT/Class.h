@@ -34,7 +34,7 @@ struct Class {
 	
 	int insert_data_Class_from_path(Static* a, std::string path_keyboard);
 
-	std::string** view_information_Class(Static* a);
+	std::string** view_information_Class(Static* a, int &n);
 
 	std::string** view_scoreboard_Student(Static* a);
 	int count_Counrse(Static *a);
