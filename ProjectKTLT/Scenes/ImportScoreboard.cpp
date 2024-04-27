@@ -32,6 +32,26 @@ void ImportScoreboardScene::drawImportScoreboard(sf::RenderWindow& win, Static* 
 		win.draw(chooseFileButtonText);
 	}
 
+	if (isWrong == 1)
+	{
+		createText(fail, a->fontB, sf::Color::Red, "Please choose a file", 50, a->width / 2.0f, 1000.0f);
+		win.draw(fail);
+	}
+	else if (isWrong == -1)
+	{
+		createText(successful, a->fontB, a->textColorGreen, "Import scoreboard for " + a->curCourse->Name + " - "  + a->curCourse->className+ " successfully", 35, a->width / 2.0f, 1000.0f);
+		win.draw(successful);
+	}
+	else if (isWrong == 3)
+	{
+		createText(fail, a->fontB, sf::Color::Red, "Not matching header", 50, a->width / 2.0f, 1000.0f);
+		win.draw(fail);
+	}
+	else if (isWrong == 2)
+	{
+		createText(fail, a->fontB, sf::Color::Red, "Fail to open files", 50, a->width / 2.0f, 1000.0f);
+		win.draw(fail);
+	}
 }
 
 void ImportScoreboardScene::renderImportScoreboard(sf::Event event, Scene* scene, sf::RenderWindow& win)
@@ -52,6 +72,16 @@ void ImportScoreboardScene::renderImportScoreboard(sf::Event event, Scene* scene
 		preButtonText.setFillColor(sf::Color::White);
 		submitButton.setFillColor(scene->a->highlightCyan);
 		submitButtonText.setFillColor(sf::Color::White);
+	}
+
+	if (isWrong == -1)
+	{
+		sf::sleep(sf::seconds(1.0f));
+		if (scene->menuclasscourse == nullptr)
+			scene->menuclasscourse = new MenuClassCourseScene(scene->a);
+		delete scene->importscoreboard;
+		scene->importscoreboard = nullptr;
+		scene->a->currentState = programState::ImportScoreboard;
 	}
 
 	if (event.type == sf::Event::MouseButtonPressed)
@@ -83,7 +113,28 @@ void ImportScoreboardScene::renderImportScoreboard(sf::Event event, Scene* scene
 			}
 			else if (submitButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-
+				if (fileChosen == false)
+				{
+					isWrong = 1;
+				}
+				else
+				{
+					Course* c = new Course();
+					int check = c->ImportScoreboard(scene->a, filePath);
+					delete c;
+					if (check == 1)
+					{
+						isWrong = 2;
+					}
+					else if (check == 2)
+					{
+						isWrong = 3;
+					}
+					else if (check == 0)
+					{
+						isWrong = -1;
+					}
+				}
 			}
 
 		}

@@ -12,14 +12,6 @@ struct student
     int No;
     std::string studentID = "", firstName = "", lastName = "", gender = "", socialID = "";
     date dateOfBirth;
-    struct scoreBoard
-    {
-        double totalMark;
-        double finalMark;
-        double midtermMark;
-        double otherMark;
-        scoreBoard* pNext;
-    };
     student* pNext = nullptr;
     std::string curClass;
   
