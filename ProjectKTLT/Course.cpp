@@ -235,13 +235,13 @@ int Course::loadStudentScoreInTheCourse(Static* a)
             if (!pHeadScore)
             {
                 pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, stod(finalMark), stod(midtermMark), stod(otherMark), overall);
-                pTailStudent = pHeadStudent;
+                pTailScore = pHeadScore;
                 n++;
             }
             else
             {
                 pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, stod(finalMark), stod(midtermMark), stod(otherMark), overall);
-                pTailStudent = pTailStudent->pNext;
+                pTailScore = pTailScore->pNext;
                 n++;
             }
         }
@@ -730,10 +730,10 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
 }
 
 
-std::string** Course::viewAllStudentsInACourse(Static* a)
+std::string** Course::viewAllStudentsInACourse(Static* a, int &n)
 {
     Course* tmp = new Course;
-    int n = tmp->loadStudentInTheCourse(a);
+    n = tmp->loadStudentInTheCourse(a);
     if (n == 0)
     {
         delete tmp;
@@ -761,6 +761,46 @@ std::string** Course::viewAllStudentsInACourse(Static* a)
     delete tmp;
     return allStudents;
 }
+
+
+std::string** Course::viewAllStudentsScoreInACourse(Static* a, int &n)
+{
+    Course* tmp = new Course;
+    n = tmp->loadStudentScoreInTheCourse(a);
+    if (n == 0)
+    {
+        delete tmp;
+        return nullptr;
+    }
+    studentScore* cur = tmp->pHeadScore;
+    std::string** allStudentsScore = new std::string * [n];
+
+    for (int i = 0; i < n; i++)
+    {
+        allStudentsScore[i] = new std::string[8];
+    }
+
+
+    for (int i = 0; i < n; i++)
+    {
+        allStudentsScore[i][0] = cur->No;
+        allStudentsScore[i][1] = cur->studentID;
+        allStudentsScore[i][2] = cur->firstName;
+        allStudentsScore[i][3] = cur->lastName;
+        allStudentsScore[i][4] = std::to_string(cur->finalMark);
+        allStudentsScore[i][5] = std::to_string(cur->midtermMark);
+        allStudentsScore[i][6] = std::to_string(cur->otherMark);
+        std::ostringstream streamObj;
+        streamObj << std::fixed << std::setprecision(2) << cur->totalMark;
+        allStudentsScore[i][7] = streamObj.str();
+        cur = cur->pNext;
+    }
+
+    delete tmp;
+    return allStudentsScore;
+}
+
+
 
 Course::~Course()
 {

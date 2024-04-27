@@ -110,13 +110,14 @@ struct Course
 	void loadDataOfTheCourse(Static *a); //done
 	int loadClassesInCourse(Static* a); //done
 	int loadStudentInTheCourse(Static* a); //done
-	int loadStudentScoreInTheCourse(Static* a); 
+	int loadStudentScoreInTheCourse(Static* a); //done
 	void sortStudentList(student* a);// done
 	//void deleteStudentAfterSort(student* a); //done
 	void normingNumberInStudentList(); //done
 	bool exportStudentListToFile(Static* a);//done
 
-	std::string** viewAllStudentsInACourse(Static* a); // done
+	std::string** viewAllStudentsInACourse(Static* a, int &n); // done
+	std::string** viewAllStudentsScoreInACourse(Static* a, int &n);
 	int getAllStudent();
 
 };
