@@ -70,9 +70,6 @@ void Course::loadDataOfTheCourse(Static* a)
 // Update the information of the Course
 int Course::updateCourse(Static* a, std::string lecturer, std::string weekday, std::string session)
 {
-
-   
-
     //Capitalise and check the weekDay
     int size = (int)weekday.size();
     for (int i = 0; i < size; i++)
@@ -221,7 +218,7 @@ int Course::loadStudentScoreInTheCourse(Static* a)
 
         while (getline(fIn, line))
         {
-            std::string No, studentID, firstName, lastName, finalMark, midtermMark, otherMark;
+            std::string No, studentID, firstName, lastName, finalMark, midtermMark, otherMark, totalMark;
             std::stringstream s(line);
             getline(s, No, ',');
             getline(s, studentID, ',');
@@ -229,19 +226,20 @@ int Course::loadStudentScoreInTheCourse(Static* a)
             getline(s, lastName, ',');
             getline(s, finalMark, ',');
             getline(s, midtermMark, ',');
-            getline(s, otherMark);
+            getline(s, otherMark, ',');
+            getline(s, totalMark, ',');
 
             int StudentNo = std::stoi(No);
-            double overall = std::stod(finalMark) * (double)0.5 + std::stod(midtermMark) * (double)0.2 + std::stod(otherMark) * (double)0.3;
+            //double overall = std::stod(finalMark) * (double)0.5 + std::stod(midtermMark) * (double)0.2 + std::stod(otherMark) * (double)0.3;
             if (!pHeadScore)
             {
-                pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, overall, std::stod(finalMark), std::stod(midtermMark), std::stod(otherMark), nullptr);
+                pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, std::stod(totalMark), std::stod(finalMark), std::stod(midtermMark), std::stod(otherMark), nullptr);
                 pTailScore = pHeadScore;
                 n++;
             }
             else
             {
-                studentScore* tmpScore = new studentScore(StudentNo, studentID, firstName, lastName, overall, std::stod(finalMark), std::stod(midtermMark), std::stod(otherMark), nullptr);
+                studentScore* tmpScore = new studentScore(StudentNo, studentID, firstName, lastName, std::stod(totalMark), std::stod(finalMark), std::stod(midtermMark), std::stod(otherMark), nullptr);
                 pTailScore->pNext = tmpScore;
                 pTailScore = tmpScore;
                 n++;
@@ -533,7 +531,7 @@ bool Course::ExportClass(Static* a)
     }
     else
     {
-        fOut << "No,Student ID,Last Name,First Name,Final,Midterm,Others" << std::endl;
+        fOut << "No,Student ID,Last Name,First Name,Final,Midterm,Others,Total" << std::endl;
         student* cur = pHeadStudent;
         while (cur)
         {
@@ -564,7 +562,7 @@ int Course::ImportScoreboard(Static* a, std::string path)
     getline(fIn, check);
 
 
-    if (check != "No,Student ID,Last Name,First Name,Final,Midterm,Others")
+    if (check != "No,Student ID,Last Name,First Name,Final,Midterm,Others,Total")
     {
         std::cout << "The header of the file is not correct. Please check the file again" << std::endl;
         fIn.close();
@@ -573,7 +571,7 @@ int Course::ImportScoreboard(Static* a, std::string path)
 
     while (getline(fIn, check))
     {
-        std::string no, MidtermMark, FinalMark, OtherMark;
+        std::string no, MidtermMark, FinalMark, OtherMark, TotalMark;
         std::stringstream s(check);
         studentScore* cur = new studentScore;
         getline(s, no, ',');
@@ -582,7 +580,8 @@ int Course::ImportScoreboard(Static* a, std::string path)
         getline(s, cur->lastName, ',');
         getline(s, FinalMark, ',');
         getline(s, MidtermMark, ',');
-        getline(s, OtherMark);
+        getline(s, OtherMark, ',');
+        getline(s, TotalMark);
 
         cur->No = std::stoi(no);
 
@@ -590,6 +589,8 @@ int Course::ImportScoreboard(Static* a, std::string path)
         cur->midtermMark = MidtermMark.empty() ? -1 : std::stod(MidtermMark);
         cur->finalMark = FinalMark.empty() ? -1 : std::stod(FinalMark);
         cur->otherMark = OtherMark.empty() ? -1 : std::stod(OtherMark);
+        cur->totalMark = TotalMark.empty() ? -1 : std::stoi(TotalMark);
+
 
         if (!pHeadScore)
         {
@@ -618,11 +619,11 @@ int Course::ImportScoreboard(Static* a, std::string path)
     }
     else
     {
-        fOut << "No,Student ID,Last Name,First Name,Final,Midterm,Others" << std::endl;
+        fOut << "No,Student ID,Last Name,First Name,Final,Midterm,Others,Total" << std::endl;
         studentScore* cur = pHeadScore;
         while (cur)
         {
-            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->lastName + ',' + cur->firstName + ',' + std::to_string(cur->midtermMark) + ',' + std::to_string(cur->finalMark) + ',' + std::to_string(cur->totalMark) + ',' + std::to_string(cur->otherMark);
+            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->lastName + ',' + cur->firstName + ',' + std::to_string(cur->finalMark) + std::to_string(cur->midtermMark) + ',' + std::to_string(cur->otherMark) + ',' + std::to_string(cur->totalMark);
             fOut << tmp << std::endl;
             cur = cur->pNext;
         }
@@ -716,7 +717,7 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     fOut.close();
 
     fOut.open(path + "/StudentScoreBoard.csv");
-    fOut << "No,StudentID,Last Name,First Name,Final,Midterm,Others\n";
+    fOut << "No,StudentID,Last Name,First Name,Final,Midterm,Others,Total\n";
     fOut.close();   
 
     fOut.open(path + "/information.txt");
