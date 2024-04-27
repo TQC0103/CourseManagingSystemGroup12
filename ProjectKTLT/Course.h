@@ -12,15 +12,30 @@
 struct Course
 {	
 	//Student score in the course
-	struct studentScore
-	{
+#include <string>
+
+	struct studentScore {
 		int No;
-		std::string studentID = "";
-		std::string firstName = "";
-		std::string lastName = "";
+		std::string studentID;
+		std::string firstName;
+		std::string lastName;
 		double totalMark, finalMark, midtermMark, otherMark;
-		studentScore* pNext = nullptr;
+		studentScore* pNext;
+
+		// Constructor with parameters
+		studentScore(int number, const std::string& id, const std::string& first, const std::string& last,
+			double total, double final, double midterm, double other, studentScore* next = nullptr)
+			: No(number), studentID(id), firstName(first), lastName(last),
+			totalMark(total), finalMark(final), midtermMark(midterm), otherMark(other), pNext(next)
+		{
+		}
+
+		// Default constructor
+		studentScore() : No(0), totalMark(0), finalMark(0), midtermMark(0), otherMark(0), pNext(nullptr)
+		{
+		}
 	};
+
 
 	// Student basic infomation
 	std::string ID, Name, className, Lecturer;
@@ -95,6 +110,7 @@ struct Course
 	void loadDataOfTheCourse(Static *a); //done
 	int loadClassesInCourse(Static* a); //done
 	int loadStudentInTheCourse(Static* a); //done
+	int loadStudentScoreInTheCourse(Static* a); 
 	void sortStudentList(student* a);// done
 	//void deleteStudentAfterSort(student* a); //done
 	void normingNumberInStudentList(); //done
