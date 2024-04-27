@@ -678,6 +678,39 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     return 0;
 }
 
+
+std::string** Course::viewAllStudentsInACourse(Static* a)
+{
+    Course* tmp = new Course;
+    int n = tmp->loadStudentInTheCourse(a);
+    if (n == 0)
+    {
+        delete tmp;
+        return nullptr;
+    }
+    student* cur = tmp->pHeadStudent;
+    std::string** allStudents = new std::string * [n];
+
+    for (int i = 0; i < n; i++)
+    {
+        allStudents[i] = new std::string[7];
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        allStudents[i][0] = cur->No;
+        allStudents[i][1] = cur->studentID;
+        allStudents[i][2] = cur->firstName;
+        allStudents[i][3] = cur->lastName;
+        allStudents[i][4] = cur->gender;
+        allStudents[i][5] = cur->socialID;
+        cur = cur->pNext;
+    }
+
+    delete tmp;
+    return allStudents;
+}
+
 Course::~Course()
 {
     student* curS = pHeadStudent;

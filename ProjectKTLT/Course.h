@@ -99,6 +99,8 @@ struct Course
 	//void deleteStudentAfterSort(student* a); //done
 	void normingNumberInStudentList(); //done
 	bool exportStudentListToFile(Static* a);//done
+
+	std::string** viewAllStudentsInACourse(Static* a); // done
 	int getAllStudent();
 
 };
