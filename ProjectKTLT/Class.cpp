@@ -39,8 +39,8 @@ bool Class::input_Student_from_file(student*& pHeads, std::string path) {
 
 		// Read student information
 		std::getline(fIn, newNode->studentID, ',');
-		std::getline(fIn, newNode->firstName, ',');
 		std::getline(fIn, newNode->lastName, ',');
+		std::getline(fIn, newNode->firstName, ',');
 		std::getline(fIn, newNode->gender, ',');
 		std::string tmpDay = "";
 		std::string tmpMonth = "";
@@ -148,7 +148,7 @@ bool Class::creat_new_Class(std::string nameClass) {
 	load_classes();
 	if (isInvalid(nameClass) == true)
 	{
-		std::cout << "Error! The name Class is exist!\n";
+		//std::cout << "Error! The name Class is exist!\n";
 		return false;
 	}
 	int result = _mkdir(("../Database/Class/" + nameClass).c_str());
@@ -175,7 +175,7 @@ bool Class::creat_new_Class(std::string nameClass) {
 		//std::cout << "Error: Unable to create directory" << std::endl;
 		return false;
 	}
-	fOut << "No,Student - ID,First Name,Last Name,Gender,Date of Birthday,Social ID\n";
+	fOut << "No,Student - ID,Last Name,First Name,Gender,Date of Birthday,Social ID\n";
 	fOut.close();
 	print_txt();
 	delete new_Class;
@@ -231,13 +231,24 @@ int Class::insert_new_Class_keyboard(Static *a, std::string no, std::string ID, 
 	student* cur =  new_Class->pHeadListStudents;
 	student* tmp = new student;
 	if (!check_No(new_Class->pHeadListStudents, no)) {
+		delete new_Class;
+		delete tmp;
 		return 1;
 	}
-	if (!check_ID(new_Class->pHeadListStudents, ID)) return 2;
+	if (!check_ID(new_Class->pHeadListStudents, ID)) {
+		delete new_Class;
+		delete tmp;
+		return 2;
+	
+	}
 	tmp->No = stoi(no);
 	tmp->studentID = ID;
 	tmp->lastName = LastName;
-	if (!check_Gender(Gender)) return 5;
+	if (!check_Gender(Gender)) {
+		delete new_Class;
+		delete tmp;
+		return 5;
+	}
 	tmp->gender = Gender;
 
 	int i = 0;
@@ -245,7 +256,11 @@ int Class::insert_new_Class_keyboard(Static *a, std::string no, std::string ID, 
 	int Month ;
 	int Year;
 
-	if (!checkInputDate(BirthDay, Day, Month, Year)) return 6;
+	if (!checkInputDate(BirthDay, Day, Month, Year)) {
+		delete new_Class;
+		delete tmp;
+		return 6;
+	}
 
 
 	tmp->dateOfBirth.d = Day;
@@ -264,7 +279,11 @@ int Class::insert_new_Class_keyboard(Static *a, std::string no, std::string ID, 
 		cur->pNext = tmp;
 	}
 	
-	if (!print_csv(new_Class->pHeadListStudents, a->curClass->name)) return 0;
+	if (!print_csv(new_Class->pHeadListStudents, a->curClass->name)) {
+		delete new_Class;
+		delete tmp;
+		return 0;
+	}
 	delete new_Class;
 	delete tmp;
 	return 8;
@@ -277,11 +296,11 @@ int Class::print_csv(student* a, std::string name_Class) {
 		//std::cout << "Error!\n";
 		return 0;
 	}
-	fOut << "No" << "," << "Student-ID" << "," << "First Name" << "," << "Last Name" << "," << "Gender" << "," << "Date Of Birth" << "," << "" << "Social ID" << "\n";
+	fOut << "No" << "," << "Student ID" << "," << "Last Name" << "," << "First Name" << "," << "Gender" << "," << "Date Of Birth" << "," << "" << "Social ID" << "\n";
 	while (a) {
 		std::string tmpBirthday = "";
 		tmpBirthday = tmpBirthday + std::to_string(a->dateOfBirth.d) + "/" + std::to_string(a->dateOfBirth.m) + "/" + std::to_string(a->dateOfBirth.y);
-		fOut << std::to_string(a->No) << "," << a->studentID << "," << a->firstName << "," << a->lastName << "," << a->gender << "," << tmpBirthday <<"," << a->socialID << "\n";
+		fOut << std::to_string(a->No) << "," << a->studentID << "," << a->lastName << "," << a->firstName << "," << a->gender << "," << tmpBirthday <<"," << a->socialID << "\n";
 		a = a->pNext;
 	}
 	return 1;
@@ -415,7 +434,8 @@ bool Class::input_for_path(student*& pHeads, std::string path, student *pHeadLis
 		newNode->pNext = NULL;
 
 		// Update the linked list
-		if(check_No(pHeadListStudent, x) == 0) continue;
+		if(check_No(pHeadListStudent, x) == 0 || check_ID(pHeadListStudent, newNode->studentID)) continue;
+		
 		if (!pHeads) {
 			pHeads = newNode;
 		}
@@ -444,6 +464,8 @@ int Class :: insert_data_Class_from_path(Static* a, std::string path_keyboard) {
 	student * tmpStudent = new_Class->pHeadListStudents;
 	if (tmpStudent == NULL) {
 		new_Class->pHeadListStudents = newStudent;
+		print_csv(new_Class->pHeadListStudents, a->curClass->name);
+		delete new_Class;
 		return 1;
 	}
 	while (tmpStudent->pNext) {
@@ -476,9 +498,9 @@ std::string **Class::view_information_Class(Static *a) {
 		res[i] = new std::string[7];
 	}
 	res[0][0] = "No";
-	res[0][1] = "Student-ID";
-	res[0][2] = "First Name";
-	res[0][3] = "Last Name";
+	res[0][1] = "Student ID";
+	res[0][2] = "Last Name";
+	res[0][3] = "First Name";
 	res[0][4] = "Gender";
 	res[0][5] = "Date of Birthday";
 	res[0][6] = "Social ID";
@@ -486,14 +508,25 @@ std::string **Class::view_information_Class(Static *a) {
 	for (int i = 1; i < n+1; i++) {
 		res[i][0] = std::to_string(cur->No);
 		res[i][1] = cur->studentID;
-		res[i][2] = cur->firstName;
-		res[i][3] = cur->lastName;
+		res[i][2] = cur->lastName;
+		res[i][3] = cur->firstName;
 		res[i][4] = cur->gender;
 		res[i][5] = std::to_string(cur->dateOfBirth.d) + "/" + std::to_string(cur->dateOfBirth.m) + "/" + std::to_string(cur->dateOfBirth.y);
 		res[i][6] = cur->socialID;
 		cur = cur->pNext;
 	}
 	return res;
+}
+int Class::count_Counrse(Static *a) {
+	return 0;
+}
+std::string** Class::getaStudentScoreBoard(Static* a,std::string nameCourse ,int& n, std::string **res)
+{ 
+	return res;
+}
+std::string** Class::view_scoreboard_Student(Static* a) {
+	
+	return nullptr;
 }
 
 // sort file name follow name in data, all.txt;
