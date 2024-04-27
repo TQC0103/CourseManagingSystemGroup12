@@ -538,7 +538,7 @@ std::string** Class::getaStudentScoreBoard(Static* a,std::string nameCourse ,int
 { 
 	return res;
 }
-std::string** Class::view_scoreboard_Student(Static* a) {
+std::string** Class::view_scoreboard_Student_CLass(Static* a) {
 	
 	return nullptr;
 }
