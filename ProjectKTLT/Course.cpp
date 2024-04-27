@@ -157,7 +157,7 @@ int Course::loadStudentInTheCourse(Static* a)
 {
     int n = 0;
     std::ifstream fIn;
-    std::string path = "../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv";
+    std::string path = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv";
     fIn.open(path);
 
     if (fIn.is_open())
@@ -467,7 +467,7 @@ bool Course::ExportClass(Static* a)
     normingNumberInStudentList();
     std::ofstream fOut;
 
-    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "scoreboard.csv");
+    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "scoreboard.csv");
     if (!fOut.is_open())
     {
         std::cerr << "Can't open file" << std::endl;
@@ -578,7 +578,7 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
 {
     //Check the className
     std::ifstream fIn;
-    fIn.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes.txt");
+    fIn.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes.txt");
 
     if (!fIn.is_open())
     {
@@ -638,7 +638,7 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     fIn.close();
 
     std::ofstream fOut;
-    fOut.open("../ Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes.txt", std::ios::app);
+    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes.txt", std::ios::app);
     if (!fOut.is_open())
     {
         std::cerr << "Can't open file" << std::endl;

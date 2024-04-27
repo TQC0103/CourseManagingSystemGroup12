@@ -7,6 +7,7 @@
 #include "SchoolYear.h"
 #include "Student.h"
 #include "Semester.h"
+#include "Course.h"
 // Functions
 int main() {
 	
@@ -414,5 +415,33 @@ int main() {
     delete scene;
     return 0;
 }
+
+//int main()
+//{
+//	Static* a = new Static;
+//	a->curSchoolYear = new schoolYear;
+//	a->curSemester = new semester;
+//	a->curCourse = new Course;
+//	a->curSchoolYear->year = "2023-2024";
+//	a->curSemester->semesterData = "Semester1";
+//	a->curCourse->ID = "CSC00004";
+//	a->curCourse->className = "23CLC03";
+//	//int Course::addClasstoCourse(Static * a, std::string classname, std::string lecturer, std::string weekday, std::string session)
+//	
+//	Course * check = new Course;
+//	
+//	bool hahaha = check->ExportClass(a);
+//	std::cout << hahaha;
+//	delete check;
+//	delete a->curCourse;
+//	delete a->curSemester;
+//	delete a->curSchoolYear;
+//
+//	delete a;
+//	return 0;
+//
+// 
+// 
+//}
 
 
