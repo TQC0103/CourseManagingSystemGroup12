@@ -394,6 +394,7 @@ bool semester::getGPASemester(Static* a)
 	fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
 	if (!fin.is_open())
 	{
+		fin.close();
 		std::cerr << "Can't open file" << std::endl;
 		return false;
 	}
@@ -422,13 +423,10 @@ bool semester::getGPASemester(Static* a)
 		
 		a->curCourse->ID = courseID;
 
-		//listScore[i] = new Course;
+		listScore[i] = new Course;
 		
 		// ScoreBoards of Courses are not full
-		/*if (listScore[i]->getGPAStudents(a) == false)
-		{
-			break;
-		}*/
+
 		i++;
 	}
 	fin.close();
