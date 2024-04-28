@@ -31,7 +31,7 @@ struct Class {
 
 	bool creat_new_Class(std::string nameClass); 
 
-	int insert_new_Class_keyboard(Static* a, std::string no, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string BirthDay, std::string SocialID);
+	int insert_new_Class_keyboard(Static* a, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string BirthDay, std::string SocialID);
 	
 	int insert_data_Class_from_path(Static* a, std::string path_keyboard);
 
