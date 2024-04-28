@@ -38,6 +38,7 @@ struct Class {
 	std::string** view_information_Class(Static* a, int &n);
 
 
+
 	std::string** view_scoreboard_Student_Class(Static* a, int& n);
 
 	

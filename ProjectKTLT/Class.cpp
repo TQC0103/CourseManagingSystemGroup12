@@ -177,7 +177,7 @@ bool Class::creat_new_Class(std::string nameClass) {
 		//std::cout << "Error: Unable to create directory" << std::endl;
 		return false;
 	}
-	fOut << "No,Student ID,Last Name,First Name,Gender,Date of Birthday,Social ID\n";
+	fOut << "No,Student ID,Last Name,First Name,Gender,Date of Birth,Social ID\n";
 	fOut.close();
 	print_txt();
 	return true;
@@ -204,10 +204,13 @@ void Class::print_txt() {
 //
 //}
 int Class::check_No(student * listStudent, std::string No) {
-	int tmp = stoi(No);
-	while(listStudent){
-		if (listStudent->No == tmp) return 0;
-		listStudent = listStudent->pNext;
+	//int tmp = stoi(No);
+	//while(listStudent){
+	//	if (listStudent->No == tmp) return 0;
+	//	listStudent = listStudent->pNext;
+	//}
+	for(char x: No){
+		if(x < '0' || x > '9') return 0;
 	}
 	return 1;
 }
@@ -222,22 +225,22 @@ bool Class::check_Gender(std::string gender) {
 	return (gender == "nam" || gender == "Nam" || gender == "Nu" || gender == "nu" || gender == "Male" || gender == "male" || gender == "female" || gender == "Female");
 }
 
-int Class::insert_new_Class_keyboard(Static* a, std::string no, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string BirthDay, std::string SocialID) {
-	if (no == "" || ID == "" || FirstName == "" || LastName == "" || Gender == "" || BirthDay == "" || SocialID == "")
+int Class::insert_new_Class_keyboard(Static* a, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string BirthDay, std::string SocialID) {
+	if (ID == "" || FirstName == "" || LastName == "" || Gender == "" || BirthDay == "" || SocialID == "")
 		return 0;
 	Class* new_Class = new Class;
 	new_Class->pNext = NULL;
 	std::string path = "../Database/Class/" + a->curClass->name + "/Students/" + a->curClass->name + ".csv";
-	input_Student_from_file(new_Class->pHeadListStudents, path);
+	int nStudent = input_Student_from_file(new_Class->pHeadListStudents, path);
 	//check input;
 
 	student* cur = new_Class->pHeadListStudents;
 	student* tmp = new student;
-	if (!check_No(new_Class->pHeadListStudents, no)) {
-		delete new_Class;
-		delete tmp;
-		return 1;
-	}
+	//if (!check_No(new_Class->pHeadListStudents, no)) {
+	//	delete new_Class;
+	//	delete tmp;
+	//	return 1;
+	//}
 	if (!check_ID(new_Class->pHeadListStudents, ID)) {
 		delete new_Class;
 		delete tmp;
@@ -259,7 +262,7 @@ int Class::insert_new_Class_keyboard(Static* a, std::string no, std::string ID, 
 		delete tmp;
 		return 6;
 	}
-	tmp->No = stoi(no);
+	tmp->No = nStudent + 1;
 	tmp->studentID = ID;
 	tmp->lastName = LastName;
 
@@ -299,11 +302,13 @@ int Class::print_csv(student* a, std::string name_Class) {
 		return 0;
 	}
 	fOut << "No" << "," << "Student ID" << "," << "Last Name" << "," << "First Name" << "," << "Gender" << "," << "Date Of Birth" << "," << "" << "Social ID" << "\n";
+	int cnt = 1;
 	while (a) {
 		std::string tmpBirthday = "";
 		tmpBirthday = tmpBirthday + std::to_string(a->dateOfBirth.d) + "/" + std::to_string(a->dateOfBirth.m) + "/" + std::to_string(a->dateOfBirth.y);
-		fOut << std::to_string(a->No) << "," << a->studentID << "," << a->lastName << "," << a->firstName << "," << a->gender << "," << tmpBirthday <<"," << a->socialID << "\n";
+		fOut << cnt << "," << a->studentID << "," << a->lastName << "," << a->firstName << "," << a->gender << "," << tmpBirthday <<"," << a->socialID << "\n";
 		a = a->pNext;
+		cnt++;
 	}
 	fOut.close();
 	return 1;
@@ -413,12 +418,12 @@ bool Class::input_for_path(student*& pHeads, std::string path, student *pHeadLis
 	std::string tmp = "";
 	//delete title
 	std::getline(fIn, tmp, '\n');
-
+	int cnt = 1;
 	while (std::getline(fIn, x, ',')) {
 		// Allocate memory for a new node
 		student* newNode = new student;
-		newNode->No = std::stoi(x);
-
+		newNode->No = cnt;
+		cnt++;
 		// Read student information
 		std::getline(fIn, newNode->studentID, ',');
 		std::getline(fIn, newNode->lastName, ',');
@@ -437,7 +442,7 @@ bool Class::input_for_path(student*& pHeads, std::string path, student *pHeadLis
 		newNode->pNext = NULL;
 
 		// Update the linked list
-		if(check_No(pHeadListStudent, x) == 0 || check_ID(pHeadListStudent, newNode->studentID)) continue;
+		if(check_ID(pHeadListStudent, newNode->studentID) == 0) continue;
 		
 		if (!pHeads) {
 			pHeads = newNode;
@@ -517,7 +522,7 @@ std::string** Class::view_information_Class(Static* a, int &n) {
 	res[0][2] = "Last Name";
 	res[0][3] = "First Name";
 	res[0][4] = "Gender";
-	res[0][5] = "Date of Birthday";
+	res[0][5] = "Date of Birth";
 	res[0][6] = "Social ID";
 
 
@@ -555,7 +560,7 @@ std::string** Class::view_scoreboard_Student_Class(Static* a, int& row)
 	int j = 0;
 	Class * list = isExist(a);
 	student* pHeadstudent = list->pHeadListStudents;
-	int miss = 0;
+
 	row = 0;
 	while (j < cnt_student) {
 		std::string tmpID_Student =  pHeadstudent->studentID;
@@ -596,15 +601,14 @@ std::string** Class::view_scoreboard_Student_Class(Static* a, int& row)
 					std::getline(iss, res[row][t], ',');
 
 				}
-				std::getline(iss, res[row][7], '\n');
+				std::getline(iss, res[row][7], ',');
 
-				student *val = new student;
+				/*student *val = new student;
 				double overall = val->calculateOverall(std::stod(res[row][5]), std::stod(res[row][6]), std::stod(res[row][7]));
 				std::ostringstream streamObj;
-				streamObj << std::fixed << std::setprecision(2) << overall;
-				res[row][8] = streamObj.str();
+				streamObj << std::fixed << std::setprecision(2) << overall;*/
+				std::getline(iss, res[row][8], '\n');
 				flag = 1;
-				delete val;
 				break;
 			}
 			if (flag == 0) row--;
