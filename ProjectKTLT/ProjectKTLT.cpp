@@ -435,7 +435,23 @@ int main() {
     delete scene;
     return 0;
 }
-
+//int main()
+//{
+//	Static* a = new Static;
+//	
+//	a->curClass = new Class;
+//	a->curClass->name = "23CLC03";
+//	
+//	Class* bNgoc = new Class;
+//	std::string path = "D:/True Student Managing System Project 23CLC03/Database/Class/21CLC03/Students/21CLC03.csv";
+//	int lilgemzz = bNgoc->insert_data_Class_from_path(a, path);
+//	std::cout << lilgemzz;
+//	delete a->curClass;
+//	delete a;
+//	delete bNgoc;
+//	return 0;
+//	
+//}
 
 
 

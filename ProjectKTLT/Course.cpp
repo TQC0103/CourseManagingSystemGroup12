@@ -481,6 +481,7 @@ bool Course::addStudentbyFile(Static* a, std::string path)
 
     if (!fIn.is_open())
     {
+        fIn.close();
         std::cerr << "Can not open the file" << std::endl;
         return false;
     }

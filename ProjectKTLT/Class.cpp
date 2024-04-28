@@ -24,6 +24,7 @@ bool Class::input_Student_from_file(student*& pHeads, std::string path) {
 	
 	fIn.open(path);
 	if (!fIn.is_open()) {
+		fIn.close();
 		std::cout << "Error! Enter file again!";
 		return false;
 	}
@@ -293,6 +294,7 @@ int Class::print_csv(student* a, std::string name_Class) {
 	fOut.open("../Database/Class/" + name_Class + "/Students/" + name_Class + ".csv");
 	//....,std::ios::app
 	if (!fOut.is_open()) {
+		fOut.close();
 		//std::cout << "Error!\n";
 		return 0;
 	}
@@ -400,9 +402,14 @@ bool Class::input_for_path(student*& pHeads, std::string path, student *pHeadLis
 	//pHeads->firstName = new_name_Class;
 	pHeads = NULL;
 	std::ifstream fIn;
-
+	student * lastIndex = pHeadListStudent;
+	while (lastIndex->pNext) {
+		lastIndex = lastIndex->pNext;
+	}
+	int lastNumOrigin = lastIndex->No;
 	fIn.open(path);
 	if (!fIn.is_open()) {
+		fIn.close();
 		std::cout << "Error! Enter file again!";
 		return false;
 	}
@@ -415,7 +422,8 @@ bool Class::input_for_path(student*& pHeads, std::string path, student *pHeadLis
 	while (std::getline(fIn, x, ',')) {
 		// Allocate memory for a new node
 		student* newNode = new student;
-		newNode->No = std::stoi(x);
+		lastNumOrigin++;
+		newNode->No = lastNumOrigin;
 
 		// Read student information
 		std::getline(fIn, newNode->studentID, ',');
@@ -435,7 +443,11 @@ bool Class::input_for_path(student*& pHeads, std::string path, student *pHeadLis
 		newNode->pNext = NULL;
 
 		// Update the linked list
-		if(check_No(pHeadListStudent, x) == 0 || check_ID(pHeadListStudent, newNode->studentID)) continue;
+		if (!check_ID(pHeadListStudent, newNode->studentID))
+		{
+			lastNumOrigin--;
+			continue;
+		}
 		
 		if (!pHeads) {
 			pHeads = newNode;
