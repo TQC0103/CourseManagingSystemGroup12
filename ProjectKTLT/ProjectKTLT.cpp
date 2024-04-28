@@ -219,6 +219,11 @@ int main() {
                 scene->addclasscourse->renderAddClassCourseScene(event, scene, window);
                 break;
             }
+            case programState::ViewCourseScoreboard:
+            {
+				scene->viewcoursescoreboard->renderViewScoreboardCourseScene(event, scene, window);
+				break;
+			}
             default:
                 break;
             }
@@ -422,6 +427,11 @@ int main() {
             case programState::AddClassCourse:
             {
 				scene->addclasscourse->drawAddClassCourseScene(window, scene->a);
+				break;
+			}
+            case programState::ViewCourseScoreboard:
+            {
+				scene->viewcoursescoreboard->drawViewScoreboardCourseScene(window, scene->a);
 				break;
 			}
             default:

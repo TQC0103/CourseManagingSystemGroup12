@@ -103,6 +103,11 @@ void CourseManageScoreBoardScene::renderCourseManageScoreBoard(sf::Event event, 
 			else if (viewCourseScoreBoard.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
 				//view course scoreboard
+				delete scene->coursemanagescoreboard;
+				scene->coursemanagescoreboard = nullptr;
+				if (scene->viewcoursescoreboard == nullptr)
+					scene->viewcoursescoreboard = new ViewScoreboardCourseScene(scene->a);
+				scene->a->currentState = programState::ViewCourseScoreboard;
 			}
 			else if (update1StuRes.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{

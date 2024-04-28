@@ -43,7 +43,7 @@ void AddStudentClassFileScene::drawAddFromFile(sf::RenderWindow& win, Static* a)
 	}
 	else if (isWrong == 3)
 	{
-		createText(fail, a->fontB, sf::Color::Green, "Successfully added students to class " + a->curClass->name, 50, a->width / 2.0f, 1000.0f);
+		createText(fail, a->fontB, a->textColorGreen, "Successfully added students to class " + a->curClass->name, 50, a->width / 2.0f, 1000.0f);
 		win.draw(fail);
 	}
 
