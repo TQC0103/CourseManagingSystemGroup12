@@ -7,8 +7,8 @@
 #include <direct.h>
 #include <cstring>
 #include"config.h"
-
-
+#include"Course.h"
+#include"SchoolYear.h"
 Class::Class() {
 	pNext = nullptr;
 	name = "";
@@ -17,16 +17,16 @@ Class::Class() {
 }
 
 //Read data from files
-bool Class::input_Student_from_file(student*& pHeads, std::string path) {
+int Class::input_Student_from_file(student*& pHeads, std::string path) {
 	//pHeads->firstName = new_name_Class;
 	pHeads = NULL;
 	std::ifstream fIn;
-	
+	int cnt_student = 0;
 	fIn.open(path);
 	if (!fIn.is_open()) {
 		fIn.close();
 		std::cout << "Error! Enter file again!";
-		return false;
+		return -1;
 	}
 	std::string x;
 	student* cur = pHeads;
@@ -63,10 +63,11 @@ bool Class::input_Student_from_file(student*& pHeads, std::string path) {
 			cur->pNext = newNode;
 		}
 		cur = newNode;
+		cnt_student++;
 	}
 	fIn.close();
 	//std::cout << "SUCCESS!\n";
-	return true;
+	return cnt_student;
 }
 //Load data
 int Class::load_classes() // load data from files
@@ -123,8 +124,9 @@ int Class::loadStudents(Static* a) {
 	Class* curStudent = isExist(a);
 	if (curStudent == NULL) return 0;
 	std::string path = "../Database/Class/" + curStudent->name + "/Students/" + curStudent->name + ".csv";
-	if (!input_Student_from_file(curStudent->pHeadListStudents, path)) return 0;
-	return 1;
+	int cnt_student = input_Student_from_file(curStudent->pHeadListStudents, path);
+	if (cnt_student == -1) return 0;
+	return cnt_student;
 }
 
 //Not data to update pHeadListCLass
@@ -176,7 +178,7 @@ bool Class::creat_new_Class(std::string nameClass) {
 		//std::cout << "Error: Unable to create directory" << std::endl;
 		return false;
 	}
-	fOut << "No,Student - ID,Last Name,First Name,Gender,Date of Birthday,Social ID\n";
+	fOut << "No,Student ID,Last Name,First Name,Gender,Date of Birthday,Social ID\n";
 	fOut.close();
 	print_txt();
 	return true;
@@ -467,14 +469,14 @@ int Class :: insert_data_Class_from_path(Static* a, std::string path_keyboard) {
 
 	new_Class->pNext = NULL;
 	std::string path = "../Database/Class/" + a->curClass->name + "/Students/" + a->curClass->name + ".csv";
-	bool check = input_Student_from_file(new_Class->pHeadListStudents, path);
-	if (check == false)
+	int check1 = input_Student_from_file(new_Class->pHeadListStudents, path);
+	if (check1 == -1)
 	{
 		delete new_Class;
 		return 0;
 	}
 	student* newStudent ;
-	check = input_for_path(newStudent, path_keyboard, new_Class->pHeadListStudents);
+	bool check = input_for_path(newStudent, path_keyboard, new_Class->pHeadListStudents);
 	if (check == false)
 	{
 		delete new_Class;
@@ -510,7 +512,7 @@ int Class::count_Element(student* a) {
 
 std::string** Class::view_information_Class(Static* a, int &n) {
 	n = 0;
-	if (loadStudents(a) == 0) return NULL;
+	if (loadStudents(a) <= 0) return NULL;
 	Class* pHeads = isExist(a);
 	student* cur = pHeads->pHeadListStudents;
 
@@ -543,17 +545,92 @@ std::string** Class::view_information_Class(Static* a, int &n) {
 	}
 	return res;
 }
-int Class::count_Counrse(Static *a) {
-	return 0;
-}
-std::string** Class::getaStudentScoreBoard(Static* a,std::string nameCourse ,int& n, std::string **res)
-{ 
+
+std::string** Class::view_scoreboard_Student_Class(Static* a, int& row)
+{
+	semester* tmp = new semester;
+	int cnt_course = tmp->specifyCourseForStudent(a);
+
+	Course* cur = tmp->pHeadCourseForStudent;
+	int cnt_student = loadStudents(a);
+	if (cnt_course == 0 || cnt_student <= 0)
+	{
+		delete tmp;
+		return nullptr;
+	}
+	std::string** res = new std::string * [cnt_course*cnt_student];
+
+	for (int i = 0; i < cnt_course * cnt_student; i++)
+	{
+		res[i] = new std::string[9];
+	}
+	int j = 0;
+	Class * list = isExist(a);
+	student* pHeadstudent = list->pHeadListStudents;
+	int miss = 0;
+	row = 0;
+	while (j < cnt_student) {
+		std::string tmpID_Student =  pHeadstudent->studentID;
+		cur = tmp->pHeadCourseForStudent;
+		for (int i = 0; i < cnt_course; i++)
+		{
+			int flag = 0;
+			std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "/StudentScoreBoard.csv");
+			if (!fIn.is_open())
+			{
+				std::cout << "Can not open file scoreboard.csv of course: " << cur->ID << std::endl;
+				for (int k = 0; k < i; ++k)
+				{
+					delete[] res[row];
+					row--;
+				}
+				delete[] res;
+				delete tmp;
+				return nullptr;
+			}
+			std::string line;
+			std::getline(fIn, line);
+			while (std::getline(fIn, line))
+			{
+				std::istringstream iss(line);
+				std::string ignore, studentID;
+				std::getline(iss, ignore, ',');
+				std::getline(iss, studentID, ',');
+				if (studentID != tmpID_Student) continue;
+				res[row][0] = cur->ID;
+
+				res[row][1] = cur->Name;
+
+				res[row][2] = tmpID_Student;
+
+				for (int t = 3; t < 7; t++)
+				{
+					std::getline(iss, res[row][t], ',');
+
+				}
+				std::getline(iss, res[row][7], '\n');
+
+				student *val = new student;
+				double overall = val->calculateOverall(std::stod(res[row][5]), std::stod(res[row][6]), std::stod(res[row][7]));
+				std::ostringstream streamObj;
+				streamObj << std::fixed << std::setprecision(2) << overall;
+				res[row][8] = streamObj.str();
+				flag = 1;
+				delete val;
+				break;
+			}
+			if (flag == 0) row--;
+			else row++;
+			fIn.close();
+			cur = cur->pNext;
+		}
+		j++;
+		pHeadstudent = pHeadstudent->pNext;
+	}
+	delete tmp;
 	return res;
 }
-std::string** Class::view_scoreboard_Student_CLass(Static* a) {
-	
-	return nullptr;
-}
+
 
 // sort file name follow name in data, all.txt;
 void Class::Sort_Class(Class* new_Class) {

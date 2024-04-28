@@ -219,6 +219,11 @@ int main() {
                 scene->addclasscourse->renderAddClassCourseScene(event, scene, window);
                 break;
             }
+            case programState::ViewCourseScoreboard:
+            {
+				scene->viewcoursescoreboard->renderViewScoreboardCourseScene(event, scene, window);
+				break;
+			}
             default:
                 break;
             }
@@ -424,6 +429,11 @@ int main() {
 				scene->addclasscourse->drawAddClassCourseScene(window, scene->a);
 				break;
 			}
+            case programState::ViewCourseScoreboard:
+            {
+				scene->viewcoursescoreboard->drawViewScoreboardCourseScene(window, scene->a);
+				break;
+			}
             default:
                 break;
             }
@@ -453,42 +463,6 @@ int main() {
 //	
 //}
 
-
-
-
-
-
-
-
-
-
-
-//int main()
-//{
-//	Static* a = new Static;
-//	a->curSchoolYear = new schoolYear;
-//	a->curSemester = new semester;
-//	a->curCourse = new Course;
-//	a->curSchoolYear->year = "2023-2024";
-//	a->curSemester->semesterData = "Semester1";
-//	a->curCourse->ID = "CSC00004";
-//	a->curCourse->className = "23CLC03";
-//	Course* check = new Course;
-//	int n = check->loadStudentScoreInTheCourse(a);
-//	std::cout << n << std::endl;
-//	Course::studentScore* cur = check->pHeadScore;
-//	while (cur)
-//	{
-//		std::cout << cur->No << " ; " << cur->studentID << " ; " << cur->firstName << " ; " << cur->lastName << " ; " << cur->finalMark << " ; " << cur->midtermMark << " ; " << cur->otherMark << " ; " << cur->totalMark << std::endl;
-//		cur = cur->pNext;
-//	}
-//	delete check;
-//	delete a->curCourse;
-//	delete a->curSemester;
-//	delete a->curSchoolYear;
-//
-//	delete a;
-//	return 0;
 //
 //
 //}
@@ -513,41 +487,77 @@ int main() {
 //	delete a->curSemester;
 //	delete a->curSchoolYear;
 //
-//	delete a;
-//	return 0;
-//
-// 
-// 
-//}
-
-
-
 
 ////int main() {
-////	Static* a = new Static;
-////	a->curClass = new Class;
-////	a->curSchoolYear = new schoolYear;
+////	static* a = new static;
+////	a->curclass = new class;
+////	a->curschoolyear = new schoolyear;
 ////
 ////
-////	a->curCourse = new Course;
+////	a->curcourse = new course;
 ////
 ////
-////	a->curSemester = new semester;
-////	a->curClass->name = "23CLC03";
-////	Class* b = new Class;
+////	a->cursemester = new semester;
+////	a->curclass->name = "23clc03";
+////	class* b = new class;
 ////	b->load_classes();
-////	Class* cur = b->pHeadListClasses;
+////	class* cur = b->pheadlistclasses;
 ////	while (cur) {
 ////		std::cout << cur->name << " ";
-////		cur = cur->pNext;
+////		cur = cur->pnext;
 ////	}
-////	delete a->curClass;
-////	delete a->curSchoolYear;
-////	delete a->curCourse;
-////	delete a->curSemester;
+////	delete a->curclass;
+////	delete a->curschoolyear;
+////	delete a->curcourse;
+////	delete a->cursemester;
 ////	delete a;
 ////	delete b;
 ////	return 0;
 ////}
+
+//////
+//////
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+////Static* a = new Static;
+////student* curStudent = new student;
+////semester* tmpSem = new semester;
+////a->curClass = new Class;
+////a->curSemester = new semester;
+////a->curSchoolYear = new schoolYear;
+////
+////a->curSchoolYear->year = "2023-2024";
+////a->curSemester->semesterData = "Semester1";
+////a->curClass->name = "23CLC03";
+////
+////std::string testCourse;
+////std::cout << "Input Course: ";
+////getline(std::cin, testCourse);
+////bool check = tmpSem->deleteCourse(testCourse, a);
+////if (check)
+////{
+////    std::cout << "Successfull ";
+////}
+////else {
+////    std::cout << "Try again";
+////}
+////
+////
+////
+////delete a;
+////delete curStudent;
+////delete tmpSem;
+////
+////
+////return 0;
 
 

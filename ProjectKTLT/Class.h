@@ -5,6 +5,7 @@
 
 struct student;
 
+
 struct Class {
 	//Name Class;
 	std::string name;
@@ -36,15 +37,18 @@ struct Class {
 
 	std::string** view_information_Class(Static* a, int &n);
 
-	std::string** view_scoreboard_Student_CLass(Static* a);
-	int count_Counrse(Static *a);
 
-	std::string** getaStudentScoreBoard(Static* a, std::string ID_Student, int& n, std::string** res);
-	int count_Element(student* a);
-	//Read data from files
-	bool input_Student_from_file(student*& pHeads, std::string path);
-	bool input_for_path(student*& pHeads, std::string path, student* pHeadListStudent);
+	std::string** view_scoreboard_Student_Class(Static* a, int& n);
+
 	
+	int count_Element(student* a);
+
+	//Read data from files
+	int input_Student_from_file(student*& pHeads, std::string path);
+
+	bool input_for_path(student*& pHeads, std::string path, student* pHeadListStudent);
+
+
 	//creat new file
 	Class* isExist(Static* a);
 
