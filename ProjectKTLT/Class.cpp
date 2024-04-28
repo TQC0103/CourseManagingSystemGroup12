@@ -578,7 +578,7 @@ std::string** Class::view_scoreboard_Student_Class(Static* a, int& row)
 			std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "/StudentScoreBoard.csv");
 			if (!fIn.is_open())
 			{
-				std::cout << "Can not open file scoreboard.csv of course: " << cur->ID << std::endl;
+				std::cout << "Can not open file StudentScoreBoard.csv of course: " << cur->ID << std::endl;
 				for (int k = 0; k < i; ++k)
 				{
 					delete[] res[row];

@@ -66,11 +66,11 @@ void CourseManageStudentScene::renderCourseManageStudent(sf::Event event, Scene*
 			}
 			else if (viewListStudent.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				//delete scene->coursemanagestudent;
-				//scene->coursemanagestudent = nullptr;
-				//if (scene->viewliststudent == nullptr)
-				//	scene->viewliststudent = new ViewListStudentScene(scene->a);
-				//scene->a->currentState = programState::ViewListStudent;
+				delete scene->coursemanagestudent;
+				scene->coursemanagestudent = nullptr;
+				if (scene->viewstudentincourse == nullptr)
+					scene->viewstudentincourse = new ViewStudentCourseScene(scene->a);
+				scene->a->currentState = programState::ViewCourseStudent;
 			}
 			else if (addStudent.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{

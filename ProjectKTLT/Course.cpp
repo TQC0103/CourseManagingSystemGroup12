@@ -195,7 +195,7 @@ int Course::loadStudentInTheCourse(Static* a)
     else
     {
         std::cerr << "Can't open file" << std::endl;
-        return -1;
+        return 0;
     }
 
     fIn.close();
@@ -222,8 +222,8 @@ int Course::loadStudentScoreInTheCourse(Static* a)
             std::stringstream s(line);
             getline(s, No, ',');
             getline(s, studentID, ',');
-            getline(s, firstName, ',');
             getline(s, lastName, ',');
+            getline(s, firstName, ',');
             getline(s, finalMark, ',');
             getline(s, midtermMark, ',');
             getline(s, otherMark, ',');
@@ -759,12 +759,13 @@ std::string** Course::viewAllStudentsInACourse(Static* a, int &n)
 
     for (int i = 0; i < n; i++)
     {
-        allStudents[i][0] = cur->No;
+        allStudents[i][0] = std::to_string(cur->No);
         allStudents[i][1] = cur->studentID;
-        allStudents[i][2] = cur->firstName;
-        allStudents[i][3] = cur->lastName;
+        allStudents[i][2] = cur->lastName;
+        allStudents[i][3] = cur->firstName;
         allStudents[i][4] = cur->gender;
-        allStudents[i][5] = cur->socialID;
+        allStudents[i][5] = formatDate(cur->dateOfBirth);
+        allStudents[i][6] = cur->socialID;
         cur = cur->pNext;
     }
 
@@ -795,8 +796,8 @@ std::string** Course::viewAllStudentsScoreInACourse(Static* a, int &n)
     {
         allStudentsScore[i][0] = std::to_string(cur->No);
         allStudentsScore[i][1] = cur->studentID;
-        allStudentsScore[i][2] = cur->firstName;
-        allStudentsScore[i][3] = cur->lastName;
+        allStudentsScore[i][2] = cur->lastName;
+        allStudentsScore[i][3] = cur->firstName;
         std::stringstream ss;
         ss << std::fixed << std::setprecision(2) << cur->finalMark;
         allStudentsScore[i][4] = ss.str();
