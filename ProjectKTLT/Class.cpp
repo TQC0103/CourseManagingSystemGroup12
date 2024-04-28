@@ -24,6 +24,7 @@ int Class::input_Student_from_file(student*& pHeads, std::string path) {
 	int cnt_student = 0;
 	fIn.open(path);
 	if (!fIn.is_open()) {
+		fIn.close();
 		std::cout << "Error! Enter file again!";
 		return -1;
 	}
@@ -298,6 +299,7 @@ int Class::print_csv(student* a, std::string name_Class) {
 	fOut.open("../Database/Class/" + name_Class + "/Students/" + name_Class + ".csv");
 	//....,std::ios::app
 	if (!fOut.is_open()) {
+		fOut.close();
 		//std::cout << "Error!\n";
 		return 0;
 	}
@@ -407,9 +409,14 @@ bool Class::input_for_path(student*& pHeads, std::string path, student *pHeadLis
 	//pHeads->firstName = new_name_Class;
 	pHeads = NULL;
 	std::ifstream fIn;
-
+	student * lastIndex = pHeadListStudent;
+	while (lastIndex->pNext) {
+		lastIndex = lastIndex->pNext;
+	}
+	int lastNumOrigin = lastIndex->No;
 	fIn.open(path);
 	if (!fIn.is_open()) {
+		fIn.close();
 		std::cout << "Error! Enter file again!";
 		return false;
 	}
@@ -422,8 +429,11 @@ bool Class::input_for_path(student*& pHeads, std::string path, student *pHeadLis
 	while (std::getline(fIn, x, ',')) {
 		// Allocate memory for a new node
 		student* newNode = new student;
-		newNode->No = cnt;
-		cnt++;
+
+		lastNumOrigin++;
+		newNode->No = lastNumOrigin;
+
+
 		// Read student information
 		std::getline(fIn, newNode->studentID, ',');
 		std::getline(fIn, newNode->lastName, ',');
@@ -442,7 +452,9 @@ bool Class::input_for_path(student*& pHeads, std::string path, student *pHeadLis
 		newNode->pNext = NULL;
 
 		// Update the linked list
+
 		if(check_ID(pHeadListStudent, newNode->studentID) == 0) continue;
+
 		
 		if (!pHeads) {
 			pHeads = newNode;
@@ -571,7 +583,7 @@ std::string** Class::view_scoreboard_Student_Class(Static* a, int& row)
 			std::ifstream fIn("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + cur->ID + "/" + a->curClass->name + "/StudentScoreBoard.csv");
 			if (!fIn.is_open())
 			{
-				std::cout << "Can not open file scoreboard.csv of course: " << cur->ID << std::endl;
+				std::cout << "Can not open file StudentScoreBoard.csv of course: " << cur->ID << std::endl;
 				for (int k = 0; k < i; ++k)
 				{
 					delete[] res[row];

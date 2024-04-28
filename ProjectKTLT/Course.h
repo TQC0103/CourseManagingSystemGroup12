@@ -23,9 +23,9 @@ struct Course
 		studentScore* pNext;
 
 		// Constructor with parameters
-		studentScore(int number, const std::string& id, const std::string& first, const std::string& last, double total, double final, double midterm, double other, studentScore* next = nullptr)
+		studentScore(int number, const std::string& id, const std::string& first, const std::string& last, double total, double final, double midterm, double other)
 			: No(number), studentID(id), firstName(first), lastName(last),
-			 finalMark(final), midtermMark(midterm), otherMark(other), totalMark(total), pNext(next)
+			 finalMark(final), midtermMark(midterm), otherMark(other), totalMark(total)
 		{
 		}
 

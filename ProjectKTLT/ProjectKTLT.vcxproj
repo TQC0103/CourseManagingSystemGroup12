@@ -187,8 +187,10 @@
     <ClCompile Include="Scenes\SignInAsStudent.cpp" />
     <ClCompile Include="Scenes\MenuClass.cpp" />
     <ClCompile Include="Scenes\UpdateCourseInformation.cpp" />
+    <ClCompile Include="Scenes\ViewCourseScoreboard.cpp" />
     <ClCompile Include="Scenes\ViewCoursesStudent.cpp" />
     <ClCompile Include="Scenes\ViewScoreboardStudent.cpp" />
+    <ClCompile Include="Scenes\ViewStudentInCourse.cpp" />
     <ClCompile Include="Scenes\ViewStudentProfile.cpp" />
     <ClCompile Include="Scenes\ViewStudentsInClass.cpp" />
     <ClCompile Include="Scenes\Welcome.cpp" />
@@ -237,9 +239,11 @@
     <ClInclude Include="Scenes\SignInAsStaff.h" />
     <ClInclude Include="Scenes\SignInAsStudent.h" />
     <ClInclude Include="Scenes\UpdateCourseInformation.h" />
+    <ClInclude Include="Scenes\ViewCourseScoreboard.h" />
     <ClInclude Include="Scenes\ViewCoursesStudent.h" />
     <ClInclude Include="Scenes\ViewScoreboardStudent.h" />
     <ClInclude Include="Scenes\ViewStudentInClass.h" />
+    <ClInclude Include="Scenes\ViewStudentInCourse.h" />
     <ClInclude Include="Scenes\ViewStudentProfile.h" />
     <ClInclude Include="Scenes\Welcome.h" />
     <ClInclude Include="SchoolYear.h" />
