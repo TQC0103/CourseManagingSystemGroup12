@@ -5,6 +5,7 @@
 
 struct student;
 
+
 struct Class {
 	//Name Class;
 	std::string name;
@@ -30,21 +31,25 @@ struct Class {
 
 	bool creat_new_Class(std::string nameClass); 
 
-	int insert_new_Class_keyboard(Static* a, std::string no, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string BirthDay, std::string SocialID);
+	int insert_new_Class_keyboard(Static* a, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string BirthDay, std::string SocialID);
 	
 	int insert_data_Class_from_path(Static* a, std::string path_keyboard);
 
 	std::string** view_information_Class(Static* a, int &n);
 
-	std::string** view_scoreboard_Student_CLass(Static* a);
-	int count_Counrse(Static *a);
 
-	std::string** getaStudentScoreBoard(Static* a, std::string ID_Student, int& n, std::string** res);
-	int count_Element(student* a);
-	//Read data from files
-	bool input_Student_from_file(student*& pHeads, std::string path);
-	bool input_for_path(student*& pHeads, std::string path, student* pHeadListStudent);
+
+	std::string** view_scoreboard_Student_Class(Static* a, int& n);
+
 	
+	int count_Element(student* a);
+
+	//Read data from files
+	int input_Student_from_file(student*& pHeads, std::string path);
+
+	bool input_for_path(student*& pHeads, std::string path, student* pHeadListStudent);
+
+
 	//creat new file
 	Class* isExist(Static* a);
 

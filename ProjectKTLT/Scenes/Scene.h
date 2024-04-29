@@ -39,6 +39,8 @@
 #include "ViewStudentInClass.h"
 #include "UpdateCourseInformation.h"
 #include "AddClassCourse.h"
+#include "ViewCourseScoreboard.h"
+#include "ViewStudentInCourse.h"
 
 struct Scene
 {
@@ -82,6 +84,8 @@ struct Scene
 	ViewStudentInClassScene* viewstudentinclass = nullptr;
 	UpdateCourseInformationScene* updatecourseinformation = nullptr;
 	AddClassCourseScene* addclasscourse = nullptr;
+	ViewScoreboardCourseScene* viewcoursescoreboard = nullptr;
+	ViewStudentCourseScene* viewstudentincourse = nullptr;
 
 	Scene() {
 		a->currentState = programState::Welcome;
@@ -166,6 +170,10 @@ struct Scene
 			delete updatecourseinformation;
 		if (addclasscourse != nullptr)
 			delete addclasscourse;
+		if (viewcoursescoreboard != nullptr)
+			delete viewcoursescoreboard;
+		if (viewstudentincourse != nullptr)
+			delete viewstudentincourse;
 		delete a;
 
 	}
