@@ -19,11 +19,11 @@ CourseAddStudentManuallyScene::CourseAddStudentManuallyScene(Static* a)
 
 	createABox(firstname, sf::Vector2f(400.0f, 150.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 450.0f));
 	createText(firstnameText, a->fontN, sf::Color::White, "", 40, firstname.getPosition().x, firstname.getPosition().y);
-	createText(enterFirstnameHere, a->fontI, sf::Color::White, "ENTER FIRSTNAME HERE", 30, firstname.getPosition().x, firstname.getPosition().y);
+	createText(enterFirstnameHere, a->fontI, sf::Color::White, "ENTER FIRSTNAME HERE", 25, firstname.getPosition().x, firstname.getPosition().y);
 
 	createABox(lastname, sf::Vector2f(400.0f, 150.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f + 600.0f, 450.0f));
 	createText(lastnameText, a->fontN, sf::Color::White, "", 40, lastname.getPosition().x, lastname.getPosition().y);
-	createText(enterLastnameHere, a->fontI, sf::Color::White, "ENTER LASTNAME HERE", 30, lastname.getPosition().x, lastname.getPosition().y);
+	createText(enterLastnameHere, a->fontI, sf::Color::White, "ENTER LASTNAME HERE", 25, lastname.getPosition().x, lastname.getPosition().y);
 
 	createABox(gender, sf::Vector2f(400.0f, 150.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f - 600.0f, 700.0f));
 	createText(genderText, a->fontN, sf::Color::White, "", 40, gender.getPosition().x, gender.getPosition().y);
@@ -31,11 +31,11 @@ CourseAddStudentManuallyScene::CourseAddStudentManuallyScene(Static* a)
 
 	createABox(birthday, sf::Vector2f(400.0f, 150.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 700.0f));
 	createText(birthdayText, a->fontN, sf::Color::White, "", 40, birthday.getPosition().x, birthday.getPosition().y);
-	createText(enterbirthdayHere, a->fontI, sf::Color::White, "ENTER BIRTHDAY HERE", 30, birthday.getPosition().x, birthday.getPosition().y);
+	createText(enterbirthdayHere, a->fontI, sf::Color::White, "ENTER BIRTHDAY HERE", 25, birthday.getPosition().x, birthday.getPosition().y);
 
 	createABox(sID, sf::Vector2f(400.0f, 150.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f + 600.0f, 700.0f));
 	createText(sIDText, a->fontN, sf::Color::White, "", 40, sID.getPosition().x, sID.getPosition().y);
-	createText(entersIDHere, a->fontI, sf::Color::White, "ENTER SOCIAL ID HERE", 30, sID.getPosition().x, sID.getPosition().y);
+	createText(entersIDHere, a->fontI, sf::Color::White, "ENTER SOCIAL ID HERE", 25, sID.getPosition().x, sID.getPosition().y);
 
 }
 
