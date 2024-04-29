@@ -580,8 +580,8 @@ int Course::ImportScoreboard(Static* a, std::string path)
         studentScore* cur = new studentScore;
         getline(s, no, ',');
         getline(s, cur->studentID, ',');
-        getline(s, cur->firstName, ',');
         getline(s, cur->lastName, ',');
+        getline(s, cur->firstName, ',');
         getline(s, FinalMark, ',');
         getline(s, MidtermMark, ',');
         getline(s, OtherMark, ',');
@@ -593,7 +593,7 @@ int Course::ImportScoreboard(Static* a, std::string path)
         cur->midtermMark = MidtermMark.empty() ? -1 : std::stod(MidtermMark);
         cur->finalMark = FinalMark.empty() ? -1 : std::stod(FinalMark);
         cur->otherMark = OtherMark.empty() ? -1 : std::stod(OtherMark);
-        cur->totalMark = TotalMark.empty() ? -1 : std::stoi(TotalMark);
+        cur->totalMark = TotalMark.empty() ? -1 : std::stod(TotalMark);
 
 
         if (!pHeadScore)
@@ -627,8 +627,9 @@ int Course::ImportScoreboard(Static* a, std::string path)
         studentScore* cur = pHeadScore;
         while (cur)
         {
-            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->lastName + ',' + cur->firstName + ',' + std::to_string(cur->finalMark) + std::to_string(cur->midtermMark) + ',' + std::to_string(cur->otherMark) + ',' + std::to_string(cur->totalMark);
-            fOut << tmp << std::endl;
+            fOut << cur->No << ',' << cur->studentID << ',' << cur->lastName << ',' << cur->firstName << ','
+                << std::fixed << std::setprecision(2) << cur->finalMark << ',' << cur->midtermMark << ','
+                << cur->otherMark << ',' << cur->totalMark << std::endl;
             cur = cur->pNext;
         }
     }
