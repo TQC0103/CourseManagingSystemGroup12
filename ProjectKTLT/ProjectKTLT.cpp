@@ -845,30 +845,3 @@ int main() {
 //////return 0;
 //
 //
-#include<iostream>
-#include"Class.h"
-#include"config.h"
-#include"Student.h"
-#include"SchoolYear.h"
-#include"semester.h"
-#include"Course.h"
-int main() {
-	Static *a = new Static;
-	a->curClass = new Class;
-	a->curClass->name = "20APCS01";
-	Class* b = new Class;
-	b->loadStudents(a);
-	std::cout << b->pHeadListClasses->name;
-	student *cur = b->isExist(a)->pHeadListStudents;
-	while (cur) {
-		std::cout << cur->No << " " << cur->studentID << " " << cur->firstName << " " << cur->lastName <<"\n";
-		cur = cur->pNext;
-
-	}
-	delete a->curClass;
-	delete a;
-	
-	delete b;
-
-	return 0;
-}
