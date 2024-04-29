@@ -23,6 +23,8 @@ struct ViewScoreboardScene
 	float tableHeight = 0;
 	sf::RectangleShape** recA;
 	sf::Text** textA;
+	sf::RectangleShape* recAverage;
+	sf::Text* textAverage;
 	int numCourse = 0;
 	ViewScoreboardScene(Static* a);
 	void drawViewScoreboardScene(sf::RenderWindow& window, Static* a);
