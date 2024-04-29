@@ -8,6 +8,8 @@
 
 ViewScoreboardScene::ViewScoreboardScene(Static* a)
 {
+	recAverage = nullptr;
+	textAverage = nullptr;
 	recA = nullptr;
 	textA = nullptr;
 	createABox(viewScoreStudentBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
@@ -233,6 +235,8 @@ ViewScoreboardScene::~ViewScoreboardScene()
 		}
 		delete[] recA;
 		delete[] textA;
+		delete[] recAverage;
+		delete[] textAverage;
 	}
 	delete stu;
 

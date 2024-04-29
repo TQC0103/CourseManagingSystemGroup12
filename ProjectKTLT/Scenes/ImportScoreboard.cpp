@@ -81,7 +81,7 @@ void ImportScoreboardScene::renderImportScoreboard(sf::Event event, Scene* scene
 			scene->menuclasscourse = new MenuClassCourseScene(scene->a);
 		delete scene->importscoreboard;
 		scene->importscoreboard = nullptr;
-		scene->a->currentState = programState::ImportScoreboard;
+		scene->a->currentState = programState::MenuClassCourse;
 	}
 
 	if (event.type == sf::Event::MouseButtonPressed)
