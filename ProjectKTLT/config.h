@@ -10,7 +10,7 @@ struct Course;
 enum programState { Welcome, SignIn, SignInAsStudent, SignInAsStaff, MenuStaff, MenuStudent, ChangePassStu, ChangePassSta, ViewStudentProfile, ChooseSchoolYear, MenuSchoolYear
 , ChooseClass, MenuClass, ChooseSemester, MenuSemester, ChooseSchoolYearStudent, ChooseSemesterStudent, MenuSemesterStudent, AddStudentCLass, CreateSemester, AddStudentClassManually, AddStudentClassFile,
 ChooseCourses, ChooseClassCourse, MenuCourse, CreateClass, MenuClassCourse, CourseManageScoreBoard, CourseManageStudent, AddStudentCourse, ImportScoreboard, CourseAddStudentManually, CourseAddStudentFIle,
-ViewCoursesStudent, ViewScoreboardStudent, AddCourseToSemester, ViewStudentInClass, UpdateCourseInformation, AddClassCourse, ViewCourseScoreboard, ViewCourseStudent
+ViewCoursesStudent, ViewScoreboardStudent, AddCourseToSemester, ViewStudentInClass, UpdateCourseInformation, AddClassCourse, ViewCourseScoreboard, ViewCourseStudent, ChooseSchoolYearClass, ChooseSemesterClass
 };
 struct Static
 {
