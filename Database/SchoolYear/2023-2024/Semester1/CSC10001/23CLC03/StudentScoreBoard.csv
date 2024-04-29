@@ -1,6 +1,11 @@
-No,Student ID,Last Name,First Name,Final,Midterm,Other,Total
-1,21127031,Nguyen Ngoc,Lan,8.5,7.2,0.5,8.4
-2,21127032,Truong My,Loc,8.7,8.4,0.2,8.8
-3,21127033,Dinh Ngoc,Duong,1,10,-0.5,5
-4,21127034,Truong,Duong,4.2,9.3,-0.2,6.6
-5,21127035,Tran Cong,Tuan,3.1,9.2,0.2,6.4
+No,Student ID,Last Name,First Name,Final,Midterm,Others,Overall
+1,23127158,Nguyen Thanh Gia,Bao,6.7,7.8,7.7,7.4
+2,23127333,Truong Quoc,Cuong,8,8.5,8.7,8.4
+3,23127002,Le Nhat,Khoi,8.4,9.8,7.6,8.6
+4,23127165,Nguyen Hai,Dang,8.7,7.8,9,8.5
+5,23127404,Le Tuan,Loc,8.9,8.7,9.1,8.9
+6,23127181,Nguyen Tran Quoc,Duy,9.4,9.3,9.3,9.3
+7,23127144,Dinh Dai,Vu,9.7,8.6,8.4,8.9
+8,23127189,Tran Trong,Hieu,9.8,9.8,9.8,9.8
+9,23127271,Nguyen Ngoc Bich,Tram,10,10,10,10
+10,23127011,Le Anh,Duy,10,8.7,9.7,9.5

@@ -227,7 +227,7 @@ int Course::loadStudentScoreInTheCourse(Static* a)
             getline(s, finalMark, ',');
             getline(s, midtermMark, ',');
             getline(s, otherMark, ',');
-            getline(s, totalMark, ',');
+            getline(s, totalMark);
 
             int StudentNo = std::stoi(No);
             //double overall = std::stod(finalMark) * (double)0.5 + std::stod(midtermMark) * (double)0.2 + std::stod(otherMark) * (double)0.3;
@@ -425,6 +425,7 @@ bool Course::addStudentManually(Static* a, int No, std::string ID, std::string F
 
     // Update the csv file
     exportStudentListToFile(a);
+
     return true;
 }
     
@@ -534,7 +535,7 @@ bool Course::ExportClass(Static* a)
     }
     else
     {
-        fOut << "No,Student ID,Last Name,First Name,Final,Midterm,Others,Total" << std::endl;
+        fOut << "No,Student ID,Last Name,First Name,Final,Midterm,Others,Overall" << std::endl;
         student* cur = pHeadStudent;
         while (cur)
         {
@@ -565,7 +566,7 @@ int Course::ImportScoreboard(Static* a, std::string path)
     getline(fIn, check);
 
 
-    if (check != "No,Student ID,Last Name,First Name,Final,Midterm,Others,Total")
+    if (check != "No,Student ID,Last Name,First Name,Final,Midterm,Others,Overall")
     {
         std::cout << "The header of the file is not correct. Please check the file again" << std::endl;
         fIn.close();
@@ -622,7 +623,7 @@ int Course::ImportScoreboard(Static* a, std::string path)
     }
     else
     {
-        fOut << "No,Student ID,Last Name,First Name,Final,Midterm,Others,Total" << std::endl;
+        fOut << "No,Student ID,Last Name,First Name,Final,Midterm,Others,Overall" << std::endl;
         studentScore* cur = pHeadScore;
         while (cur)
         {
@@ -720,7 +721,7 @@ int Course::addClasstoCourse(Static* a, std::string classname, std::string lectu
     fOut.close();
 
     fOut.open(path + "/StudentScoreBoard.csv");
-    fOut << "No,StudentID,Last Name,First Name,Final,Midterm,Others,Total\n";
+    fOut << "No,StudentID,Last Name,First Name,Final,Midterm,Others,Overall\n";
     fOut.close();   
 
     fOut.open(path + "/information.txt");
