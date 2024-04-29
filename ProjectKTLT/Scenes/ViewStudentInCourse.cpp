@@ -1,10 +1,10 @@
-#include "ViewCourseScoreboard.h"
+#include "ViewStudentInCourse.h"
 #include "Scene.h"
 #include <SFML/Graphics.hpp>
 #include "../config.h"
 #include "../UserInterface.h"
 
-ViewScoreboardCourseScene::ViewScoreboardCourseScene(Static* a)
+ViewStudentCourseScene::ViewStudentCourseScene(Static* a)
 {
 	scrollOffset = 0.0f;
 	createABox(hideBack, sf::Vector2f((float)a->width, 250.0f), a->backGroundWhite, sf::Vector2f(a->width / 2.0f, 125.0f));
@@ -12,12 +12,12 @@ ViewScoreboardCourseScene::ViewScoreboardCourseScene(Static* a)
 
 	recA = nullptr;
 	textA = nullptr;
-	createABox(viewScoreCourseBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
-	createText(title, a->fontB, a->textColorBlue, "Course's Scoreboard", 60, (float)a->width / 2.0f, 75.0f);
-	createText(viewScoreCourseText, a->fontB, a->textColorBlue, a->curCourse->Name + " - " + a->curCourse->className, 60, (float)a->width / 2.0f, 175.0f);
+	createABox(viewStuCourseBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
+	createText(title, a->fontB, a->textColorBlue, "Course's Students", 60, (float)a->width / 2.0f, 75.0f);
+	createText(viewStuCourseText, a->fontB, a->textColorBlue, a->curCourse->Name + " - " + a->curCourse->className, 60, (float)a->width / 2.0f, 175.0f);
 	createCornerRoundedButton(preButton, preText, sf::Vector2f(200.0f, 100.0f), 30.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(100.0f, a->height - 1100.0f), 2.0f, sf::Color::Black);
 	c = new Course;
-	table = c->viewAllStudentsScoreInACourse(a, numStudent);
+	table = c->viewAllStudentsInACourse(a, numStudent);
 	if (numStudent == 0)
 	{
 		createText(needParticipationText, a->fontB, a->blurGrey, "No students in this course", 100, (float)a->width / 2.0f, (float)a->height / 2.0f);
@@ -27,14 +27,14 @@ ViewScoreboardCourseScene::ViewScoreboardCourseScene(Static* a)
 		textA = new sf::Text * [numStudent + 1];
 		for (int i = 0; i < numStudent + 1; i++)
 		{
-			recA[i] = new sf::RectangleShape[8];
-			textA[i] = new sf::Text[8];
+			recA[i] = new sf::RectangleShape[7];
+			textA[i] = new sf::Text[7];
 		}
 		float cellHeight = 100.0f;
 		float cellWidth = 100.0f;
 		sf::Vector2f pos = sf::Vector2f(200.0f, 300.0f);
 		for (int i = 0; i < numStudent + 1; i++) {
-			for (int j = 0; j < 8; j++) {
+			for (int j = 0; j < 7; j++) {
 				// Draw cell
 				if (i == 0)
 				{
@@ -42,7 +42,7 @@ ViewScoreboardCourseScene::ViewScoreboardCourseScene(Static* a)
 					{
 					case 0:
 					{
-						cellWidth = 150.0f;
+						cellWidth = 125.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(pos.x, pos.y));
 						createText(textA[i][j], a->fontB, a->backGroundWhite, "No", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
@@ -65,22 +65,18 @@ ViewScoreboardCourseScene::ViewScoreboardCourseScene(Static* a)
 					case 4:
 						cellWidth = 200.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontB, a->backGroundWhite, "Final", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Gender", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
 					case 5:
-						cellWidth = 200.0f;
+						cellWidth = 300.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontB, a->backGroundWhite, "Midterm", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Date of birth", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
 					case 6:
-						cellWidth = 200.0f;
+						cellWidth = 300.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontB, a->backGroundWhite, "Others", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Social ID", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
-					case 7:
-						cellWidth = 200.0f;
-						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontB, a->backGroundWhite, "Overall", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 					default:
 						break;
 					}
@@ -107,7 +103,7 @@ ViewScoreboardCourseScene::ViewScoreboardCourseScene(Static* a)
 		{
 			tableHeight += recA[i][0].getSize().y;
 		}
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 7; i++)
 		{
 			tableWidth += recA[0][i].getSize().x;
 		}
@@ -121,16 +117,16 @@ ViewScoreboardCourseScene::ViewScoreboardCourseScene(Static* a)
 
 }
 
-void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& window, Static* a)
+void ViewStudentCourseScene::drawViewStudentCourseScene(sf::RenderWindow& window, Static* a)
 {
-	window.draw(viewScoreCourseBackground);
-	
+	window.draw(viewStuCourseBackground);
+
 	if (numStudent == 0)
 		window.draw(needParticipationText);
 	else
 	{
 		for (int i = numStudent; i >= 1; i--) {
-			for (int j = 0; j < 8; j++) {
+			for (int j = 0; j < 7; j++) {
 				recA[i][j].setPosition(recA[i][j].getPosition().x, 300.0f + (float)i * recA[i][j].getSize().y - scrollOffset);
 				textA[i][j].setPosition(textA[i][j].getPosition().x, 300.0f + (float)i * recA[i][j].getSize().y - scrollOffset);
 				window.draw(recA[i][j]);
@@ -143,13 +139,13 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 			createABox(line, sf::Vector2f(tableWidth, 2.0f), a->backGroundWhiteDarker, sf::Vector2f(recA[1][0].getGlobalBounds().left + tableWidth / 2.0f, recA[i][0].getGlobalBounds().top));
 			window.draw(line);
 		}
-		for (int i = 1; i < 8; i++)
+		for (int i = 1; i < 7; i++)
 		{
 			sf::RectangleShape line;
 			createABox(line, sf::Vector2f(2.0f, tableHeight), a->backGroundWhiteDarker, sf::Vector2f(recA[1][i].getGlobalBounds().left, recA[1][1].getGlobalBounds().top - 100.0f + tableHeight / 2.0f));
 			window.draw(line);
 		}
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 7; i++)
 		{
 			window.draw(recA[0][i]);
 			window.draw(textA[0][i]);
@@ -163,7 +159,7 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 	}
 	window.draw(hideBack);
 	window.draw(title);
-	window.draw(viewScoreCourseText);
+	window.draw(viewStuCourseText);
 	window.draw(preButton);
 	window.draw(preText);
 	if (numStudent > 8)
@@ -171,10 +167,10 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 
 }
 
-void ViewScoreboardCourseScene::renderViewScoreboardCourseScene(sf::Event event, Scene* scene, sf::RenderWindow& window)
+void ViewStudentCourseScene::renderViewStudentCourseScene(sf::Event event, Scene* scene, sf::RenderWindow& window)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-	if (scene->a->currentState == programState::ViewCourseScoreboard && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	if (scene->a->currentState == programState::ViewCourseStudent && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
 		preButton.setFillColor(scene->a->pastelTitleCyan);
 		preText.setFillColor(scene->a->titleGreyColor);
@@ -191,11 +187,11 @@ void ViewScoreboardCourseScene::renderViewScoreboardCourseScene(sf::Event event,
 		{
 			if (preButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				delete scene->viewcoursescoreboard;
-				scene->viewcoursescoreboard = nullptr;
-				scene->a->currentState = programState::CourseManageScoreBoard;
-				if (scene->coursemanagescoreboard == nullptr)
-					scene->coursemanagescoreboard = new CourseManageScoreBoardScene(scene->a);
+				delete scene->viewstudentincourse;
+				scene->viewstudentincourse = nullptr;
+				scene->a->currentState = programState::CourseManageStudent;
+				if (scene->coursemanagestudent == nullptr)
+					scene->coursemanagestudent = new CourseManageStudentScene(scene->a);
 			}
 			else if (scrollbar.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
@@ -208,7 +204,7 @@ void ViewScoreboardCourseScene::renderViewScoreboardCourseScene(sf::Event event,
 		renderScrollbar(scrollbar, scrollbarArea, window, scrollOffset, event, isDragging, scene->a, sf::Vector2f(1700.0f, 275.0f), sizedisplay, fullsize);
 }
 
-ViewScoreboardCourseScene::~ViewScoreboardCourseScene()
+ViewStudentCourseScene::~ViewStudentCourseScene()
 {
 	if (numStudent != 0)
 	{

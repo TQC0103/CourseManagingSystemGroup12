@@ -12,8 +12,8 @@ AddStudentClassFileScene::AddStudentClassFileScene(Static *a)
 	createCornerRoundedButton(preButton, preButtonText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createCornerRoundedButton(submitButton, submitButtonText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Enter", sf::Vector2f(a->width - 150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	
-	createABox(chooseFileButton, sf::Vector2f(1200.0f, 300.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, a->height / 2.0f));
-	createText(chooseFileButtonText, a->fontI, sf::Color::White, "CLICK HERE TO SELECT FILE", 50, chooseFileButton.getPosition().x, chooseFileButton.getPosition().y);
+	createABox(chooseFileButton, sf::Vector2f(1200.0f, 200.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, a->height / 2.0f));
+	createText(chooseFileButtonText, a->fontI, sf::Color::White, "CLICK HERE TO SELECT FILE", 40, chooseFileButton.getPosition().x, chooseFileButton.getPosition().y);
 }
 
 void AddStudentClassFileScene::drawAddFromFile(sf::RenderWindow& win, Static* a)

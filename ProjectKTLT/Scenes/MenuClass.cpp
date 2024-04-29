@@ -92,7 +92,11 @@ void MenuClassScene::renderMenuClass(sf::Event event, Scene *scene, sf::RenderWi
 			}
 			else if (viewStudentGPA.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-
+				delete scene->menuclass;
+				scene->menuclass = nullptr;
+				if(scene->chooseschoolyearclass == nullptr)
+					scene->chooseschoolyearclass = new ChooseSchoolYearClassScene(scene->a);
+				scene->a->currentState = programState::ChooseSchoolYearClass;
 			}
 			else if (viewMembers.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{

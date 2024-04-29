@@ -39,7 +39,12 @@ ChooseCoursesScene::ChooseCoursesScene(Static* a)
             std::string text2 =  tmpHead->Name;
             createCornerRoundedButton(button, label, sf::Vector2f(500.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "", sf::Vector2f((float)a->width / 2.0f - 350.0f, 400.0f + (i / 2) * 300.0f), 2.0f, sf::Color::Black);
             createText(label, a->fontB, sf::Color::White, text, 40, button.getPosition().x, button.getPosition().y + 30);
-            createText(label2, a->fontB, sf::Color::White, text2, 40, button.getPosition().x, button.getPosition().y - 30);
+            if(text2.length() > 25)
+				createText(label2, a->fontB, sf::Color::White, text2, 27, button.getPosition().x, button.getPosition().y - 30);
+            else if(text2.length() > 20)
+                createText(label2, a->fontB, sf::Color::White, text2, 30, button.getPosition().x, button.getPosition().y - 30);
+			else
+				createText(label2, a->fontB, sf::Color::White, text2, 40, button.getPosition().x, button.getPosition().y - 30);
         }
         else
         {
@@ -47,7 +52,12 @@ ChooseCoursesScene::ChooseCoursesScene(Static* a)
             std::string text2 =  tmpHead->Name;
             createCornerRoundedButton(button, label, sf::Vector2f(500.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "", sf::Vector2f((float)a->width / 2.0f + 350.0f, 400.0f + (i / 2) * 300.0f), 2.0f, sf::Color::Black);
             createText(label, a->fontB, sf::Color::White, text, 40, button.getPosition().x, button.getPosition().y + 30);
-            createText(label2, a->fontB, sf::Color::White, text2, 40, button.getPosition().x, button.getPosition().y - 30);
+            if (text2.length() > 25)
+                createText(label2, a->fontB, sf::Color::White, text2, 27, button.getPosition().x, button.getPosition().y - 30);
+            else if (text2.length() > 20)
+                createText(label2, a->fontB, sf::Color::White, text2, 30, button.getPosition().x, button.getPosition().y - 30);
+            else
+                createText(label2, a->fontB, sf::Color::White, text2, 40, button.getPosition().x, button.getPosition().y - 30);
         }
         buttons[i] = button;
         labels[i] = label;

@@ -224,6 +224,21 @@ int main() {
 				scene->viewcoursescoreboard->renderViewScoreboardCourseScene(event, scene, window);
 				break;
 			}
+            case programState::ViewCourseStudent:
+			{
+                scene->viewstudentincourse->renderViewStudentCourseScene(event, scene, window);
+                break;
+            }
+            case programState::ChooseSchoolYearClass:
+			{
+				scene->chooseschoolyearclass->renderChooseSchoolYearClassScene(event, scene, window);
+				break;
+			}
+            case programState::ChooseSemesterClass:
+            {
+                scene->choosesemesterclass->renderChooseSemesterClassScene(event, scene, window);
+                break;
+            }
             default:
                 break;
             }
@@ -432,6 +447,21 @@ int main() {
             case programState::ViewCourseScoreboard:
             {
 				scene->viewcoursescoreboard->drawViewScoreboardCourseScene(window, scene->a);
+				break;
+			}
+            case programState::ViewCourseStudent:
+            {
+				scene->viewstudentincourse->drawViewStudentCourseScene(window, scene->a);
+				break;
+			}
+            case programState::ChooseSchoolYearClass:
+			{
+                scene->chooseschoolyearclass->drawChooseSchoolYearClassScene(window, scene->a);
+                break;
+            }
+            case programState::ChooseSemesterClass:
+			{
+				scene->choosesemesterclass->drawChooseSemesterClassScene(window, scene->a);
 				break;
 			}
             default:

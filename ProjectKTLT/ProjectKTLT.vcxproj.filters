@@ -148,6 +148,15 @@
     <ClCompile Include="Scenes\ViewCourseScoreboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\ViewStudentInCourse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\ChooseSchoolYearClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\ChooseSemesterClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scenes\ChangePassStaff.h">
@@ -295,6 +304,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\ViewCourseScoreboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\ViewStudentInCourse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\ChooseSchoolYearClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\ChooseSemesterClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

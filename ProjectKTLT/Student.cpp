@@ -19,9 +19,7 @@ void student::loadStudentProfile(std::string username)
     if(std::getline(file, profile))
     {
         std::istringstream iss(profile);
-        std::string sNum, dob;
-        std::getline(iss, sNum, ',');
-        No = stoi(sNum);
+        std::string dob;
         std::getline(iss, studentID, ',');
         std::getline(iss, firstName, ',');
         std::getline(iss, lastName, ',');
@@ -52,7 +50,6 @@ std::string student::viewStudentProfile()
         return "Your profile is not exsit";
     }
     std::string studentProfile;
-    studentProfile += "No: " + std::to_string(No) + "\n";
     studentProfile += "ID: " + studentID +"\n";
     studentProfile += "Name: " + lastName + " " + firstName + "\n";
     studentProfile += "Gender: " + gender + "\n";
@@ -64,12 +61,6 @@ std::string student::viewStudentProfile()
 
 
 
-
-double student::calculateOverall(double final, double midterm, double other)
-{
-    double res = final * (double)0.5 + midterm * (double)0.2 + other * (double)0.3;
-    return res;
-}
 
 
 
@@ -155,15 +146,11 @@ std::string** student::getStudentScoreBoard(Static* a, int& n)
             res[i][0] = cur->ID;
             res[i][1] = cur->Name;
             res[i][2] = a->username;
-            for (int j = 3; j < 7; j++)
+            for (int j = 3; j < 8; j++)
             {
                 std::getline(iss, res[i][j], ',');
             }
-            std::getline(iss, res[i][7], '\n');
-            double overall = calculateOverall(std::stod(res[i][5]), std::stod(res[i][6]), std::stod(res[i][7]));
-            std::ostringstream streamObj;
-            streamObj << std::fixed << std::setprecision(2) << overall;
-            res[i][8] = streamObj.str();
+            std::getline(iss, res[i][8], '\n');
             break;
         }
         fIn.close();
