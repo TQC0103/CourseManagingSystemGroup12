@@ -45,7 +45,9 @@ struct schoolYear {
 
 
 	// This function is to calculate GPA for all students in a class in a school year
-	float GPASchoolYear(Static* a); 
+	double GPA = 0;
+	schoolYear* GPAYear = nullptr;
+	bool getGPASchoolYear(Static* a); 
 
 	// Deallocate
 	

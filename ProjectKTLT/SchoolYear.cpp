@@ -362,6 +362,158 @@ int schoolYear::addSemester(std::string& data, std::string start, std::string en
 
 
 
+
+
+
+
+
+bool schoolYear::getGPASchoolYear(Static* a)
+{
+	
+
+	schoolYear* GPAStudents = GPAYear;
+
+	int nSemester = 0;
+	nSemester = std::stoi(a->curSemester->semesterData.substr(8, 1));
+	switch (nSemester)
+	{
+	case 1:
+	{
+		semester* Semester1 = new semester;
+		a->curSemester->semesterData = "Semester1";
+		int n1 = Semester1->getGPASemester(a);
+		if (n1 == 0)
+		{
+			
+			delete Semester1;
+			return false;
+			
+		}
+		semester* cur = Semester1->GPASemester;
+		while(cur)
+		{
+			if (GPAYear == nullptr)
+			{
+				GPAYear = new schoolYear;
+				GPAStudents = GPAYear;
+			}
+			else {
+				GPAStudents->pNext = new schoolYear;
+				GPAStudents = GPAStudents->pNext;
+			}
+			GPAStudents->GPA = Semester1->GPA;
+			cur = cur->pNext;
+		}
+		delete Semester1;
+		break;
+		
+	}
+	case 2:
+	{
+		semester* Semester1 = new semester;
+		a->curSemester->semesterData = "Semester1";
+		int n1 = Semester1->getGPASemester(a);
+		semester* Semester2 = new semester;
+		a->curSemester->semesterData = "Semester2";
+		int n2 = Semester2->getGPASemester(a);
+		if (n1 == 0 || n2 == 0)
+		{
+			
+			delete Semester1;
+			delete Semester2;
+			return false;
+		}
+		semester * cur1 = Semester1->GPASemester;
+		semester* cur2 = Semester2->GPASemester;
+		while (cur1)
+		{
+			if (GPAYear == nullptr)
+			{
+				GPAYear = new schoolYear;
+				GPAStudents = GPAYear;
+			}
+			else {
+				GPAStudents->pNext = new schoolYear;
+				GPAStudents = GPAStudents->pNext;
+			}
+			// This means that student have not completed 2 semesters
+			if (cur1->GPA == -1 || cur2->GPA == -1)
+			{
+				GPAStudents->GPA = -1;
+			}
+			else {
+				GPAStudents->GPA = (cur1->GPA + cur2->GPA) / 2;
+			}
+			cur1 = cur1->pNext;
+			cur2 = cur2->pNext;
+
+		}
+		delete Semester1;
+		delete Semester2;
+		break;
+
+	}
+	case 3:
+	{
+		semester* Semester1 = new semester;
+		a->curSemester->semesterData = "Semester1";
+		int n1 = Semester1->getGPASemester(a);
+		semester* Semester2 = new semester;
+		a->curSemester->semesterData = "Semester2";
+		int n2 = Semester2->getGPASemester(a);
+		semester * Semester3 = new semester;
+		a->curSemester->semesterData = "Semester3";
+		int n3 = Semester3->getGPASemester(a);
+
+		if (n1 == 0 || n2 == 0 || n3 == 0)
+		{
+			
+			delete Semester1;
+			delete Semester2;
+			delete Semester3;
+			return false;
+		}
+		semester* cur1 = Semester1->GPASemester;
+		semester* cur2 = Semester2->GPASemester;
+		semester* cur3 = Semester3->GPASemester;
+		while (cur1)
+		{
+			if (GPAYear == nullptr)
+			{
+				GPAYear = new schoolYear;
+				GPAStudents = GPAYear;
+			}
+			else {
+				GPAStudents->pNext = new schoolYear;
+				GPAStudents = GPAStudents->pNext;
+			}
+			// This means that student have not completed 2 semesters
+			if (cur1->GPA == -1 || cur2->GPA == -1 || cur3->GPA == -1)
+			{
+				GPAStudents->GPA = -1;
+			}
+			else {
+				GPAStudents->GPA = (cur1->GPA + cur2->GPA + cur3->GPA) / 3;
+			}
+			cur1 = cur1->pNext;
+			cur2 = cur2->pNext;
+			cur3 = cur3->pNext;
+		}
+		delete Semester1;
+		delete Semester2;
+		delete Semester3;
+		break;
+	}
+	}
+
+	if (GPAStudents)
+	{
+		GPAStudents->pNext = nullptr;
+	}
+
+	return true;
+}
+
 schoolYear::~schoolYear()
 {
 	while (pHeadSemester)

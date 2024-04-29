@@ -390,67 +390,75 @@ bool semester::getGPASemester(Static* a)
 {
 	
 	semester* GPAstudent = GPASemester;
-	std::ifstream fin;
-	fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
-	if (!fin.is_open())
+	// Load all course for that Class in that semester
+	semester* ourCourse = new semester;
+	int numCourse = ourCourse->specifyCourseForStudent(a);
+	if (numCourse == 0)
 	{
-		fin.close();
-		std::cerr << "Can't open file" << std::endl;
+		std::cerr << "Can't load course for student" << std::endl;
+		delete ourCourse;
 		return false;
 	}
-	std::string count;
-	int numCourse = 0;
-	while (getline(fin, count))
-	{
-		numCourse++;
-	}
-	fin.close();
+
+	
 
 	Course** listScore = new Course *[numCourse];
-
+	// Load number of students in the class
 	Course* listStudent = new Course;
+	a->curCourse->ID = ourCourse->pHeadCourseForStudent->ID;
+	a->curCourse->className = ourCourse->pHeadCourseForStudent->className;
 	int nStudents = listStudent->loadStudentInTheCourse(a);
 
-	fin.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + "courses.txt");
 
-	std::string courseID;
-	std::string courseName;
-	
+
+
+	// Load score of each student in each course
 	int i = 0;
-	while (getline(fin, courseID, ';'))
+	Course* cur = ourCourse->pHeadCourseForStudent;
+	while (cur)
 	{
-		getline(fin, courseName);
-		
-		a->curCourse->ID = courseID;
-
+		a->curCourse->ID = cur->ID;
 		listScore[i] = new Course;
-		
-		// ScoreBoards of Courses are not full
-
+		int n = listScore[i]->loadStudentScoreInTheCourse(a);
+		// Database of scoreboard is not completed
+		if (n == 0)
+		{
+			std::cerr << "Can't load score of course " << cur->ID << std::endl;
+			delete ourCourse;
+			delete listStudent;
+			for (int j = 0; j < i; j++)
+			{
+				delete listScore[j];
+			}
+			delete[] listScore;
+			return false;
+		}
+		cur = cur->pNext;
 		i++;
 	}
-	fin.close();
-	if (i < numCourse)
-	{
-		std::cerr << "ScoreBoards of Courses are not full" << std::endl;
-		for (int j = 0; j < i; j++)
-		{
-			delete listScore[j];
-		}
-		delete[] listScore;
-		return false;
-	}
+
 
 	i = 0;
 
+
+
+
+	// Calculate GPA of each student
 	for (i = 0; i < nStudents; i++)
 	{
 		double GPA = 0;
+		bool Flag = true;
 		for (int j = 0; j < numCourse; j++)
 		{
+			//  This mean that the student did not finish the course so we don't calculate GPA
+			if (listScore[j]->pHeadScore->totalMark == -1)
+			{
+				Flag = false;
+			}
 			GPA += listScore[j]->pHeadScore->totalMark;
 			listScore[j]->pHeadScore = listScore[j]->pHeadScore->pNext;
 		}
+		
 		if (GPASemester == nullptr)
 		{
 			GPASemester = new semester;
@@ -459,19 +467,40 @@ bool semester::getGPASemester(Static* a)
 		else {
 			GPAstudent->pNext = new semester;
 			GPAstudent = GPAstudent->pNext;
+
 		}
-		GPAstudent->GPA = GPA / numCourse;
+		// This mean that the student did not finish all Courses, print NULL
+		if (Flag == false)
+		{
+			GPAstudent->GPA = -1;
+		}
+		// This mean that the student finish all Courses, print GPA
+		else
+		{
+			GPAstudent->GPA = GPA / numCourse;
+		}
+		
 
 	}
 	if (GPAstudent)
 	{
 		GPAstudent->pNext = nullptr;
 	}
+
+
+
+
+
+
+
 	for (int j = 0; j < numCourse; j++)
 	{
 		delete listScore[j];
 	}
 	delete[] listScore;
+	delete ourCourse;
+	delete listStudent;
+
 
 
 	return true;
@@ -497,7 +526,7 @@ semester::~semester()
 	while (GPASemester)
 	{
 		semester* tmp = GPASemester;
-		GPASemester++;
+		GPASemester = GPASemester->pNext;
 		delete tmp;
 	}
 	//delete this;
