@@ -84,7 +84,7 @@ struct Course
 	int addStudentOptions(); //done
 
 	//Add a student to a list in a course manually (done)
-	bool addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string DOB, std::string SocialID);
+	bool addStudentManually(Static* a, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string DOB, std::string SocialID);
 	
 	//Add the student list to the course by a file (done)
 	bool addStudentbyFile(Static* a, std::string path);

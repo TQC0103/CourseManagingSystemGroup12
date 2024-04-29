@@ -384,14 +384,14 @@ bool Course::exportStudentListToFile(Static* a)
 }
 
 // Add student manually
-bool Course::addStudentManually(Static* a, int No, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string birthDay, std::string SocialID)
+bool Course::addStudentManually(Static* a, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string birthDay, std::string SocialID)
 {
     if (!pHeadStudent)
         loadStudentInTheCourse(a);
 
     date DOB = parseDate(birthDay);
 
-    student* tmp = new student(No, ID, FirstName, LastName, Gender, SocialID, DOB);
+    student* tmp = new student(0, ID, FirstName, LastName, Gender, SocialID, DOB);
     std::ifstream fIn;
     fIn.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "classList.csv");
     if (!fIn.is_open())
@@ -510,7 +510,7 @@ bool Course::addStudentbyFile(Static* a, std::string path)
 
         int StudentNo = std::stoi(No);
 
-        if (addStudentManually(a, StudentNo, studentID, firstName, lastName, gender, birthDay, socialID))
+        if (addStudentManually(a, studentID, firstName, lastName, gender, birthDay, socialID))
             std::cout << lastName << " " << firstName << " " << " has been add to the list" << std::endl;
 
     }
