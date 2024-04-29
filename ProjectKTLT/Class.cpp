@@ -126,6 +126,8 @@ int Class::loadStudents(Static* a) {
 	std::string path = "../Database/Class/" + curStudent->name + "/Students/" + curStudent->name + ".csv";
 	int cnt_student = input_Student_from_file(curStudent->pHeadListStudents, path);
 	if (cnt_student == -1) return 0;
+	curStudent->pHeadListStudents = Sort_Student(curStudent->pHeadListStudents);
+	store_No(curStudent->pHeadListStudents);
 	return cnt_student;
 }
 
@@ -284,7 +286,8 @@ int Class::insert_new_Class_keyboard(Static* a, std::string ID, std::string Firs
 	else {
 		cur->pNext = tmp;
 	}
-	
+	new_Class->pHeadListStudents = Sort_Student(new_Class->pHeadListStudents);
+	store_No(new_Class->pHeadListStudents);
 	if (!print_csv(new_Class->pHeadListStudents, a->curClass->name)) {
 		delete new_Class;
 		delete tmp;
@@ -304,13 +307,11 @@ int Class::print_csv(student* a, std::string name_Class) {
 		return 0;
 	}
 	fOut << "No" << "," << "Student ID" << "," << "Last Name" << "," << "First Name" << "," << "Gender" << "," << "Date Of Birth" << "," << "" << "Social ID" << "\n";
-	int cnt = 1;
 	while (a) {
 		std::string tmpBirthday = "";
 		tmpBirthday = tmpBirthday + std::to_string(a->dateOfBirth.d) + "/" + std::to_string(a->dateOfBirth.m) + "/" + std::to_string(a->dateOfBirth.y);
-		fOut << cnt << "," << a->studentID << "," << a->lastName << "," << a->firstName << "," << a->gender << "," << tmpBirthday <<"," << a->socialID << "\n";
+		fOut << a->No << "," << a->studentID << "," << a->lastName << "," << a->firstName << "," << a->gender << "," << tmpBirthday <<"," << a->socialID << "\n";
 		a = a->pNext;
-		cnt++;
 	}
 	fOut.close();
 	return 1;
@@ -492,6 +493,8 @@ int Class :: insert_data_Class_from_path(Static* a, std::string path_keyboard) {
 	if (tmpStudent == NULL) {
 		new_Class->pHeadListStudents = newStudent;
 		tmpStudent = newStudent;
+		new_Class->pHeadListStudents = Sort_Student(new_Class->pHeadListStudents);
+		store_No(new_Class->pHeadListStudents);
 		print_csv(new_Class->pHeadListStudents, a->curClass->name);
 		delete new_Class;
 		return 1;
@@ -500,7 +503,10 @@ int Class :: insert_data_Class_from_path(Static* a, std::string path_keyboard) {
 		tmpStudent = tmpStudent->pNext;
 	}
 	tmpStudent->pNext = newStudent;
+	new_Class->pHeadListStudents = Sort_Student(new_Class->pHeadListStudents);
+	store_No(new_Class->pHeadListStudents);
 	print_csv(new_Class->pHeadListStudents, a->curClass->name);
+
 	delete new_Class;
 	return 1;
 }
@@ -661,6 +667,88 @@ void Class::Sort_Class(Class* new_Class) {
 	pre->pNext = new_Class;
 	//print_txt();
 }
+
+//Sort student by ID use quick sort 
+
+student* getTail(student* head) {
+	while (head != nullptr && head->pNext != nullptr) {
+		head = head->pNext;
+	}
+	return head;
+}
+
+student* partition(student* head, student* end, student** newHead, student** newEnd) {
+	student* pivot = end;
+	student* prev = nullptr;
+	student* current = head;
+	student* tail = pivot;
+
+	while (current != pivot) {
+		if (current->studentID < pivot->studentID) {
+			if (*newHead == nullptr)
+				*newHead = current;
+			prev = current;
+			current = current->pNext;
+		}
+		else {
+			if (prev)
+				prev->pNext = current->pNext;
+			student* temp = current->pNext;
+			current->pNext = nullptr;
+			tail->pNext = current;
+			tail = current;
+			current = temp;
+		}
+	}
+
+	if (*newHead == nullptr)
+		*newHead = pivot;
+
+	*newEnd = tail;
+
+	return pivot;
+}
+
+student* Recursion_forSort(student* head, student* end) {
+	if (!head || head == end)
+		return head;
+
+	student* newHead = nullptr;
+	student* newEnd = nullptr;
+
+	student* pivot = partition(head, end, &newHead, &newEnd);
+
+	if (newHead != pivot) {
+		student* temp = newHead;
+		while (temp->pNext != pivot)
+			temp = temp->pNext;
+		temp->pNext = nullptr;
+
+		newHead = Recursion_forSort(newHead, temp);
+
+		temp = getTail(newHead);
+		temp->pNext = pivot;
+	}
+
+	pivot->pNext = Recursion_forSort(pivot->pNext, newEnd);
+
+	return newHead;
+}
+
+student* Class::Sort_Student(student* head) {
+	return Recursion_forSort(head, getTail(head));
+}
+void Class::store_No(student* liststudent) {
+	student* cur = liststudent;
+	int cnt = 1;
+	while (cur) {
+		cur->No = cnt;
+		cnt++;
+		cur = cur->pNext;
+	}
+
+}
+
 Class::~Class() {
 	Class* cur = pHeadListClasses;
 	while (cur)
@@ -676,6 +764,7 @@ Class::~Class() {
 		delete tmp2;
 	}
 }
+
 
 
 /*

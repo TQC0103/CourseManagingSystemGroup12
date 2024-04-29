@@ -70,6 +70,10 @@ struct Class {
 
 	void Sort_Class(Class* new_Class);
 
+	student* Sort_Student(student* head);
+
+	void store_No(student* liststudent);
+
 	~Class();
 
 	//bool find_Class_of_Student(Static* a);
@@ -86,3 +90,6 @@ struct Class {
 	//void export_File(std::string name_Class, std::string path);
 
 };
+student* getTail(student* head);
+student* partition(student* head, student* end, student** newHead, student** newEnd);
+student* Recursion_forSort(student* head, student* end);
