@@ -20,7 +20,7 @@ struct Course
 		std::string firstName;
 		std::string lastName;
 		double totalMark, finalMark, midtermMark, otherMark;
-		studentScore* pNext;
+		studentScore* pNext = nullptr;
 
 		// Constructor with parameters
 		studentScore(int number, const std::string& id, const std::string& first, const std::string& last, double total, double final, double midterm, double other)

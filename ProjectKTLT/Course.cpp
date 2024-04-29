@@ -227,7 +227,7 @@ int Course::loadStudentScoreInTheCourse(Static* a)
             getline(s, finalMark, ',');
             getline(s, midtermMark, ',');
             getline(s, otherMark, ',');
-            getline(s, totalMark, ',');
+            getline(s, totalMark);
 
             int StudentNo = std::stoi(No);
             //double overall = std::stod(finalMark) * (double)0.5 + std::stod(midtermMark) * (double)0.2 + std::stod(otherMark) * (double)0.3;

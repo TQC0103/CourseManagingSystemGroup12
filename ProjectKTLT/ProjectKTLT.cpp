@@ -477,6 +477,44 @@ int main() {
 }
 
 
+//int main()
+//{
+//	Static* a = new Static;
+//	a->curSchoolYear = new schoolYear;
+//	a->curSemester = new semester;
+//	a->curClass = new Class;
+//	
+//	
+//	a->curSchoolYear->year = "2023-2024";
+//	a->curSemester->semesterData = "Semester2";
+//	a->curClass->name = "23CLC03";
+//
+//	semester * loveU = new semester;
+//	
+//	bool check = loveU->getGPASemester(a);
+//	if (check)
+//	{
+//		std::cout << "Successfull ";
+//		semester* cur = loveU->GPASemester;
+//		while (cur)
+//		{
+//			std::cout << "GPA: " << cur->GPA << std::endl;
+//			cur = cur->pNext;
+//		}
+//	}
+//	else {
+//		std::cout << "Try again";
+//	}
+//	delete a->curClass;
+//	delete a->curSemester;
+//	delete a->curSchoolYear;
+//
+//	delete a;
+//	delete loveU;
+//	return 0;
+//}
+
+
 //
 //
 //}

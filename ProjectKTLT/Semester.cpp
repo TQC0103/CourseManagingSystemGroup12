@@ -404,10 +404,16 @@ bool semester::getGPASemester(Static* a)
 
 	Course** listScore = new Course *[numCourse];
 	// Load number of students in the class
-	Course* listStudent = new Course;
+	
+	Class* myClass = new Class;
+	Course* myCourse = new Course;
+	if (!a->curCourse)
+	{
+		a->curCourse = new Course;
+	}
 	a->curCourse->ID = ourCourse->pHeadCourseForStudent->ID;
-	a->curCourse->className = ourCourse->pHeadCourseForStudent->className;
-	int nStudents = listStudent->loadStudentInTheCourse(a);
+	a->curCourse->className = a->curClass->name;
+	int nStudents = myCourse->loadStudentInTheCourse(a);
 
 
 
@@ -417,6 +423,7 @@ bool semester::getGPASemester(Static* a)
 	Course* cur = ourCourse->pHeadCourseForStudent;
 	while (cur)
 	{
+		
 		a->curCourse->ID = cur->ID;
 		listScore[i] = new Course;
 		int n = listScore[i]->loadStudentScoreInTheCourse(a);
@@ -425,7 +432,7 @@ bool semester::getGPASemester(Static* a)
 		{
 			std::cerr << "Can't load score of course " << cur->ID << std::endl;
 			delete ourCourse;
-			delete listStudent;
+			delete myClass;
 			for (int j = 0; j < i; j++)
 			{
 				delete listScore[j];
@@ -499,7 +506,7 @@ bool semester::getGPASemester(Static* a)
 	}
 	delete[] listScore;
 	delete ourCourse;
-	delete listStudent;
+	delete myClass;
 
 
 
