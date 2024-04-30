@@ -428,7 +428,7 @@ bool Course::addStudentManually(Static* a, std::string ID, std::string FirstName
     return true;
 }
     
-bool Course::deleteStudent(Static* a, std::string ID)
+int Course::deleteStudent(Static* a, std::string ID)
 {
     if (!pHeadStudent)
         loadStudentInTheCourse(a);
@@ -455,18 +455,18 @@ bool Course::deleteStudent(Static* a, std::string ID)
                 // Update the list and file
                 normingNumberInStudentList();
                 exportStudentListToFile(a);
-                return true;
+                return 0;
             }
             prev = tmp;
             tmp = tmp->pNext;
         }
         // If the student ID was not found in the list
-        return false;
+        return 2;
     }
     else
     {
         std::cerr << "There is no student to delete" << std::endl;
-        return false;
+        return 1;
     }
 }
 

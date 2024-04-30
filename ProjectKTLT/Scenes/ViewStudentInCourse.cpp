@@ -7,9 +7,12 @@
 ViewStudentCourseScene::ViewStudentCourseScene(Static* a)
 {
 	scrollOffset = 0.0f;
-	createABox(hideBack, sf::Vector2f((float)a->width, 250.0f), a->backGroundWhite, sf::Vector2f(a->width / 2.0f, 125.0f));
+	createABox(hideBack, sf::Vector2f((float)a->width, 350.0f), a->backGroundWhite, sf::Vector2f(a->width / 2.0f, 175.0f));
 
-
+	remove = a->removeSprite;
+	remove.setOrigin(remove.getLocalBounds().width / 2.0f, remove.getLocalBounds().height / 2.0f);
+	remove.setScale(40.0f / remove.getLocalBounds().width, 40.0f / remove.getLocalBounds().height);
+	
 	recA = nullptr;
 	textA = nullptr;
 	createABox(viewStuCourseBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
@@ -25,6 +28,11 @@ ViewStudentCourseScene::ViewStudentCourseScene(Static* a)
 	else {
 		recA = new sf::RectangleShape * [numStudent + 1];
 		textA = new sf::Text * [numStudent + 1];
+		isClicked = new bool[numStudent + 1];
+		for (int i = 0; i < numStudent + 1; i++)
+		{
+			isClicked[i] = false;
+		}
 		for (int i = 0; i < numStudent + 1; i++)
 		{
 			recA[i] = new sf::RectangleShape[7];
@@ -70,7 +78,7 @@ ViewStudentCourseScene::ViewStudentCourseScene(Static* a)
 					case 5:
 						cellWidth = 300.0f;
 						createABox(recA[i][j], sf::Vector2f(cellWidth, cellHeight), a->highlightCyan, sf::Vector2f(recA[i][j - 1].getPosition().x + cellWidth / 2.0f + recA[i][j - 1].getSize().x / 2.0f, pos.y));
-						createText(textA[i][j], a->fontB, a->backGroundWhite, "Date of birth", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
+						createText(textA[i][j], a->fontB, a->backGroundWhite, "Date Of Birth", 25, recA[i][j].getPosition().x, recA[i][j].getPosition().y);
 						break;
 					case 6:
 						cellWidth = 300.0f;
@@ -125,26 +133,75 @@ void ViewStudentCourseScene::drawViewStudentCourseScene(sf::RenderWindow& window
 		window.draw(needParticipationText);
 	else
 	{
+		// Draw table
 		for (int i = numStudent; i >= 1; i--) {
 			for (int j = 0; j < 7; j++) {
+				if (isClicked[i] == true)
+				{
+					recA[i][j].setFillColor(a->lightCyan);
+					textA[i][j].setFillColor(sf::Color::Black);
+
+				}
+				else
+				{
+					recA[i][j].setFillColor(a->pastelTitleCyan);
+					textA[i][j].setFillColor(a->titleGreyColor);
+				}
+					
 				recA[i][j].setPosition(recA[i][j].getPosition().x, 300.0f + (float)i * recA[i][j].getSize().y - scrollOffset);
 				textA[i][j].setPosition(textA[i][j].getPosition().x, 300.0f + (float)i * recA[i][j].getSize().y - scrollOffset);
 				window.draw(recA[i][j]);
 				window.draw(textA[i][j]);
 			}
 		}
+		
+
+		// Draw horizontal line
 		for (int i = 1; i < numStudent + 1; i++)
 		{
 			sf::RectangleShape line;
 			createABox(line, sf::Vector2f(tableWidth, 2.0f), a->backGroundWhiteDarker, sf::Vector2f(recA[1][0].getGlobalBounds().left + tableWidth / 2.0f, recA[i][0].getGlobalBounds().top));
 			window.draw(line);
 		}
+		// Draw vertical line
 		for (int i = 1; i < 7; i++)
 		{
 			sf::RectangleShape line;
 			createABox(line, sf::Vector2f(2.0f, tableHeight), a->backGroundWhiteDarker, sf::Vector2f(recA[1][i].getGlobalBounds().left, recA[1][1].getGlobalBounds().top - 100.0f + tableHeight / 2.0f));
 			window.draw(line);
 		}
+		
+		// Draw remove button
+		sf::Color lineChosenColor = sf::Color::Black;
+		for (int i = 1; i < numStudent + 1; i++)
+		{
+			if (isClicked[i] == true)
+			{
+				remove.setPosition(recA[i][6].getPosition().x + 185.0f, recA[i][0].getPosition().y);
+				window.draw(remove);
+				//Draw line between
+				for (int j = 0; j < 7; j++)
+				{
+					sf::RectangleShape line;
+					createABox(line, sf::Vector2f(2.0f, recA[i][j].getSize().y), lineChosenColor, sf::Vector2f(recA[i][j].getGlobalBounds().left, recA[i][j].getPosition().y));
+					window.draw(line);
+				}
+				//Draw line last
+				sf::RectangleShape line;
+				createABox(line, sf::Vector2f(2.0f, recA[i][6].getSize().y), lineChosenColor, sf::Vector2f(recA[i][6].getGlobalBounds().left + recA[i][6].getSize().x, recA[i][6].getPosition().y));
+				window.draw(line);
+				//Draw line top and bottom
+				sf::RectangleShape line1;
+				createABox(line1, sf::Vector2f(tableWidth, 2.0f), lineChosenColor, sf::Vector2f(recA[1][0].getGlobalBounds().left + tableWidth / 2.0f, recA[i][0].getGlobalBounds().top));
+				window.draw(line1);
+				sf::RectangleShape line2;
+				createABox(line2, sf::Vector2f(tableWidth, 2.0f), lineChosenColor, sf::Vector2f(recA[1][0].getGlobalBounds().left + tableWidth / 2.0f, recA[i][0].getGlobalBounds().top + recA[i][0].getSize().y));
+				window.draw(line2);
+
+			}
+		}
+		window.draw(hideBack);
+		// Draw line between headers
 		for (int i = 0; i < 7; i++)
 		{
 			window.draw(recA[0][i]);
@@ -156,8 +213,9 @@ void ViewStudentCourseScene::drawViewStudentCourseScene(sf::RenderWindow& window
 				window.draw(line);
 			}
 		}
+		
 	}
-	window.draw(hideBack);
+	
 	window.draw(title);
 	window.draw(viewStuCourseText);
 	window.draw(preButton);
@@ -198,6 +256,48 @@ void ViewStudentCourseScene::renderViewStudentCourseScene(sf::Event event, Scene
 				isDragging = true;
 				scrollbar.setFillColor(scene->a->backGroundWhiteMuchDarker);
 			}
+			else for (int i = 1; i < numStudent + 1; i++)
+			{
+				if (isClicked[i] == true)
+				{
+					if (remove.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+					{
+						int check = c->deleteStudent(scene->a, table[i - 1][1]);
+						if (check == 0)
+						{
+							delete scene->viewstudentincourse;
+							scene->viewstudentincourse = nullptr;
+							if (scene->viewstudentincourse == nullptr)
+								scene->viewstudentincourse = new ViewStudentCourseScene(scene->a);
+						}
+					}
+				}
+			}
+		}
+		else if (event.mouseButton.button == sf::Mouse::Right)
+		{
+			for (int i = 1; i < numStudent + 1; i++)
+			{
+				for (int j = 0; j < 7; j++)
+				{
+					if (recA[i][j].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+					{
+						if (isClicked[i] == false)
+						{
+							for (int k = 0; k < numStudent + 1; k++)
+							{
+								isClicked[k] = false;
+							}
+							isClicked[i] = true;
+						}
+						else
+						{
+							isClicked[i] = false;
+						}
+						break;
+					}
+				}
+			}
 		}
 	}
 	if (numStudent > 8)
@@ -220,6 +320,7 @@ ViewStudentCourseScene::~ViewStudentCourseScene()
 		}
 		delete[] recA;
 		delete[] textA;
+		delete[] isClicked;
 	}
 	delete c;
 
