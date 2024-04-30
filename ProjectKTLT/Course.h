@@ -103,8 +103,6 @@ struct Course
 
 	void updateStudentResult();
 
-	void saveIndividualScore(Course* curCourse);
-
 	// Supportive function
 	void loadDataOfTheCourse(Static *a); //done
 	int loadClassesInCourse(Static* a); //done
@@ -117,7 +115,6 @@ struct Course
 
 	std::string** viewAllStudentsInACourse(Static* a, int &n); // done
 	std::string** viewAllStudentsScoreInACourse(Static* a, int &n);
-	int getAllStudent();
 
 };
 

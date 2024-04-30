@@ -232,7 +232,7 @@ std::string openFile()
     ofn.lpstrFileTitle = NULL;
     ofn.nMaxFileTitle = 0;
     ofn.lpstrInitialDir = NULL;
-    ofn.Flags = OFN_PATHMUSTEXIST;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_NOCHANGEDIR;
 
     if (GetSaveFileNameW(&ofn) == TRUE) // Note the 'W' suffix indicating Unicode version
     {

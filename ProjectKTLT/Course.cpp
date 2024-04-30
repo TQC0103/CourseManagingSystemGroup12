@@ -355,7 +355,7 @@ void Course::sortStudentList(student* tmp)
     }
 }
 
-
+// Export student list to a file
 bool Course::exportStudentListToFile(Static* a)
 {
     std::ofstream fOut;
@@ -518,8 +518,8 @@ int Course::addStudentbyFile(Static* a, std::string path)
 // Export a student list to a "StudentScoreBoard.csv" that don't have mark
 bool Course::ExportClass(Static* a, std::string filename)
 {
-    if (!pHeadStudent)
-        loadStudentInTheCourse(a);
+  
+    int n = loadStudentInTheCourse(a);
 
     normingNumberInStudentList();
     std::ofstream fOut;
@@ -783,7 +783,7 @@ std::string** Course::viewAllStudentsScoreInACourse(Static* a, int &n)
         return nullptr;
     }
     studentScore* cur = tmp->pHeadScore;
-    std::string** allStudentsScore = new std::string * [n];
+    std::string** allStudentsScore = new std::string* [n];
 
     for (int i = 0; i < n; i++)
     {
