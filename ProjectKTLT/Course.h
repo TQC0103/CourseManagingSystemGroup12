@@ -93,7 +93,7 @@ struct Course
 	bool deleteStudent(Static* a, std::string ID); 
 	
 	// Export a student list to a "scoreboard.csv" that don't have mark (done)
-	bool ExportClass(Static* a); 
+	bool ExportClass(Static* a, std::string filename); 
 
 	//Import a scoreboard file and save it in the database (done)
 	int ImportScoreboard(Static* a, std::string path);

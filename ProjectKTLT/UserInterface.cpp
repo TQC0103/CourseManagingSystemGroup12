@@ -3,6 +3,8 @@
 #include "UserInterface.h"
 #include "config.h"
 #include "windows.h"
+#include <commdlg.h>
+#include <fstream>
 
 #define POINTS 20.0f
 
@@ -214,6 +216,38 @@ std::wstring openFileDialog(HWND hwndOwner) {
         return std::wstring(ofn.lpstrFile);
     else
         return std::wstring();
+}
+
+std::string openFile()
+{
+    OPENFILENAMEW ofn; // Note the 'W' suffix indicating Unicode version
+    wchar_t szFile[260] = { 0 };
+
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = L"All\0*.*\0Text\0*.TXT\0"; // Use wide character
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFileTitle = NULL;
+    ofn.nMaxFileTitle = 0;
+    ofn.lpstrInitialDir = NULL;
+    ofn.Flags = OFN_PATHMUSTEXIST;
+
+    if (GetSaveFileNameW(&ofn) == TRUE) // Note the 'W' suffix indicating Unicode version
+    {
+        // Convert wide string to narrow string
+        std::wstring wstr = ofn.lpstrFile;
+        std::string filename(wstr.begin(), wstr.end());
+
+        // Create an empty file at the chosen location
+        std::ofstream file(filename);
+        file.close();
+
+        return filename;
+    }
+
+    return "";
 }
 
 void drawTable(sf::RenderWindow& window, sf::RectangleShape** recA, sf::Text** textA, std::string** data, int rows, int cols, sf::Vector2f& sizeEach, sf::Color& textColor, const float charSize, Static* a, const sf::Vector2f pos) {

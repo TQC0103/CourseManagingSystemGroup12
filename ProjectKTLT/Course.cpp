@@ -516,7 +516,7 @@ int Course::addStudentbyFile(Static* a, std::string path)
 }
 
 // Export a student list to a "StudentScoreBoard.csv" that don't have mark
-bool Course::ExportClass(Static* a)
+bool Course::ExportClass(Static* a, std::string filename)
 {
     if (!pHeadStudent)
         loadStudentInTheCourse(a);
@@ -524,7 +524,7 @@ bool Course::ExportClass(Static* a)
     normingNumberInStudentList();
     std::ofstream fOut;
 
-    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "StudentScoreBoard.csv");
+    fOut.open(filename);
     if (!fOut.is_open())
     {
         std::cerr << "Can't open file" << std::endl;

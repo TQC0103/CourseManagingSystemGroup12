@@ -29,6 +29,11 @@ void CourseManageScoreBoardScene::drawCourseManageScoreBoard(sf::RenderWindow& w
 	window.draw(update1StuRes);
 	window.draw(update1StuResText);
 	window.draw(title);
+	if (clock.getElapsedTime().asSeconds() < 2.0f && isSuccessful == true)
+	{
+		createText(success, a->fontB, a->textColorGreen, "Export class list successfully", 50, a->width / 2.0f, 1000);
+		window.draw(success);
+	}
 }
 
 void CourseManageScoreBoardScene::renderCourseManageScoreBoard(sf::Event event, Scene* scene, sf::RenderWindow& win)
@@ -91,6 +96,15 @@ void CourseManageScoreBoardScene::renderCourseManageScoreBoard(sf::Event event, 
 			else if (exportListStudent.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
 				//export file list of students
+				std::string filename = openFile();
+				Course *c = new Course();	
+				bool check = c->ExportClass(scene->a, filename);
+				delete c;
+				if (check == true)
+				{
+					isSuccessful = true;
+					clock.restart();
+				}
 			}
 			else if (importScoreBoard.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{

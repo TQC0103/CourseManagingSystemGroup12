@@ -1,6 +1,7 @@
 #pragma once
 #include "../config.h"
 #include "../UserInterface.h"
+#include "../Course.h"
 
 struct Scene;
 struct CourseManageScoreBoardScene
@@ -24,6 +25,9 @@ struct CourseManageScoreBoardScene
 	sf::ConvexShape importScoreBoard;
 	sf::Text importScoreBoardText;
 
+	bool isSuccessful = false;
+	sf::Clock clock;
+	sf::Text success;
 
 	CourseManageScoreBoardScene(Static* a);
 	void drawCourseManageScoreBoard(sf::RenderWindow& window, Static* a);
