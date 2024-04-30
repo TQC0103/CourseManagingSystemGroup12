@@ -2,6 +2,7 @@
 #include "../UserInterface.h"
 #include "../config.h"
 #include "windows.h"
+#include "../Course.h"
 
 struct Scene;
 struct AddStudentCourseFileScene
@@ -22,8 +23,11 @@ struct AddStudentCourseFileScene
 	std::string filePath;
 	std::string filePathDisplay;
 
-	bool fileChosen = false;
+	sf::Text fail;
+	sf::Text successful;
 
+	bool fileChosen = false;
+	int isWrong = 0;
 	AddStudentCourseFileScene(Static* a);
 
 	void drawAddFile(sf::RenderWindow& win, Static* a);
