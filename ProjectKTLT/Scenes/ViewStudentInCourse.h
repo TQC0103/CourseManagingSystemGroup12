@@ -35,6 +35,9 @@ struct ViewStudentCourseScene
 	float sizedisplay = 0;
 	float fullsize = 0;
 
+	sf::Sprite remove;
+	bool *isClicked = nullptr;
+
 	ViewStudentCourseScene(Static* a);
 	void drawViewStudentCourseScene(sf::RenderWindow& window, Static* a);
 	void renderViewStudentCourseScene(sf::Event event, Scene* scene, sf::RenderWindow& window);

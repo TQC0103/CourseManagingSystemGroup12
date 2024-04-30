@@ -90,7 +90,7 @@ struct Course
 	int addStudentbyFile(Static* a, std::string path);
 
 	// Check the ID of the student in the class to delete (done)
-	bool deleteStudent(Static* a, std::string ID); 
+	int deleteStudent(Static* a, std::string ID); 
 	
 	// Export a student list to a "scoreboard.csv" that don't have mark (done)
 	bool ExportClass(Static* a, std::string filename); 

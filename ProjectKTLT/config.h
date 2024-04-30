@@ -60,6 +60,8 @@ struct Static
     sf::Sprite backgrSprite;
     sf::Texture hidePassTexture;
     sf::Sprite hidePassSprite;
+    sf::Texture removeTexture;
+    sf::Sprite removeSprite;
     Static()
     {
         if (!backgrTextture.loadFromFile("Background.jpg"))
@@ -72,6 +74,12 @@ struct Static
             static_cast<float>(width) / backgrSprite.getLocalBounds().width, // Scale X
             static_cast<float>(height) / backgrSprite.getLocalBounds().height // Scale Y
         );
+        if (!removeTexture.loadFromFile("remove.png"))
+        {
+			// Handle error
+			std::cerr << "Failed to load remove texture!" << std::endl;
+		}
+        removeSprite.setTexture(removeTexture);
         if (!hidePassTexture.loadFromFile("HidePass.png"))
         {
             // Handle error
