@@ -20,7 +20,7 @@ ViewScoreboardCourseScene::ViewScoreboardCourseScene(Static* a)
 	table = c->viewAllStudentsScoreInACourse(a, numStudent);
 	if (numStudent == 0)
 	{
-		createText(needParticipationText, a->fontB, a->blurGrey, "No students in this course", 100, (float)a->width / 2.0f, (float)a->height / 2.0f);
+		createText(needParticipationText, a->fontB, a->blurGrey, "Scoreboard is not uploaded yet", 100, (float)a->width / 2.0f, (float)a->height / 2.0f);
 	}
 	else {
 		recA = new sf::RectangleShape * [numStudent + 1];
