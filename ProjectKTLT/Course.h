@@ -8,13 +8,13 @@
 #include <cctype>
 #include "config.h"
 #include <direct.h>
+#include <string>
 
 struct Course
 {	
 	//Student score in the course
-#include <string>
-
-	struct studentScore {
+	struct studentScore 
+	{
 		int No;
 		std::string studentID;
 		std::string firstName;
@@ -25,7 +25,7 @@ struct Course
 		// Constructor with parameters
 		studentScore(int number, const std::string& id, const std::string& first, const std::string& last, double total, double final, double midterm, double other)
 			: No(number), studentID(id), firstName(first), lastName(last),
-			 finalMark(final), midtermMark(midterm), otherMark(other), totalMark(total)
+			finalMark(final), midtermMark(midterm), otherMark(other), totalMark(total)
 		{
 		}
 
@@ -101,7 +101,7 @@ struct Course
 	//Add a class to a course (done)
 	int addClasstoCourse(Static* a, std::string classname, std::string lecturer, std::string weekday, std::string session);
 
-	void updateStudentResult();
+	int updateStudentResult(Static* a, std::string ID, std::string midterm, std::string final, std::string total, std::string others);
 
 	// Supportive function
 	void loadDataOfTheCourse(Static *a); //done

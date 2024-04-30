@@ -847,3 +847,92 @@ Course::~Course()
 	}
 }
 
+int Course::updateStudentResult(Static* a, std::string ID, std::string midterm, std::string final, std::string total, std::string others)
+{
+    // Load the score list
+    if (!pHeadScore)
+        loadStudentScoreInTheCourse(a);
+    
+    // Check the ID
+    studentScore* tmp = pHeadScore;
+    bool flag = false;
+    while (tmp)
+    {
+        if (tmp->studentID == ID)
+        {
+            flag = true;
+            break;
+        }
+        tmp = tmp->pNext;
+    }
+
+    if (flag == false)
+    {
+        std::cerr << "Student ID is not exist\n";
+        return 1;
+    }
+
+    double Midterm, Final, Others, Total;
+
+    // If the input was empty, the result would not be changed 
+    Midterm = midterm.empty() ? tmp->midtermMark : std::stod(midterm);
+    Final = final.empty() ? tmp->finalMark : std::stod(final);
+    Others = others.empty() ? tmp->otherMark : std::stod(others);
+    Total = total.empty() ? tmp->finalMark : std::stod(total);
+
+    // Check the score
+    if (Final > 10.0 || Final < 0.0)
+    {
+        std::cerr << "Your input is illegal\n";
+        return 2;
+    }
+
+    if (Midterm > 10.0 || Midterm < 0.0)
+    {
+        std::cerr << "Your input is illegal\n";
+        return 3;
+    }
+
+    if (Others > 10.00 || Others < 0.0)
+    {
+        std::cerr << "Your input is illegal\n";
+        return 4;
+    }
+
+    if (Total > 10.00 || Total < 0.0)
+    {
+        std::cerr << "Your input is illegal\n";
+        return 5;
+    }
+
+    tmp->midtermMark = Midterm;
+    tmp->finalMark = Final;
+    tmp->otherMark = Others;
+    tmp->totalMark = Total;
+
+    //Update the database
+    std::ofstream fOut;
+    fOut.open("../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + a->curCourse->className + "/" + "StudentScoreBoard.csv");
+
+    if (!fOut.is_open())
+    {
+        std::cerr << "Can't open the file" << std::endl;
+        return -1;
+    }
+    else
+    {
+        fOut << "No,Student ID,Last Name,First Name,Final,Midterm,Others,Overall" << std::endl;
+        studentScore* cur = pHeadScore;
+        while (cur)
+        {
+            fOut << cur->No << ',' << cur->studentID << ',' << cur->lastName << ',' << cur->firstName << ','
+                << std::fixed << std::setprecision(2) << cur->finalMark << ',' << cur->midtermMark << ','
+                << cur->otherMark << ',' << cur->totalMark << std::endl;
+            cur = cur->pNext;
+        }
+    }
+
+    fOut.close();
+    return 0;
+}
+
