@@ -367,7 +367,7 @@ bool Course::exportStudentListToFile(Static* a)
     }
     else
     {
-        fOut << "No,Student ID,Last Name,First Name,Gender,Date of Birthday,Social ID" << std::endl;
+        fOut << "No,Student ID,Last Name,First Name,Gender,Date Of Birth,Social ID" << std::endl;
         student* cur = pHeadStudent;
         while (cur)
         {
@@ -488,7 +488,7 @@ bool Course::addStudentbyFile(Static* a, std::string path)
     std::string check;
     getline(fIn, check);
 
-    if (check != "No,Student ID,Last Name,First Name,Gender,Date of Birthday,Social ID")
+    if (check != "No,Student ID,Last Name,First Name,Gender,Date Of Birth,Social ID")
     {
         std::cout << "The header of the file is not correct. Please check the file again" << std::endl;
         fIn.close();
