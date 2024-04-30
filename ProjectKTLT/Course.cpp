@@ -847,6 +847,7 @@ Course::~Course()
 	}
 }
 
+// Update the score
 int Course::updateStudentResult(Static* a, std::string ID, std::string midterm, std::string final, std::string total, std::string others)
 {
     // Load the score list

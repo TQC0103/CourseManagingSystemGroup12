@@ -101,7 +101,11 @@ struct Course
 	//Add a class to a course (done)
 	int addClasstoCourse(Static* a, std::string classname, std::string lecturer, std::string weekday, std::string session);
 
+	//Update the score (done)
 	int updateStudentResult(Static* a, std::string ID, std::string midterm, std::string final, std::string total, std::string others);
+
+	// Delete a class in a course
+	bool deleteClass(Static* a);
 
 	// Supportive function
 	void loadDataOfTheCourse(Static *a); //done
@@ -114,7 +118,7 @@ struct Course
 	bool exportStudentListToFile(Static* a);//done
 
 	std::string** viewAllStudentsInACourse(Static* a, int &n); // done
-	std::string** viewAllStudentsScoreInACourse(Static* a, int &n);
+	std::string** viewAllStudentsScoreInACourse(Static* a, int &n); //done
 
 };
 
