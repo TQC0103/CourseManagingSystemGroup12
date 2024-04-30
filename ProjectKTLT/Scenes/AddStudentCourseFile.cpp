@@ -31,6 +31,27 @@ void AddStudentCourseFileScene::drawAddFile(sf::RenderWindow& win, Static* a)
 	else {
 		win.draw(chooseFileButtonText);
 	}
+	if (isWrong == 1)
+	{
+		createText(fail, a->fontB, sf::Color::Red, "Please choose a file", 50, a->width / 2.0f, 1000.0f);
+		win.draw(fail);
+	}
+	else if (isWrong == 2)
+	{
+		createText(fail, a->fontB, sf::Color::Red, "                                       File's header must be in order: \nNo, Student ID, Last Name, First Name, Gender, Date Of Birth, Social ID", 35, a->width / 2.0f, 1000.0f);
+
+		win.draw(fail);
+	}
+	else if (isWrong == 3)
+	{
+		createText(fail, a->fontB, sf::Color::Red, "File opening error", 50, a->width / 2.0f, 1000.0f);
+		win.draw(fail);
+	}
+	else if (isWrong == 4)
+	{
+		createText(successful, a->fontB, a->textColorGreen, "Students are successfully added", 50, a->width / 2.0f, 1000.0f);
+		win.draw(successful);
+	}
 
 }
 
@@ -52,6 +73,17 @@ void AddStudentCourseFileScene::renderAddFile(sf::Event event, Scene* scene, sf:
 		preButtonText.setFillColor(sf::Color::White);
 		submitButton.setFillColor(scene->a->highlightCyan);
 		submitButtonText.setFillColor(sf::Color::White);
+	}
+
+	if (isWrong == 4)
+	{
+		win.draw(successful);
+		sf::sleep(sf::seconds(1.25));
+		delete scene->addstudenttocoursefile;
+		scene->addstudenttocoursefile = nullptr;
+		if (scene->menuclasscourse == nullptr)
+			scene->menuclasscourse = new MenuClassCourseScene(scene->a);
+		scene->a->currentState = programState::MenuClassCourse;
 	}
 
 	if (event.type == sf::Event::MouseButtonPressed)
@@ -83,7 +115,27 @@ void AddStudentCourseFileScene::renderAddFile(sf::Event event, Scene* scene, sf:
 			}
 			else if (submitButton.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-
+				if (fileChosen == false)
+				{
+					isWrong = 1;
+				}
+				else {
+					Course *c = new Course();
+					int check = c->addStudentbyFile(scene->a, filePath);
+					delete c;
+					if (check == 2)
+					{
+						isWrong = 2;
+					}
+					else if (check == 1)
+					{
+						isWrong = 3;
+					}
+					else if (check == 0)
+					{
+						isWrong = 4;
+					}
+				}
 			}
 
 		}

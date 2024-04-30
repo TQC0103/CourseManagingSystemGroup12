@@ -412,7 +412,6 @@ bool Course::addStudentManually(Static* a, std::string ID, std::string FirstName
 
         if (checkID == ID)
         {
-            std::cout << LastName << " " << FirstName << " is already exist" << std::endl;
             fIn.close();
             return false;
         }
@@ -472,7 +471,7 @@ bool Course::deleteStudent(Static* a, std::string ID)
 }
 
 //there is a bug when i try to display the date
-bool Course::addStudentbyFile(Static* a, std::string path)
+int Course::addStudentbyFile(Static* a, std::string path)
 {
     std::fstream fIn;
     fIn.open(path);
@@ -480,8 +479,7 @@ bool Course::addStudentbyFile(Static* a, std::string path)
     if (!fIn.is_open())
     {
         fIn.close();
-        std::cerr << "Can not open the file" << std::endl;
-        return false;
+        return 1;
     }
 
     // Chech if the file is legal or not
@@ -490,9 +488,8 @@ bool Course::addStudentbyFile(Static* a, std::string path)
 
     if (check != "No,Student ID,Last Name,First Name,Gender,Date Of Birth,Social ID")
     {
-        std::cout << "The header of the file is not correct. Please check the file again" << std::endl;
         fIn.close();
-        return false;
+        return 2;
     }
 
     // Check and add each student to the list
@@ -514,7 +511,7 @@ bool Course::addStudentbyFile(Static* a, std::string path)
             std::cout << lastName << " " << firstName << " " << " has been add to the list" << std::endl;
 
     }
-    return true;
+    return 0;
     fIn.close();
 }
 
@@ -523,7 +520,7 @@ bool Course::ExportClass(Static* a)
 {
     if (!pHeadStudent)
         loadStudentInTheCourse(a);
-    
+
     normingNumberInStudentList();
     std::ofstream fOut;
 
@@ -539,7 +536,7 @@ bool Course::ExportClass(Static* a)
         student* cur = pHeadStudent;
         while (cur)
         {
-            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->lastName + ',' + cur->firstName;
+            std::string tmp = std::to_string(cur->No) + ',' + cur->studentID + ',' + cur->lastName + ',' + cur->firstName + ",,,,";
             fOut << tmp << std::endl;
             cur = cur->pNext;
         }

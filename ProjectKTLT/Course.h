@@ -87,7 +87,7 @@ struct Course
 	bool addStudentManually(Static* a, std::string ID, std::string FirstName, std::string LastName, std::string Gender, std::string DOB, std::string SocialID);
 	
 	//Add the student list to the course by a file (done)
-	bool addStudentbyFile(Static* a, std::string path);
+	int addStudentbyFile(Static* a, std::string path);
 
 	// Check the ID of the student in the class to delete (done)
 	bool deleteStudent(Static* a, std::string ID); 
