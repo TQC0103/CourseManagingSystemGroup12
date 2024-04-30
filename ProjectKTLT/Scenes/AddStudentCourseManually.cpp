@@ -17,11 +17,11 @@ CourseAddStudentManuallyScene::CourseAddStudentManuallyScene(Static* a)
 	createText(idText, a->fontN, sf::Color::White, "", 40, id.getPosition().x, id.getPosition().y);
 	createText(enterIdHere, a->fontI, sf::Color::White, "ENTER ID HERE", 30, id.getPosition().x, id.getPosition().y);
 
-	createABox(firstname, sf::Vector2f(400.0f, 150.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 450.0f));
+	createABox(firstname, sf::Vector2f(400.0f, 150.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f + 600.0f, 450.0f));
 	createText(firstnameText, a->fontN, sf::Color::White, "", 40, firstname.getPosition().x, firstname.getPosition().y);
 	createText(enterFirstnameHere, a->fontI, sf::Color::White, "ENTER FIRSTNAME HERE", 25, firstname.getPosition().x, firstname.getPosition().y);
 
-	createABox(lastname, sf::Vector2f(400.0f, 150.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f + 600.0f, 450.0f));
+	createABox(lastname, sf::Vector2f(400.0f, 150.0f), a->highlightCyan, sf::Vector2f(a->width / 2.0f, 450.0f));
 	createText(lastnameText, a->fontN, sf::Color::White, "", 40, lastname.getPosition().x, lastname.getPosition().y);
 	createText(enterLastnameHere, a->fontI, sf::Color::White, "ENTER LASTNAME HERE", 25, lastname.getPosition().x, lastname.getPosition().y);
 
@@ -85,12 +85,12 @@ void CourseAddStudentManuallyScene::drawAddMunually(sf::RenderWindow& win, Stati
 		sf::RectangleShape cursor;
 		setBlinkingCursorInTypingBox(idText, cursor, win, cursorClock, isCursorVisible);
 	}
-	else if (inputEnable == 3)
+	else if (inputEnable == 4)
 	{
 		sf::RectangleShape cursor;
 		setBlinkingCursorInTypingBox(firstnameText, cursor, win, cursorClock, isCursorVisible);
 	}
-	else if (inputEnable == 4)
+	else if (inputEnable == 3)
 	{
 		sf::RectangleShape cursor;
 		setBlinkingCursorInTypingBox(lastnameText, cursor, win, cursorClock, isCursorVisible);
@@ -116,11 +116,11 @@ void CourseAddStudentManuallyScene::drawAddMunually(sf::RenderWindow& win, Stati
 	{
 		win.draw(enterIdHere);
 	}
-	if (inputEnable != 3 && firstnameInput == "")
+	if (inputEnable != 4 && firstnameInput == "")
 	{
 		win.draw(enterFirstnameHere);
 	}
-	if (inputEnable != 4 && lastnameInput == "")
+	if (inputEnable != 3 && lastnameInput == "")
 	{
 		win.draw(enterLastnameHere);
 	}
@@ -138,23 +138,18 @@ void CourseAddStudentManuallyScene::drawAddMunually(sf::RenderWindow& win, Stati
 	}
 
 
-	//if (isWrong == 1)
-	//{
-	//	createText(fail, a->fontB, sf::Color::Red, "Input dates invalid. Example date: 01/01", 50, a->width / 2.0f, 1000.0f);
-	//	win.draw(fail);
-	//}
-	//if (isWrong == 2)
-	//{
-	//	std::string data = semesterData + semesterData[semesterData.size() - 1];
-	//	data[data.size() - 2] = ' ';
-	//	createText(successful, a->fontB, sf::Color::Green, "Create " + data + " successfully", 50, a->width / 2.0f, 1000.0f);
-	//	win.draw(successful);
-	//}
-	//if (isWrong == 3)
-	//{
-	//	createText(fail, a->fontB, sf::Color::Red, a->curSchoolYear->year + " already have 3 semesters", 50, a->width / 2.0f, 1000.0f);
-	//	win.draw(fail);
-	//}
+	if (isWrong == 1)
+	{
+		createText(fail, a->fontB, sf::Color::Red, "ID is already existing", 50, a->width / 2.0f, 1000.0f);
+		win.draw(fail);
+	}
+	if (isWrong == 2)
+	{
+
+		createText(successful, a->fontB, a->textColorGreen, "Add " + lastnameInput + " " + firstnameInput + " successfully", 50, a->width / 2.0f, 1000.0f);
+		win.draw(successful);
+	}
+
 
 }
 
@@ -178,16 +173,16 @@ void CourseAddStudentManuallyScene::renderAddManually(sf::Event event, Scene* sc
 		creatingText.setFillColor(sf::Color::White);
 	}
 
-	//if (isWrong == 2)
-	//{
-	//	sf::sleep(sf::seconds(1.0f));
-	//	if (scene->menuschoolyear == nullptr)
-	//		scene->menuschoolyear = new MenuSchoolYearScene(scene->a);
-	//	delete scene->createsemester;
-	//	scene->createsemester = nullptr;
-	//	scene->a->currentState = programState::MenuSchoolYear;
-	//}
-	// 
+	if (isWrong == 2)
+	{
+		sf::sleep(sf::seconds(1.0f));
+		if (scene->menuclasscourse == nullptr)
+			scene->menuclasscourse = new MenuClassCourseScene(scene->a);
+		delete scene->addstudenttocoursemanually;
+		scene->addstudenttocoursemanually = nullptr;
+		scene->a->currentState = programState::MenuClassCourse;
+	}
+	 
 	// Handle mouse events
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
@@ -207,11 +202,11 @@ void CourseAddStudentManuallyScene::renderAddManually(sf::Event event, Scene* sc
 			}
 			else if (firstname.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				inputEnable = 3;
+				inputEnable = 4;
 			}
 			else if (lastname.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				inputEnable = 4;
+				inputEnable = 3;
 			}
 			else if (gender.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
@@ -227,8 +222,17 @@ void CourseAddStudentManuallyScene::renderAddManually(sf::Event event, Scene* sc
 			}
 			else if (create.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 			{
-				/*int check = year->addSemester(semesterData, startDayInput, endDayInput, scene->a);*/
-
+				Course *c = new Course();
+				bool check = c->addStudentManually(scene->a, idInput, firstnameInput, lastnameInput, genderInput, birthdayInput, sIDInput);
+				delete c;
+				if (check == false)
+				{
+					isWrong = 1;
+				}
+				else
+				{
+					isWrong = 2;
+				}
 			}
 			else {
 				inputEnable = -1;
@@ -246,6 +250,17 @@ void CourseAddStudentManuallyScene::renderAddManually(sf::Event event, Scene* sc
 		else if ((inputEnable == 7 || inputEnable == -1) && (event.text.unicode == 13))
 		{
 			// Submit and check
+			Course* c = new Course();
+			bool check = c->addStudentManually(scene->a, idInput, firstnameInput, lastnameInput, genderInput, birthdayInput, sIDInput);
+			delete c;
+			if (check == false)
+			{
+				isWrong = 1;
+			}
+			else
+			{
+				isWrong = 2;
+			}
 		}
 
 		if (inputEnable >= 2 && inputEnable <= 7)
@@ -257,11 +272,11 @@ void CourseAddStudentManuallyScene::renderAddManually(sf::Event event, Scene* sc
 				{
 					idInput += static_cast<char>(event.text.unicode);
 				}
-				else if (inputEnable == 3 && firstnameInput.length() < maxInputLength)
+				else if (inputEnable == 4 && firstnameInput.length() < maxInputLength)
 				{
 					firstnameInput += static_cast<char>(event.text.unicode);
 				}
-				else if (inputEnable == 4 && lastnameInput.length() < maxInputLength)
+				else if (inputEnable == 3 && lastnameInput.length() < maxInputLength)
 				{
 					lastnameInput += static_cast<char>(event.text.unicode);
 				}
@@ -285,11 +300,11 @@ void CourseAddStudentManuallyScene::renderAddManually(sf::Event event, Scene* sc
 				{
 					idInput.pop_back();
 				}
-				else if (inputEnable == 3 && !firstnameInput.empty())
+				else if (inputEnable == 4 && !firstnameInput.empty())
 				{
 					firstnameInput.pop_back();
 				}
-				else if (inputEnable == 4 && !lastnameInput.empty())
+				else if (inputEnable == 3 && !lastnameInput.empty())
 				{
 					lastnameInput.pop_back();
 				}

@@ -1,7 +1,7 @@
 #pragma once
 #include "../UserInterface.h"
 #include "../config.h"
-#include "../Class.h"
+#include "../Course.h"
 
 struct Scene;
 struct CourseAddStudentManuallyScene
