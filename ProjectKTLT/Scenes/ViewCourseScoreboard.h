@@ -35,6 +35,32 @@ struct ViewScoreboardCourseScene
 	float sizedisplay = 0;
 	float fullsize = 0;
 
+	sf::Sprite checked;
+	bool* isClicked = nullptr;
+
+	sf::Text finallText;
+	std::string finalStr = "";
+
+	sf::Text midtermText;
+	std::string midtermStr = "";
+
+	sf::Text othersText;
+	std::string othersStr = "";
+
+	sf::Text totalText;
+	std::string totalStr = "";
+
+	int inputEnable = 0;
+	sf::Clock cursorClock;
+	sf::Clock notiClock;
+	bool isCursorVisible = false;
+
+	int maxInputLength = 5;
+	int isWrong = 0;
+
+	sf::Text successful;
+	sf::Text fail;
+
 	ViewScoreboardCourseScene(Static* a);
 	void drawViewScoreboardCourseScene(sf::RenderWindow& window, Static* a);
 	void renderViewScoreboardCourseScene(sf::Event event, Scene* scene, sf::RenderWindow& window);

@@ -31,14 +31,14 @@ struct Static
 
     float width = 2000;
     float height = 1200;
+
     sf::Font fontB;
     sf::Font fontN;
     sf::Font fontI;
+
     sf::Color lightCyan = sf::Color(208, 227, 255);
     sf::Color backGroundWhite = sf::Color(255, 249, 240);
-    //with the color of the background is white, what color should the text to announce succesful be, i tried green but it's not good because it is kinda too bright?
     sf::Color textColorGreen = sf::Color(0, 128, 0);
-
     sf::Color backGroundWhiteDarker = sf::Color(235, 229, 220); // Darker
     sf::Color backGroundWhiteLighter = sf::Color(255, 252, 240); // Creamier
     sf::Color backGroundWhiteDarkerStill = sf::Color(215, 209, 200); // Even darker
@@ -56,12 +56,18 @@ struct Static
     sf::Color lightGrey = sf::Color(200, 200, 200);
     sf::Color fcc689 = sf::Color(48, 58,  60);
     sf::Color blurGrey = sf::Color(64, 64, 64, 150);
+
     sf::Texture backgrTextture;
     sf::Sprite backgrSprite;
+
     sf::Texture hidePassTexture;
     sf::Sprite hidePassSprite;
+
     sf::Texture removeTexture;
     sf::Sprite removeSprite;
+
+    sf::Texture checkedTexture;
+    sf::Sprite checkedSprite;
     Static()
     {
         if (!backgrTextture.loadFromFile("Background.jpg"))
@@ -74,18 +80,28 @@ struct Static
             static_cast<float>(width) / backgrSprite.getLocalBounds().width, // Scale X
             static_cast<float>(height) / backgrSprite.getLocalBounds().height // Scale Y
         );
+
         if (!removeTexture.loadFromFile("remove.png"))
         {
 			// Handle error
 			std::cerr << "Failed to load remove texture!" << std::endl;
 		}
         removeSprite.setTexture(removeTexture);
+
+        if (!checkedTexture.loadFromFile("check.png"))
+        {
+			// Handle error
+			std::cerr << "Failed to load checked texture!" << std::endl;
+		}
+        checkedSprite.setTexture(checkedTexture);
+
         if (!hidePassTexture.loadFromFile("HidePass.png"))
         {
             // Handle error
             std::cerr << "Failed to load hide pass texture!" << std::endl;
         }
         hidePassSprite.setTexture(hidePassTexture);
+
         try {
 
             if (!fontB.loadFromFile("Palatino Linotype Bold.ttf")) {

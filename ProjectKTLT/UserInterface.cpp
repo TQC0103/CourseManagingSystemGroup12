@@ -80,6 +80,30 @@ void setBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& curs
     }
 }
 
+void setBlackBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& cursor, sf::RenderWindow& window, sf::Clock& cursorClock, bool& isCursorVisible) {
+    // Calculate cursor position
+    sf::Vector2f cursorPos(typingText.getPosition().x + typingText.getLocalBounds().width / 2.0f + 4.0f, typingText.getPosition().y);
+
+    // Draw cursor as a vertical line
+    cursor.setSize(sf::Vector2f(3.0f, static_cast<float>(typingText.getCharacterSize())));
+    cursor.setOrigin(cursor.getSize().x / 2.0f, cursor.getSize().y / 2.0f); // Set origin to the middle
+    cursor.setPosition(cursorPos);
+
+    // Toggle cursor visibility every 1 second
+    if (cursorClock.getElapsedTime().asSeconds() > 0.5f) {
+        isCursorVisible = !isCursorVisible;
+        cursorClock.restart();
+    }
+
+    // Set cursor color based on visibility
+    cursor.setFillColor(isCursorVisible ? sf::Color::Black : sf::Color::Transparent);
+
+    // Draw cursor only if it's visible
+    if (isCursorVisible) {
+        window.draw(cursor);
+    }
+}
+
 void createAScrollbar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, const sf::Vector2f& size, const sf::Color& fillColorScrollBar, const sf::Color& fillColorArea, const sf::Vector2f& position, int times) {
 	scrollbarArea.setSize(sf::Vector2f(size.x, size.y * times));
 	scrollbarArea.setFillColor(fillColorArea);

@@ -10,6 +10,7 @@ void createABox(sf::RectangleShape& box, const sf::Vector2f size, const sf::Colo
 void setOriginRecToMiddle(sf::RectangleShape& rectangle);
 void setOriginTextToMiddle(sf::Text& text);
 void setBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& cursor, sf::RenderWindow& window, sf::Clock& cursorClock, bool& isCursorVisible);
+void setBlackBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& cursor, sf::RenderWindow& window, sf::Clock& cursorClock, bool& isCursorVisible);
 void createAScrollbar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, const sf::Vector2f& size, const sf::Color& fillColorScrollBar, const sf::Color& fillColorArea, const sf::Vector2f& position, int times);
 void renderScrollbar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, sf::RenderWindow& window, float& scrollOffset, sf::Event& event, bool& isDragging, Static* a, sf::Vector2f startingPoint, float& sizeDisplay, float& fullSize);
 void drawScrollBar(sf::RectangleShape& scrollbar, sf::RectangleShape& scrollbarArea, sf::RenderWindow& window, float& scrollOffset, float& sizeDisplay, float& fullSize, sf::Vector2f startingOriginPos);

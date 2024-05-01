@@ -891,19 +891,19 @@ int Course::updateStudentResult(Static* a, std::string ID, std::string midterm, 
     if (Midterm > 10.0 || Midterm < 0.0)
     {
         std::cerr << "Your input is illegal\n";
-        return 3;
+        return 2;
     }
 
     if (Others > 10.00 || Others < 0.0)
     {
         std::cerr << "Your input is illegal\n";
-        return 4;
+        return 2;
     }
 
     if (Total > 10.00 || Total < 0.0)
     {
         std::cerr << "Your input is illegal\n";
-        return 5;
+        return 2;
     }
 
     tmp->midtermMark = Midterm;
