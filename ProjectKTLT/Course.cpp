@@ -846,7 +846,6 @@ int Course::updateStudentResult(Static* a, std::string ID, std::string midterm, 
     double Midterm, Final, Others, Total;
 
     // If the input was empty, the result would not be changed 
-    // If the input was empty, the result would not be changed 
     try {
         Midterm = midterm.empty() ? tmp->midtermMark : std::stod(midterm);
         Final = final.empty() ? tmp->finalMark : std::stod(final);
@@ -914,6 +913,78 @@ int Course::updateStudentResult(Static* a, std::string ID, std::string midterm, 
     return 0;
 }
 
+
+bool Course::deleteClass(Static* a, std::string classname)
+{
+    std::ifstream fIn;
+    std::string path = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes.txt";
+    fIn.open(path);
+
+    if (!fIn.is_open())
+    {
+        std::cerr << "Can't open input file" << std::endl;
+        return false;
+    }
+
+    //Open a temporary file to copy the content from the original file
+    std::ofstream fOut;
+    std::string tmpPath = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/Classes_tmp.txt";
+    fOut.open(tmpPath);
+    if (!fOut.is_open())
+    {
+        std::cerr << "Can't open output file" << std::endl;
+        return false;
+    }
+    
+    bool found = false;
+    std::string ClassName;
+   
+    // Check the classname and copy the content to another file
+    while (getline(fIn, ClassName))
+    {
+        if (ClassName == classname)
+        {
+            found = true;
+            continue;
+        }
+        fOut << ClassName << std::endl;
+    }
+    fIn.close();
+    fOut.close();
+
+    //Remove the orginal file and rename the temporary file to the original
+    if (std::remove(path.c_str()) != 0)
+    {
+        std::cerr << "Error deleting original file" << std::endl;
+        return false;
+    }
+
+    if (std::rename(tmpPath.c_str(), path.c_str()) != 0)
+    {
+        std::cerr << "Error renaming temporary file" << std::endl;
+        return false;
+    }
+
+    // Return if the classname was not exist
+    if (found == false)
+    {
+        std::cout << "Error: The class \"" << classname << "\" does not exist." << std::endl;
+        return false;
+    }
+
+
+    // Move the Class Folder to the Deleted Folder
+    std::string source = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + classname;
+    std::string destination = "../Rubbish/" + classname;
+
+    int moveFile = rename(source.c_str(), destination.c_str());
+    if (moveFile != 0)
+    {
+        std::cerr << "Can't move file" << std::endl;
+        return false;
+    }
+    return true;
+}
 
 Course::~Course()
 {

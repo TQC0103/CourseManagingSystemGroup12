@@ -4,5 +4,5 @@ Nhap Mon Cong Nghe Thong Tin
 Dinh Dai Vu
 4
 50
-TUESDAY
+MONDAY
 7:30

@@ -8,7 +8,7 @@
 #include <cctype>
 #include "config.h"
 #include <direct.h>
-#include <string>
+#include <cstdio>
 
 struct Course
 {	
@@ -114,7 +114,7 @@ struct Course
 	int updateStudentResult(Static* a, std::string ID, std::string midterm, std::string final, std::string total, std::string others);
 
 	// Delete a class in a course
-	//bool deleteClass(Static* a);
+	bool deleteClass(Static* a, std::string classname);
 
 	// Supportive function
 	void loadDataOfTheCourse(Static *a); //done
