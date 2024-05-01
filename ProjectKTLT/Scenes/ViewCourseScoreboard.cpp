@@ -178,24 +178,38 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 				if (inputEnable == 1)
 				{
 					textA[i][4].setString(finalStr);
+					setOriginTextToMiddle(textA[i][4]);
+					textA[i][4].setPosition(recA[i][4].getPosition().x, recA[i][4].getPosition().y);
 					sf::RectangleShape cursor;
 					setBlackBlinkingCursorInTypingBox(textA[i][4], cursor, window, cursorClock, isCursorVisible);
 				}
 				else if (inputEnable == 2)
 				{
 					textA[i][5].setString(midtermStr);
+					setOriginTextToMiddle(textA[i][5]);
+
+					textA[i][5].setPosition(recA[i][4].getPosition().x, recA[i][4].getPosition().y);
+
 					sf::RectangleShape cursor;
 					setBlackBlinkingCursorInTypingBox(textA[i][5], cursor, window, cursorClock, isCursorVisible);
 				}
 				else if (inputEnable == 3)
 				{
 					textA[i][6].setString(othersStr);
+					setOriginTextToMiddle(textA[i][6]);
+
+					textA[i][6].setPosition(recA[i][4].getPosition().x, recA[i][4].getPosition().y);
+
 					sf::RectangleShape cursor;
 					setBlackBlinkingCursorInTypingBox(textA[i][6], cursor, window, cursorClock, isCursorVisible);
 				}
 				else if (inputEnable == 4)
 				{
 					textA[i][7].setString(totalStr);
+					setOriginTextToMiddle(textA[i][7]);
+
+					textA[i][7].setPosition(recA[i][4].getPosition().x, recA[i][4].getPosition().y);
+
 					sf::RectangleShape cursor;
 					setBlackBlinkingCursorInTypingBox(textA[i][7], cursor, window, cursorClock, isCursorVisible);
 				}
@@ -260,12 +274,12 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 	}
 	if (isWrong == 2 && notiClock.getElapsedTime().asSeconds() < 1.0f)
 	{
-		createText(successful, a->fontB, a->textColorGreen, "Update successfully", 40, 1700.0f, 200.0f);
+		createText(successful, a->fontB, a->textColorGreen, "Update successfully", 40, 1700.0f, 175.0f);
 		window.draw(successful);
 	}
 	else if (isWrong == 1 && notiClock.getElapsedTime().asSeconds() < 1.0f)
 	{
-		createText(fail, a->fontB, sf::Color::Red, "Marks must be <= 10.00 and >= 0.00", 30, 1700.0f, 200.0f);
+		createText(fail, a->fontB, sf::Color::Red, "Marks must be <= 10.00 and >= 0.00", 30, 1700.0f, 175.0f);
 		window.draw(fail);
 	}
 	window.draw(title);
