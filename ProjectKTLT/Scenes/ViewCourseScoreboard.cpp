@@ -149,6 +149,7 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 		window.draw(needParticipationText);
 	else
 	{
+
 		// Draw table
 		for (int i = numStudent; i >= 1; i--) {
 			for (int j = 0; j < 8; j++) {
@@ -165,12 +166,42 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 				}
 
 				recA[i][j].setPosition(recA[i][j].getPosition().x, 300.0f + (float)i * recA[i][j].getSize().y - scrollOffset);
-				textA[i][j].setPosition(textA[i][j].getPosition().x, 300.0f + (float)i * recA[i][j].getSize().y - scrollOffset);
+				textA[i][j].setPosition(recA[i][j].getPosition().x, 300.0f + (float)i * recA[i][j].getSize().y - scrollOffset);
 				window.draw(recA[i][j]);
 				window.draw(textA[i][j]);
 			}
 		}
-		
+		for (int i = 1; i < numStudent + 1; i++)
+		{
+			if (isClicked[i] == true)
+			{
+				if (inputEnable == 1)
+				{
+					textA[i][4].setString(finalStr);
+					sf::RectangleShape cursor;
+					setBlackBlinkingCursorInTypingBox(textA[i][4], cursor, window, cursorClock, isCursorVisible);
+				}
+				else if (inputEnable == 2)
+				{
+					textA[i][5].setString(midtermStr);
+					sf::RectangleShape cursor;
+					setBlackBlinkingCursorInTypingBox(textA[i][5], cursor, window, cursorClock, isCursorVisible);
+				}
+				else if (inputEnable == 3)
+				{
+					textA[i][6].setString(othersStr);
+					sf::RectangleShape cursor;
+					setBlackBlinkingCursorInTypingBox(textA[i][6], cursor, window, cursorClock, isCursorVisible);
+				}
+				else if (inputEnable == 4)
+				{
+					textA[i][7].setString(totalStr);
+					sf::RectangleShape cursor;
+					setBlackBlinkingCursorInTypingBox(textA[i][7], cursor, window, cursorClock, isCursorVisible);
+				}
+				break;
+			}
+		}
 		for (int i = 1; i < numStudent + 1; i++)
 		{
 			sf::RectangleShape line;
@@ -229,12 +260,12 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 	}
 	if (isWrong == 2 && notiClock.getElapsedTime().asSeconds() < 1.0f)
 	{
-		createText(successful, a->fontB, a->textColorGreen, "Update successfully", 30, 100.0f, 100.0f);
+		createText(successful, a->fontB, a->textColorGreen, "Update successfully", 40, 1700.0f, 200.0f);
 		window.draw(successful);
 	}
 	else if (isWrong == 1 && notiClock.getElapsedTime().asSeconds() < 1.0f)
 	{
-		createText(fail, a->fontB, a->textColorGreen, "Marks must be <= 10.00 and >= 0.00", 30, 100.0f, 100.0f);
+		createText(fail, a->fontB, sf::Color::Red, "Marks must be <= 10.00 and >= 0.00", 30, 1700.0f, 200.0f);
 		window.draw(fail);
 	}
 	window.draw(title);
@@ -243,37 +274,7 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 	window.draw(preText);
 	if (numStudent > 8)
 		drawScrollBar(scrollbar, scrollbarArea, window, scrollOffset, sizedisplay, fullsize, sf::Vector2f(1950.0f, 275.0f));
-	for (int i = 1; i < numStudent + 1; i++)
-	{
-		if (isClicked[i] == true)
-		{
-			if (inputEnable == 1)
-			{
-				textA[i][4].setString(finalStr);
-				sf::RectangleShape cursor;
-				setBlackBlinkingCursorInTypingBox(textA[i][4], cursor, window, cursorClock, isCursorVisible);
-			}
-			else if (inputEnable == 2)
-			{
-				textA[i][5].setString(midtermStr);
-				sf::RectangleShape cursor;
-				setBlackBlinkingCursorInTypingBox(textA[i][5], cursor, window, cursorClock, isCursorVisible);
-			}
-			else if (inputEnable == 3)
-			{
-				textA[i][6].setString(othersStr);
-				sf::RectangleShape cursor;
-				setBlackBlinkingCursorInTypingBox(textA[i][6], cursor, window, cursorClock, isCursorVisible);
-			}
-			else if (inputEnable == 4)
-			{
-				textA[i][7].setString(totalStr);
-				sf::RectangleShape cursor;
-				setBlackBlinkingCursorInTypingBox(textA[i][7], cursor, window, cursorClock, isCursorVisible);
-			}
-			break;
-		}
-	}
+	
 }
 
 void ViewScoreboardCourseScene::renderViewScoreboardCourseScene(sf::Event event, Scene* scene, sf::RenderWindow& window)

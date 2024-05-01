@@ -82,7 +82,7 @@ void setBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& curs
 
 void setBlackBlinkingCursorInTypingBox(sf::Text& typingText, sf::RectangleShape& cursor, sf::RenderWindow& window, sf::Clock& cursorClock, bool& isCursorVisible) {
     // Calculate cursor position
-    sf::Vector2f cursorPos(typingText.getPosition().x + typingText.getLocalBounds().width / 2.0f + 4.0f, typingText.getPosition().y);
+    sf::Vector2f cursorPos(typingText.getPosition().x + typingText.getLocalBounds().width / 2.0f + 6.0f, typingText.getPosition().y);
 
     // Draw cursor as a vertical line
     cursor.setSize(sf::Vector2f(3.0f, static_cast<float>(typingText.getCharacterSize())));
