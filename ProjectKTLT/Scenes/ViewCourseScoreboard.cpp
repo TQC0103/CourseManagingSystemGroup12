@@ -15,6 +15,8 @@ ViewScoreboardCourseScene::ViewScoreboardCourseScene(Static* a)
 
 	recA = nullptr;
 	textA = nullptr;
+	isClicked = nullptr;
+
 	createABox(viewScoreCourseBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(title, a->fontB, a->textColorBlue, "Course's Scoreboard", 60, (float)a->width / 2.0f, 75.0f);
 	createText(viewScoreCourseText, a->fontB, a->textColorBlue, a->curCourse->Name + " - " + a->curCourse->className, 60, (float)a->width / 2.0f, 175.0f);
@@ -188,7 +190,7 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 					textA[i][5].setString(midtermStr);
 					setOriginTextToMiddle(textA[i][5]);
 
-					textA[i][5].setPosition(recA[i][4].getPosition().x, recA[i][4].getPosition().y);
+					textA[i][5].setPosition(recA[i][5].getPosition().x, recA[i][5].getPosition().y);
 
 					sf::RectangleShape cursor;
 					setBlackBlinkingCursorInTypingBox(textA[i][5], cursor, window, cursorClock, isCursorVisible);
@@ -198,7 +200,7 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 					textA[i][6].setString(othersStr);
 					setOriginTextToMiddle(textA[i][6]);
 
-					textA[i][6].setPosition(recA[i][4].getPosition().x, recA[i][4].getPosition().y);
+					textA[i][6].setPosition(recA[i][6].getPosition().x, recA[i][6].getPosition().y);
 
 					sf::RectangleShape cursor;
 					setBlackBlinkingCursorInTypingBox(textA[i][6], cursor, window, cursorClock, isCursorVisible);
@@ -208,7 +210,7 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 					textA[i][7].setString(totalStr);
 					setOriginTextToMiddle(textA[i][7]);
 
-					textA[i][7].setPosition(recA[i][4].getPosition().x, recA[i][4].getPosition().y);
+					textA[i][7].setPosition(recA[i][7].getPosition().x, recA[i][7].getPosition().y);
 
 					sf::RectangleShape cursor;
 					setBlackBlinkingCursorInTypingBox(textA[i][7], cursor, window, cursorClock, isCursorVisible);
@@ -272,12 +274,12 @@ void ViewScoreboardCourseScene::drawViewScoreboardCourseScene(sf::RenderWindow& 
 			}
 		}
 	}
-	if (isWrong == 2 && notiClock.getElapsedTime().asSeconds() < 1.0f)
+	if (isWrong == 2 && notiClock.getElapsedTime().asSeconds() < 2.0f)
 	{
 		createText(successful, a->fontB, a->textColorGreen, "Update successfully", 40, 1700.0f, 175.0f);
 		window.draw(successful);
 	}
-	else if (isWrong == 1 && notiClock.getElapsedTime().asSeconds() < 1.0f)
+	else if (isWrong == 1 && notiClock.getElapsedTime().asSeconds() < 2.0f)
 	{
 		createText(fail, a->fontB, sf::Color::Red, "Marks must be <= 10.00 and >= 0.00", 30, 1700.0f, 175.0f);
 		window.draw(fail);
@@ -338,9 +340,15 @@ void ViewScoreboardCourseScene::renderViewScoreboardCourseScene(sf::Event event,
 				{
 					if (checked.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 					{
-						Course* c2 = new Course;
-						int check = c2->updateStudentResult(scene->a, textA[i][1].getString(), textA[i][5].getString(), textA[i][4].getString(), textA[i][7].getString(), textA[i][6].getString());
+						Course* c2 = new Course();
+						std::string ID = table[i - 1][1];
+						std::string final1 = finalStr;
+						std::string midterm = midtermStr;
+						std::string others = othersStr;
+						std::string total = totalStr;
+						int check = c2->updateStudentResult(scene->a, ID, midterm, final1, total, others);
 						delete c2;
+						isWrong = 0;
 						if (check == 2)
 						{
 							notiClock.restart();
@@ -373,7 +381,7 @@ void ViewScoreboardCourseScene::renderViewScoreboardCourseScene(sf::Event event,
 					{
 						if (isClicked[i] == false)
 						{
-							for (int k = 0; k < numStudent + 1; k++)
+							for (int k = 1; k < numStudent + 1; k++)
 							{
 								if (isClicked[k] == true && k != i)
 								{
@@ -390,10 +398,7 @@ void ViewScoreboardCourseScene::renderViewScoreboardCourseScene(sf::Event event,
 							midtermStr = table[i - 1][5];
 							othersStr = table[i - 1][6];
 							totalStr = table[i - 1][7];
-							finallText.setString(finalStr);
-							midtermText.setString(midtermStr);
-							othersText.setString(othersStr);
-							totalText.setString(totalStr);
+							
 							textA[i][4].setString(finalStr);
 							textA[i][5].setString(midtermStr);
 							textA[i][6].setString(othersStr);
@@ -497,6 +502,7 @@ ViewScoreboardCourseScene::~ViewScoreboardCourseScene()
 		delete[] isClicked;
 
 	}
-	delete c;
+	if(c != nullptr)
+		delete c;
 
 }

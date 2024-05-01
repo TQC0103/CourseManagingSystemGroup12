@@ -1,5 +1,5 @@
 #include "Course.h"
-#include "student.h"
+#include "Student.h"
 #include "semester.h"
 #include "schoolyear.h"
 #include "date.h"
@@ -230,7 +230,6 @@ int Course::loadStudentScoreInTheCourse(Static* a)
             getline(s, totalMark);
 
             int StudentNo = std::stoi(No);
-            //double overall = std::stod(finalMark) * (double)0.5 + std::stod(midtermMark) * (double)0.2 + std::stod(otherMark) * (double)0.3;
             if (!pHeadScore)
             {
                 pHeadScore = new studentScore(StudentNo, studentID, firstName, lastName, std::stod(totalMark), std::stod(finalMark), std::stod(midtermMark), std::stod(otherMark));
@@ -818,42 +817,13 @@ std::string** Course::viewAllStudentsScoreInACourse(Static* a, int &n)
     return allStudentsScore;
 }
 
-
-
-Course::~Course()
-{
-    student* curS = pHeadStudent;
-    while (curS)
-    {
-		student* next = curS->pNext;
-		delete curS;
-		curS = next;
-	}
-
-    studentScore* cur = pHeadScore;
-    while (cur)
-    {
-        studentScore* next = cur->pNext;
-        delete cur;
-        cur = next;
-    }
-
-    Course* curC = pHeadClasses;
-    while (curC)
-    {
-		Course* next = curC->pNext;
-		delete curC;
-		curC = next;
-	}
-}
-
 // Update the score
 int Course::updateStudentResult(Static* a, std::string ID, std::string midterm, std::string final, std::string total, std::string others)
 {
     // Load the score list
     if (!pHeadScore)
         loadStudentScoreInTheCourse(a);
-    
+
     // Check the ID
     studentScore* tmp = pHeadScore;
     bool flag = false;
@@ -876,33 +846,40 @@ int Course::updateStudentResult(Static* a, std::string ID, std::string midterm, 
     double Midterm, Final, Others, Total;
 
     // If the input was empty, the result would not be changed 
-    Midterm = midterm.empty() ? tmp->midtermMark : std::stod(midterm);
-    Final = final.empty() ? tmp->finalMark : std::stod(final);
-    Others = others.empty() ? tmp->otherMark : std::stod(others);
-    Total = total.empty() ? tmp->finalMark : std::stod(total);
+    // If the input was empty, the result would not be changed 
+    try {
+        Midterm = midterm.empty() ? tmp->midtermMark : std::stod(midterm);
+        Final = final.empty() ? tmp->finalMark : std::stod(final);
+        Others = others.empty() ? tmp->otherMark : std::stod(others);
+        Total = total.empty() ? tmp->finalMark : std::stod(total);
+    }
+    catch (std::invalid_argument& e) {
+        std::cerr << "Invalid score input. Scores must be numeric." << std::endl;
+        return 2; // Return an error code
+    }
+    catch (std::out_of_range& e) {
+        std::cerr << "Score input is out of range." << std::endl;
+        return 2; // Return an error code
+    }
 
     // Check the score
     if (Final > 10.0 || Final < 0.0)
     {
-        std::cerr << "Your input is illegal\n";
         return 2;
     }
 
     if (Midterm > 10.0 || Midterm < 0.0)
     {
-        std::cerr << "Your input is illegal\n";
         return 2;
     }
 
     if (Others > 10.00 || Others < 0.0)
     {
-        std::cerr << "Your input is illegal\n";
         return 2;
     }
 
     if (Total > 10.00 || Total < 0.0)
     {
-        std::cerr << "Your input is illegal\n";
         return 2;
     }
 
@@ -936,4 +913,34 @@ int Course::updateStudentResult(Static* a, std::string ID, std::string midterm, 
     fOut.close();
     return 0;
 }
+
+
+Course::~Course()
+{
+    student* curS = pHeadStudent;
+    while (curS)
+    {
+		student* next = curS->pNext;
+		delete curS;
+		curS = next;
+	}
+
+    studentScore* cur = pHeadScore;
+    while (cur)
+    {
+        studentScore* next = cur->pNext;
+        delete cur;
+        cur = next;
+    }
+
+    Course* curC = pHeadClasses;
+    while (curC)
+    {
+		Course* next = curC->pNext;
+		delete curC;
+		curC = next;
+	}
+}
+
+
 

@@ -43,6 +43,17 @@ struct Course
 	int Credit, maxStudent;
 	std::string weekDay;
 
+	//pointer to student score 
+	studentScore* pHeadScore = nullptr;
+	studentScore* pTailScore = nullptr;
+
+	//pointer to student in course
+	Course* pNext = nullptr;
+	Course* pHeadClasses = nullptr;
+
+	student* pHeadStudent = nullptr;
+	student* pTailStudent = nullptr;
+
 	// Session should be string because it likes : 7:30 - 9:30
 
 
@@ -52,6 +63,13 @@ struct Course
 	Course(std::string id, std::string name, std::string classname, std::string lecturer, int credit, int maxstudent, std::string weekday, std::string session);
 	Course()
 	{
+		pHeadScore = nullptr;
+		pTailScore = nullptr;
+		pNext = nullptr;
+		pHeadClasses = nullptr;
+
+		pHeadStudent = nullptr;
+		pTailStudent = nullptr;
 		ID = "";
 		Name = "";
 		className = "";
@@ -64,16 +82,7 @@ struct Course
 	//destructors
 	~Course();
 
-	//ponter to student score 
-	studentScore* pHeadScore = nullptr;
-	studentScore* pTailScore = nullptr;
 
-	//pointer to student in course
-	Course* pNext = nullptr;
-	Course* pHeadClasses = nullptr;
-
-	student* pHeadStudent = nullptr;
-	student* pTailStudent = nullptr;
 
 
 
@@ -105,7 +114,7 @@ struct Course
 	int updateStudentResult(Static* a, std::string ID, std::string midterm, std::string final, std::string total, std::string others);
 
 	// Delete a class in a course
-	bool deleteClass(Static* a);
+	//bool deleteClass(Static* a);
 
 	// Supportive function
 	void loadDataOfTheCourse(Static *a); //done
@@ -120,6 +129,12 @@ struct Course
 	std::string** viewAllStudentsInACourse(Static* a, int &n); // done
 	std::string** viewAllStudentsScoreInACourse(Static* a, int &n); //done
 
+	int tmpUpdate(Static* a)
+	{
+		if (!pHeadScore)
+			loadStudentScoreInTheCourse(a);
+		return 0;
+	}
 };
 
 
