@@ -8,8 +8,8 @@
 #include "SchoolYear.h"
 #include <cstdio>
 #include<iomanip>
-
-
+#include<sstream>
+#include<cmath>
 semester::semester(std::string semesterNum, std::string StartDate, std::string EndDate) {
 	semesterData = semesterNum;
 	startDate = StartDate;
@@ -484,10 +484,29 @@ bool semester::getGPASemester(Static* a)
 		// This mean that the student finish all Courses, print GPA
 		else
 		{
-			std::stringstream ss;
-			ss << std::fixed << std::setprecision(2) << GPA / numCourse;
-			ss >> GPAstudent->GPA;
+			/*std::ostringstream ss;
+			double calculateGPA = GPA / numCourse;
+			ss << std::fixed << std::setprecision(2) << calculateGPA;
+			std::string formattedGPA = ss.str();
+			std::istringstream iss(formattedGPA);
+			iss >> GPAstudent->GPA;*/
+
+			/*double calculateGPA = GPA / numCourse;
+			GPAstudent->GPA = std::round(calculateGPA * 100) / 100;*/
+
+			std::ostringstream ss;
+			double calculateGPA = GPA / numCourse;
+			ss << std::fixed <<std::setprecision(2) << calculateGPA;
 			
+			std::string formattedGPA = ss.str();
+			std::cout << formattedGPA << std::endl;
+			// Extract only the first part (up to 2 decimal places)
+			std::string truncatedGPA = formattedGPA.substr(0, formattedGPA.find('.') + 3);
+
+			// Convert the truncated string to double and assign to GPAstudent->GPA
+			double finalGPA = std::stod(formattedGPA);
+			GPAstudent->GPA = finalGPA;
+			std::cout << finalGPA << std::endl;
 		}
 		
 
