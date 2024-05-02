@@ -19,8 +19,6 @@ struct CourseManageScoreBoardScene
 	sf::ConvexShape viewCourseScoreBoard;
 	sf::Text viewCourseScoreBoardText;
 
-	sf::ConvexShape update1StuRes;
-	sf::Text update1StuResText;
 
 	sf::ConvexShape importScoreBoard;
 	sf::Text importScoreBoardText;

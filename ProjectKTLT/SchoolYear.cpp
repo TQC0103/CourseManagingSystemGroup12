@@ -5,7 +5,7 @@
 #include <direct.h>
 #include "Date.h"
 #include <cctype>
-
+#include<iomanip>
 
 
 
@@ -401,7 +401,11 @@ bool schoolYear::getGPASchoolYear(Static* a)
 				GPAStudents->pNext = new schoolYear;
 				GPAStudents = GPAStudents->pNext;
 			}
-			GPAStudents->GPA = Semester1->GPA;
+			
+			std::stringstream ss;
+			ss << std::fixed << std::setprecision(2) << cur->GPA;
+			ss >> GPAStudents->GPA;
+			
 			cur = cur->pNext;
 		}
 		delete Semester1;
@@ -442,7 +446,11 @@ bool schoolYear::getGPASchoolYear(Static* a)
 				GPAStudents->GPA = -1;
 			}
 			else {
-				GPAStudents->GPA = (cur1->GPA + cur2->GPA) / 2;
+				std::stringstream ss;
+				ss << std::fixed << std::setprecision(2) << (cur1->GPA + cur2->GPA) / 2;
+				ss >> GPAStudents->GPA;
+				
+				
 			}
 			cur1 = cur1->pNext;
 			cur2 = cur2->pNext;
@@ -493,7 +501,10 @@ bool schoolYear::getGPASchoolYear(Static* a)
 				GPAStudents->GPA = -1;
 			}
 			else {
-				GPAStudents->GPA = (cur1->GPA + cur2->GPA + cur3->GPA) / 3;
+				std::stringstream ss;
+				ss << std::fixed << std::setprecision(2) << (cur1->GPA + cur2->GPA + cur3->GPA) / 3;
+				ss >> GPAStudents->GPA;
+				
 			}
 			cur1 = cur1->pNext;
 			cur2 = cur2->pNext;

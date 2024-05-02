@@ -93,14 +93,14 @@ void ChooseSemesterClassScene::renderChooseSemesterClassScene(sf::Event event, S
             }
             else for (int i = 0; i < numSemester; i++) {
                 if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
-                    //scene->a->curSemester = new semester();
-                    //*(scene->a->curSemester) = *tmpHead;
-                    //if (scene->menusemesterstudent == nullptr)
-                    //    scene->menusemesterstudent = new MenuSemesterStudentScene(scene->a);
-                    //scene->a->currentState = programState::MenuSemesterStudent;
-                    //delete scene->choosesemesterstudent;
-                    //scene->choosesemesterstudent = nullptr;
-                    //break;
+                    scene->a->curSemester = new semester();
+                    *(scene->a->curSemester) = *tmpHead;
+                    if (scene->viewclassscoreboard == nullptr)
+                        scene->viewclassscoreboard = new ViewClassScoreboardScene(scene->a);
+                    scene->a->currentState = programState::ViewClassScoreboard;
+                    delete scene->choosesemesterclass;
+                    scene->choosesemesterclass = nullptr;
+                    break;
                 }
                 tmpHead = tmpHead->pNext;
             }

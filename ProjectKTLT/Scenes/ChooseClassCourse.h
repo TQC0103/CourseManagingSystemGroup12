@@ -25,6 +25,9 @@ struct ChooseClassCourseScene
 	sf::Text* labels = nullptr;
 	Course* listClassesC = nullptr;
 	Course* tmpHead = nullptr;
+	bool* isRightClicked = nullptr;
+
+	sf::Text pleaseAddClass;
 
 	int times = 0;
 	float sizedisplay = 0;

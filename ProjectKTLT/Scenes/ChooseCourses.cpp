@@ -106,7 +106,7 @@ void ChooseCoursesScene::drawChooseCourses(sf::RenderWindow& window, Static* a)
         }
     }
     window.draw(hidden);
-    if (numCourses >= 6)
+    if (numCourses > 6)
         drawScrollBar(scrollbar, scrollArea, window, scrollOffset, displaysize, fullsize, sf::Vector2f(1700.0f, 275.0f));
     window.draw(chooseCoursesText);
 }
@@ -174,9 +174,8 @@ void ChooseCoursesScene::renderChooseCourses(sf::Event event, Scene* scene, sf::
                         scene->choosecoursescene = nullptr;
                         if (scene->choosecoursescene == nullptr)
                             scene->choosecoursescene = new ChooseCoursesScene(scene->a); 
-                        break;
                     }
-                    
+                    break;
                 }
                 tmpHead = tmpHead->pNext;
             }

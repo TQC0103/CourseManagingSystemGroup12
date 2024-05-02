@@ -238,6 +238,11 @@ int main() {
                 scene->choosesemesterclass->renderChooseSemesterClassScene(event, scene, window);
                 break;
             }
+            case programState::ViewClassScoreboard:
+            {
+                scene->viewclassscoreboard->renderViewClassScoreboardScene(event, scene, window);
+                break;
+            }
             default:
                 break;
             }
@@ -461,6 +466,11 @@ int main() {
             case programState::ChooseSemesterClass:
 			{
 				scene->choosesemesterclass->drawChooseSemesterClassScene(window, scene->a);
+				break;
+			}
+            case programState::ViewClassScoreboard:
+            {
+				scene->viewclassscoreboard->drawViewClassScoreboardScene(window, scene->a);
 				break;
 			}
             default:
