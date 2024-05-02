@@ -8,10 +8,9 @@ CourseManageScoreBoardScene::CourseManageScoreBoardScene(Static* a)
 	createABox(courseManageScoreBoardBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(courseManageScoreBoardText, a->fontB, a->textColorBlue, "Manage Scoreboard", 80, (float)a->width / 2.0f, 75.0f);
 	createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
-	createCornerRoundedButton(exportListStudent, exportListStudentText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Export file list of students", sf::Vector2f(a->width / 2.0f - 400.0f, 750.0f), 2.0f, sf::Color::Black);
-	createCornerRoundedButton(importScoreBoard, importScoreBoardText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Import scoreboard file", sf::Vector2f(a->width / 2.0f - 400.0f, 450.0f), 2.0f, sf::Color::Black);
-	createCornerRoundedButton(viewCourseScoreBoard, viewCourseScoreBoardText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "View course scoreboard", sf::Vector2f(a->width / 2.0f + 400.0f, 450.0f), 2.0f, sf::Color::Black);
-	createCornerRoundedButton(update1StuRes, update1StuResText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Update a student result", sf::Vector2f(a->width / 2.0f + 400.0f, 750.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(exportListStudent, exportListStudentText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Export file list of students", sf::Vector2f(a->width / 2.0f, 700.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(importScoreBoard, importScoreBoardText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Import scoreboard file", sf::Vector2f(a->width / 2.0f, 400.0f), 2.0f, sf::Color::Black);
+	createCornerRoundedButton(viewCourseScoreBoard, viewCourseScoreBoardText, sf::Vector2f(600.0f, 200.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "View course scoreboard", sf::Vector2f(a->width / 2.0f, 1000.0f), 2.0f, sf::Color::Black);
 }
 
 void CourseManageScoreBoardScene::drawCourseManageScoreBoard(sf::RenderWindow& window, Static* a)
@@ -26,8 +25,7 @@ void CourseManageScoreBoardScene::drawCourseManageScoreBoard(sf::RenderWindow& w
 	window.draw(importScoreBoardText);
 	window.draw(viewCourseScoreBoard);
 	window.draw(viewCourseScoreBoardText);
-	window.draw(update1StuRes);
-	window.draw(update1StuResText);
+
 	window.draw(title);
 	if (clock.getElapsedTime().asSeconds() < 2.0f && isSuccessful == true)
 	{
@@ -61,11 +59,6 @@ void CourseManageScoreBoardScene::renderCourseManageScoreBoard(sf::Event event, 
 			viewCourseScoreBoard.setFillColor(scene->a->pastelTitleCyan);
 			viewCourseScoreBoardText.setFillColor(scene->a->titleGreyColor);
 		}
-		else if (update1StuRes.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-		{
-			update1StuRes.setFillColor(scene->a->pastelTitleCyan);
-			update1StuResText.setFillColor(scene->a->titleGreyColor);
-		}
 		else {
 			preButton.setFillColor(scene->a->highlightCyan);
 			preText.setFillColor(sf::Color::White);
@@ -75,8 +68,6 @@ void CourseManageScoreBoardScene::renderCourseManageScoreBoard(sf::Event event, 
 			importScoreBoardText.setFillColor(sf::Color::White);
 			viewCourseScoreBoard.setFillColor(scene->a->highlightCyan);
 			viewCourseScoreBoardText.setFillColor(sf::Color::White);
-			update1StuRes.setFillColor(scene->a->highlightCyan);
-			update1StuResText.setFillColor(sf::Color::White);
 		}
 	}
 
@@ -123,10 +114,7 @@ void CourseManageScoreBoardScene::renderCourseManageScoreBoard(sf::Event event, 
 					scene->viewcoursescoreboard = new ViewScoreboardCourseScene(scene->a);
 				scene->a->currentState = programState::ViewCourseScoreboard;
 			}
-			else if (update1StuRes.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
-			{
-				//update a student result
-			}
+			
 			
 
 

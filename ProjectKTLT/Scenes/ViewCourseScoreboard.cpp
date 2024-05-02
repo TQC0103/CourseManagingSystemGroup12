@@ -309,6 +309,9 @@ void ViewScoreboardCourseScene::renderViewScoreboardCourseScene(sf::Event event,
 
 	if (isWrong == 2)
 	{
+		sf::sleep(sf::seconds(1.0f));
+
+
 		delete scene->viewcoursescoreboard;
 		scene->viewcoursescoreboard = nullptr;
 		if(scene->viewcoursescoreboard == nullptr)
