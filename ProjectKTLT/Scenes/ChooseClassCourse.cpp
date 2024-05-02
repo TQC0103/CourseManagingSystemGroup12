@@ -10,15 +10,24 @@ ChooseClassCourseScene::ChooseClassCourseScene(Static* a)
 	createABox(chooseClassBackground, sf::Vector2f(a->width, a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(chooseClassText, a->fontB, a->textColorBlue, "Choose Class in", 60, a->width / 2.0f, 50.0f);
 	createText(classCText, a->fontB, a->textColorBlue, a->curCourse->Name, 60, a->width / 2.0f, 150.0f);
+	createText(pleaseAddClass, a->fontB, a->blurGrey, "        There are no\nclass course currently", 100, a->width / 2.0f, a->height / 2.0f);
 	createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
 	createABox(hideBack, sf::Vector2f((float)a->width, 250.0f), a->backGroundWhite, sf::Vector2f(a->width / 2.0f, 100.0f));
 
 	listClassesC = new Course();
 	numClass = listClassesC->loadClassesInCourse(a);
 	tmpHead = listClassesC->pHeadClasses;
-	
-	buttons = new sf::ConvexShape[numClass];
-	labels = new sf::Text[numClass];
+	if (tmpHead == nullptr)
+	{
+		numClass = 0;
+	}
+	else {
+		buttons = new sf::ConvexShape[numClass];
+		labels = new sf::Text[numClass];
+		isRightClicked = new bool[numClass];
+		for (int i = 0; i < numClass; i++)
+			isRightClicked[i] = false;
+	}
 	for (int i = 0; i < numClass; ++i) {
 		sf::ConvexShape button;
 		sf::Text label;
@@ -42,7 +51,7 @@ ChooseClassCourseScene::ChooseClassCourseScene(Static* a)
 	}
 	sizedisplay = a->height - 300.0f;
 	fullsize = (float)(times * 200 + (times - 1) * 100);
-
+	if(numClass > 6)
 	createAScrollbar(scrollbar, scrollbarArea, sf::Vector2f(20.0f, 50.0f), a->backGroundWhiteDarkerStill, a->backGroundWhiteDarker, sf::Vector2f(1700.0f, 625.0f), 15);
 }
 
@@ -51,32 +60,39 @@ void ChooseClassCourseScene::drawChooseClassCourses(sf::RenderWindow& window, St
 	window.draw(chooseClassBackground);
 	window.draw(preButton);
 	window.draw(preText);
-	for (int i = 0; i < numClass; i++) {
-		buttons[i].setPosition(buttons[i].getPosition().x, 350.0f + (float)(i / 2) * 300.0f - scrollOffset);
-		labels[i].setPosition(labels[i].getPosition().x, 350.0f + (float)(i / 2) * 300.0f - scrollOffset);
-		window.draw(buttons[i]);
-		window.draw(labels[i]);
+
+	if (numClass == 0)
+	{
+		window.draw(pleaseAddClass);
+	}
+	else {
+		for (int i = 0; i < numClass; i++) {
+			buttons[i].setPosition(buttons[i].getPosition().x, 350.0f + (float)(i / 2) * 300.0f - scrollOffset);
+			window.draw(buttons[i]);
+			if (isRightClicked[i] == true)
+			{
+				buttons[i].setFillColor(sf::Color::Red);
+				sf::Text de;
+				createText(de, a->fontB, sf::Color::White, "Delete", 60, buttons[i].getPosition().x, buttons[i].getPosition().y);
+				window.draw(de);
+			}
+			else {
+				labels[i].setPosition(labels[i].getPosition().x, 350.0f + (float)(i / 2) * 300.0f - scrollOffset);
+				window.draw(labels[i]);
+			}
+		}
 	}
 	window.draw(hideBack);
 	window.draw(chooseClassText);
 	window.draw(classCText);
-	drawScrollBar(scrollbar, scrollbarArea, window, scrollOffset, sizedisplay, fullsize, sf::Vector2f(1700.0f, 275.0f));
+	if(numClass > 6)
+		drawScrollBar(scrollbar, scrollbarArea, window, scrollOffset, sizedisplay, fullsize, sf::Vector2f(1700.0f, 275.0f));
 
 }
 
 void ChooseClassCourseScene::renderChooseClassCourses(sf::Event event, Scene* scene, sf::RenderWindow& window)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-	for (int i = 0; i < numClass; i++) {
-		if (scene->a->currentState == programState::ChooseClassCourse && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
-			buttons[i].setFillColor(scene->a->pastelTitleCyan);
-			labels[i].setFillColor(scene->a->titleGreyColor);
-		}
-		else {
-			buttons[i].setFillColor(scene->a->highlightCyan);
-			labels[i].setFillColor(sf::Color::White);
-		}
-	}
 	if (scene->a->currentState == programState::ChooseClassCourse && preButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
 	{
 		preButton.setFillColor(scene->a->pastelTitleCyan);
@@ -87,6 +103,18 @@ void ChooseClassCourseScene::renderChooseClassCourses(sf::Event event, Scene* sc
 		preButton.setFillColor(scene->a->highlightCyan);
 		preText.setFillColor(sf::Color::White);
 	}
+	for (int i = 0; i < numClass; i++) {
+		if ((isRightClicked[i] == false && scene->a->currentState == programState::ChooseClassCourse) && buttons[i].getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+			buttons[i].setFillColor(scene->a->pastelTitleCyan);
+			labels[i].setFillColor(scene->a->titleGreyColor);
+		}
+		else if (isRightClicked[i] == false) {
+			buttons[i].setFillColor(scene->a->highlightCyan);
+			labels[i].setFillColor(sf::Color::White);
+		}
+	}
+	if (numClass >= 6)
+		renderScrollbar(scrollbar, scrollbarArea, window, scrollOffset, event, isDragging, scene->a, sf::Vector2f(1700.0f, 275.0f), sizedisplay, fullsize);
 
 	tmpHead = listClassesC->pHeadClasses;
 	if (event.type == sf::Event::MouseButtonPressed)
@@ -101,15 +129,8 @@ void ChooseClassCourseScene::renderChooseClassCourses(sf::Event event, Scene* sc
 					scene->menucourse = new MenuCourseScene(scene->a);
 				scene->a->currentState = programState::MenuCourse;
 			}
-			else if (scrollbar.getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
-			{
-				isDragging = true;
-				scrollbar.setFillColor(scene->a->backGroundWhiteMuchDarker);
-			}
-			else for (int i = 0; i < numClass; i++)
-			{
-				if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
-					
+			else for (int i = 0; i < numClass; i++) {
+				if (isRightClicked[i] == false && buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
 					scene->a->curCourse->className = tmpHead->className;
 					if (scene->menuclasscourse == nullptr)
 						scene->menuclasscourse = new MenuClassCourseScene(scene->a);
@@ -118,13 +139,49 @@ void ChooseClassCourseScene::renderChooseClassCourses(sf::Event event, Scene* sc
 					scene->chooseclasscourse = nullptr;
 					break;
 				}
+                else if (isRightClicked[i] == true && buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+                {
+                    Course* tmp = new Course();
+					bool check = tmp->deleteClass(scene->a, tmpHead->className);
+					delete tmp;
+					if (check == true)
+					{
+						delete scene->chooseclasscourse;
+						scene->chooseclasscourse = nullptr;
+						if(scene->chooseclasscourse == nullptr)
+							scene->chooseclasscourse = new ChooseClassCourseScene(scene->a);
+					}
+					break;
+                    
+                }
+                tmpHead = tmpHead->pNext;
+            }
+		}
+		else if (event.mouseButton.button == sf::Mouse::Right)
+		{
+			for (int i = 0; i < numClass; i++) {
+				if (buttons[i].getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y)) {
+
+					if (isRightClicked[i] == false)
+					{
+						isRightClicked[i] = true;
+						for (int j = 0; j < numClass; j++)
+						{
+							if (j != i)
+								isRightClicked[j] = false;
+						}
+					}
+					else {
+						isRightClicked[i] = false;
+					}
+					break;
+				}
 				tmpHead = tmpHead->pNext;
 			}
 		}
 	}
 
-	if (numClass >= 6)
-		renderScrollbar(scrollbar, scrollbarArea, window, scrollOffset, event, isDragging, scene->a, sf::Vector2f(1700.0f, 275.0f), sizedisplay, fullsize);
+
 }
 
 ChooseClassCourseScene::~ChooseClassCourseScene()
