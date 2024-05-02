@@ -23,7 +23,7 @@ ViewClassScoreboardScene::ViewClassScoreboardScene(Static* a)
 
 	createABox(viewClassScoreBackgr, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
 	createText(title, a->fontB, a->textColorBlue, a->curClass->name + " Scoreboard In", 60, (float)a->width / 2.0f, 75.0f);
-	createText(viewClassScoreText, a->fontB, a->textColorBlue, a->curSchoolYear->year + " - " + a->curSemester->semesterData, 60, (float)a->width / 2.0f, 150.0f);
+	createText(viewClassScoreText, a->fontB, a->textColorBlue, a->curSchoolYear->year + " - " + a->curSemester->semesterData, 60, (float)a->width / 2.0f, 175.0f);
 	createCornerRoundedButton(preButton, preText, sf::Vector2f(200.0f, 100.0f), 30.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(100.0f, a->height - 1100.0f), 2.0f, sf::Color::Black);
 	cl = new Class;
 	year = new schoolYear;
@@ -38,7 +38,9 @@ ViewClassScoreboardScene::ViewClassScoreboardScene(Static* a)
 	else {
 		recA = new sf::RectangleShape * [numStudents + 1];
 		textA = new sf::Text * [numStudents + 1];
-		numS = numStudents / 4;
+		Class* tmp = new Class;
+		numS = tmp->loadStudents(a);
+		delete tmp;
 		recSem = new sf::RectangleShape[numS + 1];
 		textSem = new sf::Text[numS + 1];
 		recYear = new sf::RectangleShape[numS + 1];

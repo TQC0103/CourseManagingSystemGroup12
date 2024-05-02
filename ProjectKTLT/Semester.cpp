@@ -499,14 +499,14 @@ bool semester::getGPASemester(Static* a)
 			ss << std::fixed <<std::setprecision(2) << calculateGPA;
 			
 			std::string formattedGPA = ss.str();
-			std::cout << formattedGPA << std::endl;
+			
 			// Extract only the first part (up to 2 decimal places)
 			std::string truncatedGPA = formattedGPA.substr(0, formattedGPA.find('.') + 3);
 
 			// Convert the truncated string to double and assign to GPAstudent->GPA
 			double finalGPA = std::stod(formattedGPA);
 			GPAstudent->GPA = finalGPA;
-			std::cout << finalGPA << std::endl;
+			
 		}
 		
 
