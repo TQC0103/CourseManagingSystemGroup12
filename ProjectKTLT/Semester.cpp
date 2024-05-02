@@ -7,7 +7,7 @@
 #include<direct.h>
 #include "SchoolYear.h"
 #include <cstdio>
-
+#include<iomanip>
 
 
 semester::semester(std::string semesterNum, std::string StartDate, std::string EndDate) {
@@ -484,7 +484,10 @@ bool semester::getGPASemester(Static* a)
 		// This mean that the student finish all Courses, print GPA
 		else
 		{
-			GPAstudent->GPA = GPA / numCourse;
+			std::stringstream ss;
+			ss << std::fixed << std::setprecision(2) << GPA / numCourse;
+			ss >> GPAstudent->GPA;
+			
 		}
 		
 
