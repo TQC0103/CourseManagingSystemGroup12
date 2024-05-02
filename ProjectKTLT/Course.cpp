@@ -977,11 +977,16 @@ bool Course::deleteClass(Static* a, std::string classname)
     std::string source = "../Database/SchoolYear/" + a->curSchoolYear->year + "/" + a->curSemester->semesterData + "/" + a->curCourse->ID + "/" + classname;
     std::string destination = "../Rubbish/" + classname;
 
-    int moveFile = rename(source.c_str(), destination.c_str());
-    if (moveFile != 0)
+    std::string originalDestination = destination;
+    int count = 1;
+    while (std::rename(source.c_str(), originalDestination.c_str()) != 0)
     {
-        std::cerr << "Can't move file" << std::endl;
-        return false;
+
+        // Append a number to make it unique
+        std::ostringstream oss;
+        oss << destination << " (" << count << ")";
+        originalDestination = oss.str();
+        count++;
     }
     return true;
 }
