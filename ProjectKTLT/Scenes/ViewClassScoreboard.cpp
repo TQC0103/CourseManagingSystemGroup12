@@ -149,9 +149,19 @@ ViewClassScoreboardScene::ViewClassScoreboardScene(Static* a)
 		{
 			cellWidth = 120.0f;
 			createABox(recSem[i], sf::Vector2f(cellWidth, cellHeight * 4), a->pastelTitleCyan, sf::Vector2f(recSem[i - 1].getPosition().x, recA[i][0].getPosition().y + 150.0f));
-			createText(textSem[i], a->fontN, a->titleGreyColor, std::to_string(tmpSem->GPA), 25, recSem[i].getPosition().x, recSem[i].getPosition().y);
+
+			std::ostringstream streamObj1;
+			streamObj1 << std::fixed << std::setprecision(2) << tmpSem->GPA;
+			std::string gpaWithPrecision1 = streamObj1.str();
+
+			createText(textSem[i], a->fontN, a->titleGreyColor, gpaWithPrecision1, 25, recSem[i].getPosition().x, recSem[i].getPosition().y);
 			createABox(recYear[i], sf::Vector2f(recSem[i].getSize().x, recSem[i].getSize().y), a->pastelTitleCyan, sf::Vector2f(recYear[i - 1].getPosition().x, recSem[i].getPosition().y + recSem[i].getSize().y));
-			createText(textYear[i], a->fontN, a->titleGreyColor, std::to_string(tmpYear->GPA), 25, recYear[i].getPosition().x, recYear[i].getPosition().y);
+
+			std::ostringstream streamObj2;
+			streamObj2 << std::fixed << std::setprecision(2) << tmpYear->GPA;
+			std::string gpaWithPrecision2 = streamObj2.str();
+
+			createText(textYear[i], a->fontN, a->titleGreyColor, gpaWithPrecision2, 25, recYear[i].getPosition().x, recYear[i].getPosition().y);
 			createABox(recNo[i], sf::Vector2f(recSem[i].getSize().x, recSem[i].getSize().y), a->pastelTitleCyan, sf::Vector2f(recNo[i - 1].getPosition().x, recSem[i].getPosition().y + recSem[i].getSize().y));
 			createText(textNo[i], a->fontN, a->titleGreyColor, std::to_string(i), 25, recNo[i].getPosition().x, recNo[i].getPosition().y);
 			tmpSem = tmpSem->pNext;
