@@ -29,7 +29,7 @@ void CourseManageScoreBoardScene::drawCourseManageScoreBoard(sf::RenderWindow& w
 	window.draw(title);
 	if (clock.getElapsedTime().asSeconds() < 2.0f && isSuccessful == true)
 	{
-		createText(success, a->fontB, a->textColorGreen, "Export class list successfully", 50, a->width / 2.0f, 1000);
+		createText(success, a->fontB, a->textColorGreen, "Export class list successfully", 30, 400, 700);
 		window.draw(success);
 	}
 }
