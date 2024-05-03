@@ -2,3 +2,4 @@ MTH00003;Vi Tich Phan 1B
 CSC10002;Ky Thuat Lap Trinh
 PHY00001;Vat Ly Dai Cuong
 BAA00004;Phap Luat Dai Cuong
+CS00000;Nmlt

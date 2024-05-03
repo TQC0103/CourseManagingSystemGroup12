@@ -1,0 +1,4 @@
+CS00000
+Nhap Mon Lap Trinh
+4
+50
