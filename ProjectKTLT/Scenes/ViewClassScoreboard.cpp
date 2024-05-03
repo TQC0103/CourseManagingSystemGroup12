@@ -147,11 +147,16 @@ ViewClassScoreboardScene::ViewClassScoreboardScene(Static* a)
 
 		semester* tmpSem = sem->GPASemester;
 		schoolYear* tmpYear = year->GPAYear;
+		if (tmpSem == nullptr || tmpYear == nullptr)
+		{
+			return;
+		}
+		
 		for (int i = 1; i < numS + 1; i++)
 		{
 			cellWidth = 120.0f;
 			createABox(recSem[i], sf::Vector2f(cellWidth, cellHeight * 4), a->pastelTitleCyan, sf::Vector2f(recSem[i - 1].getPosition().x, recA[i][0].getPosition().y + 150.0f));
-
+			
 			std::ostringstream streamObj1;
 			streamObj1 << std::fixed << std::setprecision(2) << tmpSem->GPA;
 			std::string gpaWithPrecision1 = streamObj1.str();

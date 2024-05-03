@@ -852,11 +852,11 @@ int Course::updateStudentResult(Static* a, std::string ID, std::string midterm, 
         Others = others.empty() ? tmp->otherMark : std::stod(others);
         Total = total.empty() ? tmp->finalMark : std::stod(total);
     }
-    catch (std::invalid_argument& e) {
+    catch (std::invalid_argument&) {
         std::cerr << "Invalid score input. Scores must be numeric." << std::endl;
         return 2; // Return an error code
     }
-    catch (std::out_of_range& e) {
+    catch (std::out_of_range&) {
         std::cerr << "Score input is out of range." << std::endl;
         return 2; // Return an error code
     }

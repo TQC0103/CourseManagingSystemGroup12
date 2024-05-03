@@ -8,7 +8,7 @@ ChooseSchoolYearStudentScene::ChooseSchoolYearStudentScene(Static* a)
     createABox(chooseSchoolYearBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
     createText(chooseSchoolYearText, a->fontB, a->textColorBlue, "Choose School Year", 100, (float)a->width / 2.0f, 150.0f);
     createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Previous", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
-
+    createText(needParticipation, a->fontB, a->blurGrey, "       There are no \nschool year currently", 100, a->width / 2.0f, a->height / 2.0f);
     listSchoolYear = new schoolYear();
     listSchoolYear->loadSchoolYear();
     schoolYear* tmpHead = listSchoolYear->pHead;
@@ -25,7 +25,6 @@ ChooseSchoolYearStudentScene::ChooseSchoolYearStudentScene(Static* a)
 
     buttons = new sf::ConvexShape[numSchoolYears];
     labels = new sf::Text[numSchoolYears];
-
 
     // Create buttons and labels
 
@@ -51,6 +50,8 @@ void ChooseSchoolYearStudentScene::drawChooseSchoolYear(sf::RenderWindow& window
     window.draw(chooseSchoolYearText);
     window.draw(preButton);
     window.draw(preText);
+    if(numSchoolYears == 0)
+		window.draw(needParticipation);
 
     for (int i = 0; i < numSchoolYears; i++) {
         window.draw(buttons[i]);

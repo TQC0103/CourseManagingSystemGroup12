@@ -7,6 +7,8 @@ ChooseSemesterStudentScene::ChooseSemesterStudentScene(Static* a)
 {
     createABox(chooseSemesterBackground, sf::Vector2f((float)a->width, (float)a->height), a->backGroundWhite, sf::Vector2f((float)a->width / 2.0f, a->height / 2.0f));
     createText(chooseSemesterText, a->fontB, a->textColorBlue, "Choose Semester", 80, (float)a->width / 2.0f, 75.0f);
+    createText(needParticipation, a->fontB, a->blurGrey, "      There are no \nsemester currently", 100, a->width / 2.0f, a->height / 2.0f);
+
     createCornerRoundedButton(preButton, preText, sf::Vector2f(300.0f, 125.0f), 40.0f, a->highlightCyan, a->fontB, sf::Color::White, "Re-select", sf::Vector2f(150.0f, 1000.0f), 2.0f, sf::Color::Black);
     year = new schoolYear();
     year->loadSemester(a->curSchoolYear->year);
@@ -50,6 +52,8 @@ void ChooseSemesterStudentScene::drawChooseSemester(sf::RenderWindow& window, St
         window.draw(buttons[i]);
         window.draw(labels[i]);
     }
+    if(numSemester == 0)
+		window.draw(needParticipation);
     window.draw(yearText);
 }
 

@@ -12,7 +12,7 @@ struct ChooseSchoolYearStudentScene
     sf::ConvexShape* buttons;
     sf::Text* labels;
     schoolYear* listSchoolYear = nullptr; // LL
-
+    sf::Text needParticipation;
 
     int numSchoolYears = 0;
 

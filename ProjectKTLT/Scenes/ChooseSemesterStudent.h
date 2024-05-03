@@ -20,6 +20,8 @@ struct ChooseSemesterStudentScene
     sf::ConvexShape preButton;
     sf::Text preText;
 
+    sf::Text needParticipation;
+
     ChooseSemesterStudentScene(Static* a);
     ~ChooseSemesterStudentScene();
     void drawChooseSemester(sf::RenderWindow& window, Static* a);
