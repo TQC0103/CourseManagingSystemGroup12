@@ -1,12 +1,4 @@
 Semester1
 04/09;01/01
 Semester2
-<<<<<<< HEAD
 10/01;05/05
-Semester3
-15/05;30/08
-=======
-01/01;03/05
-Semester3
-03/05;06/09
->>>>>>> f2072ddb4e4c6edc837b188cfad2b0d36e5d2f2a
